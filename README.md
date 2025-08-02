@@ -587,32 +587,233 @@ export function FeatureComponent() {
 }
 ```
 
-## 🔐 Security
+## 🔐 Authentication & Security
+
+### Authentication Methods
+
+The CRM supports multiple authentication methods through Supabase Auth:
+
+**1. Email/Password Authentication**
+- Traditional email and password signup/signin
+- Email verification required
+- Password reset functionality
+
+**2. Social Authentication**
+- **Google OAuth** - Sign in with Google account
+- **Facebook OAuth** - Sign in with Facebook account
+- **GitHub OAuth** - Sign in with GitHub account
+
+**3. Invitation-based Authentication**
+- Users can be invited to workspaces via email
+- Social auth users automatically accept pending invitations
+- Role-based access from invitation
+
+### Authentication Flow
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant App
+    participant Supabase
+    participant Provider as Social Provider
+
+    User->>App: Choose auth method
+
+    alt Social Auth
+        App->>Supabase: signInWithOAuth()
+        Supabase->>Provider: Redirect to provider
+        Provider->>User: OAuth consent
+        Provider->>Supabase: Auth callback
+        Supabase->>App: Redirect with session
+    else Email/Password
+        App->>Supabase: signInWithPassword()
+        Supabase->>App: Return session
+    end
+
+    App->>App: Check profile completeness
+
+    alt Profile incomplete
+        App->>User: Redirect to setup page
+        User->>App: Complete profile
+        App->>Supabase: Update user_profiles
+    end
+
+    App->>Supabase: Check workspace membership
+    App->>App: Load user permissions
+    App->>User: Redirect to dashboard
+```
+
+### User Profile Management
+
+**Profile Creation Flow:**
+1. User authenticates via any method
+2. `user_profiles` record created automatically via database trigger
+3. Social auth users get pre-filled data from provider
+4. Users complete missing profile information
+
+**Profile Structure:**
+```typescript
+interface UserProfile {
+  id: string;              // References auth.users.id
+  full_name: string;       // User's display name
+  avatar_url?: string;     // Profile picture URL
+  timezone: string;        // User's timezone (default: UTC)
+  preferences: object;     // User preferences (theme, notifications, etc.)
+}
+```
+
+### Workspace Invitation System
+
+**Invitation Flow:**
+1. Workspace admin sends invitation with email and role
+2. Invitation email sent with secure token
+3. User clicks invitation link
+4. If not authenticated, user signs up/in
+5. System automatically accepts invitation and assigns role
+6. User gains access to workspace with specified permissions
+
+**Invitation Handling for Social Auth:**
+- Pending invitations checked during profile setup
+- Multiple invitations automatically accepted
+- User notified of workspace access granted
 
 ### Row Level Security (RLS)
 
 All tables use RLS policies for workspace isolation:
 
 ```sql
--- Example policy
+-- Example workspace isolation policy
 CREATE POLICY "workspace_isolation" ON table_name
   FOR ALL TO authenticated
   USING (
     workspace_id IN (
-      SELECT workspace_id FROM workspace_members 
+      SELECT workspace_id FROM workspace_members
       WHERE user_id = auth.uid() AND status = 'active'
+    )
+  );
+
+-- Role-based permission policy
+CREATE POLICY "role_based_access" ON leads
+  FOR UPDATE TO authenticated
+  USING (
+    workspace_id IN (
+      SELECT wm.workspace_id
+      FROM workspace_members wm
+      JOIN roles r ON wm.role_id = r.id
+      WHERE wm.user_id = auth.uid()
+      AND wm.status = 'active'
+      AND (r.permissions ? 'leads:update' OR r.permissions ? '*:*')
     )
   );
 ```
 
-### Permission Checking
+### Permission System
 
+**Granular Permission Structure:**
+```typescript
+interface Permission {
+  resource: string;  // 'leads', 'users', 'workspace', etc.
+  action: string;    // 'create', 'read', 'update', 'delete'
+  context?: string;  // 'own', 'assigned', 'all'
+}
+
+// Permission format: "resource:action" or "*:*" for admin
+// Examples: "leads:create", "users:read", "workspace:update"
+```
+
+**Permission Checking:**
 ```typescript
 // Check permissions in components
 const hasPermission = (resource: string, action: string) => {
-  // Implementation based on user role
+  const userPermissions = useAppSelector(state => state.auth.user?.permissions);
+  return userPermissions?.includes(`${resource}:${action}`) ||
+         userPermissions?.includes('*:*');
 };
+
+// Usage in components
+if (hasPermission('leads', 'create')) {
+  // Show create lead button
+}
 ```
+
+**Built-in Roles:**
+- **Owner** - Full access (`*:*`)
+- **Admin** - Most permissions except workspace deletion
+- **Manager** - Lead and user management
+- **Sales** - Lead access and basic user info
+- **Viewer** - Read-only access
+
+### Social Authentication Setup
+
+**Quick Setup:**
+1. Configure providers in Supabase Dashboard
+2. Add redirect URLs for each provider
+3. Set up OAuth applications with each provider
+4. Test authentication flow
+
+**Detailed Setup Guide:** See [Social Auth Setup Guide](docs/SOCIAL_AUTH_SETUP.md)
+
+### Activity Management System
+
+**Activity Types Tracked:**
+- **Lead Activities** - Creation, updates, status changes, assignments
+- **User Activities** - Login, profile updates, role changes
+- **Workspace Activities** - Member additions, plan changes, settings updates
+- **System Activities** - Automated actions, webhook triggers
+
+**Activity Flow:**
+1. User performs action
+2. Permission check (role-based)
+3. Plan limit check (subscription-based)
+4. Action execution
+5. Activity logging
+6. Analytics update
+7. Webhook triggers
+8. Notifications sent
+
+**Real-time Features:**
+- Live activity feeds
+- Real-time notifications
+- Dashboard metric updates
+- Webhook integrations
+
+### Plan Management & Limits
+
+**Plan Enforcement Points:**
+- **Lead Count** - Maximum leads per workspace
+- **User Count** - Maximum team members
+- **Feature Access** - Advanced features by plan
+- **API Calls** - Rate limiting by plan
+- **Storage** - File upload limits
+- **Integrations** - Webhook and API access
+
+**Plan Upgrade Flow:**
+1. User hits plan limit
+2. System shows upgrade prompt
+3. Redirect to billing/upgrade page
+4. Plan change triggers limit updates
+5. New features become available
+
+### Integration Capabilities
+
+**Webhook System:**
+- Configurable webhook endpoints
+- Event-based triggers
+- Secure payload delivery
+- Retry mechanisms
+- Comprehensive logging
+
+**API Access:**
+- RESTful API endpoints
+- Role-based API access
+- Rate limiting by plan
+- Comprehensive documentation
+
+**External Integrations:**
+- Email service integration
+- Payment processing (Dodo)
+- Social media platforms
+- Third-party CRM systems
 
 ## 📊 Analytics & Metrics
 
