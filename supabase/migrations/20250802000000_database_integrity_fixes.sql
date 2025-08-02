@@ -49,26 +49,26 @@ WHERE workspace_id NOT IN (SELECT id FROM workspaces);
 -- 2. ADD MISSING FOREIGN KEY CONSTRAINTS
 -- =====================================================
 
--- Add workspace_members.role_id foreign key (if not exists)
+-- Check if workspace_members.role_id foreign key exists (should be added in previous migration)
 DO $$
 BEGIN
   IF NOT EXISTS (
-    SELECT 1 FROM information_schema.table_constraints 
+    SELECT 1 FROM information_schema.table_constraints
     WHERE constraint_name = 'workspace_members_role_id_fkey'
       AND table_name = 'workspace_members'
   ) THEN
     -- Set default role for members without roles
-    UPDATE workspace_members 
+    UPDATE workspace_members
     SET role_id = (
-      SELECT id FROM roles 
-      WHERE name = 'viewer' AND is_system = true 
+      SELECT id FROM roles
+      WHERE name = 'viewer' AND is_system = true
       LIMIT 1
     )
     WHERE role_id IS NULL;
-    
-    -- Add the constraint
-    ALTER TABLE workspace_members 
-    ADD CONSTRAINT workspace_members_role_id_fkey 
+
+    -- Add the constraint if it's missing
+    ALTER TABLE workspace_members
+    ADD CONSTRAINT workspace_members_role_id_fkey
     FOREIGN KEY (role_id) REFERENCES roles(id) ON DELETE SET NULL;
   END IF;
 END $$;

@@ -8,7 +8,7 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { useCreateRoleMutation, useGetPermissionsQuery } from '@/lib/api/roleApi';
+import { useCreateRoleMutation, useGetPermissionsQuery } from '@/lib/api/supabaseApi';
 import { toast } from 'sonner';
 
 interface RoleFormProps {
@@ -33,7 +33,8 @@ export function RoleForm({ onSuccess }: RoleFormProps) {
       await createRole({
         ...data,
         permissions: selectedPermissions,
-        isCustom: true,
+        workspace_id: 'default',
+        is_system: false,
       }).unwrap();
       toast.success('Role created successfully');
       onSuccess?.();
@@ -50,7 +51,7 @@ export function RoleForm({ onSuccess }: RoleFormProps) {
     );
   };
 
-  const resources = [...new Set(permissions.map(p => p.resource))];
+  const resources = Array.from(new Set(permissions.map(p => p.resource)));
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">

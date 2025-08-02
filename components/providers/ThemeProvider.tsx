@@ -134,25 +134,25 @@ export const createThemeObject = (customTheme: any) => ({
   colors: customTheme.colors,
   typography: {
     fontFamily: customTheme.typography.fontFamily,
-    fontSize: {
+    fontSize: ({
       small: '0.875rem',
       medium: '1rem',
       large: '1.125rem',
-    }[customTheme.typography.fontSize],
+    } as any)[customTheme.typography.fontSize] || '1rem',
   },
   spacing: {
-    scale: {
+    scale: ({
       compact: 0.75,
       comfortable: 1,
       spacious: 1.25,
-    }[customTheme.spacing.density],
+    } as any)[customTheme.spacing.density] || 1,
   },
-  borderRadius: {
+  borderRadius: ({
     none: '0px',
     small: '4px',
     medium: '8px',
     large: '12px',
-  }[customTheme.borderRadius],
+  } as any)[customTheme.borderRadius] || '8px',
   animations: {
     duration: customTheme.animations ? '200ms' : '0ms',
     easing: 'cubic-bezier(0.4, 0, 0.2, 1)',

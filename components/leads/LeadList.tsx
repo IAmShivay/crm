@@ -89,11 +89,11 @@ export function LeadList() {
   }
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
+    <div className="w-full space-y-6">
+      <div className="w-full flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Leads</h1>
-          <p className="text-gray-600 dark:text-gray-400">Manage your sales leads and prospects</p>
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">Leads</h1>
+          <p className="text-gray-600 dark:text-gray-400 mt-1">Manage your sales leads and prospects</p>
         </div>
         <Dialog open={isCreateOpen} onOpenChange={setIsCreateOpen}>
           <DialogTrigger asChild>
@@ -114,21 +114,21 @@ export function LeadList() {
         </Dialog>
       </div>
 
-      <Card>
+      <Card className="w-full">
         <CardHeader>
-          <div className="flex items-center justify-between">
+          <div className="w-full flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <CardTitle>All Leads ({filteredLeads.length})</CardTitle>
-            <div className="flex items-center space-x-2">
-              <div className="relative">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-2">
+              <div className="relative w-full sm:w-64">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
                 <Input
                   placeholder="Search leads..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10 w-64"
+                  className="pl-10 w-full"
                 />
               </div>
-              <Button variant="outline" size="sm">
+              <Button variant="outline" size="sm" className="w-full sm:w-auto">
                 <Filter className="h-4 w-4 mr-2" />
                 Filter
               </Button>

@@ -139,3 +139,42 @@ INSERT INTO roles (name, description, is_system, permissions) VALUES
   ('viewer', 'Read-only access to leads and analytics', true, '[
     "leads:read", "users:read", "analytics:read"
   ]'::jsonb);
+
+-- Now add the role-based policies that were deferred from the first migration
+
+-- Enhanced workspace policies with role-based access
+CREATE POLICY "Workspace owners can update workspaces"
+  ON workspaces
+  FOR UPDATE
+  TO authenticated
+  USING (
+    id IN (
+      SELECT wm.workspace_id
+      FROM workspace_members wm
+      JOIN roles r ON wm.role_id = r.id
+      WHERE wm.user_id = auth.uid()
+      AND wm.status = 'active'
+      AND r.name = 'owner'
+    )
+  );
+
+-- Enhanced workspace member policies with role-based access
+CREATE POLICY "Workspace owners and admins can manage members"
+  ON workspace_members
+  FOR ALL
+  TO authenticated
+  USING (
+    workspace_id IN (
+      SELECT wm.workspace_id
+      FROM workspace_members wm
+      JOIN roles r ON wm.role_id = r.id
+      WHERE wm.user_id = auth.uid()
+      AND wm.status = 'active'
+      AND r.name IN ('owner', 'admin')
+    )
+  );
+
+-- Add foreign key constraint for role_id now that roles table exists
+ALTER TABLE workspace_members
+ADD CONSTRAINT workspace_members_role_id_fkey
+FOREIGN KEY (role_id) REFERENCES roles(id) ON DELETE SET NULL;

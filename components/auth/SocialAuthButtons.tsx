@@ -68,62 +68,68 @@ export function SocialAuthButtons({ mode = 'signin', className = '' }: SocialAut
   const buttonText = mode === 'signup' ? 'Sign up with' : 'Continue with';
 
   return (
-    <div className={`space-y-3 ${className}`}>
-      {/* Google */}
-      <Button
-        type="button"
-        variant="outline"
-        className="w-full"
-        onClick={() => handleSocialAuth('google')}
-        disabled={loading !== null}
-      >
-        {loading === 'google' ? (
-          <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-gray-600 mr-2" />
-        ) : (
-          <GoogleIcon className="h-4 w-4 mr-2" />
-        )}
-        {buttonText} Google
-      </Button>
+    <div className={`${className}`}>
+      {/* Social Icons Row */}
+      <div className="flex justify-center space-x-3 mb-6">
+        {/* Google */}
+        <Button
+          type="button"
+          variant="outline"
+          size="sm"
+          className="w-12 h-12 p-0 rounded-full"
+          onClick={() => handleSocialAuth('google')}
+          disabled={loading !== null}
+          title="Continue with Google"
+        >
+          {loading === 'google' ? (
+            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-gray-600" />
+          ) : (
+            <GoogleIcon className="h-5 w-5" />
+          )}
+        </Button>
 
-      {/* Facebook */}
-      <Button
-        type="button"
-        variant="outline"
-        className="w-full"
-        onClick={() => handleSocialAuth('facebook')}
-        disabled={loading !== null}
-      >
-        {loading === 'facebook' ? (
-          <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-gray-600 mr-2" />
-        ) : (
-          <FacebookIcon className="h-4 w-4 mr-2 text-blue-600" />
-        )}
-        {buttonText} Facebook
-      </Button>
+        {/* Facebook */}
+        <Button
+          type="button"
+          variant="outline"
+          size="sm"
+          className="w-12 h-12 p-0 rounded-full"
+          onClick={() => handleSocialAuth('facebook')}
+          disabled={loading !== null}
+          title="Continue with Facebook"
+        >
+          {loading === 'facebook' ? (
+            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-gray-600" />
+          ) : (
+            <FacebookIcon className="h-5 w-5 text-blue-600" />
+          )}
+        </Button>
 
-      {/* GitHub */}
-      <Button
-        type="button"
-        variant="outline"
-        className="w-full"
-        onClick={() => handleSocialAuth('github')}
-        disabled={loading !== null}
-      >
-        {loading === 'github' ? (
-          <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-gray-600 mr-2" />
-        ) : (
-          <Github className="h-4 w-4 mr-2" />
-        )}
-        {buttonText} GitHub
-      </Button>
+        {/* GitHub */}
+        <Button
+          type="button"
+          variant="outline"
+          size="sm"
+          className="w-12 h-12 p-0 rounded-full"
+          onClick={() => handleSocialAuth('github')}
+          disabled={loading !== null}
+          title="Continue with GitHub"
+        >
+          {loading === 'github' ? (
+            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-gray-600" />
+          ) : (
+            <Github className="h-5 w-5" />
+          )}
+        </Button>
+      </div>
 
       {/* Divider */}
-      <div className="relative">
+      <div className="relative my-6">
         <div className="absolute inset-0 flex items-center">
-          <span className="w-full border-t" />
+          <span className="w-full border-t border-gray-300 dark:border-gray-600" />
         </div>
         <div className="relative flex justify-center text-xs uppercase">
-          <span className="bg-background px-2 text-muted-foreground">
+          <span className="bg-white dark:bg-gray-800 px-3 text-gray-500 dark:text-gray-400">
             Or continue with email
           </span>
         </div>

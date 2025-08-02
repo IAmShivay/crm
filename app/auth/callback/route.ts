@@ -3,11 +3,12 @@ import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(request: NextRequest) {
-  const requestUrl = new URL(request.url);
-  const code = requestUrl.searchParams.get('code');
-  const next = requestUrl.searchParams.get('next') ?? '/dashboard';
-  const error = requestUrl.searchParams.get('error');
-  const errorDescription = requestUrl.searchParams.get('error_description');
+  try {
+    const requestUrl = new URL(request.url);
+    const code = requestUrl.searchParams.get('code');
+    const next = requestUrl.searchParams.get('next') ?? '/dashboard';
+    const error = requestUrl.searchParams.get('error');
+    const errorDescription = requestUrl.searchParams.get('error_description');
 
   if (error) {
     console.error('Auth callback error:', error, errorDescription);
@@ -63,4 +64,8 @@ export async function GET(request: NextRequest) {
 
   // No code parameter, redirect to login
   return NextResponse.redirect(new URL('/login', request.url));
+  } catch (error) {
+    console.error('Auth callback error:', error);
+    return NextResponse.redirect(new URL('/login?error=Authentication failed', request.url));
+  }
 }

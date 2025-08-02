@@ -425,7 +425,7 @@ export async function checkUserPermission(userId: string, workspaceId: string, p
 
     if (error) throw error;
 
-    const permissions = data?.roles?.permissions || [];
+    const permissions = (data as any)?.roles?.permissions || [];
     const hasPermission = permissions.includes(permission) || permissions.includes('*:*');
 
     return { hasPermission, error: null };

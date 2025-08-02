@@ -13,15 +13,15 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import { useGetRolesQuery, useDeleteRoleMutation } from '@/lib/api/roleApi';
+import { useGetRolesQuery, useDeleteRoleMutation } from '@/lib/api/supabaseApi';
 import { RoleForm } from './RoleForm';
 import { toast } from 'sonner';
 
 export function RoleManager() {
   const [selectedRole, setSelectedRole] = useState(null);
   const [isCreateOpen, setIsCreateOpen] = useState(false);
-  
-  const { data: roles = [], isLoading } = useGetRolesQuery();
+
+  const { data: roles = [], isLoading } = useGetRolesQuery('default-workspace');
   const [deleteRole] = useDeleteRoleMutation();
 
   const handleDelete = async (id: string) => {
@@ -38,11 +38,11 @@ export function RoleManager() {
   }
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
+    <div className="w-full space-y-6">
+      <div className="w-full flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Role Management</h1>
-          <p className="text-gray-600 dark:text-gray-400">Create and manage custom roles with granular permissions</p>
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">Role Management</h1>
+          <p className="text-gray-600 dark:text-gray-400 mt-1">Create and manage custom roles with granular permissions</p>
         </div>
         <Dialog open={isCreateOpen} onOpenChange={setIsCreateOpen}>
           <DialogTrigger asChild>
@@ -76,7 +76,7 @@ export function RoleManager() {
                   <Button variant="ghost" size="sm">
                     <Edit className="h-4 w-4" />
                   </Button>
-                  {role.isCustom && (
+                  {!role.is_system && (
                     <Button 
                       variant="ghost" 
                       size="sm" 
@@ -94,8 +94,8 @@ export function RoleManager() {
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
                   <span className="text-sm font-medium">Type</span>
-                  <Badge variant={role.isCustom ? 'default' : 'secondary'}>
-                    {role.isCustom ? 'Custom' : 'System'}
+                  <Badge variant={!role.is_system ? 'default' : 'secondary'}>
+                    {!role.is_system ? 'Custom' : 'System'}
                   </Badge>
                 </div>
                 
@@ -107,9 +107,9 @@ export function RoleManager() {
                 <div className="pt-3 border-t">
                   <p className="text-xs text-gray-500 mb-2">Key Permissions:</p>
                   <div className="flex flex-wrap gap-1">
-                    {role.permissions.slice(0, 3).map((permission) => (
-                      <Badge key={permission.id} variant="outline" className="text-xs">
-                        {permission.resource}:{permission.action}
+                    {role.permissions.slice(0, 3).map((permission, index) => (
+                      <Badge key={index} variant="outline" className="text-xs">
+                        {permission}
                       </Badge>
                     ))}
                     {role.permissions.length > 3 && (

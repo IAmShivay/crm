@@ -35,7 +35,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             email: session.user.email!,
             name: profile?.full_name || session.user.email!,
             role: 'user',
-            workspaceId: workspaces?.[0]?.workspaces?.id || '',
+            workspaceId: (workspaces?.[0] as any)?.workspaces?.id || '',
             permissions: [],
           },
           token: session.access_token,
@@ -43,12 +43,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
         // Set current workspace
         if (workspaces?.[0]?.workspaces) {
+          const workspace = (workspaces[0] as any).workspaces;
           dispatch(setCurrentWorkspace({
-            id: workspaces[0].workspaces.id,
-            name: workspaces[0].workspaces.name,
-            plan: workspaces[0].workspaces.plan_id,
+            id: workspace.id,
+            name: workspace.name,
+            plan: workspace.plan_id,
             memberCount: 1,
-            createdAt: workspaces[0].workspaces.created_at,
+            createdAt: workspace.created_at,
           }));
         }
       }
@@ -109,7 +110,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
           // Get user permissions from their roles
           const userPermissions = workspaces?.flatMap(ws =>
-            ws.roles?.permissions || []
+            (ws as any).roles?.permissions || []
           ) || [];
 
           dispatch(loginSuccess({
@@ -117,8 +118,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
               id: session.user.id,
               email: session.user.email!,
               name: profile?.full_name || session.user.user_metadata?.full_name || session.user.email!,
-              role: workspaces?.[0]?.roles?.name || 'user',
-              workspaceId: workspaces?.[0]?.workspaces?.id || '',
+              role: (workspaces?.[0] as any)?.roles?.name || 'user',
+              workspaceId: (workspaces?.[0] as any)?.workspaces?.id || '',
               permissions: userPermissions,
             },
             token: session.access_token,
@@ -126,12 +127,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
           // Set current workspace
           if (workspaces?.[0]?.workspaces) {
+            const workspace = (workspaces[0] as any).workspaces;
             dispatch(setCurrentWorkspace({
-              id: workspaces[0].workspaces.id,
-              name: workspaces[0].workspaces.name,
-              plan: workspaces[0].workspaces.plan_id,
+              id: workspace.id,
+              name: workspace.name,
+              plan: workspace.plan_id,
               memberCount: 1,
-              createdAt: workspaces[0].workspaces.created_at,
+              createdAt: workspace.created_at,
             }));
           }
         } else if (event === 'SIGNED_OUT') {

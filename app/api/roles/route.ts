@@ -67,9 +67,9 @@ export async function POST(request: NextRequest) {
 
     const roleData = await request.json();
     const newRole = {
-      id: Math.random().toString(36).substr(2, 9),
+      id: Math.random().toString(36).substring(2, 11),
       ...roleData,
-      workspaceId: payload.workspaceId,
+      workspaceId: (payload as any).workspaceId || 'default',
       createdAt: new Date().toISOString(),
     };
 

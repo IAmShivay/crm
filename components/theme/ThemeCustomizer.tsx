@@ -151,7 +151,7 @@ export function ThemeCustomizer() {
       </div>
 
       <Tabs defaultValue="presets" className="space-y-4">
-        <TabsList className="grid w-full grid-cols-4">
+        <TabsList className="grid w-full grid-cols-2 sm:grid-cols-4">
           <TabsTrigger value="presets">Presets</TabsTrigger>
           <TabsTrigger value="colors">Colors</TabsTrigger>
           <TabsTrigger value="typography">Typography</TabsTrigger>
@@ -168,7 +168,7 @@ export function ThemeCustomizer() {
               <CardDescription>Choose your preferred theme mode</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="grid grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 {[
                   { value: 'light', label: 'Light', icon: Sun },
                   { value: 'dark', label: 'Dark', icon: Moon },
@@ -197,7 +197,7 @@ export function ThemeCustomizer() {
               <CardDescription>Choose from predefined color schemes</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 {theme.presets.map((preset) => (
                   <button
                     key={preset.id}
@@ -238,7 +238,7 @@ export function ThemeCustomizer() {
               <CardDescription>Fine-tune your color palette</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {colorInputs.map((colorInput) => (
                   <div key={colorInput.key} className="space-y-2">
                     <Label htmlFor={colorInput.key}>{colorInput.label}</Label>
@@ -274,7 +274,7 @@ export function ThemeCustomizer() {
               <CardDescription>Customize fonts and text sizing</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label>Font Family</Label>
                   <Select

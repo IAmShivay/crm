@@ -207,7 +207,7 @@ export const supabaseApi = createApi({
           .eq('status', 'active');
 
         if (error) return { error: error.message };
-        return { data: data?.map(item => item.workspaces).filter(Boolean) || [] };
+        return { data: (data as any)?.map((item: any) => item.workspaces).filter(Boolean) || [] };
       },
       providesTags: ['Workspace'],
     }),
@@ -304,3 +304,17 @@ export const {
   useUpdateLeadSourceMutation,
   useDeleteLeadSourceMutation,
 } = supabaseApi;
+
+// Mock permissions query for now
+export const useGetPermissionsQuery = () => ({
+  data: [
+    { id: '1', name: 'read_leads', resource: 'leads', action: 'read', description: 'View leads' },
+    { id: '2', name: 'write_leads', resource: 'leads', action: 'write', description: 'Create and edit leads' },
+    { id: '3', name: 'delete_leads', resource: 'leads', action: 'delete', description: 'Delete leads' },
+    { id: '4', name: 'read_roles', resource: 'roles', action: 'read', description: 'View roles' },
+    { id: '5', name: 'write_roles', resource: 'roles', action: 'write', description: 'Create and edit roles' },
+    { id: '6', name: 'delete_roles', resource: 'roles', action: 'delete', description: 'Delete roles' },
+  ],
+  isLoading: false,
+  error: null,
+});

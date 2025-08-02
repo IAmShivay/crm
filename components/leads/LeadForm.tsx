@@ -65,7 +65,7 @@ export function LeadForm({ onSuccess }: LeadFormProps) {
       await createLead({
         ...data,
         workspace_id: currentWorkspace.id,
-        status: selectedStatus,
+        status: selectedStatus as "new" | "contacted" | "qualified" | "proposal" | "negotiation" | "closed_won" | "closed_lost",
         source: selectedSource || 'manual',
         value: Number(data.value) || 0,
         tags: [],

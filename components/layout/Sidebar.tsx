@@ -20,6 +20,8 @@ import { Button } from '@/components/ui/button';
 interface SidebarProps {
   collapsed: boolean;
   onToggle: () => void;
+  mobileMenuOpen?: boolean;
+  onMobileMenuToggle?: () => void;
 }
 
 const navigation = [
@@ -33,13 +35,18 @@ const navigation = [
   { name: 'Settings', href: '/settings', icon: Settings },
 ];
 
-export function Sidebar({ collapsed, onToggle }: SidebarProps) {
+export function Sidebar({ collapsed, onToggle, mobileMenuOpen, onMobileMenuToggle }: SidebarProps) {
   const pathname = usePathname();
 
   return (
     <div className={cn(
       "fixed inset-y-0 left-0 z-50 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 transition-all duration-300",
-      collapsed ? "w-16" : "w-64"
+      // Desktop behavior
+      "hidden lg:flex flex-col",
+      collapsed ? "lg:w-16" : "lg:w-64",
+      // Mobile behavior - overlay when open
+      mobileMenuOpen && "flex flex-col w-64",
+      !mobileMenuOpen && "lg:flex"
     )}>
       <div className="flex h-full flex-col">
         <div className="flex h-16 shrink-0 items-center justify-between px-4 border-b border-gray-200 dark:border-gray-700">

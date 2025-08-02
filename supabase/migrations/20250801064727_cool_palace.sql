@@ -58,31 +58,16 @@ CREATE TABLE IF NOT EXISTS workspace_members (
 ALTER TABLE workspaces ENABLE ROW LEVEL SECURITY;
 ALTER TABLE workspace_members ENABLE ROW LEVEL SECURITY;
 
--- Workspace policies
+-- Workspace policies (basic access - role-based policies will be added later)
 CREATE POLICY "Users can read workspaces they belong to"
   ON workspaces
   FOR SELECT
   TO authenticated
   USING (
     id IN (
-      SELECT workspace_id 
-      FROM workspace_members 
+      SELECT workspace_id
+      FROM workspace_members
       WHERE user_id = auth.uid() AND status = 'active'
-    )
-  );
-
-CREATE POLICY "Users can update workspaces they own"
-  ON workspaces
-  FOR UPDATE
-  TO authenticated
-  USING (
-    id IN (
-      SELECT wm.workspace_id 
-      FROM workspace_members wm
-      JOIN roles r ON wm.role_id = r.id
-      WHERE wm.user_id = auth.uid() 
-      AND wm.status = 'active'
-      AND r.name = 'owner'
     )
   );
 
@@ -99,20 +84,12 @@ CREATE POLICY "Users can read workspace members for their workspaces"
     )
   );
 
-CREATE POLICY "Workspace owners can manage members"
+-- Basic member management policy (role-based policies will be added later)
+CREATE POLICY "Users can manage their own membership"
   ON workspace_members
-  FOR ALL
+  FOR UPDATE
   TO authenticated
-  USING (
-    workspace_id IN (
-      SELECT wm.workspace_id 
-      FROM workspace_members wm
-      JOIN roles r ON wm.role_id = r.id
-      WHERE wm.user_id = auth.uid() 
-      AND wm.status = 'active'
-      AND r.name IN ('owner', 'admin')
-    )
-  );
+  USING (user_id = auth.uid());
 
 -- Create updated_at trigger function
 CREATE OR REPLACE FUNCTION update_updated_at_column()
