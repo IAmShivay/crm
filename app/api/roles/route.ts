@@ -1,82 +1,66 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { verifyToken } from '@/lib/auth';
-
-// Mock roles data
-const mockRoles = [
-  {
-    id: '1',
-    name: 'Administrator',
-    description: 'Full system access with all permissions',
-    permissions: [
-      { id: '1', name: 'All Access', resource: 'all', action: 'create' as const },
-      { id: '2', name: 'All Access', resource: 'all', action: 'read' as const },
-      { id: '3', name: 'All Access', resource: 'all', action: 'update' as const },
-      { id: '4', name: 'All Access', resource: 'all', action: 'delete' as const },
-    ],
-    isCustom: false,
-    workspaceId: 'workspace-1',
-    createdAt: '2024-01-01T00:00:00Z',
-  },
-  {
-    id: '2',
-    name: 'Sales Manager',
-    description: 'Manage leads and sales team',
-    permissions: [
-      { id: '5', name: 'Create Lead', resource: 'leads', action: 'create' as const },
-      { id: '6', name: 'Read Lead', resource: 'leads', action: 'read' as const },
-      { id: '7', name: 'Update Lead', resource: 'leads', action: 'update' as const },
-      { id: '8', name: 'Read User', resource: 'users', action: 'read' as const },
-    ],
-    isCustom: true,
-    workspaceId: 'workspace-1',
-    createdAt: '2024-01-02T00:00:00Z',
-  },
-];
+import { requireAuth } from '@/lib/auth';
+import { mongoClient, WorkspaceMember } from '@/lib/mongodb/client';
 
 export async function GET(request: NextRequest) {
   try {
-    const authHeader = request.headers.get('authorization');
-    if (!authHeader) {
-      return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
+    const auth = await requireAuth(request);
+    const url = new URL(request.url);
+    const workspaceId = url.searchParams.get('workspaceId');
+
+    if (!workspaceId) {
+      return NextResponse.json({ message: 'Workspace ID is required' }, { status: 400 });
     }
 
-    const token = authHeader.replace('Bearer ', '');
-    const payload = verifyToken(token);
-    if (!payload) {
-      return NextResponse.json({ message: 'Invalid token' }, { status: 401 });
+    // Verify user has access to this workspace
+    const member = await (WorkspaceMember as any).findOne({
+      userId: auth.user.id,
+      workspaceId,
+      status: 'active'
+    });
+
+    if (!member) {
+      return NextResponse.json({ message: 'Access denied' }, { status: 403 });
     }
 
-    return NextResponse.json(mockRoles);
+    const roles = await mongoClient.getRolesByWorkspace(workspaceId);
+    const rolesData = roles.map(role => ({ ...role.toJSON(), id: role._id }));
+
+    return NextResponse.json(rolesData);
   } catch (error) {
+    console.error('Get roles error:', error);
     return NextResponse.json({ message: 'Server error' }, { status: 500 });
   }
 }
 
 export async function POST(request: NextRequest) {
   try {
-    const authHeader = request.headers.get('authorization');
-    if (!authHeader) {
-      return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
-    }
-
-    const token = authHeader.replace('Bearer ', '');
-    const payload = verifyToken(token);
-    if (!payload) {
-      return NextResponse.json({ message: 'Invalid token' }, { status: 401 });
-    }
-
+    const auth = await requireAuth(request);
     const roleData = await request.json();
-    const newRole = {
-      id: Math.random().toString(36).substring(2, 11),
-      ...roleData,
-      workspaceId: (payload as any).workspaceId || 'default',
-      createdAt: new Date().toISOString(),
-    };
 
-    mockRoles.push(newRole);
+    if (!roleData.workspaceId || !roleData.name) {
+      return NextResponse.json({
+        message: 'Workspace ID and role name are required'
+      }, { status: 400 });
+    }
 
-    return NextResponse.json(newRole, { status: 201 });
+    // Verify user has access to this workspace
+    const member = await (WorkspaceMember as any).findOne({
+      userId: auth.user.id,
+      workspaceId: roleData.workspaceId,
+      status: 'active'
+    });
+
+    if (!member) {
+      return NextResponse.json({ message: 'Access denied' }, { status: 403 });
+    }
+
+    const role = await mongoClient.createRole(roleData);
+    const roleResponse = { ...role.toJSON(), id: role._id };
+
+    return NextResponse.json(roleResponse, { status: 201 });
   } catch (error) {
+    console.error('Create role error:', error);
     return NextResponse.json({ message: 'Server error' }, { status: 500 });
   }
 }

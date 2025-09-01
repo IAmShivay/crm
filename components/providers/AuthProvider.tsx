@@ -5,8 +5,6 @@ import { useRouter } from 'next/navigation';
 import { useAppDispatch, useAppSelector } from '@/lib/hooks';
 import { loginSuccess, logout, loginStart } from '@/lib/slices/authSlice';
 import { setCurrentWorkspace } from '@/lib/slices/workspaceSlice';
-import { supabase } from '@/lib/supabase/client';
-import { getUserWorkspaces } from '@/lib/supabase/auth';
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const dispatch = useAppDispatch();
@@ -14,135 +12,61 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Get initial session
+    // Get initial session from localStorage
     const getInitialSession = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      
-      if (session?.user) {
-        // Get user profile
-        const { data: profile } = await supabase
-          .from('user_profiles')
-          .select('*')
-          .eq('id', session.user.id)
-          .single();
+      const token = localStorage.getItem('auth_token');
+      const userData = localStorage.getItem('user_data');
 
-        // Get user workspaces
-        const { data: workspaces } = await getUserWorkspaces(session.user.id);
-        
-        dispatch(loginSuccess({
-          user: {
-            id: session.user.id,
-            email: session.user.email!,
-            name: profile?.full_name || session.user.email!,
-            role: 'user',
-            workspaceId: (workspaces?.[0] as any)?.workspaces?.id || '',
-            permissions: [],
-          },
-          token: session.access_token,
-        }));
+      if (token && userData) {
+        try {
+          const user = JSON.parse(userData);
 
-        // Set current workspace
-        if (workspaces?.[0]?.workspaces) {
-          const workspace = (workspaces[0] as any).workspaces;
-          dispatch(setCurrentWorkspace({
-            id: workspace.id,
-            name: workspace.name,
-            plan: workspace.plan_id,
-            memberCount: 1,
-            createdAt: workspace.created_at,
+          dispatch(loginSuccess({
+            user: {
+              id: user.id,
+              email: user.email,
+              name: user.fullName || user.email,
+              role: 'user',
+              workspaceId: user.workspaceId || '',
+              permissions: [],
+            },
+            token: token,
           }));
+
+          // Set current workspace if available
+          const workspaceData = localStorage.getItem('current_workspace');
+          if (workspaceData) {
+            const workspace = JSON.parse(workspaceData);
+            dispatch(setCurrentWorkspace({
+              id: workspace.id,
+              name: workspace.name,
+              plan: workspace.planId,
+              memberCount: 1,
+              createdAt: workspace.createdAt,
+            }));
+          }
+        } catch (error) {
+          console.error('Error loading user session:', error);
+          localStorage.removeItem('auth_token');
+          localStorage.removeItem('user_data');
+          localStorage.removeItem('current_workspace');
         }
       }
-      
+
       setLoading(false);
     };
 
     getInitialSession();
 
-    // Listen for auth changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (event, session) => {
-        if (event === 'SIGNED_IN' && session?.user) {
-          dispatch(loginStart());
-
-          // Get user profile
-          const { data: profile } = await supabase
-            .from('user_profiles')
-            .select('*')
-            .eq('id', session.user.id)
-            .single();
-
-          // Get user workspaces with role information
-          const { data: workspaces } = await supabase
-            .from('workspace_members')
-            .select(`
-              workspace_id,
-              role_id,
-              status,
-              workspaces (
-                id,
-                name,
-                plan_id,
-                created_at
-              ),
-              roles (
-                name,
-                permissions
-              )
-            `)
-            .eq('user_id', session.user.id)
-            .eq('status', 'active');
-
-          // Check for pending invitations
-          const { data: pendingInvitations } = await supabase
-            .from('invitations')
-            .select('*')
-            .eq('email', session.user.email)
-            .eq('status', 'pending')
-            .gt('expires_at', new Date().toISOString());
-
-          // If user has pending invitations but no profile, redirect to setup
-          if (pendingInvitations?.length && !profile?.full_name) {
-            // Don't dispatch login success yet, let setup page handle it
-            setLoading(false);
-            return;
-          }
-
-          // Get user permissions from their roles
-          const userPermissions = workspaces?.flatMap(ws =>
-            (ws as any).roles?.permissions || []
-          ) || [];
-
-          dispatch(loginSuccess({
-            user: {
-              id: session.user.id,
-              email: session.user.email!,
-              name: profile?.full_name || session.user.user_metadata?.full_name || session.user.email!,
-              role: (workspaces?.[0] as any)?.roles?.name || 'user',
-              workspaceId: (workspaces?.[0] as any)?.workspaces?.id || '',
-              permissions: userPermissions,
-            },
-            token: session.access_token,
-          }));
-
-          // Set current workspace
-          if (workspaces?.[0]?.workspaces) {
-            const workspace = (workspaces[0] as any).workspaces;
-            dispatch(setCurrentWorkspace({
-              id: workspace.id,
-              name: workspace.name,
-              plan: workspace.plan_id,
-              memberCount: 1,
-              createdAt: workspace.created_at,
-            }));
-          }
-        } else if (event === 'SIGNED_OUT') {
-          dispatch(logout());
-        }
+    // Listen for storage changes (for logout from other tabs)
+    const handleStorageChange = (e: StorageEvent) => {
+      if (e.key === 'auth_token' && !e.newValue) {
+        dispatch(logout());
       }
-    );
+    };
 
-    return () => subscription.unsubscribe();
+    window.addEventListener('storage', handleStorageChange);
+    return () => window.removeEventListener('storage', handleStorageChange);
   }, [dispatch]);
 
   if (loading) {

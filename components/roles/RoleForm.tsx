@@ -8,7 +8,7 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { useCreateRoleMutation, useGetPermissionsQuery } from '@/lib/api/supabaseApi';
+import { useCreateRoleMutation, useGetPermissionsQuery } from '@/lib/api/mongoApi';
 import { toast } from 'sonner';
 
 interface RoleFormProps {
@@ -33,9 +33,8 @@ export function RoleForm({ onSuccess }: RoleFormProps) {
       await createRole({
         ...data,
         permissions: selectedPermissions,
-        workspace_id: 'default',
-        is_system: false,
-      }).unwrap();
+        workspaceId: 'default',
+      });
       toast.success('Role created successfully');
       onSuccess?.();
     } catch (error) {
@@ -51,7 +50,7 @@ export function RoleForm({ onSuccess }: RoleFormProps) {
     );
   };
 
-  const resources = Array.from(new Set(permissions.map(p => p.resource)));
+  const resources = Array.from(new Set(permissions.map(p => p.category)));
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
@@ -91,7 +90,7 @@ export function RoleForm({ onSuccess }: RoleFormProps) {
               </CardHeader>
               <CardContent className="space-y-2">
                 {permissions
-                  .filter(p => p.resource === resource)
+                  .filter(p => p.category === resource)
                   .map(permission => (
                     <div key={permission.id} className="flex items-center space-x-2">
                       <Checkbox
@@ -99,11 +98,11 @@ export function RoleForm({ onSuccess }: RoleFormProps) {
                         checked={selectedPermissions.includes(permission.id)}
                         onCheckedChange={() => handlePermissionToggle(permission.id)}
                       />
-                      <Label 
+                      <Label
                         htmlFor={permission.id}
                         className="text-sm capitalize cursor-pointer"
                       >
-                        {permission.action}
+                        {permission.name}
                       </Label>
                     </div>
                   ))}

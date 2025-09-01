@@ -4,7 +4,7 @@ import { Clock, User, FileText, UserPlus, Settings, DollarSign, Phone, Mail, Cal
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { useGetActivitiesQuery } from '@/lib/api/supabaseApi';
+import { useGetActivitiesQuery } from '@/lib/api/mongoApi';
 import { useAppSelector } from '@/lib/hooks';
 
 const activityIcons = {
@@ -136,8 +136,9 @@ export function RecentActivity() {
       <CardContent>
         <div className="space-y-4">
           {displayActivities.slice(0, 6).map((activity) => {
-            const IconComponent = activityIcons[activity.action as keyof typeof activityIcons] || activityIcons.default;
-            const colorClass = activityColors[activity.action as keyof typeof activityColors] || activityColors.default;
+            const activityAction = (activity as any).action || (activity as any).activityType || 'default';
+            const IconComponent = activityIcons[activityAction as keyof typeof activityIcons] || activityIcons.default;
+            const colorClass = activityColors[activityAction as keyof typeof activityColors] || activityColors.default;
 
             return (
               <div key={activity.id} className="flex items-start space-x-3 p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
@@ -152,10 +153,10 @@ export function RecentActivity() {
                   </p>
                   <div className="flex items-center space-x-2 mt-2">
                     <Badge variant="secondary" className={`text-xs ${colorClass}`}>
-                      {activity.entity_type}
+                      {(activity as any).entity_type || (activity as any).entityType || 'activity'}
                     </Badge>
                     <span className="text-xs text-gray-500">
-                      {formatTimeAgo(activity.created_at)}
+                      {formatTimeAgo((activity as any).created_at || (activity as any).createdAt)}
                     </span>
                     {(activity as any).user_name && (
                       <>

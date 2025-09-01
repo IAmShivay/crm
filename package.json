@@ -6,7 +6,15 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down",
+    "docker:logs": "docker-compose logs -f mongodb",
+    "seed:mongodb": "node scripts/seed-simple.js",
+    "migrate:mongodb": "npx ts-node scripts/migrate-to-mongodb.ts",
+    "db:seed": "npm run seed:mongodb",
+    "db:migrate": "npm run migrate:mongodb",
+    "setup:mongodb": "npm run docker:up && sleep 10 && npm run db:seed"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
@@ -39,11 +47,7 @@
     "@radix-ui/react-toggle-group": "^1.1.0",
     "@radix-ui/react-tooltip": "^1.1.2",
     "@reduxjs/toolkit": "^2.8.2",
-    "@supabase/auth-helpers-nextjs": "^0.10.0",
-    "@supabase/auth-helpers-react": "^0.5.0",
-    "@supabase/auth-ui-react": "^0.4.7",
-    "@supabase/auth-ui-shared": "^0.1.8",
-    "@supabase/supabase-js": "^2.53.0",
+    "@types/bcryptjs": "^2.4.6",
     "@types/node": "20.6.2",
     "@types/react": "18.2.22",
     "@types/react-dom": "18.2.7",
@@ -57,8 +61,11 @@
     "eslint": "8.49.0",
     "eslint-config-next": "13.5.1",
     "input-otp": "^1.2.4",
+    "isomorphic-dompurify": "^2.26.0",
     "jsonwebtoken": "^9.0.2",
     "lucide-react": "^0.446.0",
+    "mongodb": "^6.19.0",
+    "mongoose": "^8.18.0",
     "next": "13.5.1",
     "next-themes": "^0.3.0",
     "postcss": "8.4.30",
@@ -78,6 +85,7 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
-    "@types/jsonwebtoken": "^9.0.10"
+    "@types/jsonwebtoken": "^9.0.10",
+    "ts-node": "^10.9.2"
   }
 }

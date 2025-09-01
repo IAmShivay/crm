@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { resetPassword } from '@/lib/supabase/auth';
+// Password reset functionality will be implemented later
 import { toast } from 'sonner';
 import { Briefcase, Eye, EyeOff, CheckCircle } from 'lucide-react';
 
@@ -33,14 +33,10 @@ export function ResetPasswordForm() {
 
     setLoading(true);
     try {
-      const { error } = await resetPassword(data.password);
-      
-      if (error) {
-        toast.error(error.message);
-      } else {
-        toast.success('Password updated successfully!');
-        router.push('/dashboard');
-      }
+      // TODO: Implement password reset functionality with MongoDB
+      // For now, show a message that this feature is coming soon
+      toast.info('Password reset functionality will be available soon. Please contact support.');
+      router.push('/login');
     } catch (error: any) {
       toast.error('Failed to reset password');
     } finally {

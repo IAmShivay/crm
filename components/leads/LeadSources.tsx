@@ -24,12 +24,12 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { useForm } from 'react-hook-form';
-import { 
-  useGetLeadSourcesQuery, 
-  useCreateLeadSourceMutation, 
+import {
+  useGetLeadSourcesQuery,
+  useCreateLeadSourceMutation,
   useUpdateLeadSourceMutation,
-  useDeleteLeadSourceMutation 
-} from '@/lib/api/supabaseApi';
+  useDeleteLeadSourceMutation
+} from '@/lib/api/mongoApi';
 import { useAppSelector } from '@/lib/hooks';
 import { toast } from 'sonner';
 
@@ -75,7 +75,7 @@ export function LeadSources() {
             ...data,
             color: selectedColor,
           }
-        }).unwrap();
+        });
         toast.success('Lead source updated successfully');
         setEditingSource(null);
       } else {
@@ -84,7 +84,7 @@ export function LeadSources() {
           workspace_id: currentWorkspace.id,
           color: selectedColor,
           is_active: true,
-        }).unwrap();
+        });
         toast.success('Lead source created successfully');
         setIsCreateOpen(false);
       }
@@ -107,7 +107,7 @@ export function LeadSources() {
 
   const handleDelete = async (id: string) => {
     try {
-      await deleteLeadSource(id).unwrap();
+      await deleteLeadSource(id);
       toast.success('Lead source deleted successfully');
     } catch (error) {
       toast.error('Failed to delete lead source');

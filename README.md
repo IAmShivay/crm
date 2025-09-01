@@ -1,6 +1,6 @@
 # Shivay CRM - Next.js CRM System
 
-A modern, full-featured Customer Relationship Management (CRM) system built with Next.js, TypeScript, Supabase, and Redux Toolkit Query.
+A modern, full-featured Customer Relationship Management (CRM) system built with Next.js, TypeScript, MongoDB, and Redux Toolkit Query.
 
 ## 🚀 Features
 
@@ -16,17 +16,17 @@ A modern, full-featured Customer Relationship Management (CRM) system built with
 ## 🛠️ Tech Stack
 
 - **Frontend**: Next.js 14, TypeScript, Tailwind CSS, shadcn/ui
-- **Backend**: Supabase (PostgreSQL + Auth + RLS)
+- **Backend**: MongoDB with Mongoose ODM
 - **State Management**: Redux Toolkit Query (RTK Query)
-- **Authentication**: Supabase Auth
+- **Authentication**: JWT-based custom authentication
 - **Payments**: Dodo Payments integration
 - **Deployment**: Static export ready
 
 ## 📋 Prerequisites
 
-- Node.js 18+ 
+- Node.js 18+
 - npm/yarn/pnpm
-- Supabase account
+- MongoDB (local installation or MongoDB Atlas)
 - Dodo Payments account (for billing)
 
 ## 🚀 Quick Start
@@ -44,27 +44,27 @@ npm install
 Create `.env.local`:
 
 ```env
-NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
-SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
+MONGODB_URI=mongodb://your-connection-string
+JWT_SECRET=your-super-secret-jwt-key
+JWT_EXPIRES_IN=7d
 DODO_API_KEY=your_dodo_api_key
 DODO_WEBHOOK_SECRET=your_dodo_webhook_secret
 ```
 
 ### 3. Database Setup
 
-Run Supabase migrations:
+Seed MongoDB with initial data:
 
 ```bash
-# Install Supabase CLI
-npm install -g supabase
-
-# Link to your project
-supabase link --project-ref your-project-ref
-
-# Run migrations
-supabase db push
+# Seed database with admin user and default data
+npm run db:seed
 ```
+
+This creates:
+- Admin user: `admin@crm.com` / `admin123`
+- Default plans (Free, Starter, Professional, Enterprise)
+- Admin workspace with full permissions
+- Default roles (Owner, Admin, Manager, Sales Rep)
 
 ### 4. Development
 

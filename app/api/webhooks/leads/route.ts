@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { supabaseAdmin } from '@/lib/supabase/client';
+import { Lead, Workspace } from '@/lib/mongodb/client';
 
 export async function POST(request: NextRequest) {
   try {
@@ -13,25 +13,35 @@ export async function POST(request: NextRequest) {
 
     const payload = await request.json();
 
-    // Process webhook using the database function
-    const { data, error } = await supabaseAdmin.rpc('process_webhook_lead', {
-      webhook_url: request.url,
-      payload: payload,
-    });
-
-    if (error) {
-      console.error('Webhook processing error:', error);
-      return NextResponse.json({ error: 'Failed to process webhook' }, { status: 500 });
+    // Find workspace by webhook ID (you may need to implement webhook endpoint mapping)
+    // For now, assuming webhookId maps to workspaceId
+    const workspace = await (Workspace as any).findById(webhookId);
+    if (!workspace) {
+      return NextResponse.json({ error: 'Invalid webhook endpoint' }, { status: 404 });
     }
 
-    if (!data.success) {
-      return NextResponse.json({ error: data.error }, { status: 400 });
-    }
+    // Process lead data from webhook payload
+    const leadData = {
+      workspaceId: workspace._id,
+      name: payload.name || `${payload.first_name || ''} ${payload.last_name || ''}`.trim(),
+      email: payload.email,
+      phone: payload.phone,
+      company: payload.company,
+      source: payload.source || 'webhook',
+      value: payload.value || 0,
+      status: payload.status || 'new',
+      notes: payload.notes,
+      customFields: payload.custom_fields || {},
+      createdBy: workspace._id, // Use workspace as creator for webhook leads
+    };
+
+    // Create the lead
+    const lead = await Lead.create(leadData);
 
     return NextResponse.json({
       success: true,
-      lead_id: data.lead_id,
-      message: data.message,
+      lead_id: lead._id,
+      message: 'Lead created successfully',
     });
   } catch (error) {
     console.error('Webhook error:', error);

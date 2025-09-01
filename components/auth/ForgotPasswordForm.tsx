@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { sendPasswordResetEmail } from '@/lib/supabase/auth';
+// Password reset functionality will be implemented later
 import { toast } from 'sonner';
 import { Briefcase, ArrowLeft, Mail } from 'lucide-react';
 import Link from 'next/link';
@@ -25,14 +25,10 @@ export function ForgotPasswordForm() {
   const onSubmit = async (data: ForgotPasswordFormData) => {
     setLoading(true);
     try {
-      const { error } = await sendPasswordResetEmail(data.email);
-      
-      if (error) {
-        toast.error(error.message);
-      } else {
-        setEmailSent(true);
-        toast.success('Password reset email sent! Check your inbox.');
-      }
+      // TODO: Implement password reset functionality with MongoDB
+      // For now, show a message that this feature is coming soon
+      toast.info('Password reset functionality will be available soon. Please contact support.');
+      setEmailSent(true);
     } catch (error: any) {
       toast.error('Failed to send reset email');
     } finally {

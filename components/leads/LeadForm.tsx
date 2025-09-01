@@ -13,7 +13,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { useCreateLeadMutation, useGetLeadSourcesQuery } from '@/lib/api/supabaseApi';
+import { useCreateLeadMutation, useGetLeadSourcesQuery } from '@/lib/api/mongoApi';
 import { useAppSelector } from '@/lib/hooks';
 import { toast } from 'sonner';
 
@@ -47,6 +47,7 @@ export function LeadForm({ onSuccess }: LeadFormProps) {
   const [selectedSource, setSelectedSource] = useState('');
   
   const { currentWorkspace } = useAppSelector((state) => state.workspace);
+  const { user } = useAppSelector((state) => state.auth);
   const { register, handleSubmit, formState: { errors }, setValue } = useForm<LeadFormData>();
   
   const { data: leadSources = [] } = useGetLeadSourcesQuery(
@@ -61,15 +62,22 @@ export function LeadForm({ onSuccess }: LeadFormProps) {
       return;
     }
 
+    if (!user) {
+      toast.error('User not authenticated');
+      return;
+    }
+
     try {
       await createLead({
         ...data,
-        workspace_id: currentWorkspace.id,
+        workspaceId: currentWorkspace.id,
         status: selectedStatus as "new" | "contacted" | "qualified" | "proposal" | "negotiation" | "closed_won" | "closed_lost",
         source: selectedSource || 'manual',
         value: Number(data.value) || 0,
         tags: [],
-        custom_fields: {},
+        customFields: {},
+        createdBy: user.id,
+        notes: data.notes || '',
       }).unwrap();
       
       toast.success('Lead created successfully');

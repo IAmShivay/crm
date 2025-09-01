@@ -1,22 +1,17 @@
 import { NextRequest } from 'next/server';
-import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs';
-import { cookies } from 'next/headers';
 import jwt from 'jsonwebtoken';
+import { verifyAuthToken, generateToken } from './mongodb/auth';
 
-export async function verifySupabaseToken(request: NextRequest) {
+export async function verifyMongoToken(request: NextRequest) {
   try {
-    const supabase = createRouteHandlerClient({ cookies });
-
-    // Get the session from Supabase
-    const { data: { session }, error } = await supabase.auth.getSession();
-
-    if (error || !session) {
+    const result = await verifyAuthToken(request);
+    if (!result) {
       return null;
     }
 
     return {
-      user: session.user,
-      session
+      user: result.user,
+      session: { user: result.user }
     };
   } catch (error) {
     console.error('Token verification error:', error);
@@ -25,7 +20,7 @@ export async function verifySupabaseToken(request: NextRequest) {
 }
 
 export async function requireAuth(request: NextRequest) {
-  const auth = await verifySupabaseToken(request);
+  const auth = await verifyMongoToken(request);
 
   if (!auth) {
     throw new Error('Authentication required');
@@ -46,21 +41,12 @@ export function createAuthResponse(message: string, status: number = 401) {
   );
 }
 
-export function signToken(payload: any) {
-  const secret = process.env.JWT_SECRET || 'your-secret-key';
-  return jwt.sign(payload, secret, { expiresIn: '24h' });
-}
-
-export function verifyJwtToken(token: string) {
-  try {
-    const secret = process.env.JWT_SECRET || 'your-secret-key';
-    return jwt.verify(token, secret);
-  } catch (error) {
-    return null;
-  }
-}
+// Use MongoDB auth functions
+export { generateToken as signToken };
+export { verifyToken as verifyJwtToken } from './mongodb/auth';
 
 // Function for JWT token verification (used by API routes)
 export function verifyToken(token: string) {
-  return verifyJwtToken(token);
+  const secret = process.env.JWT_SECRET || 'fallback-secret-key';
+  return jwt.verify(token, secret);
 }

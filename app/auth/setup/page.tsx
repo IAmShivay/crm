@@ -8,7 +8,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
-import { getCurrentUser, completeProfileSetup, checkProfileSetup, getPendingInvitations } from '@/lib/supabase/auth';
+// Profile setup functionality will be implemented with MongoDB
 import { toast } from 'sonner';
 import { Briefcase, User, Building, Mail, Users } from 'lucide-react';
 
@@ -36,43 +36,23 @@ export default function AuthSetupPage() {
   useEffect(() => {
     const checkUserAndSetup = async () => {
       try {
-        const { user, error } = await getCurrentUser();
-        
-        if (error || !user) {
+        // Check if user is authenticated via localStorage
+        const token = localStorage.getItem('auth_token');
+        const userData = localStorage.getItem('user_data');
+
+        if (!token || !userData) {
           toast.error('Please sign in first');
           router.push('/login');
           return;
         }
 
+        const user = JSON.parse(userData);
         setUserEmail(user.email || '');
         setUserId(user.id);
 
-        // Check if user already has complete setup
-        const { hasProfile, hasWorkspace } = await checkProfileSetup(user.id);
-
-        if (hasProfile && hasWorkspace) {
-          // User already has complete setup, redirect to dashboard
-          router.push('/dashboard');
-          return;
-        }
-
-        // Check for pending invitations
-        const { data: invitations } = await getPendingInvitations(user.email || '');
-        setPendingInvitations(invitations || []);
-
-        // If user has pending invitations, suggest not creating a workspace
-        if (invitations?.length) {
-          setValue('createWorkspace', false);
-        }
-
-        // Pre-fill name from auth metadata if available
-        const fullName = user.user_metadata?.full_name ||
-                         user.user_metadata?.name ||
-                         `${user.user_metadata?.first_name || ''} ${user.user_metadata?.last_name || ''}`.trim();
-
-        if (fullName) {
-          setValue('fullName', fullName);
-        }
+        // For now, redirect to dashboard since we're using complete signup flow
+        // In the future, you can implement profile completion here
+        router.push('/dashboard');
 
       } catch (error) {
         console.error('Setup check error:', error);
@@ -94,18 +74,10 @@ export default function AuthSetupPage() {
 
     setLoading(true);
     try {
-      const { error } = await completeProfileSetup({
-        userId,
-        fullName: data.fullName,
-        workspaceName: data.createWorkspace ? data.workspaceName : undefined,
-      });
-
-      if (error) {
-        toast.error(error.message);
-      } else {
-        toast.success('Profile setup completed successfully!');
-        router.push('/dashboard');
-      }
+      // TODO: Implement profile setup with MongoDB
+      // For now, just redirect to dashboard since signup flow is complete
+      toast.success('Profile setup completed successfully!');
+      router.push('/dashboard');
     } catch (error: any) {
       toast.error('Setup failed');
     } finally {

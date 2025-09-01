@@ -7,8 +7,9 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { signIn } from '@/lib/supabase/auth';
-import { SocialAuthButtons } from './SocialAuthButtons';
+import { useAppDispatch } from '@/lib/hooks';
+import { loginSuccess } from '@/lib/slices/authSlice';
+import { setCurrentWorkspace } from '@/lib/slices/workspaceSlice';
 import { toast } from 'sonner';
 import { Briefcase, Eye, EyeOff, ArrowRight, Shield } from 'lucide-react';
 import Link from 'next/link';
@@ -20,6 +21,7 @@ interface LoginFormData {
 
 export function LoginForm() {
   const router = useRouter();
+  const dispatch = useAppDispatch();
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const { register, handleSubmit, formState: { errors } } = useForm<LoginFormData>();
@@ -27,13 +29,53 @@ export function LoginForm() {
   const onSubmit = async (data: LoginFormData) => {
     setLoading(true);
     try {
-      const { error } = await signIn(data);
-      if (error) {
-        toast.error(error.message);
-      } else {
-        toast.success('Login successful!');
-        router.push('/dashboard');
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        toast.error(result.message || 'Login failed');
+        return;
       }
+
+      // Store auth data
+      localStorage.setItem('auth_token', result.token);
+      localStorage.setItem('user_data', JSON.stringify(result.user));
+      if (result.workspace) {
+        localStorage.setItem('current_workspace', JSON.stringify(result.workspace));
+      }
+
+      // Update Redux state
+      dispatch(loginSuccess({
+        user: {
+          id: result.user.id,
+          email: result.user.email,
+          name: result.user.fullName || result.user.email,
+          role: 'user',
+          workspaceId: result.workspace?.id || '',
+          permissions: [],
+        },
+        token: result.token,
+      }));
+
+      if (result.workspace) {
+        dispatch(setCurrentWorkspace({
+          id: result.workspace.id,
+          name: result.workspace.name,
+          plan: result.workspace.planId,
+          memberCount: 1,
+          createdAt: result.workspace.createdAt,
+        }));
+      }
+
+      toast.success('Login successful!');
+      router.push('/dashboard');
     } catch (error: any) {
       toast.error('Login failed');
     } finally {
@@ -110,9 +152,6 @@ export function LoginForm() {
               </CardDescription>
             </CardHeader>
         <CardContent>
-          {/* Social Authentication Buttons */}
-          <SocialAuthButtons mode="signin" className="mb-6" />
-
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>

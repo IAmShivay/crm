@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/query/react';
-import { supabaseApi } from './api/supabaseApi';
+import { mongoApi } from './api/mongoApi';
 import authSlice from './slices/authSlice';
 import themeSlice from './slices/themeSlice';
 import workspaceSlice from './slices/workspaceSlice';
@@ -10,11 +10,11 @@ export const store = configureStore({
     auth: authSlice,
     theme: themeSlice,
     workspace: workspaceSlice,
-    [supabaseApi.reducerPath]: supabaseApi.reducer,
+    [mongoApi.reducerPath]: mongoApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
-      supabaseApi.middleware
+      mongoApi.middleware
     ),
 });
 

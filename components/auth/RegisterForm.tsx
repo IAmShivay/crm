@@ -7,8 +7,9 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { signUp } from '@/lib/supabase/auth';
-import { SocialAuthButtons } from './SocialAuthButtons';
+import { useAppDispatch } from '@/lib/hooks';
+import { loginSuccess } from '@/lib/slices/authSlice';
+import { setCurrentWorkspace } from '@/lib/slices/workspaceSlice';
 import { toast } from 'sonner';
 import { Briefcase, Eye, EyeOff } from 'lucide-react';
 
@@ -22,6 +23,7 @@ interface RegisterFormData {
 
 export function RegisterForm() {
   const router = useRouter();
+  const dispatch = useAppDispatch();
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const { register, handleSubmit, watch, formState: { errors } } = useForm<RegisterFormData>();
@@ -31,19 +33,58 @@ export function RegisterForm() {
   const onSubmit = async (data: RegisterFormData) => {
     setLoading(true);
     try {
-      const { error } = await signUp({
-        email: data.email,
-        password: data.password,
-        fullName: data.fullName,
-        workspaceName: data.workspaceName,
+      const response = await fetch('/api/auth/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: data.email,
+          password: data.password,
+          fullName: data.fullName,
+          workspaceName: data.workspaceName,
+        }),
       });
 
-      if (error) {
-        toast.error(error.message);
-      } else {
-        toast.success('Account created successfully! Please check your email to verify your account.');
-        router.push('/login');
+      const result = await response.json();
+
+      if (!response.ok) {
+        toast.error(result.message || 'Registration failed');
+        return;
       }
+
+      // Store auth data
+      localStorage.setItem('auth_token', result.token);
+      localStorage.setItem('user_data', JSON.stringify(result.user));
+      if (result.workspace) {
+        localStorage.setItem('current_workspace', JSON.stringify(result.workspace));
+      }
+
+      // Update Redux state
+      dispatch(loginSuccess({
+        user: {
+          id: result.user.id,
+          email: result.user.email,
+          name: result.user.fullName || result.user.email,
+          role: 'user',
+          workspaceId: result.workspace?.id || '',
+          permissions: [],
+        },
+        token: result.token,
+      }));
+
+      if (result.workspace) {
+        dispatch(setCurrentWorkspace({
+          id: result.workspace.id,
+          name: result.workspace.name,
+          plan: result.workspace.planId,
+          memberCount: 1,
+          createdAt: result.workspace.createdAt,
+        }));
+      }
+
+      toast.success('Account created successfully!');
+      router.push('/dashboard');
     } catch (error: any) {
       toast.error('Registration failed');
     } finally {
@@ -67,9 +108,6 @@ export function RegisterForm() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          {/* Social Authentication Buttons */}
-          <SocialAuthButtons mode="signup" className="mb-6" />
-
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="fullName">Full Name</Label>

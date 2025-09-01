@@ -28,7 +28,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import { useGetLeadsQuery, useDeleteLeadMutation } from '@/lib/api/supabaseApi';
+import { useGetLeadsQuery, useDeleteLeadMutation } from '@/lib/api/mongoApi';
 import { useAppSelector } from '@/lib/hooks';
 import { toast } from 'sonner';
 import { LeadForm } from './LeadForm';
@@ -161,7 +161,7 @@ export function LeadList() {
                     <TableCell>{lead.email || '-'}</TableCell>
                     <TableCell>{lead.company || '-'}</TableCell>
                     <TableCell>
-                      <Badge className={statusColors[lead.status]}>
+                      <Badge className={statusColors[lead.status as keyof typeof statusColors] || 'bg-gray-100 text-gray-800'}>
                         {lead.status.replace('_', ' ')}
                       </Badge>
                     </TableCell>
@@ -170,7 +170,7 @@ export function LeadList() {
                       {lead.value ? `$${lead.value.toLocaleString()}` : '-'}
                     </TableCell>
                     <TableCell>
-                      {new Date(lead.created_at).toLocaleDateString()}
+                      {new Date(lead.createdAt).toLocaleDateString()}
                     </TableCell>
                     <TableCell className="text-right">
                       <DropdownMenu>

@@ -13,7 +13,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import { useGetRolesQuery, useDeleteRoleMutation } from '@/lib/api/supabaseApi';
+import { useGetRolesQuery, useDeleteRoleMutation } from '@/lib/api/mongoApi';
 import { RoleForm } from './RoleForm';
 import { toast } from 'sonner';
 
@@ -26,7 +26,7 @@ export function RoleManager() {
 
   const handleDelete = async (id: string) => {
     try {
-      await deleteRole(id).unwrap();
+      await deleteRole(id);
       toast.success('Role deleted successfully');
     } catch (error) {
       toast.error('Failed to delete role');
@@ -76,7 +76,7 @@ export function RoleManager() {
                   <Button variant="ghost" size="sm">
                     <Edit className="h-4 w-4" />
                   </Button>
-                  {!role.is_system && (
+                  {!role.isDefault && (
                     <Button 
                       variant="ghost" 
                       size="sm" 
@@ -94,8 +94,8 @@ export function RoleManager() {
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
                   <span className="text-sm font-medium">Type</span>
-                  <Badge variant={!role.is_system ? 'default' : 'secondary'}>
-                    {!role.is_system ? 'Custom' : 'System'}
+                  <Badge variant={!role.isDefault ? 'default' : 'secondary'}>
+                    {!role.isDefault ? 'Custom' : 'System'}
                   </Badge>
                 </div>
                 

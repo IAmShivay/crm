@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { dodoPayments, DodoWebhookEvent } from '@/lib/dodo/client';
-import { supabaseAdmin } from '@/lib/supabase/client';
+import { Workspace, Subscription } from '@/lib/mongodb/client';
 
 export async function POST(request: NextRequest) {
   try {
@@ -58,86 +58,84 @@ export async function POST(request: NextRequest) {
 
 async function handleCustomerCreated(event: DodoWebhookEvent) {
   const customer = event.data.object;
-  
+
   // Update workspace with Dodo customer ID
   if (customer.metadata?.workspace_id) {
-    await supabaseAdmin
-      .from('workspaces')
-      .update({ dodo_customer_id: customer.id })
-      .eq('id', customer.metadata.workspace_id);
+    await (Workspace as any).findByIdAndUpdate(
+      customer.metadata.workspace_id,
+      { dodoCustomerId: customer.id }
+    );
   }
 }
 
 async function handleSubscriptionCreated(event: DodoWebhookEvent) {
   const subscription = event.data.object;
-  
+
   // Create or update subscription record
-  await supabaseAdmin
-    .from('subscriptions')
-    .upsert({
-      workspace_id: subscription.metadata.workspace_id,
-      dodo_subscription_id: subscription.id,
-      dodo_customer_id: subscription.customer_id,
-      plan_id: subscription.metadata.plan_id,
+  await (Subscription as any).findOneAndUpdate(
+    { workspaceId: subscription.metadata.workspace_id },
+    {
+      workspaceId: subscription.metadata.workspace_id,
+      dodoSubscriptionId: subscription.id,
+      dodoCustomerId: subscription.customer_id,
+      planId: subscription.metadata.plan_id,
       status: subscription.status,
-      current_period_start: subscription.current_period_start,
-      current_period_end: subscription.current_period_end,
-      trial_end: subscription.trial_end,
-    });
+      currentPeriodStart: new Date(subscription.current_period_start * 1000),
+      currentPeriodEnd: new Date(subscription.current_period_end * 1000),
+      trialEnd: subscription.trial_end ? new Date(subscription.trial_end * 1000) : undefined,
+    },
+    { upsert: true, new: true }
+  );
 }
 
 async function handleSubscriptionUpdated(event: DodoWebhookEvent) {
   const subscription = event.data.object;
-  
+
   // Update subscription record
-  await supabaseAdmin
-    .from('subscriptions')
-    .update({
+  await (Subscription as any).findOneAndUpdate(
+    { dodoSubscriptionId: subscription.id },
+    {
       status: subscription.status,
-      current_period_start: subscription.current_period_start,
-      current_period_end: subscription.current_period_end,
-      trial_end: subscription.trial_end,
-    })
-    .eq('dodo_subscription_id', subscription.id);
+      currentPeriodStart: new Date(subscription.current_period_start * 1000),
+      currentPeriodEnd: new Date(subscription.current_period_end * 1000),
+      trialEnd: subscription.trial_end ? new Date(subscription.trial_end * 1000) : undefined,
+    }
+  );
 }
 
 async function handleSubscriptionCanceled(event: DodoWebhookEvent) {
   const subscription = event.data.object;
-  
+
   // Update subscription status
-  await supabaseAdmin
-    .from('subscriptions')
-    .update({
-      status: 'canceled',
-      canceled_at: subscription.canceled_at,
-    })
-    .eq('dodo_subscription_id', subscription.id);
+  await (Subscription as any).findOneAndUpdate(
+    { dodoSubscriptionId: subscription.id },
+    {
+      status: 'cancelled',
+      cancelledAt: subscription.canceled_at ? new Date(subscription.canceled_at * 1000) : new Date(),
+    }
+  );
 }
 
 async function handlePaymentSucceeded(event: DodoWebhookEvent) {
   const invoice = event.data.object;
-  
+
   // Log successful payment and update subscription if needed
   if (invoice.subscription_id) {
-    await supabaseAdmin
-      .from('subscriptions')
-      .update({
-        status: 'active',
-      })
-      .eq('dodo_subscription_id', invoice.subscription_id);
+    await (Subscription as any).findOneAndUpdate(
+      { dodoSubscriptionId: invoice.subscription_id },
+      { status: 'active' }
+    );
   }
 }
 
 async function handlePaymentFailed(event: DodoWebhookEvent) {
   const invoice = event.data.object;
-  
+
   // Update subscription status for failed payment
   if (invoice.subscription_id) {
-    await supabaseAdmin
-      .from('subscriptions')
-      .update({
-        status: 'past_due',
-      })
-      .eq('dodo_subscription_id', invoice.subscription_id);
+    await (Subscription as any).findOneAndUpdate(
+      { dodoSubscriptionId: invoice.subscription_id },
+      { status: 'past_due' }
+    );
   }
 }
