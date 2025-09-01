@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "D:\\NEW CRM\\crm\\logs\\.fbc4c745bdcf4a54f51cbe3914889c5bfec127ff-audit.json",
+    "files": [
+        {
+            "date": 1756767609346,
+            "name": "D:\\NEW CRM\\crm\\logs\\application-2025-09-02.log",
+            "hash": "0167b89a481dbf78f73a4c0e23601a3820a17480a23e7a5ce4dd4c8f9f49214c"
+        }
+    ],
+    "hashType": "sha256"
+}

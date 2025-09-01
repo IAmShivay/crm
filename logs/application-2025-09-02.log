@@ -1,0 +1,752 @@
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:07:21.814Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'POST',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming POST http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:07:30.125Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:07:31.879Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Mobile Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:07:56.346Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Mobile Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:08:02.888Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Mobile Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:08:13.016Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Mobile Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:08:23.094Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Mobile Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:08:27.912Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Mobile Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:08:29.739Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Mobile Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:08:29.744Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Mobile Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:08:31.328Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Mobile Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:08:31.333Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Mobile Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:08:33.148Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Mobile Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:08:37.939Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'POST',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Mobile Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming POST http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:09:29.585Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Mobile Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:09:47.387Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Mobile Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:09:47.429Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Mobile Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:11:36.052Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Mobile Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:11:46.144Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Mobile Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:11:56.184Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Mobile Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:12:04.367Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Mobile Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:15:31.879Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-01T23:15:33.733Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Mobile Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:15:33.803Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-01T23:15:34.284Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Mobile Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:15:34.311Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-01T23:15:34.854Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Mobile Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:15:34.907Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-01T23:15:35.677Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Mobile Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:15:35.719Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-01T23:15:36.250Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Mobile Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:15:36.293Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-01T23:15:36.721Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Mobile Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:15:36.747Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-01T23:15:37.149Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Mobile Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:15:37.186Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-01T23:15:37.575Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Mobile Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:17:13.152Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-01T23:17:13.730Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Mobile Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:17:13.801Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-01T23:17:14.302Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Mobile Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:17:14.373Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-01T23:17:16.203Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Mobile Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:17:16.285Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-01T23:17:17.971Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Mobile Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:17:18.006Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-01T23:17:18.418Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Mobile Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:17:18.445Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-01T23:17:18.777Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:21:46.075Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-01T23:21:47.567Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:21:47.617Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-01T23:21:47.943Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:21:49.665Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-01T23:21:50.048Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:21:50.244Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-01T23:21:50.561Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:21:52.211Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-01T23:21:52.609Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:21:52.647Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-01T23:21:52.969Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}

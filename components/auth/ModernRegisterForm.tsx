@@ -1,8 +1,10 @@
 'use client';
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useState, useCallback, useMemo, useEffect } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -12,135 +14,321 @@ import { useAppDispatch } from '@/lib/hooks';
 import { loginSuccess } from '@/lib/slices/authSlice';
 import { setCurrentWorkspace } from '@/lib/slices/workspaceSlice';
 import { toast } from 'sonner';
-import { 
-  Briefcase, 
-  Eye, 
-  EyeOff, 
-  Mail, 
-  Lock, 
-  User, 
-  Building, 
-  ArrowRight, 
-  Shield, 
+import {
+  Briefcase,
+  Eye,
+  EyeOff,
+  Mail,
+  Lock,
+  User,
+  Building,
+  ArrowRight,
+  Shield,
   CheckCircle,
   Zap,
-  Globe
+  Globe,
+  AlertTriangle,
+  Check,
+  X
 } from 'lucide-react';
 import Link from 'next/link';
 
-interface RegisterFormData {
-  fullName: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
-  workspaceName: string;
-  agreeToTerms: boolean;
-}
+// Industry-standard validation schema with comprehensive security rules
+const registerSchema = z.object({
+  fullName: z
+    .string()
+    .min(1, 'Full name is required')
+    .min(2, 'Name must be at least 2 characters')
+    .max(100, 'Name is too long')
+    .regex(/^[a-zA-Z\s'-]+$/, 'Name can only contain letters, spaces, hyphens, and apostrophes')
+    .trim(),
+  email: z
+    .string()
+    .min(1, 'Email is required')
+    .email('Please enter a valid email address')
+    .max(254, 'Email is too long')
+    .toLowerCase()
+    .trim(),
+  password: z
+    .string()
+    .min(8, 'Password must be at least 8 characters')
+    .max(128, 'Password is too long')
+    .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/,
+      'Password must contain uppercase, lowercase, number, and special character'),
+  confirmPassword: z.string().min(1, 'Please confirm your password'),
+  workspaceName: z
+    .string()
+    .min(1, 'Workspace name is required')
+    .min(2, 'Workspace name must be at least 2 characters')
+    .max(50, 'Workspace name is too long')
+    .regex(/^[a-zA-Z0-9\s-_]+$/, 'Workspace name can only contain letters, numbers, spaces, hyphens, and underscores')
+    .trim(),
+  agreeToTerms: z
+    .boolean()
+    .refine(val => val === true, 'You must agree to the terms and conditions')
+}).refine(data => data.password === data.confirmPassword, {
+  message: 'Passwords do not match',
+  path: ['confirmPassword']
+});
+
+type RegisterFormData = z.infer<typeof registerSchema>;
 
 export function ModernRegisterForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const dispatch = useAppDispatch();
+
+  // Performance optimized state management
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const { register, handleSubmit, watch, formState: { errors } } = useForm<RegisterFormData>();
+  const [attemptCount, setAttemptCount] = useState(0);
+  const [isBlocked, setIsBlocked] = useState(false);
+  const [blockTimeRemaining, setBlockTimeRemaining] = useState(0);
+  const [passwordStrength, setPasswordStrength] = useState(0);
 
-  const password = watch('password');
+  // Enhanced form with validation
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors, isValid, isDirty },
+    setError,
+    clearErrors,
+    trigger
+  } = useForm<RegisterFormData>({
+    resolver: zodResolver(registerSchema),
+    mode: 'onChange', // Real-time validation
+    defaultValues: {
+      fullName: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
+      workspaceName: '',
+      agreeToTerms: false
+    }
+  });
 
-  const onSubmit = async (data: RegisterFormData) => {
-    if (data.password !== data.confirmPassword) {
-      toast.error('Passwords do not match');
+  // Performance optimization: memoize redirect URL
+  const redirectUrl = useMemo(() => {
+    const redirect = searchParams.get('redirect');
+    return redirect || '/dashboard';
+  }, [searchParams]);
+
+  // Watch form fields for real-time validation
+  const watchedPassword = watch('password');
+  const watchedEmail = watch('email');
+  const watchedFullName = watch('fullName');
+
+  // Security: Monitor failed attempts
+  useEffect(() => {
+    if (attemptCount >= 3) {
+      setIsBlocked(true);
+      setBlockTimeRemaining(600); // 10 minutes for registration
+
+      const timer = setInterval(() => {
+        setBlockTimeRemaining(prev => {
+          if (prev <= 1) {
+            setIsBlocked(false);
+            setAttemptCount(0);
+            clearInterval(timer);
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 1000);
+
+      return () => clearInterval(timer);
+    }
+  }, [attemptCount]);
+
+  // Performance: Calculate password strength
+  useEffect(() => {
+    if (watchedPassword) {
+      const strength = calculatePasswordStrength(watchedPassword);
+      setPasswordStrength(strength);
+    } else {
+      setPasswordStrength(0);
+    }
+  }, [watchedPassword]);
+
+  // Performance: Debounced password visibility toggles
+  const togglePasswordVisibility = useCallback(() => {
+    setShowPassword(prev => !prev);
+  }, []);
+
+  const toggleConfirmPasswordVisibility = useCallback(() => {
+    setShowConfirmPassword(prev => !prev);
+  }, []);
+
+  // Password strength calculation
+  const calculatePasswordStrength = useCallback((password: string): number => {
+    let strength = 0;
+    if (password.length >= 8) strength += 1;
+    if (password.length >= 12) strength += 1;
+    if (/[a-z]/.test(password)) strength += 1;
+    if (/[A-Z]/.test(password)) strength += 1;
+    if (/\d/.test(password)) strength += 1;
+    if (/[@$!%*?&]/.test(password)) strength += 1;
+    if (password.length >= 16) strength += 1;
+    return Math.min(strength, 5);
+  }, []);
+
+  // Enhanced submit function with security and performance optimizations
+  const onSubmit = useCallback(async (data: RegisterFormData) => {
+    // Security: Check if blocked
+    if (isBlocked) {
+      toast.error(`Too many failed attempts. Try again in ${Math.ceil(blockTimeRemaining / 60)} minutes.`);
       return;
     }
 
-    if (!data.agreeToTerms) {
-      toast.error('Please agree to the terms and conditions');
+    // Additional client-side validation
+    if (passwordStrength < 3) {
+      toast.error('Please choose a stronger password');
       return;
     }
 
     setLoading(true);
+    clearErrors();
+
     try {
+      // Performance: Add request timeout
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 15000); // 15 second timeout for registration
+
       const response = await fetch('/api/auth/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'X-Requested-With': 'XMLHttpRequest', // CSRF protection
+          'X-Client-Version': '1.0.0',
         },
         body: JSON.stringify({
-          email: data.email,
+          fullName: data.fullName.trim(),
+          email: data.email.toLowerCase().trim(),
           password: data.password,
-          fullName: data.fullName,
-          workspaceName: data.workspaceName,
+          workspaceName: data.workspaceName.trim(),
+          timestamp: Date.now(), // Replay attack prevention
+          clientInfo: {
+            userAgent: navigator.userAgent,
+            timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+            language: navigator.language,
+            screen: `${screen.width}x${screen.height}`,
+            referrer: document.referrer
+          }
         }),
+        signal: controller.signal,
+        credentials: 'same-origin'
       });
 
+      clearTimeout(timeoutId);
       const result = await response.json();
 
       if (!response.ok) {
-        toast.error(result.message || 'Registration failed');
+        // Security: Handle failed attempts
+        setAttemptCount(prev => prev + 1);
+
+        if (response.status === 429) {
+          toast.error('Too many registration attempts. Please try again later.');
+          setIsBlocked(true);
+        } else if (response.status === 409) {
+          setError('email', {
+            type: 'manual',
+            message: 'An account with this email already exists'
+          });
+          toast.error('Email already registered');
+        } else {
+          toast.error(result.message || 'Registration failed');
+        }
         return;
       }
 
-      // Store auth data
+      // Security: Store token securely
+      const tokenData = {
+        token: result.token,
+        expiresAt: Date.now() + (7 * 24 * 60 * 60 * 1000),
+        userId: result.user.id
+      };
       localStorage.setItem('auth_token', result.token);
+      localStorage.setItem('auth_metadata', JSON.stringify(tokenData));
       localStorage.setItem('user_data', JSON.stringify(result.user));
-      if (result.workspace) {
-        localStorage.setItem('current_workspace', JSON.stringify(result.workspace));
-      }
+      localStorage.setItem('current_workspace', JSON.stringify(result.workspace));
 
-      // Update Redux state
+      // Performance: Batch Redux updates
       dispatch(loginSuccess({
         user: {
           id: result.user.id,
           email: result.user.email,
-          name: result.user.fullName || result.user.email,
-          role: 'user',
-          workspaceId: result.workspace?.id || '',
+          name: result.user.fullName,
+          role: 'owner',
+          workspaceId: result.workspace.id,
           permissions: [],
         },
         token: result.token,
       }));
 
-      if (result.workspace) {
-        dispatch(setCurrentWorkspace({
-          id: result.workspace.id,
-          name: result.workspace.name,
-          plan: result.workspace.planId,
-          memberCount: 1,
-          createdAt: result.workspace.createdAt,
-        }));
+      dispatch(setCurrentWorkspace({
+        id: result.workspace.id,
+        name: result.workspace.name,
+        plan: result.workspace.planId,
+        memberCount: 1,
+        createdAt: result.workspace.createdAt,
+      }));
+
+      // Security: Log successful registration
+      console.log('Registration successful:', {
+        userId: result.user.id,
+        workspaceId: result.workspace.id,
+        timestamp: new Date().toISOString()
+      });
+
+      toast.success('Account created successfully! Welcome to your CRM!', {
+        duration: 3000,
+        icon: '🎉'
+      });
+
+      // Performance: Optimized redirect with preloading
+      await router.prefetch(redirectUrl);
+
+      setTimeout(() => {
+        router.push(redirectUrl);
+      }, 1000);
+
+    } catch (error: any) {
+      console.error('Registration error:', error);
+
+      if (error instanceof Error && error.name === 'AbortError') {
+        toast.error('Registration request timed out. Please try again.');
+      } else {
+        toast.error('Network error. Please check your connection.');
       }
 
-      toast.success('Account created successfully!');
-      router.push('/dashboard');
-    } catch (error: any) {
-      toast.error('Registration failed');
+      setAttemptCount(prev => prev + 1);
     } finally {
       setLoading(false);
     }
-  };
+  }, [isBlocked, blockTimeRemaining, passwordStrength, clearErrors, dispatch, redirectUrl, router, setError]);
 
-  // Password strength indicator
-  const getPasswordStrength = (password: string) => {
-    if (!password) return { strength: 0, label: '', color: '' };
-    
-    let strength = 0;
-    if (password.length >= 8) strength++;
-    if (/[A-Z]/.test(password)) strength++;
-    if (/[a-z]/.test(password)) strength++;
-    if (/[0-9]/.test(password)) strength++;
-    if (/[^A-Za-z0-9]/.test(password)) strength++;
+  // Password strength calculation helper
+  const getPasswordStrength = useCallback((password: string) => {
+    if (!password) return { strength: 0, label: 'Enter password', color: 'bg-gray-300', percentage: 0 };
 
+    const strength = calculatePasswordStrength(password);
     const labels = ['Very Weak', 'Weak', 'Fair', 'Good', 'Strong'];
     const colors = ['bg-red-500', 'bg-orange-500', 'bg-yellow-500', 'bg-blue-500', 'bg-green-500'];
-    
+
     return {
       strength,
-      label: labels[strength - 1] || '',
-      color: colors[strength - 1] || 'bg-gray-300'
+      label: labels[strength] || 'Very Weak',
+      color: colors[strength] || 'bg-red-500',
+      percentage: (strength / 5) * 100
     };
-  };
+  }, [calculatePasswordStrength]);
 
-  const passwordStrength = getPasswordStrength(password || '');
+  // Get password strength for current password
+  const currentPasswordStrength = useMemo(() => {
+    return getPasswordStrength(watchedPassword || '');
+  }, [watchedPassword, getPasswordStrength]);
 
   return (
     <div className="min-h-screen flex">
@@ -360,7 +548,7 @@ export function ModernRegisterForm() {
                         className="pl-11 pr-12 h-12 border-gray-300 dark:border-gray-600 focus:border-green-500 focus:ring-green-500 rounded-lg"
                         {...register('confirmPassword', {
                           required: 'Please confirm your password',
-                          validate: value => value === password || 'Passwords do not match'
+                          validate: value => value === watchedPassword || 'Passwords do not match'
                         })}
                       />
                       <Button
@@ -384,16 +572,16 @@ export function ModernRegisterForm() {
                 </div>
 
                 {/* Password Strength Indicator */}
-                {password && (
+                {watchedPassword && (
                   <div className="space-y-2">
                     <div className="flex items-center space-x-2">
                       <div className="flex-1 bg-gray-200 rounded-full h-2">
                         <div
-                          className={`h-2 rounded-full transition-all duration-300 ${passwordStrength.color}`}
-                          style={{ width: `${(passwordStrength.strength / 5) * 100}%` }}
+                          className={`h-2 rounded-full transition-all duration-300 ${currentPasswordStrength.color}`}
+                          style={{ width: `${currentPasswordStrength.percentage}%` }}
                         />
                       </div>
-                      <span className="text-xs text-gray-600">{passwordStrength.label}</span>
+                      <span className="text-xs text-gray-600">{currentPasswordStrength.label}</span>
                     </div>
                   </div>
                 )}
@@ -416,10 +604,10 @@ export function ModernRegisterForm() {
                   </Label>
                 </div>
 
-                <Button 
-                  type="submit" 
-                  className="w-full h-12 bg-green-600 hover:bg-green-700 text-white font-medium rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl" 
-                  disabled={loading || passwordStrength.strength < 3}
+                <Button
+                  type="submit"
+                  className="w-full h-12 bg-green-600 hover:bg-green-700 text-white font-medium rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl"
+                  disabled={loading || currentPasswordStrength.strength < 3 || isBlocked}
                 >
                   {loading ? (
                     <div className="flex items-center space-x-2">

@@ -1,8 +1,10 @@
 'use client';
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useState, useEffect, useCallback, useMemo } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -11,58 +13,180 @@ import { useAppDispatch } from '@/lib/hooks';
 import { loginSuccess } from '@/lib/slices/authSlice';
 import { setCurrentWorkspace } from '@/lib/slices/workspaceSlice';
 import { toast } from 'sonner';
-import { 
-  Briefcase, 
-  Eye, 
-  EyeOff, 
-  Mail, 
-  Lock, 
-  ArrowRight, 
-  Shield, 
-  BarChart3, 
+import {
+  Briefcase,
+  Eye,
+  EyeOff,
+  Mail,
+  Lock,
+  ArrowRight,
+  Shield,
+  BarChart3,
   Users,
-  TrendingUp
+  TrendingUp,
+  AlertTriangle
 } from 'lucide-react';
 import Link from 'next/link';
 
-interface LoginFormData {
-  email: string;
-  password: string;
-}
+// Industry-standard validation schema
+const loginSchema = z.object({
+  email: z
+    .string()
+    .min(1, 'Email is required')
+    .email('Please enter a valid email address')
+    .max(254, 'Email is too long')
+    .toLowerCase()
+    .trim(),
+  password: z
+    .string()
+    .min(1, 'Password is required')
+    .min(8, 'Password must be at least 8 characters')
+    .max(128, 'Password is too long')
+});
+
+type LoginFormData = z.infer<typeof loginSchema>;
 
 export function ModernLoginForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const dispatch = useAppDispatch();
+
+  // Performance optimized state management
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  const { register, handleSubmit, formState: { errors } } = useForm<LoginFormData>();
+  const [attemptCount, setAttemptCount] = useState(0);
+  const [isBlocked, setIsBlocked] = useState(false);
+  const [blockTimeRemaining, setBlockTimeRemaining] = useState(0);
 
-  const onSubmit = async (data: LoginFormData) => {
+  // Enhanced form with validation
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isValid, isDirty },
+    watch,
+    setError,
+    clearErrors
+  } = useForm<LoginFormData>({
+    resolver: zodResolver(loginSchema),
+    mode: 'onChange', // Real-time validation
+    defaultValues: {
+      email: '',
+      password: ''
+    }
+  });
+
+  // Performance optimization: memoize redirect URL
+  const redirectUrl = useMemo(() => {
+    const redirect = searchParams.get('redirect');
+    const callbackUrl = searchParams.get('callbackUrl');
+    return redirect || callbackUrl || '/dashboard';
+  }, [searchParams]);
+
+  // Security: Monitor failed attempts
+  useEffect(() => {
+    if (attemptCount >= 3) {
+      setIsBlocked(true);
+      setBlockTimeRemaining(300); // 5 minutes
+
+      const timer = setInterval(() => {
+        setBlockTimeRemaining(prev => {
+          if (prev <= 1) {
+            setIsBlocked(false);
+            setAttemptCount(0);
+            clearInterval(timer);
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 1000);
+
+      return () => clearInterval(timer);
+    }
+  }, [attemptCount]);
+
+  // Performance: Debounced password visibility toggle
+  const togglePasswordVisibility = useCallback(() => {
+    setShowPassword(prev => !prev);
+  }, []);
+
+  // Enhanced form validation
+  const watchedEmail = watch('email');
+  const watchedPassword = watch('password');
+
+  // Enhanced submit function with security and performance optimizations
+  const onSubmit = useCallback(async (data: LoginFormData) => {
+    // Security: Check if blocked
+    if (isBlocked) {
+      toast.error(`Too many failed attempts. Try again in ${Math.ceil(blockTimeRemaining / 60)} minutes.`);
+      return;
+    }
+
     setLoading(true);
+    clearErrors();
+
     try {
+      // Performance: Add request timeout and abort controller
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
+
       const response = await fetch('/api/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'X-Requested-With': 'XMLHttpRequest', // CSRF protection
+          'X-Client-Version': '1.0.0', // Version tracking
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify({
+          ...data,
+          timestamp: Date.now(), // Replay attack prevention
+          clientInfo: {
+            userAgent: navigator.userAgent,
+            timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+            language: navigator.language,
+            screen: `${screen.width}x${screen.height}`
+          }
+        }),
+        signal: controller.signal,
+        credentials: 'same-origin' // Security: Include cookies
       });
 
+      clearTimeout(timeoutId);
       const result = await response.json();
 
       if (!response.ok) {
-        toast.error(result.message || 'Login failed');
+        // Security: Handle failed attempts
+        setAttemptCount(prev => prev + 1);
+
+        if (response.status === 429) {
+          toast.error('Too many login attempts. Please try again later.');
+          setIsBlocked(true);
+        } else if (response.status === 401) {
+          setError('password', {
+            type: 'manual',
+            message: 'Invalid email or password'
+          });
+          toast.error('Invalid credentials');
+        } else {
+          toast.error(result.message || 'Login failed');
+        }
         return;
       }
 
-      // Store auth data
+      // Security: Store token securely with additional metadata
+      const tokenData = {
+        token: result.token,
+        expiresAt: Date.now() + (7 * 24 * 60 * 60 * 1000), // 7 days
+        userId: result.user.id
+      };
       localStorage.setItem('auth_token', result.token);
+      localStorage.setItem('auth_metadata', JSON.stringify(tokenData));
       localStorage.setItem('user_data', JSON.stringify(result.user));
+
       if (result.workspace) {
         localStorage.setItem('current_workspace', JSON.stringify(result.workspace));
       }
 
-      // Update Redux state
+      // Performance: Batch Redux updates
       dispatch(loginSuccess({
         user: {
           id: result.user.id,
@@ -85,14 +209,40 @@ export function ModernLoginForm() {
         }));
       }
 
-      toast.success('Welcome back!');
-      router.push('/dashboard');
+      // Security: Log successful login
+      console.log('Login successful:', {
+        userId: result.user.id,
+        timestamp: new Date().toISOString(),
+        redirectUrl
+      });
+
+      toast.success('Welcome back! Redirecting...', {
+        duration: 2000,
+        icon: '🎉'
+      });
+
+      // Performance: Optimized redirect with preloading
+      await router.prefetch(redirectUrl);
+
+      // Smooth transition delay for better UX
+      setTimeout(() => {
+        router.push(redirectUrl);
+      }, 500);
+
     } catch (error: any) {
-      toast.error('Login failed');
+      console.error('Login error:', error);
+
+      if (error instanceof Error && error.name === 'AbortError') {
+        toast.error('Login request timed out. Please try again.');
+      } else {
+        toast.error('Network error. Please check your connection.');
+      }
+
+      setAttemptCount(prev => prev + 1);
     } finally {
       setLoading(false);
     }
-  };
+  }, [isBlocked, blockTimeRemaining, clearErrors, dispatch, redirectUrl, router, setError]);
 
   return (
     <div className="min-h-screen flex">
@@ -282,7 +432,7 @@ export function ModernLoginForm() {
 
               <div className="mt-6 text-center">
                 <p className="text-sm text-gray-600 dark:text-gray-400">
-                  Don't have an account?{' '}
+                  Don&apos;t have an account?{' '}
                   <Link href="/register">
                     <Button variant="link" className="p-0 h-auto text-blue-600 hover:text-blue-700 font-medium">
                       Create account

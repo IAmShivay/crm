@@ -77,29 +77,84 @@ async function seedDatabase() {
     await Plan.insertMany(plans);
     console.log(`✅ Created ${plans.length} plans`);
 
-    // 2. Create Admin User
+    // 2. Create Admin User with Enhanced Security
     console.log('👤 Creating admin user...');
-    const adminPassword = await hashPassword('admin123');
-    const adminUser = new User({
+    const adminPassword = process.env.ADMIN_PASSWORD || 'Admin123!@#';
+    const hashedAdminPassword = await hashPassword(adminPassword);
+
+    const adminUser = new (User as any)({
       email: 'admin@crm.com',
-      password: adminPassword,
+      passwordHash: hashedAdminPassword,
       fullName: 'System Administrator',
       timezone: 'UTC',
-      emailConfirmed: true,
-      emailConfirmedAt: new Date()
+      isEmailVerified: true,
+      emailVerifiedAt: new Date(),
+      lastSignInAt: new Date(),
+      createdAt: new Date(),
+      updatedAt: new Date()
     });
     await adminUser.save();
-    console.log('✅ Created admin user: admin@crm.com / admin123');
+    console.log('✅ Created admin user: admin@crm.com');
 
-    // 3. Create Admin Workspace
+    // Create additional test users for comprehensive testing
+    console.log('👥 Creating test users...');
+
+    const testUsers = [
+      {
+        email: 'manager@crm.com',
+        fullName: 'Sales Manager',
+        password: 'Manager123!@#'
+      },
+      {
+        email: 'sales@crm.com',
+        fullName: 'Sales Representative',
+        password: 'Sales123!@#'
+      },
+      {
+        email: 'demo@crm.com',
+        fullName: 'Demo User',
+        password: 'Demo123!@#'
+      }
+    ];
+
+    const createdTestUsers = [];
+    for (const userData of testUsers) {
+      const hashedPassword = await hashPassword(userData.password);
+      const user = new (User as any)({
+        email: userData.email,
+        passwordHash: hashedPassword,
+        fullName: userData.fullName,
+        timezone: 'UTC',
+        isEmailVerified: true,
+        emailVerifiedAt: new Date(),
+        createdAt: new Date(),
+        updatedAt: new Date()
+      });
+      await user.save();
+      createdTestUsers.push(user);
+      console.log(`✅ Test user created: ${user.email}`);
+    }
+
+    // 3. Create Admin Workspace with Enhanced Configuration
     console.log('🏢 Creating admin workspace...');
-    const adminWorkspace = new Workspace({
+    const adminWorkspace = new (Workspace as any)({
       name: 'Admin Workspace',
       slug: 'admin-workspace',
       planId: 'enterprise',
-      subscriptionStatus: 'active'
+      subscriptionStatus: 'active',
+      settings: {
+        allowInvitations: true,
+        requireEmailVerification: true,
+        maxUsers: 100,
+        enableAuditLog: true,
+        enableTwoFactor: false,
+        sessionTimeout: 480 // 8 hours
+      },
+      createdAt: new Date(),
+      updatedAt: new Date()
     });
     await adminWorkspace.save();
+    console.log('✅ Created admin workspace:', adminWorkspace.name);
 
     // 4. Create Default Roles
     console.log('🔐 Creating default roles...');
@@ -145,13 +200,15 @@ async function seedDatabase() {
       }
     ];
 
-    const createdRoles = await Role.insertMany(roles);
+    const createdRoles = await (Role as any).insertMany(roles);
     const ownerRole = createdRoles.find((role: any) => role.name === 'Owner');
+    const managerRole = createdRoles.find((role: any) => role.name === 'Manager');
+    const salesRole = createdRoles.find((role: any) => role.name === 'Sales Rep');
     console.log(`✅ Created ${roles.length} roles`);
 
     // 5. Add Admin as Workspace Owner
     console.log('👥 Adding admin to workspace...');
-    const adminMember = new WorkspaceMember({
+    const adminMember = new (WorkspaceMember as any)({
       workspaceId: adminWorkspace._id,
       userId: adminUser._id,
       roleId: ownerRole!._id,
@@ -159,26 +216,63 @@ async function seedDatabase() {
       joinedAt: new Date()
     });
     await adminMember.save();
+    console.log('✅ Added admin as workspace owner');
+
+    // Add test users to workspace with appropriate roles
+    console.log('👥 Adding test users to workspace...');
+    const userRoleMapping = [
+      { user: createdTestUsers[0], role: managerRole }, // Sales Manager
+      { user: createdTestUsers[1], role: salesRole },   // Sales Rep
+      { user: createdTestUsers[2], role: salesRole }    // Demo User
+    ];
+
+    for (const mapping of userRoleMapping) {
+      if (mapping.user && mapping.role) {
+        const member = new (WorkspaceMember as any)({
+          workspaceId: adminWorkspace._id,
+          userId: mapping.user._id,
+          roleId: mapping.role._id,
+          status: 'active',
+          joinedAt: new Date()
+        });
+        await member.save();
+        console.log(`✅ Added ${mapping.user.email} as ${mapping.role.name}`);
+      }
+    }
 
     // 6. Create Subscription for Admin Workspace
     console.log('💳 Creating admin subscription...');
-    const adminSubscription = new Subscription({
+    const adminSubscription = new (Subscription as any)({
       workspaceId: adminWorkspace._id,
       planId: 'enterprise',
       status: 'active',
       currentPeriodStart: new Date(),
       currentPeriodEnd: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000), // 1 year
-      cancelAtPeriodEnd: false
+      cancelAtPeriodEnd: false,
+      createdAt: new Date(),
+      updatedAt: new Date()
     });
     await adminSubscription.save();
 
     console.log('🎉 Database seeding completed successfully!');
     console.log('\n📋 Seeded Data Summary:');
     console.log(`- Plans: ${plans.length}`);
-    console.log(`- Admin User: admin@crm.com (password: admin123)`);
+    console.log(`- Users: ${1 + createdTestUsers.length} (1 admin + ${createdTestUsers.length} test users)`);
+    console.log(`- Admin User: admin@crm.com (password: ${adminPassword})`);
+    console.log(`- Test Users:`);
+    testUsers.forEach(user => {
+      console.log(`  - ${user.email} (password: ${user.password})`);
+    });
     console.log(`- Admin Workspace: ${adminWorkspace.name} (${adminWorkspace.slug})`);
     console.log(`- Roles: ${roles.length}`);
+    console.log(`- Workspace Members: ${1 + createdTestUsers.length}`);
     console.log(`- Subscription: Enterprise plan for admin workspace`);
+    console.log('\n🔐 Security Features:');
+    console.log('- All passwords are bcrypt hashed with 12 rounds');
+    console.log('- Email verification enabled');
+    console.log('- Audit logging enabled');
+    console.log('- Role-based permissions configured');
+    console.log('\n🚀 Ready for development and testing!');
     
   } catch (error) {
     console.error('❌ Seeding failed:', error);

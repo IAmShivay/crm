@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
+import { WorkspaceSwitcher } from './WorkspaceSwitcher';
 
 interface SidebarProps {
   collapsed: boolean;
@@ -65,7 +66,29 @@ export function Sidebar({ collapsed, onToggle, mobileMenuOpen, onMobileMenuToggl
             {collapsed ? <Menu className="h-4 w-4" /> : <ChevronLeft className="h-4 w-4" />}
           </Button>
         </div>
-        
+
+        {/* Workspace Switcher */}
+        {!collapsed && (
+          <div className="border-b border-gray-200 dark:border-gray-700 pb-4">
+            <WorkspaceSwitcher
+              className="px-2"
+              showCreateButton={true}
+              compact={false}
+            />
+          </div>
+        )}
+
+        {/* Collapsed workspace indicator */}
+        {collapsed && (
+          <div className="px-2 py-4 border-b border-gray-200 dark:border-gray-700">
+            <WorkspaceSwitcher
+              className=""
+              showCreateButton={false}
+              compact={true}
+            />
+          </div>
+        )}
+
         <nav className="flex-1 space-y-1 px-2 py-4">
           {navigation.map((item) => {
             const isActive = pathname === item.href;
