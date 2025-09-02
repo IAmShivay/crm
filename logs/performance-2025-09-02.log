@@ -2553,3 +2553,2971 @@
   level: 'http',
   message: 'GET http://localhost:3000/api/workspaces 200 - 322ms'
 }
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:27:54.715Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  endpoint: 'api',
+  identifier: 'unknown',
+  config: { windowMs: 60000, maxRequests: 100 },
+  level: 'debug',
+  message: 'Created new rate limit entry for api:unknown',
+  timestamp: '2025-09-01T23:27:54.722Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  remaining: 99,
+  requestCount: 1,
+  maxRequests: 100,
+  processingTime: 3,
+  level: 'debug',
+  message: 'Rate limit check passed for unknown on api',
+  timestamp: '2025-09-01T23:27:54.725Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  operation: 'Get workspaces',
+  duration: 4587,
+  timestamp: '2025-09-01T23:27:59.308Z',
+  userId: '68b5f978932ddff74ab75f56',
+  workspaceCount: 1,
+  level: 'performance',
+  message: 'PERFORMANCE: Get workspaces took 4587ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-01T23:27:59.309Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  statusCode: 200,
+  duration: 4601,
+  timestamp: '2025-09-01T23:27:59.315Z',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'http',
+  message: 'GET http://localhost:3000/api/workspaces 200 - 4601ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  operation: 'Slow API call: GET http://localhost:3000/api/workspaces',
+  duration: 4601,
+  timestamp: '2025-09-01T23:27:59.316Z',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  statusCode: 200,
+  level: 'performance',
+  message: 'PERFORMANCE: Slow API call: GET http://localhost:3000/api/workspaces took 4601ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:27:59.356Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  remaining: 98,
+  requestCount: 2,
+  maxRequests: 100,
+  processingTime: 0,
+  level: 'debug',
+  message: 'Rate limit check passed for unknown on api',
+  timestamp: '2025-09-01T23:27:59.358Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  operation: 'Get workspaces',
+  duration: 5457,
+  timestamp: '2025-09-01T23:28:04.815Z',
+  userId: '68b5f978932ddff74ab75f56',
+  workspaceCount: 1,
+  level: 'performance',
+  message: 'PERFORMANCE: Get workspaces took 5457ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-01T23:28:04.816Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  statusCode: 200,
+  duration: 5461,
+  timestamp: '2025-09-01T23:28:04.818Z',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'http',
+  message: 'GET http://localhost:3000/api/workspaces 200 - 5461ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  operation: 'Slow API call: GET http://localhost:3000/api/workspaces',
+  duration: 5461,
+  timestamp: '2025-09-01T23:28:04.819Z',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  statusCode: 200,
+  level: 'performance',
+  message: 'PERFORMANCE: Slow API call: GET http://localhost:3000/api/workspaces took 5461ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:28:05.975Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  remaining: 97,
+  requestCount: 3,
+  maxRequests: 100,
+  processingTime: 0,
+  level: 'debug',
+  message: 'Rate limit check passed for unknown on api',
+  timestamp: '2025-09-01T23:28:05.976Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  operation: 'Get workspaces',
+  duration: 2091,
+  timestamp: '2025-09-01T23:28:08.067Z',
+  userId: '68b5f978932ddff74ab75f56',
+  workspaceCount: 1,
+  level: 'performance',
+  message: 'PERFORMANCE: Get workspaces took 2091ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-01T23:28:08.067Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  statusCode: 200,
+  duration: 2093,
+  timestamp: '2025-09-01T23:28:08.068Z',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'http',
+  message: 'GET http://localhost:3000/api/workspaces 200 - 2093ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  operation: 'Slow API call: GET http://localhost:3000/api/workspaces',
+  duration: 2093,
+  timestamp: '2025-09-01T23:28:08.069Z',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  statusCode: 200,
+  level: 'performance',
+  message: 'PERFORMANCE: Slow API call: GET http://localhost:3000/api/workspaces took 2093ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:28:08.086Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  remaining: 96,
+  requestCount: 4,
+  maxRequests: 100,
+  processingTime: 0,
+  level: 'debug',
+  message: 'Rate limit check passed for unknown on api',
+  timestamp: '2025-09-01T23:28:08.087Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  operation: 'Get workspaces',
+  duration: 1927,
+  timestamp: '2025-09-01T23:28:10.014Z',
+  userId: '68b5f978932ddff74ab75f56',
+  workspaceCount: 1,
+  level: 'performance',
+  message: 'PERFORMANCE: Get workspaces took 1927ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-01T23:28:10.014Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  statusCode: 200,
+  duration: 1929,
+  timestamp: '2025-09-01T23:28:10.015Z',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'http',
+  message: 'GET http://localhost:3000/api/workspaces 200 - 1929ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  operation: 'Slow API call: GET http://localhost:3000/api/workspaces',
+  duration: 1929,
+  timestamp: '2025-09-01T23:28:10.016Z',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  statusCode: 200,
+  level: 'performance',
+  message: 'PERFORMANCE: Slow API call: GET http://localhost:3000/api/workspaces took 1929ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:30:20.544Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  endpoint: 'api',
+  identifier: 'unknown',
+  config: { windowMs: 60000, maxRequests: 100 },
+  level: 'debug',
+  message: 'Created new rate limit entry for api:unknown',
+  timestamp: '2025-09-01T23:30:20.550Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  remaining: 99,
+  requestCount: 1,
+  maxRequests: 100,
+  processingTime: 2,
+  level: 'debug',
+  message: 'Rate limit check passed for unknown on api',
+  timestamp: '2025-09-01T23:30:20.553Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  operation: 'Get workspaces',
+  duration: 533,
+  timestamp: '2025-09-01T23:30:21.083Z',
+  userId: '68b5f978932ddff74ab75f56',
+  workspaceCount: 1,
+  level: 'performance',
+  message: 'PERFORMANCE: Get workspaces took 533ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-01T23:30:21.084Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  statusCode: 200,
+  duration: 544,
+  timestamp: '2025-09-01T23:30:21.088Z',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'http',
+  message: 'GET http://localhost:3000/api/workspaces 200 - 544ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:30:21.122Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  remaining: 98,
+  requestCount: 2,
+  maxRequests: 100,
+  processingTime: 0,
+  level: 'debug',
+  message: 'Rate limit check passed for unknown on api',
+  timestamp: '2025-09-01T23:30:21.124Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  operation: 'Get workspaces',
+  duration: 1081,
+  timestamp: '2025-09-01T23:30:22.205Z',
+  userId: '68b5f978932ddff74ab75f56',
+  workspaceCount: 1,
+  level: 'performance',
+  message: 'PERFORMANCE: Get workspaces took 1081ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-01T23:30:22.206Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  statusCode: 200,
+  duration: 1086,
+  timestamp: '2025-09-01T23:30:22.208Z',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'http',
+  message: 'GET http://localhost:3000/api/workspaces 200 - 1086ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  operation: 'Slow API call: GET http://localhost:3000/api/workspaces',
+  duration: 1086,
+  timestamp: '2025-09-01T23:30:22.208Z',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  statusCode: 200,
+  level: 'performance',
+  message: 'PERFORMANCE: Slow API call: GET http://localhost:3000/api/workspaces took 1086ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:30:58.602Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  endpoint: 'api',
+  identifier: 'unknown',
+  config: { windowMs: 60000, maxRequests: 100 },
+  level: 'debug',
+  message: 'Created new rate limit entry for api:unknown',
+  timestamp: '2025-09-01T23:30:58.607Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  remaining: 99,
+  requestCount: 1,
+  maxRequests: 100,
+  processingTime: 1,
+  level: 'debug',
+  message: 'Rate limit check passed for unknown on api',
+  timestamp: '2025-09-01T23:30:58.609Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  operation: 'Get workspaces',
+  duration: 471,
+  timestamp: '2025-09-01T23:30:59.077Z',
+  userId: '68b5f978932ddff74ab75f56',
+  workspaceCount: 1,
+  level: 'performance',
+  message: 'PERFORMANCE: Get workspaces took 471ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-01T23:30:59.078Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  statusCode: 200,
+  duration: 478,
+  timestamp: '2025-09-01T23:30:59.080Z',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'http',
+  message: 'GET http://localhost:3000/api/workspaces 200 - 478ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:30:59.136Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  remaining: 98,
+  requestCount: 2,
+  maxRequests: 100,
+  processingTime: 0,
+  level: 'debug',
+  message: 'Rate limit check passed for unknown on api',
+  timestamp: '2025-09-01T23:30:59.137Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  operation: 'Get workspaces',
+  duration: 385,
+  timestamp: '2025-09-01T23:30:59.522Z',
+  userId: '68b5f978932ddff74ab75f56',
+  workspaceCount: 1,
+  level: 'performance',
+  message: 'PERFORMANCE: Get workspaces took 385ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-01T23:30:59.522Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  statusCode: 200,
+  duration: 387,
+  timestamp: '2025-09-01T23:30:59.523Z',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'http',
+  message: 'GET http://localhost:3000/api/workspaces 200 - 387ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:37:34.018Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  endpoint: 'api',
+  identifier: 'unknown',
+  config: { windowMs: 60000, maxRequests: 100 },
+  level: 'debug',
+  message: 'Created new rate limit entry for api:unknown',
+  timestamp: '2025-09-01T23:37:34.022Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  remaining: 99,
+  requestCount: 1,
+  maxRequests: 100,
+  processingTime: 1,
+  level: 'debug',
+  message: 'Rate limit check passed for unknown on api',
+  timestamp: '2025-09-01T23:37:34.023Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  operation: 'Get workspaces',
+  duration: 434,
+  timestamp: '2025-09-01T23:37:34.455Z',
+  userId: '68b5f978932ddff74ab75f56',
+  workspaceCount: 1,
+  level: 'performance',
+  message: 'PERFORMANCE: Get workspaces took 434ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-01T23:37:34.455Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  statusCode: 200,
+  duration: 441,
+  timestamp: '2025-09-01T23:37:34.459Z',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'http',
+  message: 'GET http://localhost:3000/api/workspaces 200 - 441ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:38:35.188Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  endpoint: 'api',
+  identifier: 'unknown',
+  config: { windowMs: 60000, maxRequests: 100 },
+  level: 'debug',
+  message: 'Created new rate limit entry for api:unknown',
+  timestamp: '2025-09-01T23:38:35.907Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  remaining: 99,
+  requestCount: 1,
+  maxRequests: 100,
+  processingTime: 1,
+  level: 'debug',
+  message: 'Rate limit check passed for unknown on api',
+  timestamp: '2025-09-01T23:38:35.909Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  operation: 'Get workspaces',
+  duration: 2585,
+  timestamp: '2025-09-01T23:38:37.780Z',
+  userId: '68b5f978932ddff74ab75f56',
+  workspaceCount: 1,
+  level: 'performance',
+  message: 'PERFORMANCE: Get workspaces took 2585ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-01T23:38:37.781Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  statusCode: 200,
+  duration: 2596,
+  timestamp: '2025-09-01T23:38:37.784Z',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'http',
+  message: 'GET http://localhost:3000/api/workspaces 200 - 2596ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  operation: 'Slow API call: GET http://localhost:3000/api/workspaces',
+  duration: 2596,
+  timestamp: '2025-09-01T23:38:37.785Z',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  statusCode: 200,
+  level: 'performance',
+  message: 'PERFORMANCE: Slow API call: GET http://localhost:3000/api/workspaces took 2596ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:38:37.827Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  remaining: 98,
+  requestCount: 2,
+  maxRequests: 100,
+  processingTime: 0,
+  level: 'debug',
+  message: 'Rate limit check passed for unknown on api',
+  timestamp: '2025-09-01T23:38:37.828Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  operation: 'Get workspaces',
+  duration: 429,
+  timestamp: '2025-09-01T23:38:38.257Z',
+  userId: '68b5f978932ddff74ab75f56',
+  workspaceCount: 1,
+  level: 'performance',
+  message: 'PERFORMANCE: Get workspaces took 429ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-01T23:38:38.257Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  statusCode: 200,
+  duration: 431,
+  timestamp: '2025-09-01T23:38:38.258Z',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'http',
+  message: 'GET http://localhost:3000/api/workspaces 200 - 431ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:38:41.362Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  remaining: 97,
+  requestCount: 3,
+  maxRequests: 100,
+  processingTime: 0,
+  level: 'debug',
+  message: 'Rate limit check passed for unknown on api',
+  timestamp: '2025-09-01T23:38:41.365Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  operation: 'Get workspaces',
+  duration: 525,
+  timestamp: '2025-09-01T23:38:41.889Z',
+  userId: '68b5f978932ddff74ab75f56',
+  workspaceCount: 1,
+  level: 'performance',
+  message: 'PERFORMANCE: Get workspaces took 525ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-01T23:38:41.889Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  statusCode: 200,
+  duration: 528,
+  timestamp: '2025-09-01T23:38:41.890Z',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'http',
+  message: 'GET http://localhost:3000/api/workspaces 200 - 528ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:38:41.910Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  remaining: 96,
+  requestCount: 4,
+  maxRequests: 100,
+  processingTime: 0,
+  level: 'debug',
+  message: 'Rate limit check passed for unknown on api',
+  timestamp: '2025-09-01T23:38:41.911Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  operation: 'Get workspaces',
+  duration: 347,
+  timestamp: '2025-09-01T23:38:42.257Z',
+  userId: '68b5f978932ddff74ab75f56',
+  workspaceCount: 1,
+  level: 'performance',
+  message: 'PERFORMANCE: Get workspaces took 347ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-01T23:38:42.257Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  statusCode: 200,
+  duration: 349,
+  timestamp: '2025-09-01T23:38:42.258Z',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'http',
+  message: 'GET http://localhost:3000/api/workspaces 200 - 349ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:38:43.480Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  remaining: 95,
+  requestCount: 5,
+  maxRequests: 100,
+  processingTime: 0,
+  level: 'debug',
+  message: 'Rate limit check passed for unknown on api',
+  timestamp: '2025-09-01T23:38:43.481Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  operation: 'Get workspaces',
+  duration: 486,
+  timestamp: '2025-09-01T23:38:43.967Z',
+  userId: '68b5f978932ddff74ab75f56',
+  workspaceCount: 1,
+  level: 'performance',
+  message: 'PERFORMANCE: Get workspaces took 486ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-01T23:38:43.968Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  statusCode: 200,
+  duration: 489,
+  timestamp: '2025-09-01T23:38:43.969Z',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'http',
+  message: 'GET http://localhost:3000/api/workspaces 200 - 489ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:38:43.992Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  remaining: 94,
+  requestCount: 6,
+  maxRequests: 100,
+  processingTime: 0,
+  level: 'debug',
+  message: 'Rate limit check passed for unknown on api',
+  timestamp: '2025-09-01T23:38:43.994Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  operation: 'Get workspaces',
+  duration: 401,
+  timestamp: '2025-09-01T23:38:44.394Z',
+  userId: '68b5f978932ddff74ab75f56',
+  workspaceCount: 1,
+  level: 'performance',
+  message: 'PERFORMANCE: Get workspaces took 401ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-01T23:38:44.394Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  statusCode: 200,
+  duration: 403,
+  timestamp: '2025-09-01T23:38:44.395Z',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'http',
+  message: 'GET http://localhost:3000/api/workspaces 200 - 403ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:38:48.114Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  remaining: 93,
+  requestCount: 7,
+  maxRequests: 100,
+  processingTime: 0,
+  level: 'debug',
+  message: 'Rate limit check passed for unknown on api',
+  timestamp: '2025-09-01T23:38:48.115Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  operation: 'Get workspaces',
+  duration: 492,
+  timestamp: '2025-09-01T23:38:48.607Z',
+  userId: '68b5f978932ddff74ab75f56',
+  workspaceCount: 1,
+  level: 'performance',
+  message: 'PERFORMANCE: Get workspaces took 492ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-01T23:38:48.607Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  statusCode: 200,
+  duration: 495,
+  timestamp: '2025-09-01T23:38:48.608Z',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'http',
+  message: 'GET http://localhost:3000/api/workspaces 200 - 495ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:38:48.625Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  remaining: 92,
+  requestCount: 8,
+  maxRequests: 100,
+  processingTime: 0,
+  level: 'debug',
+  message: 'Rate limit check passed for unknown on api',
+  timestamp: '2025-09-01T23:38:48.625Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  operation: 'Get workspaces',
+  duration: 497,
+  timestamp: '2025-09-01T23:38:49.122Z',
+  userId: '68b5f978932ddff74ab75f56',
+  workspaceCount: 1,
+  level: 'performance',
+  message: 'PERFORMANCE: Get workspaces took 497ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-01T23:38:49.122Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  statusCode: 200,
+  duration: 499,
+  timestamp: '2025-09-01T23:38:49.123Z',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'http',
+  message: 'GET http://localhost:3000/api/workspaces 200 - 499ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:39:58.860Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  endpoint: 'api',
+  identifier: 'unknown',
+  config: { windowMs: 60000, maxRequests: 100 },
+  level: 'debug',
+  message: 'Created new rate limit entry for api:unknown',
+  timestamp: '2025-09-01T23:39:58.865Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  remaining: 99,
+  requestCount: 1,
+  maxRequests: 100,
+  processingTime: 1,
+  level: 'debug',
+  message: 'Rate limit check passed for unknown on api',
+  timestamp: '2025-09-01T23:39:58.867Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  operation: 'Get workspaces',
+  duration: 444,
+  timestamp: '2025-09-01T23:39:59.309Z',
+  userId: '68b5f978932ddff74ab75f56',
+  workspaceCount: 1,
+  level: 'performance',
+  message: 'PERFORMANCE: Get workspaces took 444ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-01T23:39:59.309Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  statusCode: 200,
+  duration: 451,
+  timestamp: '2025-09-01T23:39:59.311Z',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'http',
+  message: 'GET http://localhost:3000/api/workspaces 200 - 451ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:39:59.370Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  remaining: 98,
+  requestCount: 2,
+  maxRequests: 100,
+  processingTime: 0,
+  level: 'debug',
+  message: 'Rate limit check passed for unknown on api',
+  timestamp: '2025-09-01T23:39:59.372Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  operation: 'Get workspaces',
+  duration: 328,
+  timestamp: '2025-09-01T23:39:59.699Z',
+  userId: '68b5f978932ddff74ab75f56',
+  workspaceCount: 1,
+  level: 'performance',
+  message: 'PERFORMANCE: Get workspaces took 328ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-01T23:39:59.699Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  statusCode: 200,
+  duration: 331,
+  timestamp: '2025-09-01T23:39:59.701Z',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'http',
+  message: 'GET http://localhost:3000/api/workspaces 200 - 331ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:40:00.791Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  remaining: 97,
+  requestCount: 3,
+  maxRequests: 100,
+  processingTime: 0,
+  level: 'debug',
+  message: 'Rate limit check passed for unknown on api',
+  timestamp: '2025-09-01T23:40:00.792Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  operation: 'Get workspaces',
+  duration: 380,
+  timestamp: '2025-09-01T23:40:01.172Z',
+  userId: '68b5f978932ddff74ab75f56',
+  workspaceCount: 1,
+  level: 'performance',
+  message: 'PERFORMANCE: Get workspaces took 380ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-01T23:40:01.172Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  statusCode: 200,
+  duration: 382,
+  timestamp: '2025-09-01T23:40:01.173Z',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'http',
+  message: 'GET http://localhost:3000/api/workspaces 200 - 382ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:40:01.194Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  remaining: 96,
+  requestCount: 4,
+  maxRequests: 100,
+  processingTime: 0,
+  level: 'debug',
+  message: 'Rate limit check passed for unknown on api',
+  timestamp: '2025-09-01T23:40:01.195Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  operation: 'Get workspaces',
+  duration: 342,
+  timestamp: '2025-09-01T23:40:01.537Z',
+  userId: '68b5f978932ddff74ab75f56',
+  workspaceCount: 1,
+  level: 'performance',
+  message: 'PERFORMANCE: Get workspaces took 342ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-01T23:40:01.538Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  statusCode: 200,
+  duration: 345,
+  timestamp: '2025-09-01T23:40:01.539Z',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'http',
+  message: 'GET http://localhost:3000/api/workspaces 200 - 345ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:43:04.986Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  endpoint: 'api',
+  identifier: 'unknown',
+  config: { windowMs: 60000, maxRequests: 100 },
+  level: 'debug',
+  message: 'Created new rate limit entry for api:unknown',
+  timestamp: '2025-09-01T23:43:04.992Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  remaining: 99,
+  requestCount: 1,
+  maxRequests: 100,
+  processingTime: 2,
+  level: 'debug',
+  message: 'Rate limit check passed for unknown on api',
+  timestamp: '2025-09-01T23:43:04.993Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  operation: 'Get workspaces',
+  duration: 417,
+  timestamp: '2025-09-01T23:43:05.407Z',
+  userId: '68b5f978932ddff74ab75f56',
+  workspaceCount: 1,
+  level: 'performance',
+  message: 'PERFORMANCE: Get workspaces took 417ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-01T23:43:05.408Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  statusCode: 200,
+  duration: 426,
+  timestamp: '2025-09-01T23:43:05.411Z',
+  userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1',
+  ip: 'unknown',
+  level: 'http',
+  message: 'GET http://localhost:3000/api/workspaces 200 - 426ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:43:05.482Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  remaining: 98,
+  requestCount: 2,
+  maxRequests: 100,
+  processingTime: 0,
+  level: 'debug',
+  message: 'Rate limit check passed for unknown on api',
+  timestamp: '2025-09-01T23:43:05.484Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  operation: 'Get workspaces',
+  duration: 344,
+  timestamp: '2025-09-01T23:43:05.827Z',
+  userId: '68b5f978932ddff74ab75f56',
+  workspaceCount: 1,
+  level: 'performance',
+  message: 'PERFORMANCE: Get workspaces took 344ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-01T23:43:05.828Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  statusCode: 200,
+  duration: 347,
+  timestamp: '2025-09-01T23:43:05.829Z',
+  userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1',
+  ip: 'unknown',
+  level: 'http',
+  message: 'GET http://localhost:3000/api/workspaces 200 - 347ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:43:58.759Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  remaining: 97,
+  requestCount: 3,
+  maxRequests: 100,
+  processingTime: 0,
+  level: 'debug',
+  message: 'Rate limit check passed for unknown on api',
+  timestamp: '2025-09-01T23:43:58.772Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  operation: 'Get workspaces',
+  duration: 390,
+  timestamp: '2025-09-01T23:43:59.159Z',
+  userId: '68b5f978932ddff74ab75f56',
+  workspaceCount: 1,
+  level: 'performance',
+  message: 'PERFORMANCE: Get workspaces took 390ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-01T23:43:59.160Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  statusCode: 200,
+  duration: 405,
+  timestamp: '2025-09-01T23:43:59.162Z',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'http',
+  message: 'GET http://localhost:3000/api/workspaces 200 - 405ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:43:59.221Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  remaining: 96,
+  requestCount: 4,
+  maxRequests: 100,
+  processingTime: 0,
+  level: 'debug',
+  message: 'Rate limit check passed for unknown on api',
+  timestamp: '2025-09-01T23:43:59.222Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  operation: 'Get workspaces',
+  duration: 382,
+  timestamp: '2025-09-01T23:43:59.604Z',
+  userId: '68b5f978932ddff74ab75f56',
+  workspaceCount: 1,
+  level: 'performance',
+  message: 'PERFORMANCE: Get workspaces took 382ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-01T23:43:59.604Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  statusCode: 200,
+  duration: 384,
+  timestamp: '2025-09-01T23:43:59.605Z',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'http',
+  message: 'GET http://localhost:3000/api/workspaces 200 - 384ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:46:41.055Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  level: 'debug',
+  message: 'Cleaned 4 old requests for api:unknown',
+  timestamp: '2025-09-01T23:46:41.068Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  remaining: 99,
+  requestCount: 1,
+  maxRequests: 100,
+  processingTime: 2,
+  level: 'debug',
+  message: 'Rate limit check passed for unknown on api',
+  timestamp: '2025-09-01T23:46:41.069Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  operation: 'Get workspaces',
+  duration: 1343,
+  timestamp: '2025-09-01T23:46:42.407Z',
+  userId: '68b5f978932ddff74ab75f56',
+  workspaceCount: 1,
+  level: 'performance',
+  message: 'PERFORMANCE: Get workspaces took 1343ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-01T23:46:42.409Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  statusCode: 200,
+  duration: 1358,
+  timestamp: '2025-09-01T23:46:42.413Z',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'http',
+  message: 'GET http://localhost:3000/api/workspaces 200 - 1358ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  operation: 'Slow API call: GET http://localhost:3000/api/workspaces',
+  duration: 1358,
+  timestamp: '2025-09-01T23:46:42.416Z',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  statusCode: 200,
+  level: 'performance',
+  message: 'PERFORMANCE: Slow API call: GET http://localhost:3000/api/workspaces took 1358ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:46:42.600Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  remaining: 98,
+  requestCount: 2,
+  maxRequests: 100,
+  processingTime: 0,
+  level: 'debug',
+  message: 'Rate limit check passed for unknown on api',
+  timestamp: '2025-09-01T23:46:42.603Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  operation: 'Get workspaces',
+  duration: 419,
+  timestamp: '2025-09-01T23:46:43.022Z',
+  userId: '68b5f978932ddff74ab75f56',
+  workspaceCount: 1,
+  level: 'performance',
+  message: 'PERFORMANCE: Get workspaces took 419ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-01T23:46:43.022Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  statusCode: 200,
+  duration: 424,
+  timestamp: '2025-09-01T23:46:43.024Z',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'http',
+  message: 'GET http://localhost:3000/api/workspaces 200 - 424ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:49:06.969Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  endpoint: 'api',
+  identifier: 'unknown',
+  config: { windowMs: 60000, maxRequests: 100 },
+  level: 'debug',
+  message: 'Created new rate limit entry for api:unknown',
+  timestamp: '2025-09-01T23:49:06.978Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  remaining: 99,
+  requestCount: 1,
+  maxRequests: 100,
+  processingTime: 2,
+  level: 'debug',
+  message: 'Rate limit check passed for unknown on api',
+  timestamp: '2025-09-01T23:49:06.979Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  operation: 'Get workspaces',
+  duration: 454,
+  timestamp: '2025-09-01T23:49:07.430Z',
+  userId: '68b5f978932ddff74ab75f56',
+  workspaceCount: 1,
+  level: 'performance',
+  message: 'PERFORMANCE: Get workspaces took 454ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-01T23:49:07.431Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  statusCode: 200,
+  duration: 465,
+  timestamp: '2025-09-01T23:49:07.433Z',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'http',
+  message: 'GET http://localhost:3000/api/workspaces 200 - 465ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:49:07.483Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  remaining: 98,
+  requestCount: 2,
+  maxRequests: 100,
+  processingTime: 0,
+  level: 'debug',
+  message: 'Rate limit check passed for unknown on api',
+  timestamp: '2025-09-01T23:49:07.486Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  operation: 'Get workspaces',
+  duration: 532,
+  timestamp: '2025-09-01T23:49:08.017Z',
+  userId: '68b5f978932ddff74ab75f56',
+  workspaceCount: 1,
+  level: 'performance',
+  message: 'PERFORMANCE: Get workspaces took 532ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-01T23:49:08.018Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  statusCode: 200,
+  duration: 536,
+  timestamp: '2025-09-01T23:49:08.019Z',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'http',
+  message: 'GET http://localhost:3000/api/workspaces 200 - 536ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:49:28.386Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  remaining: 97,
+  requestCount: 3,
+  maxRequests: 100,
+  processingTime: 0,
+  level: 'debug',
+  message: 'Rate limit check passed for unknown on api',
+  timestamp: '2025-09-01T23:49:28.403Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  operation: 'Get workspaces',
+  duration: 713,
+  timestamp: '2025-09-01T23:49:29.114Z',
+  userId: '68b5f978932ddff74ab75f56',
+  workspaceCount: 1,
+  level: 'performance',
+  message: 'PERFORMANCE: Get workspaces took 713ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-01T23:49:29.117Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  statusCode: 200,
+  duration: 736,
+  timestamp: '2025-09-01T23:49:29.122Z',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'http',
+  message: 'GET http://localhost:3000/api/workspaces 200 - 736ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:49:29.344Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  remaining: 96,
+  requestCount: 4,
+  maxRequests: 100,
+  processingTime: 0,
+  level: 'debug',
+  message: 'Rate limit check passed for unknown on api',
+  timestamp: '2025-09-01T23:49:29.348Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  operation: 'Get workspaces',
+  duration: 887,
+  timestamp: '2025-09-01T23:49:30.235Z',
+  userId: '68b5f978932ddff74ab75f56',
+  workspaceCount: 1,
+  level: 'performance',
+  message: 'PERFORMANCE: Get workspaces took 887ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-01T23:49:30.236Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  statusCode: 200,
+  duration: 894,
+  timestamp: '2025-09-01T23:49:30.239Z',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'http',
+  message: 'GET http://localhost:3000/api/workspaces 200 - 894ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-02T00:02:39.954Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  endpoint: 'api',
+  identifier: 'unknown',
+  config: { windowMs: 60000, maxRequests: 100 },
+  level: 'debug',
+  message: 'Created new rate limit entry for api:unknown',
+  timestamp: '2025-09-02T00:02:39.960Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  remaining: 99,
+  requestCount: 1,
+  maxRequests: 100,
+  processingTime: 2,
+  level: 'debug',
+  message: 'Rate limit check passed for unknown on api',
+  timestamp: '2025-09-02T00:02:39.963Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  operation: 'Get workspaces',
+  duration: 975,
+  timestamp: '2025-09-02T00:02:40.934Z',
+  userId: '68b5f978932ddff74ab75f56',
+  workspaceCount: 1,
+  level: 'performance',
+  message: 'PERFORMANCE: Get workspaces took 975ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-02T00:02:40.936Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  statusCode: 200,
+  duration: 987,
+  timestamp: '2025-09-02T00:02:40.940Z',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'http',
+  message: 'GET http://localhost:3000/api/workspaces 200 - 987ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-02T00:16:10.782Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  endpoint: 'api',
+  identifier: 'unknown',
+  config: { windowMs: 60000, maxRequests: 100 },
+  level: 'debug',
+  message: 'Created new rate limit entry for api:unknown',
+  timestamp: '2025-09-02T00:16:11.391Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  remaining: 99,
+  requestCount: 1,
+  maxRequests: 100,
+  processingTime: 5,
+  level: 'debug',
+  message: 'Rate limit check passed for unknown on api',
+  timestamp: '2025-09-02T00:16:11.395Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  operation: 'Get workspaces',
+  duration: 1918,
+  timestamp: '2025-09-02T00:16:12.708Z',
+  userId: '68b5f978932ddff74ab75f56',
+  workspaceCount: 1,
+  level: 'performance',
+  message: 'PERFORMANCE: Get workspaces took 1918ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-02T00:16:12.723Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  statusCode: 200,
+  duration: 1993,
+  timestamp: '2025-09-02T00:16:12.778Z',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'http',
+  message: 'GET http://localhost:3000/api/workspaces 200 - 1993ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  operation: 'Slow API call: GET http://localhost:3000/api/workspaces',
+  duration: 1993,
+  timestamp: '2025-09-02T00:16:12.816Z',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  statusCode: 200,
+  level: 'performance',
+  message: 'PERFORMANCE: Slow API call: GET http://localhost:3000/api/workspaces took 1993ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-02T00:16:13.168Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  remaining: 98,
+  requestCount: 2,
+  maxRequests: 100,
+  processingTime: 0,
+  level: 'debug',
+  message: 'Rate limit check passed for unknown on api',
+  timestamp: '2025-09-02T00:16:13.191Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  operation: 'Get workspaces',
+  duration: 405,
+  timestamp: '2025-09-02T00:16:13.589Z',
+  userId: '68b5f978932ddff74ab75f56',
+  workspaceCount: 1,
+  level: 'performance',
+  message: 'PERFORMANCE: Get workspaces took 405ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-02T00:16:13.590Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  statusCode: 200,
+  duration: 424,
+  timestamp: '2025-09-02T00:16:13.591Z',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'http',
+  message: 'GET http://localhost:3000/api/workspaces 200 - 424ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-02T00:19:18.092Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  endpoint: 'api',
+  identifier: 'unknown',
+  config: { windowMs: 60000, maxRequests: 100 },
+  level: 'debug',
+  message: 'Created new rate limit entry for api:unknown',
+  timestamp: '2025-09-02T00:19:18.106Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  remaining: 99,
+  requestCount: 1,
+  maxRequests: 100,
+  processingTime: 2,
+  level: 'debug',
+  message: 'Rate limit check passed for unknown on api',
+  timestamp: '2025-09-02T00:19:18.110Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  operation: 'Get workspaces',
+  duration: 966,
+  timestamp: '2025-09-02T00:19:19.069Z',
+  userId: '68b5f978932ddff74ab75f56',
+  workspaceCount: 1,
+  level: 'performance',
+  message: 'PERFORMANCE: Get workspaces took 966ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-02T00:19:19.070Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  statusCode: 200,
+  duration: 988,
+  timestamp: '2025-09-02T00:19:19.080Z',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'http',
+  message: 'GET http://localhost:3000/api/workspaces 200 - 988ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-02T00:19:21.411Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  endpoint: 'api',
+  identifier: 'unknown',
+  config: { windowMs: 60000, maxRequests: 100 },
+  level: 'debug',
+  message: 'Created new rate limit entry for api:unknown',
+  timestamp: '2025-09-02T00:19:21.420Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  remaining: 99,
+  requestCount: 1,
+  maxRequests: 100,
+  processingTime: 6,
+  level: 'debug',
+  message: 'Rate limit check passed for unknown on api',
+  timestamp: '2025-09-02T00:19:21.426Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  operation: 'Get workspaces',
+  duration: 402,
+  timestamp: '2025-09-02T00:19:21.820Z',
+  userId: '68b5f978932ddff74ab75f56',
+  workspaceCount: 1,
+  level: 'performance',
+  message: 'PERFORMANCE: Get workspaces took 402ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-02T00:19:21.821Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  statusCode: 200,
+  duration: 414,
+  timestamp: '2025-09-02T00:19:21.825Z',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'http',
+  message: 'GET http://localhost:3000/api/workspaces 200 - 414ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-02T00:27:34.843Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces/68b5f978932ddff74ab75f58',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces/68b5f978932ddff74ab75f58',
+  timestamp: '2025-09-02T00:27:36.844Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  endpoint: 'api',
+  identifier: 'dev-localhost',
+  config: { windowMs: 60000, maxRequests: 100 },
+  level: 'debug',
+  message: 'Created new rate limit entry for api:dev-localhost',
+  timestamp: '2025-09-02T00:27:36.849Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  remaining: 99,
+  requestCount: 1,
+  maxRequests: 100,
+  processingTime: 1,
+  level: 'debug',
+  message: 'Rate limit check passed for dev-localhost on api',
+  timestamp: '2025-09-02T00:27:36.850Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces/68b5f978932ddff74ab75f58',
+  statusCode: 500,
+  duration: 36,
+  timestamp: '2025-09-02T00:27:36.880Z',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'http',
+  message: 'GET http://localhost:3000/api/workspaces/68b5f978932ddff74ab75f58 500 - 36ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces/68b5f978932ddff74ab75f58',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces/68b5f978932ddff74ab75f58',
+  timestamp: '2025-09-02T00:27:36.993Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  remaining: 98,
+  requestCount: 2,
+  maxRequests: 100,
+  processingTime: 0,
+  level: 'debug',
+  message: 'Rate limit check passed for dev-localhost on api',
+  timestamp: '2025-09-02T00:27:36.996Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces/68b5f978932ddff74ab75f58',
+  statusCode: 500,
+  duration: 9,
+  timestamp: '2025-09-02T00:27:37.001Z',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'http',
+  message: 'GET http://localhost:3000/api/workspaces/68b5f978932ddff74ab75f58 500 - 9ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  remaining: 97,
+  requestCount: 3,
+  maxRequests: 100,
+  processingTime: 0,
+  level: 'debug',
+  message: 'Rate limit check passed for dev-localhost on api',
+  timestamp: '2025-09-02T00:27:38.097Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  operation: 'Get workspaces',
+  duration: 5348,
+  timestamp: '2025-09-02T00:27:40.198Z',
+  userId: '68b5f978932ddff74ab75f56',
+  workspaceCount: 1,
+  level: 'performance',
+  message: 'PERFORMANCE: Get workspaces took 5348ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-02T00:27:40.199Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  statusCode: 200,
+  duration: 5358,
+  timestamp: '2025-09-02T00:27:40.201Z',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'http',
+  message: 'GET http://localhost:3000/api/workspaces 200 - 5358ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  operation: 'Slow API call: GET http://localhost:3000/api/workspaces',
+  duration: 5358,
+  timestamp: '2025-09-02T00:27:40.204Z',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  statusCode: 200,
+  level: 'performance',
+  message: 'PERFORMANCE: Slow API call: GET http://localhost:3000/api/workspaces took 5358ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-02T00:27:40.273Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  endpoint: 'api',
+  identifier: 'dev-localhost',
+  config: { windowMs: 60000, maxRequests: 100 },
+  level: 'debug',
+  message: 'Created new rate limit entry for api:dev-localhost',
+  timestamp: '2025-09-02T00:27:40.279Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  remaining: 99,
+  requestCount: 1,
+  maxRequests: 100,
+  processingTime: 2,
+  level: 'debug',
+  message: 'Rate limit check passed for dev-localhost on api',
+  timestamp: '2025-09-02T00:27:40.280Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces/68b5f978932ddff74ab75f58/roles',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces/68b5f978932ddff74ab75f58/roles',
+  timestamp: '2025-09-02T00:27:40.291Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  remaining: 98,
+  requestCount: 2,
+  maxRequests: 100,
+  processingTime: 0,
+  level: 'debug',
+  message: 'Rate limit check passed for dev-localhost on api',
+  timestamp: '2025-09-02T00:27:40.296Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  operation: 'Get workspaces',
+  duration: 1506,
+  timestamp: '2025-09-02T00:27:41.784Z',
+  userId: '68b5f978932ddff74ab75f56',
+  workspaceCount: 1,
+  level: 'performance',
+  message: 'PERFORMANCE: Get workspaces took 1506ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-02T00:27:41.785Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  statusCode: 200,
+  duration: 1514,
+  timestamp: '2025-09-02T00:27:41.787Z',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'http',
+  message: 'GET http://localhost:3000/api/workspaces 200 - 1514ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  operation: 'Slow API call: GET http://localhost:3000/api/workspaces',
+  duration: 1514,
+  timestamp: '2025-09-02T00:27:41.787Z',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  statusCode: 200,
+  level: 'performance',
+  message: 'PERFORMANCE: Slow API call: GET http://localhost:3000/api/workspaces took 1514ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'roles_viewed',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspace',
+  timestamp: '2025-09-02T00:27:43.385Z',
+  workspaceId: '68b5f978932ddff74ab75f58',
+  roleCount: 4,
+  level: 'info',
+  message: 'AUDIT: roles_viewed on workspace by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'business',
+  event: 'roles_accessed',
+  timestamp: '2025-09-02T00:27:43.387Z',
+  userId: '68b5f978932ddff74ab75f56',
+  workspaceId: '68b5f978932ddff74ab75f58',
+  roleCount: 4,
+  duration: 3092,
+  level: 'info',
+  message: 'BUSINESS_EVENT: roles_accessed'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  workspaceId: '68b5f978932ddff74ab75f58',
+  userId: '68b5f978932ddff74ab75f56',
+  roleCount: 4,
+  duration: 3093,
+  level: 'info',
+  message: 'Roles retrieved for workspace 68b5f978932ddff74ab75f58 by user 68b5f978932ddff74ab75f56',
+  timestamp: '2025-09-02T00:27:43.388Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces/68b5f978932ddff74ab75f58/roles',
+  statusCode: 200,
+  duration: 3098,
+  timestamp: '2025-09-02T00:27:43.389Z',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'http',
+  message: 'GET http://localhost:3000/api/workspaces/68b5f978932ddff74ab75f58/roles 200 - 3098ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  operation: 'Slow API call: GET http://localhost:3000/api/workspaces/68b5f978932ddff74ab75f58/roles',
+  duration: 3098,
+  timestamp: '2025-09-02T00:27:43.389Z',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces/68b5f978932ddff74ab75f58/roles',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  statusCode: 200,
+  level: 'performance',
+  message: 'PERFORMANCE: Slow API call: GET http://localhost:3000/api/workspaces/68b5f978932ddff74ab75f58/roles took 3098ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces/68b5f978932ddff74ab75f58/roles',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces/68b5f978932ddff74ab75f58/roles',
+  timestamp: '2025-09-02T00:27:43.438Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  remaining: 97,
+  requestCount: 3,
+  maxRequests: 100,
+  processingTime: 0,
+  level: 'debug',
+  message: 'Rate limit check passed for dev-localhost on api',
+  timestamp: '2025-09-02T00:27:43.440Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'roles_viewed',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspace',
+  timestamp: '2025-09-02T00:27:45.340Z',
+  workspaceId: '68b5f978932ddff74ab75f58',
+  roleCount: 4,
+  level: 'info',
+  message: 'AUDIT: roles_viewed on workspace by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'business',
+  event: 'roles_accessed',
+  timestamp: '2025-09-02T00:27:45.341Z',
+  userId: '68b5f978932ddff74ab75f56',
+  workspaceId: '68b5f978932ddff74ab75f58',
+  roleCount: 4,
+  duration: 1902,
+  level: 'info',
+  message: 'BUSINESS_EVENT: roles_accessed'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  workspaceId: '68b5f978932ddff74ab75f58',
+  userId: '68b5f978932ddff74ab75f56',
+  roleCount: 4,
+  duration: 1903,
+  level: 'info',
+  message: 'Roles retrieved for workspace 68b5f978932ddff74ab75f58 by user 68b5f978932ddff74ab75f56',
+  timestamp: '2025-09-02T00:27:45.342Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces/68b5f978932ddff74ab75f58/roles',
+  statusCode: 200,
+  duration: 1905,
+  timestamp: '2025-09-02T00:27:45.343Z',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'http',
+  message: 'GET http://localhost:3000/api/workspaces/68b5f978932ddff74ab75f58/roles 200 - 1905ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  operation: 'Slow API call: GET http://localhost:3000/api/workspaces/68b5f978932ddff74ab75f58/roles',
+  duration: 1905,
+  timestamp: '2025-09-02T00:27:45.344Z',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces/68b5f978932ddff74ab75f58/roles',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  statusCode: 200,
+  level: 'performance',
+  message: 'PERFORMANCE: Slow API call: GET http://localhost:3000/api/workspaces/68b5f978932ddff74ab75f58/roles took 1905ms'
+}

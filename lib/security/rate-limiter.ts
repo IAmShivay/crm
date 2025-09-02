@@ -59,6 +59,13 @@ const RATE_LIMIT_CONFIGS: Record<string, RateLimitConfig> = {
     maxRequests: 20, // 20 leads per minute
     skipSuccessfulRequests: false
   },
+
+  // Invitations - strict limits to prevent spam
+  'invites': {
+    windowMs: 60 * 1000, // 1 minute
+    maxRequests: 5, // 5 invitations per minute
+    skipSuccessfulRequests: false
+  },
   
   // Webhook endpoints - higher limits
   'webhooks': {

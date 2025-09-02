@@ -1,0 +1,243 @@
+{
+  error: TypeError [ERR_INVALID_ARG_TYPE]: The "code" argument must be of type number. Received type string ('SIGINT')
+      at process.set [as exitCode] (node:internal/bootstrap/node:119:9)
+      at process.exit (node:internal/process/per_thread:231:24)
+      at process.cleanup (D:\NEW CRM\crm\node_modules\next\dist\server\lib\start-server.js:208:29)
+      at process.emit (node:events:519:35) {
+    code: 'ERR_INVALID_ARG_TYPE'
+  },
+  level: 'error',
+  message: `uncaughtException: The "code" argument must be of type number. Received type string ('SIGINT')\n` +
+    `TypeError [ERR_INVALID_ARG_TYPE]: The "code" argument must be of type number. Received type string ('SIGINT')\n` +
+    '    at process.set [as exitCode] (node:internal/bootstrap/node:119:9)\n' +
+    '    at process.exit (node:internal/process/per_thread:231:24)\n' +
+    '    at process.cleanup (D:\\NEW CRM\\crm\\node_modules\\next\\dist\\server\\lib\\start-server.js:208:29)\n' +
+    '    at process.emit (node:events:519:35)',
+  stack: `TypeError [ERR_INVALID_ARG_TYPE]: The "code" argument must be of type number. Received type string ('SIGINT')\n` +
+    '    at process.set [as exitCode] (node:internal/bootstrap/node:119:9)\n' +
+    '    at process.exit (node:internal/process/per_thread:231:24)\n' +
+    '    at process.cleanup (D:\\NEW CRM\\crm\\node_modules\\next\\dist\\server\\lib\\start-server.js:208:29)\n' +
+    '    at process.emit (node:events:519:35)',
+  exception: true,
+  date: 'Tue Sep 02 2025 05:57:08 GMT+0530 (India Standard Time)',
+  process: {
+    pid: 26196,
+    uid: null,
+    gid: null,
+    cwd: 'D:\\NEW CRM\\crm',
+    execPath: 'C:\\Program Files\\nodejs\\node.exe',
+    version: 'v24.5.0',
+    argv: [
+      'C:\\Program Files\\nodejs\\node.exe',
+      'D:\\NEW CRM\\crm\\node_modules\\next\\dist\\server\\lib\\start-server.js'
+    ],
+    memoryUsage: {
+      rss: 415449088,
+      heapTotal: 575176704,
+      heapUsed: 493860792,
+      external: 575739552,
+      arrayBuffers: 557478945
+    }
+  },
+  os: { loadavg: [ 0, 0, 0 ], uptime: 54198.828 },
+  trace: [
+    {
+      column: 9,
+      file: 'node:internal/bootstrap/node',
+      function: 'process.set [as exitCode]',
+      line: 119,
+      method: 'set [as exitCode]',
+      native: false
+    },
+    {
+      column: 24,
+      file: 'node:internal/process/per_thread',
+      function: 'process.exit',
+      line: 231,
+      method: 'exit',
+      native: false
+    },
+    {
+      column: 29,
+      file: 'D:\\NEW CRM\\crm\\node_modules\\next\\dist\\server\\lib\\start-server.js',
+      function: 'process.cleanup',
+      line: 208,
+      method: 'cleanup',
+      native: false
+    },
+    {
+      column: 35,
+      file: 'node:events',
+      function: 'process.emit',
+      line: 519,
+      method: 'emit',
+      native: false
+    }
+  ],
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  timestamp: '2025-09-02T00:27:08.079Z'
+}
+{
+  error: TypeError [ERR_INVALID_ARG_TYPE]: The "code" argument must be of type number. Received type string ('SIGINT')
+      at process.set [as exitCode] (node:internal/bootstrap/node:119:9)
+      at process.exit (node:internal/process/per_thread:231:24)
+      at process.cleanup (D:\NEW CRM\crm\node_modules\next\dist\server\lib\start-server.js:208:29)
+      at process.emit (node:events:519:35) {
+    code: 'ERR_INVALID_ARG_TYPE'
+  },
+  level: 'error',
+  message: `uncaughtException: The "code" argument must be of type number. Received type string ('SIGINT')\n` +
+    `TypeError [ERR_INVALID_ARG_TYPE]: The "code" argument must be of type number. Received type string ('SIGINT')\n` +
+    '    at process.set [as exitCode] (node:internal/bootstrap/node:119:9)\n' +
+    '    at process.exit (node:internal/process/per_thread:231:24)\n' +
+    '    at process.cleanup (D:\\NEW CRM\\crm\\node_modules\\next\\dist\\server\\lib\\start-server.js:208:29)\n' +
+    '    at process.emit (node:events:519:35)',
+  stack: `TypeError [ERR_INVALID_ARG_TYPE]: The "code" argument must be of type number. Received type string ('SIGINT')\n` +
+    '    at process.set [as exitCode] (node:internal/bootstrap/node:119:9)\n' +
+    '    at process.exit (node:internal/process/per_thread:231:24)\n' +
+    '    at process.cleanup (D:\\NEW CRM\\crm\\node_modules\\next\\dist\\server\\lib\\start-server.js:208:29)\n' +
+    '    at process.emit (node:events:519:35)',
+  exception: true,
+  date: 'Tue Sep 02 2025 05:57:08 GMT+0530 (India Standard Time)',
+  process: {
+    pid: 26196,
+    uid: null,
+    gid: null,
+    cwd: 'D:\\NEW CRM\\crm',
+    execPath: 'C:\\Program Files\\nodejs\\node.exe',
+    version: 'v24.5.0',
+    argv: [
+      'C:\\Program Files\\nodejs\\node.exe',
+      'D:\\NEW CRM\\crm\\node_modules\\next\\dist\\server\\lib\\start-server.js'
+    ],
+    memoryUsage: {
+      rss: 415981568,
+      heapTotal: 575176704,
+      heapUsed: 493989560,
+      external: 575739616,
+      arrayBuffers: 557478969
+    }
+  },
+  os: { loadavg: [ 0, 0, 0 ], uptime: 54198.843 },
+  trace: [
+    {
+      column: 9,
+      file: 'node:internal/bootstrap/node',
+      function: 'process.set [as exitCode]',
+      line: 119,
+      method: 'set [as exitCode]',
+      native: false
+    },
+    {
+      column: 24,
+      file: 'node:internal/process/per_thread',
+      function: 'process.exit',
+      line: 231,
+      method: 'exit',
+      native: false
+    },
+    {
+      column: 29,
+      file: 'D:\\NEW CRM\\crm\\node_modules\\next\\dist\\server\\lib\\start-server.js',
+      function: 'process.cleanup',
+      line: 208,
+      method: 'cleanup',
+      native: false
+    },
+    {
+      column: 35,
+      file: 'node:events',
+      function: 'process.emit',
+      line: 519,
+      method: 'emit',
+      native: false
+    }
+  ],
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  timestamp: '2025-09-02T00:27:08.085Z'
+}
+{
+  error: TypeError [ERR_INVALID_ARG_TYPE]: The "code" argument must be of type number. Received type string ('SIGINT')
+      at process.set [as exitCode] (node:internal/bootstrap/node:119:9)
+      at process.exit (node:internal/process/per_thread:231:24)
+      at process.cleanup (D:\NEW CRM\crm\node_modules\next\dist\server\lib\start-server.js:208:29)
+      at process.emit (node:events:519:35) {
+    code: 'ERR_INVALID_ARG_TYPE'
+  },
+  level: 'error',
+  message: `uncaughtException: The "code" argument must be of type number. Received type string ('SIGINT')\n` +
+    `TypeError [ERR_INVALID_ARG_TYPE]: The "code" argument must be of type number. Received type string ('SIGINT')\n` +
+    '    at process.set [as exitCode] (node:internal/bootstrap/node:119:9)\n' +
+    '    at process.exit (node:internal/process/per_thread:231:24)\n' +
+    '    at process.cleanup (D:\\NEW CRM\\crm\\node_modules\\next\\dist\\server\\lib\\start-server.js:208:29)\n' +
+    '    at process.emit (node:events:519:35)',
+  stack: `TypeError [ERR_INVALID_ARG_TYPE]: The "code" argument must be of type number. Received type string ('SIGINT')\n` +
+    '    at process.set [as exitCode] (node:internal/bootstrap/node:119:9)\n' +
+    '    at process.exit (node:internal/process/per_thread:231:24)\n' +
+    '    at process.cleanup (D:\\NEW CRM\\crm\\node_modules\\next\\dist\\server\\lib\\start-server.js:208:29)\n' +
+    '    at process.emit (node:events:519:35)',
+  exception: true,
+  date: 'Tue Sep 02 2025 05:57:08 GMT+0530 (India Standard Time)',
+  process: {
+    pid: 26196,
+    uid: null,
+    gid: null,
+    cwd: 'D:\\NEW CRM\\crm',
+    execPath: 'C:\\Program Files\\nodejs\\node.exe',
+    version: 'v24.5.0',
+    argv: [
+      'C:\\Program Files\\nodejs\\node.exe',
+      'D:\\NEW CRM\\crm\\node_modules\\next\\dist\\server\\lib\\start-server.js'
+    ],
+    memoryUsage: {
+      rss: 416247808,
+      heapTotal: 575438848,
+      heapUsed: 494103856,
+      external: 575747808,
+      arrayBuffers: 557487161
+    }
+  },
+  os: { loadavg: [ 0, 0, 0 ], uptime: 54198.843 },
+  trace: [
+    {
+      column: 9,
+      file: 'node:internal/bootstrap/node',
+      function: 'process.set [as exitCode]',
+      line: 119,
+      method: 'set [as exitCode]',
+      native: false
+    },
+    {
+      column: 24,
+      file: 'node:internal/process/per_thread',
+      function: 'process.exit',
+      line: 231,
+      method: 'exit',
+      native: false
+    },
+    {
+      column: 29,
+      file: 'D:\\NEW CRM\\crm\\node_modules\\next\\dist\\server\\lib\\start-server.js',
+      function: 'process.cleanup',
+      line: 208,
+      method: 'cleanup',
+      native: false
+    },
+    {
+      column: 35,
+      file: 'node:events',
+      function: 'process.emit',
+      line: 519,
+      method: 'emit',
+      native: false
+    }
+  ],
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  timestamp: '2025-09-02T00:27:08.090Z'
+}

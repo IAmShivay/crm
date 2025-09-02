@@ -17,6 +17,7 @@ import {
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { WorkspaceSwitcher } from './WorkspaceSwitcher';
+import { UserProfile } from './UserProfile';
 
 interface SidebarProps {
   collapsed: boolean;
@@ -57,11 +58,12 @@ export function Sidebar({ collapsed, onToggle, mobileMenuOpen, onMobileMenuToggl
               <span className="text-xl font-bold text-gray-900 dark:text-white">CRM Pro</span>
             </div>
           )}
+          {/* Only show toggle on desktop */}
           <Button
             variant="ghost"
             size="sm"
             onClick={onToggle}
-            className="h-8 w-8 p-0"
+            className="hidden lg:flex h-8 w-8 p-0"
           >
             {collapsed ? <Menu className="h-4 w-4" /> : <ChevronLeft className="h-4 w-4" />}
           </Button>
@@ -113,6 +115,11 @@ export function Sidebar({ collapsed, onToggle, mobileMenuOpen, onMobileMenuToggl
             );
           })}
         </nav>
+
+        {/* User Profile - Bottom of sidebar */}
+        <div className="mt-auto">
+          <UserProfile compact={collapsed} />
+        </div>
       </div>
     </div>
   );

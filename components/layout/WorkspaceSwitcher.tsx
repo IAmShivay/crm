@@ -14,6 +14,7 @@
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { WorkspaceSwitcherSkeleton } from '@/components/ui/skeleton';
 import { Label } from '@/components/ui/label';
 import {
   DropdownMenu,
@@ -41,6 +42,7 @@ import {
 } from 'lucide-react';
 import { useAppSelector, useAppDispatch } from '@/lib/hooks';
 import { setCurrentWorkspace } from '@/lib/slices/workspaceSlice';
+import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -79,13 +81,14 @@ interface WorkspaceSwitcherProps {
   compact?: boolean;
 }
 
-export function WorkspaceSwitcher({ 
-  className = '', 
+export function WorkspaceSwitcher({
+  className = '',
   showCreateButton = true,
-  compact = false 
+  compact = false
 }: WorkspaceSwitcherProps) {
   const { currentWorkspace } = useAppSelector((state) => state.workspace);
   const dispatch = useAppDispatch();
+  const router = useRouter();
   
   // State management
   const [workspaces, setWorkspaces] = useState<Workspace[]>([]);
@@ -219,12 +222,7 @@ export function WorkspaceSwitcher({
   };
 
   if (isLoading) {
-    return (
-      <div className={`flex items-center justify-center space-x-2 ${className}`}>
-        <Loader2 className="h-4 w-4 animate-spin" />
-        {!compact && <span className="text-sm text-gray-500">Loading workspaces...</span>}
-      </div>
-    );
+    return <WorkspaceSwitcherSkeleton className={className} />;
   }
 
   return (
@@ -298,9 +296,25 @@ export function WorkspaceSwitcher({
                       </p>
                     </div>
                   </div>
-                  {workspace.id === currentWorkspace?.id && (
-                    <Check className="h-4 w-4 text-green-600 flex-shrink-0" />
-                  )}
+                  <div className="flex items-center space-x-1">
+                    {workspace.id === currentWorkspace?.id && (
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="h-6 w-6 p-0 opacity-70 hover:opacity-100"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          router.push('/workspace');
+                        }}
+                        title="Workspace Settings"
+                      >
+                        <Settings className="h-3 w-3" />
+                      </Button>
+                    )}
+                    {workspace.id === currentWorkspace?.id && (
+                      <Check className="h-4 w-4 text-green-600 flex-shrink-0" />
+                    )}
+                  </div>
                 </DropdownMenuItem>
               ))}
               
@@ -323,7 +337,7 @@ export function WorkspaceSwitcher({
         {/* Quick Actions */}
         {!compact && currentWorkspace && (
           <div className="px-3 space-y-1">
-            <Button
+            {/* <Button
               variant="ghost"
               size="sm"
               className="w-full justify-start text-xs"
@@ -331,16 +345,7 @@ export function WorkspaceSwitcher({
             >
               <Settings className="h-3 w-3 mr-2" />
               Workspace Settings
-            </Button>
-            <Button
-              variant="ghost"
-              size="sm"
-              className="w-full justify-start text-xs"
-              onClick={() => window.location.href = '/workspace#members'}
-            >
-              <Users className="h-3 w-3 mr-2" />
-              Manage Members
-            </Button>
+            </Button> */}
           </div>
         )}
       </div>

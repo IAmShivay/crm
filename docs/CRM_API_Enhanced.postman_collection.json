@@ -326,6 +326,149 @@
               "path": ["api", "workspaces"]
             }
           }
+        },
+        {
+          "name": "Get Workspace Details",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/workspaces/{{workspace_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "workspaces", "{{workspace_id}}"]
+            }
+          }
+        },
+        {
+          "name": "Update Workspace",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Updated Workspace Name\",\n  \"description\": \"Updated description for the workspace\",\n  \"slug\": \"updated-workspace-slug\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/workspaces/{{workspace_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "workspaces", "{{workspace_id}}"]
+            }
+          }
+        },
+        {
+          "name": "Delete Workspace",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/workspaces/{{new_workspace_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "workspaces", "{{new_workspace_id}}"]
+            }
+          }
+        },
+        {
+          "name": "Get Workspace Roles",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/workspaces/{{workspace_id}}/roles",
+              "host": ["{{base_url}}"],
+              "path": ["api", "workspaces", "{{workspace_id}}", "roles"]
+            }
+          }
+        },
+        {
+          "name": "Create Workspace Role",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 201) {",
+                  "    const response = pm.response.json();",
+                  "    pm.environment.set('new_role_id', response.role.id);",
+                  "    console.log('✅ Role created:', response.role.name);",
+                  "} else {",
+                  "    console.log('❌ Role creation failed:', pm.response.json());",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Sales Manager\",\n  \"description\": \"Manages sales team and lead assignments\",\n  \"permissions\": [\n    \"leads.view\",\n    \"leads.create\",\n    \"leads.edit\",\n    \"leads.assign\",\n    \"members.view\",\n    \"analytics.view\"\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/workspaces/{{workspace_id}}/roles",
+              "host": ["{{base_url}}"],
+              "path": ["api", "workspaces", "{{workspace_id}}", "roles"]
+            }
+          }
+        },
+        {
+          "name": "Get Workspace Invitations",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/workspaces/{{workspace_id}}/invites",
+              "host": ["{{base_url}}"],
+              "path": ["api", "workspaces", "{{workspace_id}}", "invites"]
+            }
+          }
+        },
+        {
+          "name": "Send Workspace Invitation",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 201) {",
+                  "    const response = pm.response.json();",
+                  "    pm.environment.set('invitation_id', response.invitation.id);",
+                  "    console.log('✅ Invitation sent to:', response.invitation.email);",
+                  "} else {",
+                  "    console.log('❌ Invitation failed:', pm.response.json());",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"newmember@example.com\",\n  \"roleId\": \"{{new_role_id}}\",\n  \"message\": \"Welcome to our workspace! We'd love to have you join our team.\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/workspaces/{{workspace_id}}/invites",
+              "host": ["{{base_url}}"],
+              "path": ["api", "workspaces", "{{workspace_id}}", "invites"]
+            }
+          }
         }
       ]
     },

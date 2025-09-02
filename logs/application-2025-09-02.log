@@ -750,3 +750,1081 @@
   level: 'info',
   message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
 }
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:27:54.715Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-01T23:27:59.309Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:27:59.356Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-01T23:28:04.816Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:28:05.975Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-01T23:28:08.067Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:28:08.086Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-01T23:28:10.014Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:30:20.544Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-01T23:30:21.084Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:30:21.122Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-01T23:30:22.206Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:30:58.602Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-01T23:30:59.078Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:30:59.136Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-01T23:30:59.522Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:37:34.018Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-01T23:37:34.455Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:38:35.188Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-01T23:38:37.781Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:38:37.827Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-01T23:38:38.257Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:38:41.362Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-01T23:38:41.889Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:38:41.910Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-01T23:38:42.257Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:38:43.480Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-01T23:38:43.968Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:38:43.992Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-01T23:38:44.394Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:38:48.114Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-01T23:38:48.607Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:38:48.625Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-01T23:38:49.122Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:39:58.860Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-01T23:39:59.309Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:39:59.370Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-01T23:39:59.699Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:40:00.791Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-01T23:40:01.172Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:40:01.194Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-01T23:40:01.538Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:43:04.986Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-01T23:43:05.408Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:43:05.482Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-01T23:43:05.828Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:43:58.759Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-01T23:43:59.160Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:43:59.221Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-01T23:43:59.604Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:46:41.055Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-01T23:46:42.409Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:46:42.600Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-01T23:46:43.022Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:49:06.969Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-01T23:49:07.431Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:49:07.483Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-01T23:49:08.018Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:49:28.386Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-01T23:49:29.117Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-01T23:49:29.344Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-01T23:49:30.236Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-02T00:02:39.954Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-02T00:02:40.936Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-02T00:16:10.782Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-02T00:16:12.723Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-02T00:16:13.168Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-02T00:16:13.590Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-02T00:19:18.092Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-02T00:19:19.070Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-02T00:19:21.411Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-02T00:19:21.821Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-02T00:27:34.843Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces/68b5f978932ddff74ab75f58',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces/68b5f978932ddff74ab75f58',
+  timestamp: '2025-09-02T00:27:36.844Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces/68b5f978932ddff74ab75f58',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces/68b5f978932ddff74ab75f58',
+  timestamp: '2025-09-02T00:27:36.993Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-02T00:27:40.199Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-02T00:27:40.273Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces/68b5f978932ddff74ab75f58/roles',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces/68b5f978932ddff74ab75f58/roles',
+  timestamp: '2025-09-02T00:27:40.291Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-02T00:27:41.785Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'roles_viewed',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspace',
+  timestamp: '2025-09-02T00:27:43.385Z',
+  workspaceId: '68b5f978932ddff74ab75f58',
+  roleCount: 4,
+  level: 'info',
+  message: 'AUDIT: roles_viewed on workspace by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'business',
+  event: 'roles_accessed',
+  timestamp: '2025-09-02T00:27:43.387Z',
+  userId: '68b5f978932ddff74ab75f56',
+  workspaceId: '68b5f978932ddff74ab75f58',
+  roleCount: 4,
+  duration: 3092,
+  level: 'info',
+  message: 'BUSINESS_EVENT: roles_accessed'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  workspaceId: '68b5f978932ddff74ab75f58',
+  userId: '68b5f978932ddff74ab75f56',
+  roleCount: 4,
+  duration: 3093,
+  level: 'info',
+  message: 'Roles retrieved for workspace 68b5f978932ddff74ab75f58 by user 68b5f978932ddff74ab75f56',
+  timestamp: '2025-09-02T00:27:43.388Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces/68b5f978932ddff74ab75f58/roles',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces/68b5f978932ddff74ab75f58/roles',
+  timestamp: '2025-09-02T00:27:43.438Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'roles_viewed',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspace',
+  timestamp: '2025-09-02T00:27:45.340Z',
+  workspaceId: '68b5f978932ddff74ab75f58',
+  roleCount: 4,
+  level: 'info',
+  message: 'AUDIT: roles_viewed on workspace by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'business',
+  event: 'roles_accessed',
+  timestamp: '2025-09-02T00:27:45.341Z',
+  userId: '68b5f978932ddff74ab75f56',
+  workspaceId: '68b5f978932ddff74ab75f58',
+  roleCount: 4,
+  duration: 1902,
+  level: 'info',
+  message: 'BUSINESS_EVENT: roles_accessed'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  workspaceId: '68b5f978932ddff74ab75f58',
+  userId: '68b5f978932ddff74ab75f56',
+  roleCount: 4,
+  duration: 1903,
+  level: 'info',
+  message: 'Roles retrieved for workspace 68b5f978932ddff74ab75f58 by user 68b5f978932ddff74ab75f56',
+  timestamp: '2025-09-02T00:27:45.342Z'
+}

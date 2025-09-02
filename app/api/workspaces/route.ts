@@ -12,6 +12,7 @@ import { connectToMongoDB } from '@/lib/mongodb/connection';
 import { log } from '@/lib/logging/logger';
 import { logUserActivity, logBusinessEvent, withLogging, withSecurityLogging } from '@/lib/logging/middleware';
 import { rateLimit } from '@/lib/security/rate-limiter';
+import { getClientIP } from '@/lib/utils/ip-utils';
 import { z } from 'zod';
 import mongoose from 'mongoose';
 
@@ -42,7 +43,7 @@ export const GET = withSecurityLogging(withLogging(async (request: NextRequest) 
     // Ensure database connection
     await connectToMongoDB();
     // Rate limiting
-    const clientIP = request.headers.get('x-forwarded-for') || 'unknown';
+    const clientIP = getClientIP(request);
     const rateLimitResult = await rateLimit(clientIP, 'api');
     
     if (!rateLimitResult.success) {
@@ -121,7 +122,7 @@ export const POST = withSecurityLogging(withLogging(async (request: NextRequest)
     // Ensure database connection
     await connectToMongoDB();
     // Rate limiting - stricter for workspace creation
-    const clientIP = request.headers.get('x-forwarded-for') || 'unknown';
+    const clientIP = getClientIP(request);
     const rateLimitResult = await rateLimit(clientIP, 'api', {
       windowMs: 60 * 1000, // 1 minute
       maxRequests: 5 // 5 workspace creations per minute

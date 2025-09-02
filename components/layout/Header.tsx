@@ -21,6 +21,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { NotificationBell } from '@/components/ui/notification-bell';
 import { useAppSelector, useAppDispatch } from '@/lib/hooks';
 import { logout } from '@/lib/slices/authSlice';
 import { setCurrentWorkspace } from '@/lib/slices/workspaceSlice';
@@ -161,17 +162,8 @@ export function Header({ onMobileMenuToggle }: HeaderProps) {
         </div>
 
         <div className="flex items-center space-x-2 sm:space-x-4">
-        <Button variant="ghost" size="sm" className="relative">
-          <Bell className="h-5 w-5" />
-          <span className="absolute -top-1 -right-1 h-4 w-4 bg-red-500 text-white text-xs rounded-full flex items-center justify-center">
-            3
-          </span>
-        </Button>
-
         {/* Notifications */}
-        <Button variant="ghost" size="sm" className="p-2" aria-label="Notifications">
-          <Bell className="h-5 w-5" />
-        </Button>
+        <NotificationBell />
 
         {/* User Menu - responsive */}
         <DropdownMenu>

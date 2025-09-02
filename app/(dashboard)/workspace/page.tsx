@@ -1,12 +1,25 @@
+/**
+ * Enhanced Workspace Settings Page
+ * 
+ * Features:
+ * - Tabbed interface for different settings sections
+ * - General workspace settings (name, description, etc.)
+ * - Member management with role assignments
+ * - Workspace deletion and advanced settings
+ * - Real-time updates and validation
+ */
+
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useAppSelector } from '@/lib/hooks';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Badge } from '@/components/ui/badge';
+import { Textarea } from '@/components/ui/textarea';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { 
   DropdownMenu,
@@ -24,207 +37,468 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { useAppSelector } from '@/lib/hooks';
 import { 
+  Building, 
   Users, 
-  UserPlus, 
   Settings, 
-  Crown, 
+  Shield, 
+  Crown,
+  UserPlus,
   MoreHorizontal,
   Mail,
-  Shield,
   Trash2,
   Edit,
   Copy,
-  Check
+  Check,
+  Save,
+  AlertTriangle,
+  Plus,
+  User
 } from 'lucide-react';
 import { toast } from 'sonner';
+import { cn } from '@/lib/utils';
 
-// Mock data - replace with real data from API
-const workspaceMembers = [
-  {
-    id: '1',
-    name: 'John Doe',
-    email: 'john@example.com',
-    role: 'Owner',
-    status: 'active',
-    joinedAt: '2024-01-15',
-    avatar: null,
-  },
-  {
-    id: '2',
-    name: 'Jane Smith',
-    email: 'jane@example.com',
-    role: 'Admin',
-    status: 'active',
-    joinedAt: '2024-02-01',
-    avatar: null,
-  },
-  {
-    id: '3',
-    name: 'Mike Johnson',
-    email: 'mike@example.com',
-    role: 'Sales',
-    status: 'active',
-    joinedAt: '2024-02-15',
-    avatar: null,
-  },
-  {
-    id: '4',
-    name: 'Sarah Wilson',
-    email: 'sarah@example.com',
-    role: 'Viewer',
-    status: 'pending',
-    joinedAt: '2024-03-01',
-    avatar: null,
-  },
-];
+// Types for API responses
+interface WorkspaceMember {
+  id: string;
+  userId: string;
+  name: string;
+  email: string;
+  avatar?: string;
+  role: string;
+  status: 'active' | 'pending';
+  joinedAt: string;
+}
 
-const pendingInvitations = [
-  {
-    id: '1',
-    email: 'newuser@example.com',
-    role: 'Sales',
-    invitedBy: 'John Doe',
-    invitedAt: '2024-03-10',
-    expiresAt: '2024-03-17',
-  },
-  {
-    id: '2',
-    email: 'another@example.com',
-    role: 'Viewer',
-    invitedBy: 'Jane Smith',
-    invitedAt: '2024-03-12',
-    expiresAt: '2024-03-19',
-  },
-];
+interface WorkspaceRole {
+  id: string;
+  name: string;
+  description?: string;
+  permissions: string[];
+  isDefault: boolean;
+  memberCount: number;
+  createdAt: string;
+  updatedAt: string;
+}
 
-export default function WorkspacePage() {
+interface WorkspaceDetails {
+  id: string;
+  name: string;
+  description?: string;
+  slug?: string;
+  planId: string;
+  memberCount: number;
+  userRole: string;
+  members: WorkspaceMember[];
+}
+
+export default function WorkspaceSettingsPage() {
   const { currentWorkspace } = useAppSelector((state) => state.workspace);
+  const [activeTab, setActiveTab] = useState('general');
+  const [isLoading, setIsLoading] = useState(false);
+
+  // Workspace data state
+  const [workspaceDetails, setWorkspaceDetails] = useState<WorkspaceDetails | null>(null);
+  const [members, setMembers] = useState<WorkspaceMember[]>([]);
+  const [roles, setRoles] = useState<WorkspaceRole[]>([]);
+  const [memberCount, setMemberCount] = useState(0);
+  const [isOwner, setIsOwner] = useState(false);
+
+  // General settings state
+  const [workspaceName, setWorkspaceName] = useState(currentWorkspace?.name || '');
+  const [workspaceDescription, setWorkspaceDescription] = useState('');
+  const [workspaceSlug, setWorkspaceSlug] = useState('');
+
+  // Member management state
   const [inviteDialogOpen, setInviteDialogOpen] = useState(false);
   const [inviteEmail, setInviteEmail] = useState('');
-  const [inviteRole, setInviteRole] = useState('viewer');
-  const [copiedInvite, setCopiedInvite] = useState<string | null>(null);
+  const [inviteRole, setInviteRole] = useState('');
 
-  const handleInviteUser = () => {
-    // TODO: Implement invite user functionality
-    toast.success(`Invitation sent to ${inviteEmail}`);
-    setInviteEmail('');
-    setInviteRole('viewer');
-    setInviteDialogOpen(false);
+  useEffect(() => {
+    if (currentWorkspace) {
+      setWorkspaceName(currentWorkspace.name);
+      loadWorkspaceDetails();
+    }
+  }, [currentWorkspace]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const loadWorkspaceDetails = async () => {
+    if (!currentWorkspace?.id) return;
+
+    try {
+      setIsLoading(true);
+
+      // Fetch workspace details
+      const workspaceResponse = await fetch(`/api/workspaces/${currentWorkspace.id}`, {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('auth_token')}`,
+        },
+      });
+
+      if (workspaceResponse.ok) {
+        const workspaceData = await workspaceResponse.json();
+        if (workspaceData.success) {
+          const workspace = workspaceData.workspace;
+          setWorkspaceDetails(workspace);
+          setMembers(workspace.members || []);
+          setMemberCount(workspace.memberCount || 0);
+          setIsOwner(workspace.userRole === 'Owner');
+          setWorkspaceDescription(workspace.description || '');
+          setWorkspaceSlug(workspace.slug || '');
+        }
+      }
+
+      // Fetch workspace roles
+      const rolesResponse = await fetch(`/api/workspaces/${currentWorkspace.id}/roles`, {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('auth_token')}`,
+        },
+      });
+
+      if (rolesResponse.ok) {
+        const rolesData = await rolesResponse.json();
+        if (rolesData.success) {
+          setRoles(rolesData.roles || []);
+          // Set default invite role to first available role
+          if (rolesData.roles && rolesData.roles.length > 0) {
+            setInviteRole(rolesData.roles[0].id);
+          }
+        }
+      }
+
+    } catch (error) {
+      console.error('Error loading workspace details:', error);
+      toast.error('Failed to load workspace details');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
-  const handleCopyInviteLink = (inviteId: string) => {
-    const inviteLink = `${window.location.origin}/invite/${inviteId}`;
-    navigator.clipboard.writeText(inviteLink);
-    setCopiedInvite(inviteId);
-    toast.success('Invite link copied to clipboard');
-    setTimeout(() => setCopiedInvite(null), 2000);
+  const handleSaveGeneral = async () => {
+    if (!workspaceName.trim()) {
+      toast.error('Workspace name is required');
+      return;
+    }
+
+    try {
+      setIsLoading(true);
+      // TODO: Replace with actual API call
+      // await fetch(`/api/workspaces/${currentWorkspace.id}`, {
+      //   method: 'PUT',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify({
+      //     name: workspaceName,
+      //     description: workspaceDescription,
+      //     slug: workspaceSlug
+      //   })
+      // });
+      
+      toast.success('Workspace settings updated successfully');
+    } catch (error) {
+      console.error('Error updating workspace:', error);
+      toast.error('Failed to update workspace settings');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleInviteMember = async () => {
+    if (!inviteEmail.trim()) {
+      toast.error('Email address is required');
+      return;
+    }
+
+    if (!inviteRole) {
+      toast.error('Please select a role');
+      return;
+    }
+
+    try {
+      setIsLoading(true);
+
+      const response = await fetch(`/api/workspaces/${currentWorkspace?.id}/invites`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('auth_token')}`,
+        },
+        body: JSON.stringify({
+          email: inviteEmail,
+          roleId: inviteRole,
+          message: `You've been invited to join ${currentWorkspace?.name} workspace.`
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        toast.success(`Invitation sent to ${inviteEmail}`);
+        setInviteEmail('');
+        setInviteRole(roles.length > 0 ? roles[0].id : '');
+        setInviteDialogOpen(false);
+        // Refresh workspace details to get updated member count
+        loadWorkspaceDetails();
+      } else {
+        toast.error(data.message || 'Failed to send invitation');
+      }
+    } catch (error) {
+      console.error('Error inviting member:', error);
+      toast.error('Failed to send invitation');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const getRoleColor = (role: string) => {
     switch (role.toLowerCase()) {
-      case 'owner': return 'bg-purple-100 text-purple-800';
-      case 'admin': return 'bg-blue-100 text-blue-800';
-      case 'manager': return 'bg-green-100 text-green-800';
-      case 'sales': return 'bg-orange-100 text-orange-800';
-      case 'viewer': return 'bg-gray-100 text-gray-800';
-      default: return 'bg-gray-100 text-gray-800';
+      case 'owner': return 'bg-purple-100 text-purple-800 dark:bg-purple-900/20 dark:text-purple-300';
+      case 'admin': return 'bg-blue-100 text-blue-800 dark:bg-blue-900/20 dark:text-blue-300';
+      case 'manager': return 'bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-300';
+      case 'sales': return 'bg-orange-100 text-orange-800 dark:bg-orange-900/20 dark:text-orange-300';
+      case 'viewer': return 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-300';
+      default: return 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-300';
     }
   };
 
-  const getStatusColor = (status: string) => {
-    switch (status.toLowerCase()) {
-      case 'active': return 'bg-green-100 text-green-800';
-      case 'pending': return 'bg-yellow-100 text-yellow-800';
-      case 'inactive': return 'bg-red-100 text-red-800';
-      default: return 'bg-gray-100 text-gray-800';
-    }
-  };
-
-  return (
-    <div className="w-full space-y-6">
-      <div className="w-full flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">Workspace</h1>
-          <p className="text-gray-600 dark:text-gray-400 mt-1">
-            Manage your workspace settings and team members
+  if (!currentWorkspace) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <div className="text-center">
+          <Building className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+          <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100">
+            No Workspace Selected
+          </h3>
+          <p className="text-gray-500 dark:text-gray-400">
+            Please select a workspace to manage its settings.
           </p>
         </div>
-        <Dialog open={inviteDialogOpen} onOpenChange={setInviteDialogOpen}>
-          <DialogTrigger asChild>
-            <Button>
-              <UserPlus className="h-4 w-4 mr-2" />
-              Invite Member
-            </Button>
-          </DialogTrigger>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>Invite Team Member</DialogTitle>
-              <DialogDescription>
-                Send an invitation to join your workspace
-              </DialogDescription>
-            </DialogHeader>
-            <div className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="email">Email Address</Label>
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="Enter email address"
-                  value={inviteEmail}
-                  onChange={(e) => setInviteEmail(e.target.value)}
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="role">Role</Label>
-                <Select value={inviteRole} onValueChange={setInviteRole}>
-                  <SelectTrigger>
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="viewer">Viewer</SelectItem>
-                    <SelectItem value="sales">Sales</SelectItem>
-                    <SelectItem value="manager">Manager</SelectItem>
-                    <SelectItem value="admin">Admin</SelectItem>
-                  </SelectContent>
-                </Select>
+      </div>
+    );
+  }
+
+  return (
+    <div className="space-y-6">
+      {/* Header */}
+      <div className="border-b border-gray-200 dark:border-gray-700 pb-6">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-4">
+            <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/20 rounded-lg flex items-center justify-center">
+              <Building className="h-6 w-6 text-blue-600 dark:text-blue-400" />
+            </div>
+            <div>
+              <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
+                {currentWorkspace.name}
+              </h1>
+              <div className="flex items-center space-x-3 mt-1">
+                <Badge variant="secondary" className="capitalize">
+                  {currentWorkspace.plan || 'Free'} Plan
+                </Badge>
+                <div className="flex items-center text-sm text-gray-500 dark:text-gray-400">
+                  <Users className="h-4 w-4 mr-1" />
+                  {memberCount} member{memberCount !== 1 ? 's' : ''}
+                </div>
+                {isOwner && (
+                  <Badge variant="outline" className="text-yellow-600 border-yellow-600">
+                    <Crown className="h-3 w-3 mr-1" />
+                    Owner
+                  </Badge>
+                )}
               </div>
             </div>
-            <DialogFooter>
-              <Button variant="outline" onClick={() => setInviteDialogOpen(false)}>
-                Cancel
-              </Button>
-              <Button onClick={handleInviteUser} disabled={!inviteEmail}>
-                Send Invitation
-              </Button>
-            </DialogFooter>
-          </DialogContent>
-        </Dialog>
+          </div>
+        </div>
       </div>
 
-      <Tabs defaultValue="members" className="space-y-4">
-        <TabsList>
-          <TabsTrigger value="members">Team Members</TabsTrigger>
-          <TabsTrigger value="invitations">Pending Invitations</TabsTrigger>
-          <TabsTrigger value="settings">Workspace Settings</TabsTrigger>
-        </TabsList>
+      {/* Settings Navigation */}
+      <div className="flex flex-col lg:flex-row gap-6">
+        {/* Sidebar Navigation */}
+        <div className="lg:w-64 flex-shrink-0">
+          <nav className="space-y-1">
+            <button
+              onClick={() => setActiveTab('general')}
+              className={cn(
+                "w-full flex items-center px-3 py-2 text-sm font-medium rounded-md transition-colors",
+                activeTab === 'general'
+                  ? "bg-blue-50 text-blue-700 border-r-2 border-blue-700 dark:bg-blue-900/20 dark:text-blue-300"
+                  : "text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-400 dark:hover:text-gray-200 dark:hover:bg-gray-800"
+              )}
+            >
+              <Settings className="h-4 w-4 mr-3" />
+              General Settings
+            </button>
+            <button
+              onClick={() => setActiveTab('members')}
+              className={cn(
+                "w-full flex items-center px-3 py-2 text-sm font-medium rounded-md transition-colors",
+                activeTab === 'members'
+                  ? "bg-blue-50 text-blue-700 border-r-2 border-blue-700 dark:bg-blue-900/20 dark:text-blue-300"
+                  : "text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-400 dark:hover:text-gray-200 dark:hover:bg-gray-800"
+              )}
+            >
+              <Users className="h-4 w-4 mr-3" />
+              Team Members
+              <Badge variant="secondary" className="ml-auto">
+                {memberCount}
+              </Badge>
+            </button>
+            <button
+              onClick={() => setActiveTab('roles')}
+              className={cn(
+                "w-full flex items-center px-3 py-2 text-sm font-medium rounded-md transition-colors",
+                activeTab === 'roles'
+                  ? "bg-blue-50 text-blue-700 border-r-2 border-blue-700 dark:bg-blue-900/20 dark:text-blue-300"
+                  : "text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-400 dark:hover:text-gray-200 dark:hover:bg-gray-800"
+              )}
+            >
+              <Shield className="h-4 w-4 mr-3" />
+              Roles & Permissions
+            </button>
+            <button
+              onClick={() => setActiveTab('advanced')}
+              className={cn(
+                "w-full flex items-center px-3 py-2 text-sm font-medium rounded-md transition-colors",
+                activeTab === 'advanced'
+                  ? "bg-blue-50 text-blue-700 border-r-2 border-blue-700 dark:bg-blue-900/20 dark:text-blue-300"
+                  : "text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-400 dark:hover:text-gray-200 dark:hover:bg-gray-800"
+              )}
+            >
+              <Settings className="h-4 w-4 mr-3" />
+              Advanced
+            </button>
+          </nav>
+        </div>
 
-        <TabsContent value="members" className="space-y-4">
+        {/* Content Area */}
+        <div className="flex-1 min-w-0">
+
+          {/* General Settings */}
+          {activeTab === 'general' && (
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center space-x-2">
-                <Users className="h-5 w-5" />
-                <span>Team Members ({workspaceMembers.length})</span>
-              </CardTitle>
+              <CardTitle>Workspace Information</CardTitle>
               <CardDescription>
-                Manage your workspace team members and their roles
+                Update your workspace name, description, and basic settings.
               </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="workspaceName">Workspace Name *</Label>
+                  <Input
+                    id="workspaceName"
+                    value={workspaceName}
+                    onChange={(e) => setWorkspaceName(e.target.value)}
+                    placeholder="Enter workspace name"
+                    disabled={isLoading}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="workspaceSlug">Workspace URL</Label>
+                  <div className="flex">
+                    <span className="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 text-sm dark:bg-gray-800 dark:border-gray-600">
+                      crm.app/
+                    </span>
+                    <Input
+                      id="workspaceSlug"
+                      value={workspaceSlug}
+                      onChange={(e) => setWorkspaceSlug(e.target.value)}
+                      className="rounded-l-none"
+                      placeholder="workspace-url"
+                      disabled={isLoading}
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="workspaceDescription">Description</Label>
+                <Textarea
+                  id="workspaceDescription"
+                  value={workspaceDescription}
+                  onChange={(e) => setWorkspaceDescription(e.target.value)}
+                  placeholder="Describe your workspace..."
+                  rows={3}
+                  disabled={isLoading}
+                />
+              </div>
+
+              <div className="flex justify-end">
+                <Button onClick={handleSaveGeneral} disabled={isLoading}>
+                  <Save className="h-4 w-4 mr-2" />
+                  {isLoading ? 'Saving...' : 'Save Changes'}
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+          )}
+
+          {/* Members Management */}
+          {activeTab === 'members' && (
+          <Card>
+            <CardHeader>
+              <div className="flex items-center justify-between">
+                <div>
+                  <CardTitle>Team Members ({members.length})</CardTitle>
+                  <CardDescription>
+                    Manage your workspace members and their permissions.
+                  </CardDescription>
+                </div>
+                <Dialog open={inviteDialogOpen} onOpenChange={setInviteDialogOpen}>
+                  <DialogTrigger asChild>
+                    <Button>
+                      <UserPlus className="h-4 w-4 mr-2" />
+                      Invite Member
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent>
+                    <DialogHeader>
+                      <DialogTitle>Invite Team Member</DialogTitle>
+                      <DialogDescription>
+                        Send an invitation to join your workspace
+                      </DialogDescription>
+                    </DialogHeader>
+                    <div className="space-y-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="email">Email Address</Label>
+                        <Input
+                          id="email"
+                          type="email"
+                          placeholder="Enter email address"
+                          value={inviteEmail}
+                          onChange={(e) => setInviteEmail(e.target.value)}
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="role">Role</Label>
+                        <Select value={inviteRole} onValueChange={setInviteRole}>
+                          <SelectTrigger>
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {roles.map((role) => (
+                              <SelectItem key={role.id} value={role.id}>
+                                {role.name}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    </div>
+                    <DialogFooter>
+                      <Button variant="outline" onClick={() => setInviteDialogOpen(false)}>
+                        Cancel
+                      </Button>
+                      <Button onClick={handleInviteMember} disabled={!inviteEmail || isLoading}>
+                        {isLoading ? 'Sending...' : 'Send Invitation'}
+                      </Button>
+                    </DialogFooter>
+                  </DialogContent>
+                </Dialog>
+              </div>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                {workspaceMembers.map((member) => (
-                  <div key={member.id} className="flex items-center justify-between p-4 border rounded-lg">
+                {members.map((member) => (
+                  <div key={member.id} className="flex items-center justify-between p-4 border rounded-lg dark:border-gray-700">
                     <div className="flex items-center space-x-4">
                       <Avatar>
                         <AvatarImage src={member.avatar || undefined} />
@@ -239,7 +513,7 @@ export default function WorkspacePage() {
                             <Crown className="h-4 w-4 text-yellow-500" />
                           )}
                         </div>
-                        <p className="text-sm text-gray-500">{member.email}</p>
+                        <p className="text-sm text-gray-500 dark:text-gray-400">{member.email}</p>
                         <p className="text-xs text-gray-400">
                           Joined {new Date(member.joinedAt).toLocaleDateString()}
                         </p>
@@ -249,10 +523,7 @@ export default function WorkspacePage() {
                       <Badge className={getRoleColor(member.role)}>
                         {member.role}
                       </Badge>
-                      <Badge className={getStatusColor(member.status)}>
-                        {member.status}
-                      </Badge>
-                      {member.role !== 'Owner' && (
+                      {member.role !== 'Owner' && isOwner && (
                         <DropdownMenu>
                           <DropdownMenuTrigger asChild>
                             <Button variant="ghost" size="sm">
@@ -281,153 +552,214 @@ export default function WorkspacePage() {
               </div>
             </CardContent>
           </Card>
-        </TabsContent>
+          )}
 
-        <TabsContent value="invitations" className="space-y-4">
+          {/* Roles & Permissions */}
+          {activeTab === 'roles' && (
           <Card>
             <CardHeader>
-              <CardTitle>Pending Invitations ({pendingInvitations.length})</CardTitle>
-              <CardDescription>
-                Manage pending workspace invitations
-              </CardDescription>
+              <div className="flex items-center justify-between">
+                <div>
+                  <CardTitle>Roles & Permissions</CardTitle>
+                  <CardDescription>
+                    Manage workspace roles and their permissions.
+                  </CardDescription>
+                </div>
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <Button>
+                      <Plus className="h-4 w-4 mr-2" />
+                      Create Role
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent>
+                    <DialogHeader>
+                      <DialogTitle>Create New Role</DialogTitle>
+                      <DialogDescription>
+                        Define a new role with specific permissions for your workspace.
+                      </DialogDescription>
+                    </DialogHeader>
+                    <div className="space-y-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="roleName">Role Name</Label>
+                        <Input
+                          id="roleName"
+                          placeholder="e.g., Sales Manager"
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="roleDescription">Description</Label>
+                        <Textarea
+                          id="roleDescription"
+                          placeholder="Describe the role responsibilities..."
+                          rows={3}
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label>Permissions</Label>
+                        <div className="grid grid-cols-2 gap-2 max-h-48 overflow-y-auto">
+                          {/* Permission checkboxes will be populated here */}
+                          <div className="flex items-center space-x-2">
+                            <input type="checkbox" id="leads.view" />
+                            <label htmlFor="leads.view" className="text-sm">View Leads</label>
+                          </div>
+                          <div className="flex items-center space-x-2">
+                            <input type="checkbox" id="leads.create" />
+                            <label htmlFor="leads.create" className="text-sm">Create Leads</label>
+                          </div>
+                          <div className="flex items-center space-x-2">
+                            <input type="checkbox" id="leads.edit" />
+                            <label htmlFor="leads.edit" className="text-sm">Edit Leads</label>
+                          </div>
+                          <div className="flex items-center space-x-2">
+                            <input type="checkbox" id="members.invite" />
+                            <label htmlFor="members.invite" className="text-sm">Invite Members</label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <DialogFooter>
+                      <Button variant="outline">Cancel</Button>
+                      <Button>Create Role</Button>
+                    </DialogFooter>
+                  </DialogContent>
+                </Dialog>
+              </div>
             </CardHeader>
             <CardContent>
-              {pendingInvitations.length === 0 ? (
-                <div className="text-center py-8">
-                  <Mail className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                  <p className="text-gray-500">No pending invitations</p>
+              {isLoading ? (
+                <div className="space-y-4">
+                  {Array.from({ length: 3 }).map((_, i) => (
+                    <div key={i} className="flex items-center space-x-4 p-4 border rounded-lg animate-pulse">
+                      <div className="w-10 h-10 bg-gray-200 rounded-lg"></div>
+                      <div className="flex-1 space-y-2">
+                        <div className="h-4 bg-gray-200 rounded w-1/4"></div>
+                        <div className="h-3 bg-gray-200 rounded w-1/2"></div>
+                      </div>
+                      <div className="h-6 bg-gray-200 rounded w-20"></div>
+                    </div>
+                  ))}
                 </div>
               ) : (
                 <div className="space-y-4">
-                  {pendingInvitations.map((invitation) => (
-                    <div key={invitation.id} className="flex items-center justify-between p-4 border rounded-lg">
-                      <div>
-                        <p className="font-medium">{invitation.email}</p>
-                        <p className="text-sm text-gray-500">
-                          Invited by {invitation.invitedBy} on {new Date(invitation.invitedAt).toLocaleDateString()}
-                        </p>
-                        <p className="text-xs text-gray-400">
-                          Expires on {new Date(invitation.expiresAt).toLocaleDateString()}
-                        </p>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <Badge className={getRoleColor(invitation.role)}>
-                          {invitation.role}
-                        </Badge>
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          onClick={() => handleCopyInviteLink(invitation.id)}
-                        >
-                          {copiedInvite === invitation.id ? (
-                            <Check className="h-4 w-4 mr-2" />
-                          ) : (
-                            <Copy className="h-4 w-4 mr-2" />
-                          )}
-                          {copiedInvite === invitation.id ? 'Copied' : 'Copy Link'}
-                        </Button>
-                        <DropdownMenu>
-                          <DropdownMenuTrigger asChild>
-                            <Button variant="ghost" size="sm">
-                              <MoreHorizontal className="h-4 w-4" />
-                            </Button>
-                          </DropdownMenuTrigger>
-                          <DropdownMenuContent align="end">
-                            <DropdownMenuItem>
-                              <Mail className="h-4 w-4 mr-2" />
-                              Resend Invitation
-                            </DropdownMenuItem>
-                            <DropdownMenuItem className="text-red-600">
-                              <Trash2 className="h-4 w-4 mr-2" />
-                              Cancel Invitation
-                            </DropdownMenuItem>
-                          </DropdownMenuContent>
-                        </DropdownMenu>
-                      </div>
+                  {roles.length === 0 ? (
+                    <div className="text-center py-8">
+                      <Shield className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+                      <p className="text-gray-500">No roles found</p>
+                      <p className="text-sm text-gray-400">Create your first role to get started</p>
                     </div>
-                  ))}
+                  ) : (
+                    <div className="space-y-3">
+                      {roles.map((role) => (
+                        <div key={role.id} className="flex items-center justify-between p-4 border rounded-lg">
+                          <div className="flex items-center space-x-4">
+                            <div className={cn(
+                              "w-10 h-10 rounded-lg flex items-center justify-center",
+                              role.name === 'Owner' ? "bg-purple-100" :
+                              role.name === 'Admin' ? "bg-blue-100" :
+                              role.name === 'Manager' ? "bg-green-100" :
+                              role.name === 'Sales' ? "bg-orange-100" :
+                              "bg-gray-100"
+                            )}>
+                              {role.name === 'Owner' ? (
+                                <Crown className="h-5 w-5 text-purple-600" />
+                              ) : role.name === 'Admin' ? (
+                                <Shield className="h-5 w-5 text-blue-600" />
+                              ) : (
+                                <User className="h-5 w-5 text-gray-600" />
+                              )}
+                            </div>
+                            <div>
+                              <div className="flex items-center space-x-2">
+                                <h4 className="font-medium">{role.name}</h4>
+                                {role.isDefault && (
+                                  <Badge variant="secondary">Default</Badge>
+                                )}
+                              </div>
+                              <p className="text-sm text-gray-500">
+                                {role.description || `${role.permissions.length} permissions`}
+                              </p>
+                              <p className="text-xs text-gray-400">
+                                {role.memberCount} member{role.memberCount !== 1 ? 's' : ''}
+                              </p>
+                            </div>
+                          </div>
+                          <div className="flex items-center space-x-2">
+                            <Badge className={cn(
+                              role.name === 'Owner' ? "bg-purple-100 text-purple-800" :
+                              role.name === 'Admin' ? "bg-blue-100 text-blue-800" :
+                              role.name === 'Manager' ? "bg-green-100 text-green-800" :
+                              role.name === 'Sales' ? "bg-orange-100 text-orange-800" :
+                              "bg-gray-100 text-gray-800"
+                            )}>
+                              {role.permissions.length} Permission{role.permissions.length !== 1 ? 's' : ''}
+                            </Badge>
+                            {!role.isDefault && (
+                              <DropdownMenu>
+                                <DropdownMenuTrigger asChild>
+                                  <Button variant="ghost" size="sm">
+                                    <MoreHorizontal className="h-4 w-4" />
+                                  </Button>
+                                </DropdownMenuTrigger>
+                                <DropdownMenuContent>
+                                  <DropdownMenuItem>
+                                    <Edit className="h-4 w-4 mr-2" />
+                                    Edit Role
+                                  </DropdownMenuItem>
+                                  <DropdownMenuItem>
+                                    <Users className="h-4 w-4 mr-2" />
+                                    View Members
+                                  </DropdownMenuItem>
+                                  <DropdownMenuItem className="text-red-600">
+                                    <Trash2 className="h-4 w-4 mr-2" />
+                                    Delete Role
+                                  </DropdownMenuItem>
+                                </DropdownMenuContent>
+                              </DropdownMenu>
+                            )}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
               )}
             </CardContent>
           </Card>
-        </TabsContent>
+          )}
 
-        <TabsContent value="settings" className="space-y-4">
+          {/* Advanced Settings */}
+          {activeTab === 'advanced' && (
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center space-x-2">
-                <Settings className="h-5 w-5" />
-                <span>Workspace Settings</span>
+              <CardTitle className="text-red-600 flex items-center space-x-2">
+                <AlertTriangle className="h-5 w-5" />
+                <span>Danger Zone</span>
               </CardTitle>
               <CardDescription>
-                Configure your workspace preferences
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="workspaceName">Workspace Name</Label>
-                  <Input 
-                    id="workspaceName" 
-                    defaultValue={currentWorkspace?.name || ''} 
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="workspaceSlug">Workspace URL</Label>
-                  <div className="flex">
-                    <span className="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 text-sm">
-                      crm.app/
-                    </span>
-                    <Input 
-                      id="workspaceSlug" 
-                      className="rounded-l-none"
-                      defaultValue="my-workspace"
-                    />
-                  </div>
-                </div>
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="description">Description</Label>
-                <Input 
-                  id="description" 
-                  placeholder="Describe your workspace..."
-                />
-              </div>
-
-              <Button>
-                <Settings className="h-4 w-4 mr-2" />
-                Save Settings
-              </Button>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-red-600">Danger Zone</CardTitle>
-              <CardDescription>
-                Irreversible and destructive actions
+                Irreversible and destructive actions for this workspace.
               </CardDescription>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                <div className="flex items-center justify-between p-4 border border-red-200 rounded-lg">
+                <div className="flex items-center justify-between p-4 border border-red-200 rounded-lg dark:border-red-800">
                   <div>
-                    <p className="font-medium text-red-600">Delete Workspace</p>
-                    <p className="text-sm text-gray-500">
-                      Permanently delete this workspace and all its data
+                    <p className="font-medium text-red-600 dark:text-red-400">Delete Workspace</p>
+                    <p className="text-sm text-gray-500 dark:text-gray-400">
+                      Permanently delete this workspace and all its data. This action cannot be undone.
                     </p>
                   </div>
-                  <Button variant="destructive" size="sm">
+                  <Button variant="destructive" size="sm" disabled={!isOwner}>
                     <Trash2 className="h-4 w-4 mr-2" />
-                    Delete
+                    Delete Workspace
                   </Button>
                 </div>
               </div>
             </CardContent>
           </Card>
-        </TabsContent>
-      </Tabs>
+          )}
+        </div>
+      </div>
     </div>
   );
 }
