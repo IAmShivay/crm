@@ -1,7 +1,7 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { NextRequest } from 'next/server';
-import { User, Workspace, WorkspaceMember, Role, type IUser } from './models';
+import { User, Workspace, WorkspaceMember, Role, Activity, type IUser } from './models';
 import connectToMongoDB from './connection';
 import { seedWorkspaceDefaults } from './seedDefaults';
 
@@ -147,6 +147,32 @@ export async function signIn({ email, password }: SignInData): Promise<AuthResul
     // Update last sign in
     user.lastSignInAt = new Date();
     await user.save();
+
+    // Log sign-in activity for all user's workspaces
+    try {
+      const userMemberships = await WorkspaceMember.find({
+        userId: user._id,
+        status: 'active'
+      });
+
+      for (const membership of userMemberships) {
+        await Activity.create({
+          workspaceId: membership.workspaceId,
+          userId: user._id,
+          action: 'user_signed_in',
+          entityType: 'User',
+          entityId: user._id,
+          description: `${user.fullName} signed in`,
+          metadata: {
+            userEmail: user.email,
+            signInTime: new Date().toISOString()
+          }
+        });
+      }
+    } catch (activityError) {
+      console.error('Failed to log sign-in activity:', activityError);
+      // Don't fail the sign-in if activity logging fails
+    }
 
     // Generate token
     const token = generateToken(user._id);

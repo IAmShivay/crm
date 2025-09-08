@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { verifyAuthToken } from '@/lib/mongodb/auth';
-import { Lead, WorkspaceMember } from '@/lib/mongodb/client';
+import { Lead, WorkspaceMember, Activity } from '@/lib/mongodb/client';
 import { connectToMongoDB } from '@/lib/mongodb/connection';
 import { withLogging, withSecurityLogging, logUserActivity, logBusinessEvent } from '@/lib/logging/middleware';
 import { log } from '@/lib/logging/logger';
@@ -23,12 +23,19 @@ const updateLeadSchema = z.object({
 // PUT /api/leads/[id] - Update a lead
 export const PUT = withSecurityLogging(withLogging(async (request: NextRequest, { params }: { params: { id: string } }) => {
   const startTime = Date.now();
+  console.log('=== LEAD UPDATE API DEBUG START ===');
+  console.log('Lead ID:', params.id);
 
   try {
+    console.log('Connecting to MongoDB...');
     await connectToMongoDB();
+    console.log('MongoDB connected successfully');
 
+    console.log('Verifying auth token...');
     const auth = await verifyAuthToken(request);
+    console.log('Auth result:', auth ? 'Success' : 'Failed');
     if (!auth) {
+      console.log('Auth failed, returning 401');
       return NextResponse.json(
         { message: 'Authentication required' },
         { status: 401 }
@@ -36,19 +43,26 @@ export const PUT = withSecurityLogging(withLogging(async (request: NextRequest, 
     }
 
     const leadId = params.id;
+    console.log('Reading request body...');
     const body = await request.json();
+    console.log('Request body:', body);
 
     // Get workspaceId from query params
     const url = new URL(request.url);
     const workspaceId = url.searchParams.get('workspaceId');
+    console.log('Workspace ID:', workspaceId);
 
     if (!workspaceId) {
+      console.log('No workspace ID provided');
       return NextResponse.json({ message: 'Workspace ID is required' }, { status: 400 });
     }
 
     // Validate request body
+    console.log('Validating request body...');
     const validationResult = updateLeadSchema.safeParse(body);
+    console.log('Validation result:', validationResult.success);
     if (!validationResult.success) {
+      console.log('Validation errors:', validationResult.error.errors);
       return NextResponse.json(
         {
           message: 'Validation failed',
@@ -61,13 +75,16 @@ export const PUT = withSecurityLogging(withLogging(async (request: NextRequest, 
     const updateData = validationResult.data;
 
     // Check if user has access to this workspace
+    console.log('Checking workspace membership...');
     const userMembership = await WorkspaceMember.findOne({
       workspaceId,
       userId: auth.user.id,
       status: 'active'
     });
+    console.log('User membership found:', !!userMembership);
 
     if (!userMembership) {
+      console.log('Access denied - no workspace membership');
       return NextResponse.json({ message: 'Access denied' }, { status: 403 });
     }
 
@@ -106,15 +123,21 @@ export const PUT = withSecurityLogging(withLogging(async (request: NextRequest, 
     }
 
     // Find and update the lead
+    console.log('Finding lead with ID:', leadId, 'in workspace:', workspaceId);
     const lead = await Lead.findOne({ _id: leadId, workspaceId });
+    console.log('Lead found:', !!lead);
     if (!lead) {
+      console.log('Lead not found');
       return NextResponse.json({ message: 'Lead not found' }, { status: 404 });
     }
 
     // Update the lead with provided data
+    console.log('Updating lead with data:', updateData);
     Object.assign(lead, updateData);
     lead.updatedAt = new Date();
+    console.log('Saving lead...');
     await lead.save();
+    console.log('Lead saved successfully');
 
     // Populate the updated lead
     const populatedLead = await Lead.findById(leadId)
@@ -122,6 +145,27 @@ export const PUT = withSecurityLogging(withLogging(async (request: NextRequest, 
       .populate('tagIds', 'name color')
       .populate('assignedTo', 'fullName email')
       .lean();
+
+    // Log activity in the Activity collection for recent activity display
+    try {
+      await Activity.create({
+        workspaceId,
+        userId: auth.user.id,
+        action: 'lead_updated',
+        entityType: 'Lead',
+        entityId: leadId,
+        description: `${auth.user.fullName} updated lead "${lead.name}"`,
+        metadata: {
+          leadName: lead.name,
+          updatedFields: Object.keys(updateData),
+          previousValues: {},
+          newValues: updateData
+        }
+      });
+    } catch (activityError) {
+      console.error('Failed to log lead update activity:', activityError);
+      // Don't fail the update if activity logging fails
+    }
 
     // Log the activity
     logUserActivity(
@@ -163,9 +207,16 @@ export const PUT = withSecurityLogging(withLogging(async (request: NextRequest, 
     });
 
   } catch (error) {
+    console.error('=== LEAD UPDATE API ERROR ===');
+    console.error('Error details:', error);
+    console.error('Error stack:', error instanceof Error ? error.stack : 'No stack');
     log.error('Update lead error:', error);
     return NextResponse.json(
-      { message: 'Internal server error' },
+      {
+        message: 'Internal server error',
+        error: error instanceof Error ? error.message : 'Unknown error',
+        stack: process.env.NODE_ENV === 'development' ? (error instanceof Error ? error.stack : undefined) : undefined
+      },
       { status: 500 }
     );
   }

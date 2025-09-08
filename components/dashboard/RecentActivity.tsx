@@ -17,6 +17,8 @@ const activityIcons = {
   call_scheduled: Phone,
   email_sent: Mail,
   meeting_scheduled: Calendar,
+  user_signed_in: User,
+  user_signed_out: User,
   default: Clock,
 };
 
@@ -30,60 +32,12 @@ const activityColors = {
   call_scheduled: 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300',
   email_sent: 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-300',
   meeting_scheduled: 'bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-300',
+  user_signed_in: 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300',
+  user_signed_out: 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300',
   default: 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-300',
 };
 
-// Mock activity data for demonstration
-const mockActivities = [
-  {
-    id: '1',
-    action: 'deal_closed',
-    description: 'Deal with Acme Corp closed for $15,000',
-    entity_type: 'Deal',
-    created_at: new Date(Date.now() - 1000 * 60 * 30).toISOString(), // 30 minutes ago
-    user_name: 'John Doe'
-  },
-  {
-    id: '2',
-    action: 'created',
-    description: 'New lead "Sarah Johnson" added to pipeline',
-    entity_type: 'Lead',
-    created_at: new Date(Date.now() - 1000 * 60 * 60 * 2).toISOString(), // 2 hours ago
-    user_name: 'Jane Smith'
-  },
-  {
-    id: '3',
-    action: 'call_scheduled',
-    description: 'Follow-up call scheduled with TechStart Inc',
-    entity_type: 'Activity',
-    created_at: new Date(Date.now() - 1000 * 60 * 60 * 4).toISOString(), // 4 hours ago
-    user_name: 'Mike Wilson'
-  },
-  {
-    id: '4',
-    action: 'email_sent',
-    description: 'Proposal sent to Global Solutions Ltd',
-    entity_type: 'Email',
-    created_at: new Date(Date.now() - 1000 * 60 * 60 * 6).toISOString(), // 6 hours ago
-    user_name: 'Sarah Davis'
-  },
-  {
-    id: '5',
-    action: 'updated',
-    description: 'Lead status changed from "Qualified" to "Proposal"',
-    entity_type: 'Lead',
-    created_at: new Date(Date.now() - 1000 * 60 * 60 * 8).toISOString(), // 8 hours ago
-    user_name: 'Tom Brown'
-  },
-  {
-    id: '6',
-    action: 'meeting_scheduled',
-    description: 'Demo meeting scheduled with Enterprise Corp',
-    entity_type: 'Meeting',
-    created_at: new Date(Date.now() - 1000 * 60 * 60 * 12).toISOString(), // 12 hours ago
-    user_name: 'Lisa Anderson'
-  }
-];
+
 
 export function RecentActivity() {
   const { currentWorkspace } = useAppSelector((state) => state.workspace);
@@ -94,9 +48,6 @@ export function RecentActivity() {
 
   // Extract activities from the response
   const activities = activitiesData?.activities || [];
-
-  // Use mock data if no real activities or for demonstration
-  const displayActivities = activities.length > 0 ? activities : mockActivities;
 
   const formatTimeAgo = (dateString: string) => {
     const now = new Date();
@@ -138,7 +89,7 @@ export function RecentActivity() {
       </CardHeader>
       <CardContent>
         <div className="space-y-4">
-          {displayActivities.slice(0, 6).map((activity) => {
+          {activities.slice(0, 6).map((activity) => {
             const activityAction = (activity as any).action || (activity as any).activityType || 'default';
             const IconComponent = activityIcons[activityAction as keyof typeof activityIcons] || activityIcons.default;
             const colorClass = activityColors[activityAction as keyof typeof activityColors] || activityColors.default;
@@ -176,7 +127,7 @@ export function RecentActivity() {
           })}
         </div>
 
-        {displayActivities.length === 0 && (
+        {activities.length === 0 && !isLoading && (
           <div className="text-center py-8">
             <Clock className="h-12 w-12 text-gray-400 mx-auto mb-4" />
             <p className="text-gray-500 text-sm">No recent activity</p>

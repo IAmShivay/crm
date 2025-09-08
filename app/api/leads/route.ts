@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { verifyAuthToken } from '@/lib/mongodb/auth';
-import { Lead, WorkspaceMember, Tag, LeadStatus } from '@/lib/mongodb/client';
+import { Lead, WorkspaceMember, Tag, LeadStatus, Activity } from '@/lib/mongodb/client';
 import { connectToMongoDB } from '@/lib/mongodb/connection';
 import { withLogging, withSecurityLogging, logUserActivity, logBusinessEvent } from '@/lib/logging/middleware';
 import { log } from '@/lib/logging/logger';
@@ -27,12 +27,18 @@ const createLeadSchema = z.object({
 // GET /api/leads - Get leads for a workspace with pagination and filtering
 export const GET = withSecurityLogging(withLogging(async (request: NextRequest) => {
   const startTime = Date.now();
+  console.log('=== LEADS API DEBUG START ===');
 
   try {
+    console.log('Connecting to MongoDB...');
     await connectToMongoDB();
+    console.log('MongoDB connected successfully');
 
+    console.log('Verifying auth token...');
     const auth = await verifyAuthToken(request);
+    console.log('Auth result:', auth ? 'Success' : 'Failed');
     if (!auth) {
+      console.log('Auth failed, returning 401');
       return NextResponse.json(
         { message: 'Authentication required' },
         { status: 401 }
@@ -88,19 +94,20 @@ export const GET = withSecurityLogging(withLogging(async (request: NextRequest) 
       ];
     }
 
-    // Get leads with pagination
+    // Get leads with pagination (debug version without populate)
+    console.log('Fetching leads with query:', query);
+    console.log('Skip:', skip, 'Limit:', limit);
+
     const [leads, total] = await Promise.all([
       Lead.find(query)
         .sort({ createdAt: -1 })
         .skip(skip)
         .limit(limit)
-        .populate('tagIds', 'name color')
-        .populate('statusId', 'name color')
-        .populate('assignedTo', 'fullName email')
-        .populate('createdBy', 'fullName email')
         .lean(),
       Lead.countDocuments(query)
     ]);
+
+    console.log('Found leads:', leads.length, 'Total:', total);
 
     logBusinessEvent('leads_listed', auth.user.id, workspaceId, {
       count: leads.length,
@@ -130,9 +137,16 @@ export const GET = withSecurityLogging(withLogging(async (request: NextRequest) 
     });
 
   } catch (error) {
+    console.error('=== LEADS API ERROR ===');
+    console.error('Error details:', error);
+    console.error('Error stack:', error instanceof Error ? error.stack : 'No stack');
     log.error('Get leads error:', error);
     return NextResponse.json(
-      { message: 'Internal server error' },
+      {
+        message: 'Internal server error',
+        error: error instanceof Error ? error.message : 'Unknown error',
+        stack: process.env.NODE_ENV === 'development' ? (error instanceof Error ? error.stack : undefined) : undefined
+      },
       { status: 500 }
     );
   }
@@ -249,6 +263,27 @@ export const POST = withSecurityLogging(withLogging(async (request: NextRequest)
       .populate('statusId', 'name color')
       .populate('assignedTo', 'fullName email')
       .populate('createdBy', 'fullName email');
+
+    // Log activity in the Activity collection for recent activity display
+    try {
+      await Activity.create({
+        workspaceId,
+        userId: auth.user.id,
+        action: 'lead_created',
+        entityType: 'Lead',
+        entityId: lead._id,
+        description: `${auth.user.fullName} created new lead "${leadData.name}"`,
+        metadata: {
+          leadName: leadData.name,
+          source: finalSource,
+          value: leadData.value || 0,
+          company: leadData.company
+        }
+      });
+    } catch (activityError) {
+      console.error('Failed to log lead creation activity:', activityError);
+      // Don't fail the creation if activity logging fails
+    }
 
     // Log activity
     logUserActivity(auth.user.id, 'lead_created', 'lead', {
