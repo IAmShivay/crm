@@ -30,7 +30,7 @@ export function RoleManager() {
   });
   const [deleteRole] = useDeleteRoleMutation();
 
-  const roles = rolesData || [];
+  const roles = rolesData?.roles || [];
 
   const handleDelete = async (id: string) => {
     if (!currentWorkspace?.id) return;

@@ -87,10 +87,13 @@ const mockActivities = [
 
 export function RecentActivity() {
   const { currentWorkspace } = useAppSelector((state) => state.workspace);
-  const { data: activities = [], isLoading } = useGetActivitiesQuery(
+  const { data: activitiesData, isLoading } = useGetActivitiesQuery(
     { workspaceId: currentWorkspace?.id || '', limit: 10 },
     { skip: !currentWorkspace?.id }
   );
+
+  // Extract activities from the response
+  const activities = activitiesData?.activities || [];
 
   // Use mock data if no real activities or for demonstration
   const displayActivities = activities.length > 0 ? activities : mockActivities;

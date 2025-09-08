@@ -9,12 +9,12 @@ export interface Lead {
   phone?: string;
   company?: string;
   status: string;
-  statusId?: string;
+  statusId?: string | { id: string; name: string; color: string };
   source: string;
   value?: number;
-  assignedTo?: string;
+  assignedTo?: string | { id: string; fullName: string; email: string };
   tags?: string[];
-  tagIds?: string[];
+  tagIds?: string[] | { id: string; name: string; color: string }[];
   notes?: string;
   priority: 'low' | 'medium' | 'high';
   workspaceId: string;
@@ -62,29 +62,18 @@ export interface Tag {
   updatedAt: string;
 }
 
-export interface LeadStatus {
+export interface WorkspaceMember {
   id: string;
-  name: string;
-  color: string;
-  description?: string;
-  order: number;
-  isDefault: boolean;
-  isActive: boolean;
+  userId: string;
   workspaceId: string;
-  createdBy: string;
-  createdAt: string;
-  updatedAt: string;
-}
-
-export interface Tag {
-  id: string;
-  name: string;
-  color: string;
-  description?: string;
-  workspaceId: string;
-  createdBy: string;
-  createdAt: string;
-  updatedAt: string;
+  roleId: string;
+  status: 'active' | 'inactive' | 'pending';
+  joinedAt: string;
+  user: {
+    id: string;
+    fullName: string;
+    email: string;
+  };
 }
 
 export interface Activity {
@@ -130,7 +119,7 @@ export const mongoApi = createApi({
       return headers;
     },
   }),
-  tagTypes: ['Lead', 'Role', 'Workspace', 'Activity', 'User', 'LeadStatus', 'Tag'],
+  tagTypes: ['Lead', 'Role', 'Workspace', 'Activity', 'User', 'LeadStatus', 'Tag', 'WorkspaceMember'],
   endpoints: (builder) => ({
     // Leads
     getLeads: builder.query<{ leads: Lead[]; pagination: any }, { workspaceId: string; page?: number; limit?: number; status?: string; search?: string }>({
@@ -174,27 +163,17 @@ export const mongoApi = createApi({
     }),
 
     // Roles
-    getRoles: builder.query<Role[], string>({
-      queryFn: async (workspaceId) => {
-        try {
-          const roles = await mongoClient.getRolesByWorkspace(workspaceId);
-          return { data: roles.map(role => ({ ...role.toJSON(), id: role._id.toString() })) as Role[] };
-        } catch (error) {
-          return { error: error instanceof Error ? error.message : 'Failed to fetch roles' };
-        }
-      },
+    getRoles: builder.query<{ success: boolean; roles: Role[] }, string>({
+      query: (workspaceId) => `roles?workspaceId=${workspaceId}`,
       providesTags: ['Role'],
     }),
 
-    createRole: builder.mutation<Role, Partial<Role> & { workspaceId: string }>({
-      queryFn: async (roleData) => {
-        try {
-          const role = await mongoClient.createRole(roleData);
-          return { data: { ...role.toJSON(), id: role._id.toString() } as Role };
-        } catch (error) {
-          return { error: error instanceof Error ? error.message : 'Failed to create role' };
-        }
-      },
+    createRole: builder.mutation<{ success: boolean; role: Role }, Partial<Role>>({
+      query: (role) => ({
+        url: `roles?workspaceId=${role.workspaceId}`,
+        method: 'POST',
+        body: role,
+      }),
       invalidatesTags: ['Role'],
     }),
     deleteRole: builder.mutation<{ success: boolean }, { id: string; workspaceId: string }>({
@@ -258,6 +237,12 @@ export const mongoApi = createApi({
       query: ({ workspaceId, limit = 50 }) => `activities?workspaceId=${workspaceId}&limit=${limit}`,
       providesTags: ['Activity'],
     }),
+
+    // Workspace Members
+    getWorkspaceMembers: builder.query<{ success: boolean; members: WorkspaceMember[] }, string>({
+      query: (workspaceId) => `workspaces/${workspaceId}/members`,
+      providesTags: ['WorkspaceMember'],
+    }),
   }),
 });
 
@@ -277,6 +262,7 @@ export const {
   useCreateTagMutation,
   useDeleteTagMutation,
   useGetActivitiesQuery,
+  useGetWorkspaceMembersQuery,
 } = mongoApi;
 
 // Mock exports for features not yet implemented

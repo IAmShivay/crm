@@ -93,7 +93,7 @@ export function ThemeCustomizer() {
 
   const handlePresetChange = (presetId: string) => {
     dispatch(setPreset(presetId));
-    toast.success(`Applied ${theme.presets.find(p => p.id === presetId)?.name} theme`);
+    toast.success(`Applied ${theme.presets.find((p: any) => p.id === presetId)?.name} theme`);
     // Auto-save after applying preset
     setTimeout(saveThemePreferences, 500);
   };
@@ -235,7 +235,7 @@ export function ThemeCustomizer() {
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                {theme.presets.map((preset) => (
+                {theme.presets.map((preset: any) => (
                   <button
                     key={preset.id}
                     onClick={() => handlePresetChange(preset.id)}

@@ -114,7 +114,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       medium: '16px',
       large: '18px',
     };
-    root.style.setProperty('--base-font-size', fontSizeMap[customTheme.typography.fontSize]);
+    root.style.setProperty('--base-font-size', fontSizeMap[customTheme.typography.fontSize as keyof typeof fontSizeMap]);
     
     // Apply spacing density
     const spacingMap = {
@@ -122,7 +122,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       comfortable: '1',
       spacious: '1.25',
     };
-    root.style.setProperty('--spacing-scale', spacingMap[customTheme.spacing.density]);
+    root.style.setProperty('--spacing-scale', spacingMap[customTheme.spacing.density as keyof typeof spacingMap]);
     
     // Apply border radius
     const borderRadiusMap = {
@@ -131,7 +131,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       medium: '8px',
       large: '12px',
     };
-    root.style.setProperty('--border-radius', borderRadiusMap[customTheme.borderRadius]);
+    root.style.setProperty('--border-radius', borderRadiusMap[customTheme.borderRadius as keyof typeof borderRadiusMap]);
     
     // Apply animations
     root.style.setProperty('--animation-duration', customTheme.animations ? '200ms' : '0ms');

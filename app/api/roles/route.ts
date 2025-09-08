@@ -50,7 +50,7 @@ export const GET = withSecurityLogging(withLogging(async (request: NextRequest) 
       .sort({ isDefault: -1, name: 1 })
       .lean();
 
-    await logUserActivity(auth.user.id, 'roles.list', {
+    logUserActivity(auth.user.id, 'roles.list', 'role', {
       workspaceId,
       count: roles.length
     });
@@ -140,17 +140,15 @@ export const POST = withSecurityLogging(withLogging(async (request: NextRequest)
     const role = new Role(roleData);
     await role.save();
 
-    await logUserActivity(auth.user.id, 'role.create', {
+    logUserActivity(auth.user.id, 'role.create', 'role', {
       workspaceId,
       roleId: role._id,
       roleName: role.name
     });
 
-    await logBusinessEvent('role_created', {
-      workspaceId,
+    logBusinessEvent('role_created', auth.user.id, workspaceId, {
       roleId: role._id,
-      roleName: role.name,
-      createdBy: auth.user.id
+      roleName: role.name
     });
 
     return NextResponse.json({

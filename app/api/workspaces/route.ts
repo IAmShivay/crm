@@ -7,7 +7,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { requireAuth } from '@/lib/security/auth-middleware';
-import { Workspace, WorkspaceMember, Role, User } from '@/lib/mongodb/models';
+import { Workspace, WorkspaceMember, Role, User } from '@/lib/mongodb/client';
 import { connectToMongoDB } from '@/lib/mongodb/connection';
 import { log } from '@/lib/logging/logger';
 import { logUserActivity, logBusinessEvent, withLogging, withSecurityLogging } from '@/lib/logging/middleware';

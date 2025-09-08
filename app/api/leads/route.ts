@@ -13,7 +13,7 @@ const createLeadSchema = z.object({
   company: z.string().max(100).optional(),
   status: z.string().optional(),
   statusId: z.string().optional(),
-  source: z.string().optional(),
+  source: z.enum(['manual', 'website', 'referral', 'social', 'social_media', 'email', 'phone', 'other']).optional(),
   value: z.number().min(0).optional(),
   assignedTo: z.string().optional(),
   tags: z.array(z.string()).optional(),
@@ -211,18 +211,21 @@ export const POST = withSecurityLogging(withLogging(async (request: NextRequest)
     }
 
     // Determine source from request or use default
-    let finalSource = validationResult.data.source;
-    if (!finalSource) {
+    let finalSource = validationResult.data.source || 'manual';
+    if (!validationResult.data.source) {
       const origin = request.headers.get('origin') || request.headers.get('referer');
       if (origin) {
-        try {
-          const url = new URL(origin);
-          finalSource = url.hostname;
-        } catch {
+        // Map common domains to source types
+        const hostname = new URL(origin).hostname.toLowerCase();
+        if (hostname.includes('facebook')) {
+          finalSource = 'social_media';
+        } else if (hostname.includes('google') || hostname.includes('gmail')) {
+          finalSource = 'email';
+        } else if (hostname.includes('linkedin') || hostname.includes('twitter') || hostname.includes('instagram')) {
+          finalSource = 'social_media';
+        } else {
           finalSource = 'website';
         }
-      } else {
-        finalSource = 'manual';
       }
     }
 

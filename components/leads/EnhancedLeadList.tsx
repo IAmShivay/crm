@@ -530,7 +530,6 @@ export function EnhancedLeadList() {
               setIsCreateOpen(false);
               fetchLeads(1, true);
             }}
-            onCancel={() => setIsCreateOpen(false)}
           />
         </DialogContent>
       </Dialog>

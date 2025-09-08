@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { Webhook, WebhookLog, Lead } from '@/lib/mongodb/client';
+import { Webhook, WebhookLog, Lead, Tag } from '@/lib/mongodb/client';
 import { webhookLeadSchema } from '@/lib/security/validation';
+import { processWebhook, detectWebhookType } from '@/lib/webhooks/processors';
 import crypto from 'crypto';
 
 // POST /api/webhooks/receive/[id] - Receive webhook data
@@ -8,6 +9,8 @@ export async function POST(request: NextRequest, { params }: { params: { id: str
   const startTime = Date.now();
   const webhookId = params.id;
   
+  let workspaceId = 'unknown';
+
   try {
     // Find the webhook
     const webhook = await Webhook.findById(webhookId);
@@ -18,6 +21,8 @@ export async function POST(request: NextRequest, { params }: { params: { id: str
       );
     }
 
+    workspaceId = webhook.workspaceId;
+
     // Get request details
     const method = request.method;
     const url = request.url;
@@ -26,8 +31,8 @@ export async function POST(request: NextRequest, { params }: { params: { id: str
     const ipAddress = headers['x-forwarded-for'] || headers['x-real-ip'] || 'unknown';
     
     let body: any;
-    let rawBody: string;
-    
+    let rawBody: string = '';
+
     try {
       rawBody = await request.text();
       body = rawBody ? JSON.parse(rawBody) : {};
@@ -85,11 +90,15 @@ export async function POST(request: NextRequest, { params }: { params: { id: str
       }
     }
 
-    // Transform the data based on webhook type
-    let leadData: any;
-    
+    // Process the webhook data using the appropriate processor
+    let processedData: any;
+
     try {
-      leadData = transformWebhookData(body, webhook.webhookType, webhook.transformationRules);
+      // Auto-detect webhook type if not specified or use configured type
+      const webhookType = webhook.webhookType || detectWebhookType(request, body);
+
+      // Process the webhook data
+      processedData = await processWebhook(webhookType, body, request);
     } catch (error) {
       await WebhookLog.create({
         webhookId,
@@ -100,7 +109,7 @@ export async function POST(request: NextRequest, { params }: { params: { id: str
         body,
         processingTime: Date.now() - startTime,
         success: false,
-        errorMessage: `Data transformation failed: ${error.message}`,
+        errorMessage: `Data transformation failed: ${error instanceof Error ? error.message : String(error)}`,
         userAgent,
         ipAddress
       });
@@ -111,57 +120,97 @@ export async function POST(request: NextRequest, { params }: { params: { id: str
       );
     }
 
-    // Validate the transformed lead data
-    const validationResult = webhookLeadSchema.safeParse(leadData);
-    if (!validationResult.success) {
-      await WebhookLog.create({
-        webhookId,
-        workspaceId: webhook.workspaceId,
-        method,
-        url,
-        headers,
-        body,
-        processingTime: Date.now() - startTime,
-        success: false,
-        errorMessage: `Validation failed: ${validationResult.error.errors.map(e => e.message).join(', ')}`,
-        userAgent,
-        ipAddress
-      });
+    // Process all leads from the webhook
+    const createdLeads = [];
+    const errors = [];
 
-      return NextResponse.json(
-        { 
-          error: 'Validation failed',
-          details: validationResult.error.errors
-        },
-        { status: 400 }
-      );
+    for (const leadData of processedData.leads) {
+      try {
+        // Validate each lead
+        const validationResult = webhookLeadSchema.safeParse({
+          name: leadData.name,
+          email: leadData.email,
+          phone: leadData.phone,
+          company: leadData.company,
+          source: leadData.source,
+          value: leadData.value,
+          custom_fields: leadData.customFields
+        });
+
+        if (!validationResult.success) {
+          errors.push({
+            leadData: leadData.name || leadData.email,
+            error: validationResult.error.errors.map(e => e.message).join(', ')
+          });
+          continue;
+        }
+
+        // Create the lead
+        const lead = await Lead.create({
+          workspaceId: webhook.workspaceId,
+          name: validationResult.data.name,
+          email: validationResult.data.email,
+          phone: validationResult.data.phone,
+          company: validationResult.data.company,
+          source: validationResult.data.source || processedData.source,
+          value: validationResult.data.value || 0,
+          status: 'new',
+          priority: leadData.priority || 'medium',
+          customFields: validationResult.data.custom_fields || {},
+          createdBy: webhook.createdBy,
+          notes: leadData.notes || `Created via ${webhook.name} webhook (${processedData.provider})`
+        });
+
+        // Add tags if provided
+        if (leadData.tags && leadData.tags.length > 0) {
+          // Find or create tags
+          const tagIds = [];
+          for (const tagName of leadData.tags) {
+            let tag = await Tag.findOne({ name: tagName, workspaceId: webhook.workspaceId });
+            if (!tag) {
+              tag = await Tag.create({
+                name: tagName,
+                color: '#3b82f6',
+                workspaceId: webhook.workspaceId,
+                createdBy: webhook.createdBy
+              });
+            }
+            tagIds.push(tag._id);
+          }
+
+          // Update lead with tags
+          await Lead.findByIdAndUpdate(lead._id, { tagIds });
+        }
+
+        createdLeads.push(lead);
+      } catch (error) {
+        errors.push({
+          leadData: leadData.name || leadData.email,
+          error: error instanceof Error ? error.message : 'Unknown error'
+        });
+      }
     }
 
-    // Create the lead
-    const lead = await Lead.create({
-      workspaceId: webhook.workspaceId,
-      name: validationResult.data.name,
-      email: validationResult.data.email,
-      phone: validationResult.data.phone,
-      company: validationResult.data.company,
-      source: validationResult.data.source || webhook.webhookType,
-      value: validationResult.data.value || 0,
-      status: 'new',
-      customFields: validationResult.data.custom_fields || {},
-      createdBy: webhook.createdBy,
-      notes: `Created via ${webhook.name} webhook`
-    });
-
     // Update webhook statistics
+    const successCount = createdLeads.length;
+    const errorCount = errors.length;
+
     await Webhook.findByIdAndUpdate(webhookId, {
-      $inc: { 
+      $inc: {
         totalRequests: 1,
-        successfulRequests: 1
+        successfulRequests: successCount > 0 ? 1 : 0
       },
       lastTriggered: new Date()
     });
 
-    // Log successful request
+    // Log webhook processing
+    const responseBody = {
+      success: successCount > 0,
+      created: successCount,
+      failed: errorCount,
+      leadIds: createdLeads.map(lead => lead._id)
+    };
+
     await WebhookLog.create({
       webhookId,
       workspaceId: webhook.workspaceId,
@@ -169,19 +218,24 @@ export async function POST(request: NextRequest, { params }: { params: { id: str
       url,
       headers,
       body,
-      responseStatus: 200,
-      responseBody: { success: true, leadId: lead._id },
+      responseStatus: successCount > 0 ? 200 : 400,
+      responseBody,
       processingTime: Date.now() - startTime,
-      success: true,
-      leadId: lead._id.toString(),
+      success: successCount > 0,
+      leadId: createdLeads.length > 0 ? createdLeads[0]._id.toString() : undefined,
       userAgent,
       ipAddress
     });
 
     return NextResponse.json({
       success: true,
-      leadId: lead._id,
-      message: 'Lead created successfully'
+      message: `Processed ${successCount} leads successfully${errorCount > 0 ? `, ${errorCount} failed` : ''}`,
+      results: {
+        created: successCount,
+        failed: errorCount,
+        leadIds: createdLeads.map(lead => lead._id),
+        errors: errors.length > 0 ? errors : undefined
+      }
     });
 
   } catch (error) {
@@ -199,14 +253,14 @@ export async function POST(request: NextRequest, { params }: { params: { id: str
     try {
       await WebhookLog.create({
         webhookId,
-        workspaceId: webhook?.workspaceId || 'unknown',
+        workspaceId,
         method: request.method,
         url: request.url,
         headers: Object.fromEntries(request.headers.entries()),
         body: {},
         processingTime: Date.now() - startTime,
         success: false,
-        errorMessage: error.message || 'Internal server error',
+        errorMessage: error instanceof Error ? error.message : 'Internal server error',
         userAgent: request.headers.get('user-agent') || '',
         ipAddress: request.headers.get('x-forwarded-for') || 'unknown'
       });
@@ -221,160 +275,3 @@ export async function POST(request: NextRequest, { params }: { params: { id: str
   }
 }
 
-// Transform webhook data based on the webhook type
-function transformWebhookData(data: any, webhookType: string, customRules?: any): any {
-  // Apply custom transformation rules first
-  if (customRules && Object.keys(customRules).length > 0) {
-    return applyCustomTransformation(data, customRules);
-  }
-
-  // Default transformations based on webhook type
-  switch (webhookType) {
-    case 'facebook_leads':
-      return transformFacebookLeads(data);
-    case 'google_forms':
-      return transformGoogleForms(data);
-    case 'zapier':
-      return transformZapier(data);
-    case 'mailchimp':
-      return transformMailchimp(data);
-    case 'hubspot':
-      return transformHubspot(data);
-    case 'salesforce':
-      return transformSalesforce(data);
-    default:
-      return data; // For custom webhooks, use data as-is
-  }
-}
-
-function transformFacebookLeads(data: any): any {
-  // Facebook Lead Ads format
-  const leadData = data.entry?.[0]?.changes?.[0]?.value?.leadgen_id ? 
-    data.entry[0].changes[0].value : data;
-
-  return {
-    name: `${leadData.first_name || ''} ${leadData.last_name || ''}`.trim() || leadData.full_name,
-    email: leadData.email,
-    phone: leadData.phone_number,
-    company: leadData.company_name,
-    source: 'facebook_leads',
-    custom_fields: {
-      facebook_lead_id: leadData.leadgen_id || leadData.id,
-      ad_id: leadData.ad_id,
-      form_id: leadData.form_id,
-      ...leadData.custom_fields
-    }
-  };
-}
-
-function transformGoogleForms(data: any): any {
-  // Google Forms format
-  return {
-    name: data.name || `${data.first_name || ''} ${data.last_name || ''}`.trim(),
-    email: data.email,
-    phone: data.phone,
-    company: data.company,
-    source: 'google_forms',
-    custom_fields: data.custom_fields || {}
-  };
-}
-
-function transformZapier(data: any): any {
-  // Zapier typically sends clean data
-  return {
-    name: data.name || data.full_name,
-    email: data.email,
-    phone: data.phone,
-    company: data.company,
-    source: 'zapier',
-    value: data.value,
-    custom_fields: data.custom_fields || {}
-  };
-}
-
-function transformMailchimp(data: any): any {
-  // Mailchimp subscriber data
-  const mergeFields = data.merge_fields || {};
-  return {
-    name: `${mergeFields.FNAME || ''} ${mergeFields.LNAME || ''}`.trim(),
-    email: data.email_address,
-    phone: mergeFields.PHONE,
-    company: mergeFields.COMPANY,
-    source: 'mailchimp',
-    custom_fields: {
-      mailchimp_id: data.id,
-      status: data.status,
-      ...mergeFields
-    }
-  };
-}
-
-function transformHubspot(data: any): any {
-  // HubSpot contact data
-  const properties = data.properties || {};
-  return {
-    name: `${properties.firstname || ''} ${properties.lastname || ''}`.trim(),
-    email: properties.email,
-    phone: properties.phone,
-    company: properties.company,
-    source: 'hubspot',
-    custom_fields: {
-      hubspot_id: data.id,
-      ...properties
-    }
-  };
-}
-
-function transformSalesforce(data: any): any {
-  // Salesforce lead data
-  return {
-    name: `${data.FirstName || ''} ${data.LastName || ''}`.trim(),
-    email: data.Email,
-    phone: data.Phone,
-    company: data.Company,
-    source: 'salesforce',
-    custom_fields: {
-      salesforce_id: data.Id,
-      lead_source: data.LeadSource,
-      ...data
-    }
-  };
-}
-
-function applyCustomTransformation(data: any, rules: any): any {
-  // Apply custom transformation rules
-  const result: any = {};
-  
-  for (const [targetField, sourceField] of Object.entries(rules)) {
-    if (typeof sourceField === 'string') {
-      // Simple field mapping
-      result[targetField] = getNestedValue(data, sourceField);
-    } else if (typeof sourceField === 'object' && sourceField.path) {
-      // Complex field mapping with transformations
-      let value = getNestedValue(data, sourceField.path);
-      
-      if (sourceField.transform) {
-        // Apply transformation function (basic string operations)
-        switch (sourceField.transform) {
-          case 'uppercase':
-            value = value?.toString().toUpperCase();
-            break;
-          case 'lowercase':
-            value = value?.toString().toLowerCase();
-            break;
-          case 'trim':
-            value = value?.toString().trim();
-            break;
-        }
-      }
-      
-      result[targetField] = value;
-    }
-  }
-  
-  return result;
-}
-
-function getNestedValue(obj: any, path: string): any {
-  return path.split('.').reduce((current, key) => current?.[key], obj);
-}

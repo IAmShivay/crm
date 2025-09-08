@@ -69,17 +69,15 @@ export const DELETE = withSecurityLogging(withLogging(async (request: NextReques
     // Delete the role
     await Role.findByIdAndDelete(roleId);
 
-    await logUserActivity(auth.user.id, 'role.delete', {
+    logUserActivity(auth.user.id, 'role.delete', 'role', {
       workspaceId,
       roleId,
       roleName: role.name
     });
 
-    await logBusinessEvent('role_deleted', {
-      workspaceId,
+    logBusinessEvent('role_deleted', auth.user.id, workspaceId, {
       roleId,
-      roleName: role.name,
-      deletedBy: auth.user.id
+      roleName: role.name
     });
 
     return NextResponse.json({

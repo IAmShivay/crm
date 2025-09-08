@@ -97,9 +97,11 @@ export function LeadForm({ onSuccess }: LeadFormProps) {
 
       toast.success('Lead created successfully');
       onSuccess?.();
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error creating lead:', error);
-      toast.error('Failed to create lead');
+      // Check if it's a validation error or server error
+      const errorMessage = error?.data?.message || error?.message || 'Failed to create lead';
+      toast.error(errorMessage);
     }
   };
 

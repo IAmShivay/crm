@@ -19,6 +19,7 @@ import {
 import { useAppSelector } from '@/lib/hooks';
 import { toast } from 'sonner';
 import { CardSkeleton, PageHeaderSkeleton } from '@/components/ui/skeleton';
+import { useGetTagsQuery, useCreateTagMutation, useDeleteTagMutation } from '@/lib/api/mongoApi';
 
 interface LeadTag {
   id: string;
@@ -28,8 +29,6 @@ interface LeadTag {
 }
 
 export function TagManager() {
-  const [tags, setTags] = useState<LeadTag[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
   const [isCreateOpen, setIsCreateOpen] = useState(false);
   const [editingTag, setEditingTag] = useState<LeadTag | null>(null);
 
@@ -39,76 +38,33 @@ export function TagManager() {
   const [description, setDescription] = useState('');
 
   const { currentWorkspace } = useAppSelector((state) => state.workspace);
-  const { token } = useAppSelector((state) => state.auth);
 
-  useEffect(() => {
-    if (currentWorkspace?.id && token) {
-      fetchTags();
-    }
-  }, [currentWorkspace?.id, token]);
+  // RTK Query hooks
+  const { data: tagsData, isLoading, refetch } = useGetTagsQuery(currentWorkspace?.id || '', {
+    skip: !currentWorkspace?.id
+  });
+  const [createTag] = useCreateTagMutation();
+  const [deleteTag] = useDeleteTagMutation();
 
-  const fetchTags = async () => {
-    if (!currentWorkspace?.id || !token) return;
-
-    setIsLoading(true);
-    try {
-      const response = await fetch(`/api/tags?workspaceId=${currentWorkspace.id}`, {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-        },
-      });
-
-      const data = await response.json();
-      if (data.success) {
-        setTags(data.tags);
-      } else {
-        toast.error('Failed to fetch tags');
-      }
-    } catch (error) {
-      console.error('Error fetching tags:', error);
-      toast.error('Failed to fetch tags');
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  const tags = tagsData?.tags || [];
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!currentWorkspace?.id || !token) return;
-
-    const isEditing = !!editingTag;
-    const url = isEditing 
-      ? `/api/tags/${editingTag.id}?workspaceId=${currentWorkspace.id}`
-      : `/api/tags?workspaceId=${currentWorkspace.id}`;
-    
-    const method = isEditing ? 'PUT' : 'POST';
+    if (!currentWorkspace?.id) return;
 
     try {
-      const response = await fetch(url, {
-        method,
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          name,
-          color,
-          description,
-          workspaceId: currentWorkspace.id,
-        }),
-      });
+      await createTag({
+        name,
+        color,
+        description,
+        workspaceId: currentWorkspace.id,
+      }).unwrap();
 
-      const data = await response.json();
-      if (data.success) {
-        toast.success(`Tag ${isEditing ? 'updated' : 'created'} successfully`);
-        resetForm();
-        fetchTags();
-      } else {
-        toast.error(data.message || `Failed to ${isEditing ? 'update' : 'create'} tag`);
-      }
+      toast.success('Tag created successfully');
+      resetForm();
     } catch (error) {
-      console.error('Error saving tag:', error);
-      toast.error(`Failed to ${isEditing ? 'update' : 'create'} tag`);
+      console.error('Error creating tag:', error);
+      toast.error('Failed to create tag');
     }
   };
 
@@ -121,22 +77,11 @@ export function TagManager() {
   };
 
   const handleDelete = async (id: string) => {
-    if (!currentWorkspace?.id || !token) return;
+    if (!currentWorkspace?.id) return;
 
     try {
-      const response = await fetch(`/api/tags/${id}?workspaceId=${currentWorkspace.id}`, {
-        method: 'DELETE',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-        },
-      });
-
-      if (response.ok) {
-        toast.success('Tag deleted successfully');
-        fetchTags();
-      } else {
-        toast.error('Failed to delete tag');
-      }
+      await deleteTag({ id, workspaceId: currentWorkspace.id }).unwrap();
+      toast.success('Tag deleted successfully');
     } catch (error) {
       console.error('Error deleting tag:', error);
       toast.error('Failed to delete tag');

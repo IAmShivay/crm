@@ -53,42 +53,33 @@ export function LeadStatusManager() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!currentWorkspace?.id || !token) return;
-
-    const isEditing = !!editingStatus;
-    const url = isEditing 
-      ? `/api/lead-statuses/${editingStatus.id}?workspaceId=${currentWorkspace.id}`
-      : `/api/lead-statuses?workspaceId=${currentWorkspace.id}`;
-    
-    const method = isEditing ? 'PUT' : 'POST';
+    if (!currentWorkspace?.id) return;
 
     try {
-      const response = await fetch(url, {
-        method,
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          name,
-          color,
-          description,
-          workspaceId: currentWorkspace.id,
-        }),
-      });
+      await createLeadStatus({
+        name,
+        color,
+        description,
+        workspaceId: currentWorkspace.id,
+        order: statuses.length,
+        isDefault: false,
+        isActive: true,
+      }).unwrap();
 
-      const data = await response.json();
-      if (data.success) {
-        toast.success(`Lead status ${isEditing ? 'updated' : 'created'} successfully`);
-        resetForm();
-        fetchStatuses();
-      } else {
-        toast.error(data.message || `Failed to ${isEditing ? 'update' : 'create'} lead status`);
-      }
+      toast.success('Lead status created successfully');
+      resetForm();
     } catch (error) {
       console.error('Error saving lead status:', error);
-      toast.error(`Failed to ${isEditing ? 'update' : 'create'} lead status`);
+      toast.error('Failed to save lead status');
     }
+  };
+
+  const resetForm = () => {
+    setName('');
+    setColor('#3b82f6');
+    setDescription('');
+    setEditingStatus(null);
+    setIsCreateOpen(false);
   };
 
   const handleEdit = (status: LeadStatus) => {
@@ -100,34 +91,15 @@ export function LeadStatusManager() {
   };
 
   const handleDelete = async (id: string) => {
-    if (!currentWorkspace?.id || !token) return;
+    if (!currentWorkspace?.id) return;
 
     try {
-      const response = await fetch(`/api/lead-statuses/${id}?workspaceId=${currentWorkspace.id}`, {
-        method: 'DELETE',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-        },
-      });
-
-      if (response.ok) {
-        toast.success('Lead status deleted successfully');
-        fetchStatuses();
-      } else {
-        toast.error('Failed to delete lead status');
-      }
+      await deleteLeadStatus({ id, workspaceId: currentWorkspace.id }).unwrap();
+      toast.success('Lead status deleted successfully');
     } catch (error) {
       console.error('Error deleting lead status:', error);
       toast.error('Failed to delete lead status');
     }
-  };
-
-  const resetForm = () => {
-    setName('');
-    setColor('#3b82f6');
-    setDescription('');
-    setEditingStatus(null);
-    setIsCreateOpen(false);
   };
 
   if (isLoading) {

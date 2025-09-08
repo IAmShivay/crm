@@ -56,17 +56,15 @@ export const DELETE = withSecurityLogging(withLogging(async (request: NextReques
     // Delete the status
     await LeadStatus.findByIdAndDelete(statusId);
 
-    await logUserActivity(auth.user.id, 'lead_status.delete', {
+    logUserActivity(auth.user.id, 'lead_status.delete', 'lead_status', {
       workspaceId,
       statusId,
       statusName: status.name
     });
 
-    await logBusinessEvent('lead_status_deleted', {
-      workspaceId,
+    logBusinessEvent('lead_status_deleted', auth.user.id, workspaceId, {
       statusId,
-      statusName: status.name,
-      deletedBy: auth.user.id
+      statusName: status.name
     });
 
     return NextResponse.json({

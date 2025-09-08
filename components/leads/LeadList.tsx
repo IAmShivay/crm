@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Plus, Search, Filter, MoreHorizontal, Edit, Trash2, Eye } from 'lucide-react';
+import { Plus, Search, Filter, MoreHorizontal, Trash2, Eye } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -31,6 +31,7 @@ import {
 import { useAppSelector } from '@/lib/hooks';
 import { toast } from 'sonner';
 import { LeadForm } from './LeadForm';
+import { LeadDetailsSheet } from './LeadDetailsSheet';
 import { TableSkeleton, PageHeaderSkeleton } from '@/components/ui/skeleton';
 import { useGetLeadsQuery, useDeleteLeadMutation } from '@/lib/api/mongoApi';
 
@@ -48,6 +49,8 @@ export function LeadList() {
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('');
   const [isCreateOpen, setIsCreateOpen] = useState(false);
+  const [selectedLead, setSelectedLead] = useState<any>(null);
+  const [isDetailsOpen, setIsDetailsOpen] = useState(false);
 
   const { currentWorkspace } = useAppSelector((state) => state.workspace);
 
@@ -74,6 +77,11 @@ export function LeadList() {
       console.error('Error deleting lead:', error);
       toast.error('Failed to delete lead');
     }
+  };
+
+  const handleViewDetails = (lead: any) => {
+    setSelectedLead(lead);
+    setIsDetailsOpen(true);
   };
 
   const filteredLeads = leads.filter(lead => {
@@ -132,10 +140,7 @@ export function LeadList() {
                 Add a new lead to your sales pipeline.
               </DialogDescription>
             </DialogHeader>
-            <LeadForm onSuccess={() => {
-              setIsCreateOpen(false);
-              fetchLeads();
-            }} />
+            <LeadForm onSuccess={() => setIsCreateOpen(false)} />
           </DialogContent>
         </Dialog>
       </div>
@@ -174,7 +179,8 @@ export function LeadList() {
                   <TableHead>Email</TableHead>
                   <TableHead>Company</TableHead>
                   <TableHead>Status</TableHead>
-                  <TableHead>Source</TableHead>
+                  <TableHead>Tags</TableHead>
+                  <TableHead>Assigned To</TableHead>
                   <TableHead>Value</TableHead>
                   <TableHead>Created</TableHead>
                   <TableHead className="text-right">Actions</TableHead>
@@ -187,11 +193,54 @@ export function LeadList() {
                     <TableCell>{lead.email || '-'}</TableCell>
                     <TableCell>{lead.company || '-'}</TableCell>
                     <TableCell>
-                      <Badge className={statusColors[lead.status as keyof typeof statusColors] || 'bg-gray-100 text-gray-800'}>
-                        {lead.status.replace('_', ' ')}
-                      </Badge>
+                      {lead.statusId && typeof lead.statusId === 'object' ? (
+                        <Badge
+                          variant="secondary"
+                          style={{ backgroundColor: lead.statusId.color + '20', color: lead.statusId.color }}
+                        >
+                          {lead.statusId.name}
+                        </Badge>
+                      ) : (
+                        <Badge variant="secondary">
+                          {lead.status || 'No Status'}
+                        </Badge>
+                      )}
                     </TableCell>
-                    <TableCell>{lead.source}</TableCell>
+                    <TableCell>
+                      <div className="flex flex-wrap gap-1">
+                        {lead.tagIds && Array.isArray(lead.tagIds) && lead.tagIds.length > 0 ? (
+                          lead.tagIds.slice(0, 2).map((tag: any) => (
+                            <Badge
+                              key={tag.id || tag._id}
+                              variant="outline"
+                              className="text-xs"
+                              style={{ borderColor: tag.color, color: tag.color }}
+                            >
+                              {tag.name}
+                            </Badge>
+                          ))
+                        ) : (
+                          <span className="text-muted-foreground text-sm">-</span>
+                        )}
+                        {lead.tagIds && lead.tagIds.length > 2 && (
+                          <Badge variant="outline" className="text-xs">
+                            +{lead.tagIds.length - 2}
+                          </Badge>
+                        )}
+                      </div>
+                    </TableCell>
+                    <TableCell>
+                      {lead.assignedTo && typeof lead.assignedTo === 'object' ? (
+                        <div className="flex items-center space-x-2">
+                          <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center text-xs font-medium">
+                            {lead.assignedTo.fullName?.charAt(0).toUpperCase()}
+                          </div>
+                          <span className="text-sm">{lead.assignedTo.fullName}</span>
+                        </div>
+                      ) : (
+                        <span className="text-muted-foreground text-sm">Unassigned</span>
+                      )}
+                    </TableCell>
                     <TableCell>
                       {lead.value ? `$${lead.value.toLocaleString()}` : '-'}
                     </TableCell>
@@ -206,15 +255,11 @@ export function LeadList() {
                           </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
-                          <DropdownMenuItem>
+                          <DropdownMenuItem onClick={() => handleViewDetails(lead)}>
                             <Eye className="h-4 w-4 mr-2" />
-                            View
+                            View & Edit
                           </DropdownMenuItem>
-                          <DropdownMenuItem>
-                            <Edit className="h-4 w-4 mr-2" />
-                            Edit
-                          </DropdownMenuItem>
-                          <DropdownMenuItem 
+                          <DropdownMenuItem
                             className="text-red-600"
                             onClick={() => handleDelete(lead.id)}
                           >
@@ -231,6 +276,30 @@ export function LeadList() {
           )}
         </CardContent>
       </Card>
+
+      {/* Lead Creation Dialog */}
+      <Dialog open={isCreateOpen} onOpenChange={setIsCreateOpen}>
+        <DialogContent className="max-w-2xl">
+          <DialogHeader>
+            <DialogTitle>Create New Lead</DialogTitle>
+            <DialogDescription>
+              Add a new lead to your workspace
+            </DialogDescription>
+          </DialogHeader>
+          <LeadForm onSuccess={() => setIsCreateOpen(false)} />
+        </DialogContent>
+      </Dialog>
+
+      {/* Lead Details Sheet */}
+      <LeadDetailsSheet
+        lead={selectedLead}
+        open={isDetailsOpen}
+        onClose={() => {
+          setIsDetailsOpen(false);
+          setSelectedLead(null);
+        }}
+        onDelete={handleDelete}
+      />
     </div>
   );
 }

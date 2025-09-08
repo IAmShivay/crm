@@ -3,9 +3,9 @@ import { setupListeners } from '@reduxjs/toolkit/query/react';
 import { mongoApi } from './api/mongoApi';
 import { userPreferencesApi } from './api/userPreferencesApi';
 import { webhookApi } from './api/webhookApi';
-import authSlice from './slices/authSlice';
-import themeSlice from './slices/themeSlice';
-import workspaceSlice from './slices/workspaceSlice';
+import authReducer from './slices/authSlice';
+import themeReducer from './slices/themeSlice';
+import workspaceReducer from './slices/workspaceSlice';
 import { persistenceMiddleware, loadPersistedState } from './middleware/persistenceMiddleware';
 
 // Load persisted state
@@ -13,14 +13,14 @@ const persistedState = typeof window !== 'undefined' ? loadPersistedState() : {}
 
 export const store = configureStore({
   reducer: {
-    auth: authSlice,
-    theme: themeSlice,
-    workspace: workspaceSlice,
+    auth: authReducer,
+    theme: themeReducer,
+    workspace: workspaceReducer,
     [mongoApi.reducerPath]: mongoApi.reducer,
     [userPreferencesApi.reducerPath]: userPreferencesApi.reducer,
     [webhookApi.reducerPath]: webhookApi.reducer,
-  },
-  preloadedState: persistedState,
+  } as any,
+  preloadedState: persistedState as any,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
       mongoApi.middleware,

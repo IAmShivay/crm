@@ -8,10 +8,13 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { verifyAuthToken } from '@/lib/mongodb/auth';
+import { requireAuth } from '@/lib/security/auth-middleware';
 import { Role, WorkspaceMember } from '@/lib/mongodb/client';
 import { connectToMongoDB } from '@/lib/mongodb/connection';
 import { log } from '@/lib/logging/logger';
 import { logUserActivity, logBusinessEvent, withLogging, withSecurityLogging } from '@/lib/logging/middleware';
+import { rateLimit } from '@/lib/security/rate-limiter';
+import { getClientIP } from '@/lib/utils/ip-utils';
 import { z } from 'zod';
 import mongoose from 'mongoose';
 
