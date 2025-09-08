@@ -57,6 +57,7 @@ import {
 } from 'lucide-react';
 import { toast } from 'sonner';
 import { cn } from '@/lib/utils';
+import { CardSkeleton, PageHeaderSkeleton, ListItemSkeleton } from '@/components/ui/skeleton';
 
 // Types for API responses
 interface WorkspaceMember {
@@ -270,6 +271,23 @@ export default function WorkspaceSettingsPage() {
           <p className="text-gray-500 dark:text-gray-400">
             Please select a workspace to manage its settings.
           </p>
+        </div>
+      </div>
+    );
+  }
+
+  if (isLoading && !workspaceDetails) {
+    return (
+      <div className="w-full space-y-6">
+        <PageHeaderSkeleton />
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div className="lg:col-span-2 space-y-6">
+            <CardSkeleton />
+            <CardSkeleton />
+          </div>
+          <div className="space-y-6">
+            <CardSkeleton />
+          </div>
         </div>
       </div>
     );

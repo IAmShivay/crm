@@ -212,23 +212,78 @@ interface Plan {
 
 #### 5. Webhook System (`/api/webhooks`)
 
-**Database Tables:**
-- `webhook_endpoints` - Webhook configurations
-- `webhook_logs` - Request/response logs
+**Database Collections:**
+- `webhooks` - Webhook configurations and statistics
+- `webhook_logs` - Request/response logs (auto-deleted after 90 days)
 
 **Key Files:**
-- `app/api/webhooks/leads/route.ts` - Lead webhook handler
-- `supabase/migrations/20250801064928_red_frost.sql` - Schema
+- `app/api/webhooks/route.ts` - Webhook CRUD operations
+- `app/api/webhooks/[id]/route.ts` - Individual webhook management
+- `app/api/webhooks/receive/[id]/route.ts` - Webhook data receiver
+- `components/webhooks/` - Webhook management UI
+- `lib/api/webhookApi.ts` - Webhook API client
+
+**Supported Webhook Types:**
+- Facebook Lead Ads
+- Google Forms
+- Zapier (5000+ app integrations)
+- Mailchimp
+- HubSpot
+- Salesforce
+- Custom webhooks
 
 **Webhook Usage:**
 ```bash
-# Create lead via webhook
-curl -X POST https://your-domain.com/api/webhooks/leads \
+# Create webhook
+curl -X POST https://your-domain.com/api/webhooks \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer token" \
+  -d '{
+    "workspaceId": "workspace_id",
+    "name": "Facebook Lead Ads",
+    "webhookType": "facebook_leads",
+    "events": ["lead.created"]
+  }'
+
+# Receive lead data
+curl -X POST https://your-domain.com/api/webhooks/receive/webhook_id \
   -H "Content-Type: application/json" \
   -d '{
     "name": "John Doe",
     "email": "john@example.com",
-    "source": "website"
+    "source": "facebook_leads"
+  }'
+```
+
+#### 6. User Preferences System (`/api/users/preferences`)
+
+**Key Files:**
+- `app/api/users/preferences/route.ts` - User preferences API
+- `lib/api/userPreferencesApi.ts` - Preferences API client
+- `components/theme/ThemeCustomizer.tsx` - Theme customization UI
+
+**Features:**
+- Theme preferences (mode, colors, typography, animations)
+- Notification settings
+- Timezone and language preferences
+- Auto-save functionality
+- Persistent storage in user profile
+
+**Usage:**
+```bash
+# Get user preferences
+curl -X GET https://your-domain.com/api/users/preferences \
+  -H "Authorization: Bearer token"
+
+# Update theme preferences
+curl -X PATCH https://your-domain.com/api/users/preferences \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer token" \
+  -d '{
+    "theme": {
+      "mode": "dark",
+      "primaryColor": "#3b82f6"
+    }
   }'
 ```
 

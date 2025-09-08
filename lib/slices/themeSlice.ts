@@ -192,6 +192,17 @@ const themeSlice = createSlice({
       state.primaryColor = '#2563eb';
       state.customTheme = initialState.customTheme;
     },
+    loadThemeFromPreferences: (state, action: PayloadAction<any>) => {
+      const preferences = action.payload;
+      if (preferences.theme) {
+        if (preferences.theme.mode) state.mode = preferences.theme.mode;
+        if (preferences.theme.primaryColor) state.primaryColor = preferences.theme.primaryColor;
+        if (preferences.theme.preset) state.preset = preferences.theme.preset;
+        if (preferences.theme.customTheme) {
+          state.customTheme = { ...state.customTheme, ...preferences.theme.customTheme };
+        }
+      }
+    },
   },
 });
 
@@ -209,7 +220,8 @@ export const {
   toggleSidebar,
   addCustomPreset,
   removeCustomPreset,
-  resetTheme
+  resetTheme,
+  loadThemeFromPreferences
 } = themeSlice.actions;
 
 export default themeSlice.reducer;

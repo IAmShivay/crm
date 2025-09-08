@@ -12,7 +12,10 @@ import {
   Menu,
   ChevronLeft,
   Briefcase,
-  BarChart3
+  BarChart3,
+  Webhook,
+  Tag,
+  Circle
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -29,7 +32,9 @@ interface SidebarProps {
 const navigation = [
   { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
   { name: 'Leads', href: '/leads', icon: Users },
-  { name: 'Lead Sources', href: '/leads/sources', icon: Users },
+  { name: 'Lead Statuses', href: '/leads/statuses', icon: Circle },
+  { name: 'Lead Tags', href: '/leads/tags', icon: Tag },
+  { name: 'Webhooks', href: '/webhooks', icon: Webhook },
   { name: 'Analytics', href: '/analytics', icon: BarChart3 },
   { name: 'Roles', href: '/roles', icon: UserCheck },
   { name: 'Workspace', href: '/workspace', icon: Building },
@@ -42,7 +47,7 @@ export function Sidebar({ collapsed, onToggle, mobileMenuOpen, onMobileMenuToggl
 
   return (
     <div className={cn(
-      "fixed inset-y-0 left-0 z-50 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 transition-all duration-300",
+      "fixed inset-y-0 left-0 z-50 bg-background dark:bg-gray-900 border-r border-border dark:border-gray-800 transition-all duration-300",
       // Desktop behavior
       "hidden lg:flex flex-col",
       collapsed ? "lg:w-16" : "lg:w-64",
@@ -51,11 +56,11 @@ export function Sidebar({ collapsed, onToggle, mobileMenuOpen, onMobileMenuToggl
       !mobileMenuOpen && "lg:flex"
     )}>
       <div className="flex h-full flex-col">
-        <div className="flex h-16 shrink-0 items-center justify-between px-4 border-b border-gray-200 dark:border-gray-700">
+        <div className="flex h-16 shrink-0 items-center justify-between px-4 border-b border-border dark:border-gray-800">
           {!collapsed && (
             <div className="flex items-center space-x-2">
-              <Briefcase className="h-8 w-8 text-blue-600" />
-              <span className="text-xl font-bold text-gray-900 dark:text-white">CRM Pro</span>
+              <Briefcase className="h-8 w-8 text-primary dark:text-blue-400" />
+              <span className="text-xl font-bold text-foreground dark:text-white">CRM Pro</span>
             </div>
           )}
           {/* Only show toggle on desktop */}
@@ -71,7 +76,7 @@ export function Sidebar({ collapsed, onToggle, mobileMenuOpen, onMobileMenuToggl
 
         {/* Workspace Switcher */}
         {!collapsed && (
-          <div className="border-b border-gray-200 dark:border-gray-700 pb-4">
+          <div className="border-b border-border dark:border-gray-800 pb-4">
             <WorkspaceSwitcher
               className="px-2"
               showCreateButton={true}
@@ -82,7 +87,7 @@ export function Sidebar({ collapsed, onToggle, mobileMenuOpen, onMobileMenuToggl
 
         {/* Collapsed workspace indicator */}
         {collapsed && (
-          <div className="px-2 py-4 border-b border-gray-200 dark:border-gray-700">
+          <div className="px-2 py-4 border-b border-border dark:border-gray-800">
             <WorkspaceSwitcher
               className=""
               showCreateButton={false}
@@ -101,14 +106,14 @@ export function Sidebar({ collapsed, onToggle, mobileMenuOpen, onMobileMenuToggl
                 className={cn(
                   "group flex items-center px-2 py-2 text-sm font-medium rounded-md transition-colors",
                   isActive
-                    ? "bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300"
-                    : "text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white"
+                    ? "bg-primary/10 dark:bg-blue-900/20 text-primary dark:text-blue-400"
+                    : "text-muted-foreground dark:text-gray-400 hover:bg-accent dark:hover:bg-gray-800 hover:text-accent-foreground dark:hover:text-gray-200"
                 )}
               >
                 <item.icon className={cn(
                   "shrink-0 h-5 w-5",
                   collapsed ? "mx-auto" : "mr-3",
-                  isActive ? "text-blue-500" : "text-gray-400 group-hover:text-gray-500"
+                  isActive ? "text-primary dark:text-blue-400" : "text-muted-foreground dark:text-gray-400 group-hover:text-foreground dark:group-hover:text-gray-200"
                 )} />
                 {!collapsed && item.name}
               </Link>

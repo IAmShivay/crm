@@ -11,10 +11,10 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { useAppSelector, useAppDispatch } from '@/lib/hooks';
-import { 
-  setThemeMode, 
-  setPrimaryColor, 
-  setPreset, 
+import {
+  setThemeMode,
+  setPrimaryColor,
+  setPreset,
   updateThemeColors,
   updateTypography,
   updateSpacing,
@@ -22,6 +22,7 @@ import {
   toggleAnimations,
   resetTheme
 } from '@/lib/slices/themeSlice';
+import { usePatchUserPreferencesMutation } from '@/lib/api/userPreferencesApi';
 import { 
   Palette, 
   Type, 
@@ -41,6 +42,7 @@ const colorInputs = [
   { key: 'primary', label: 'Primary', description: 'Main brand color' },
   { key: 'secondary', label: 'Secondary', description: 'Secondary elements' },
   { key: 'accent', label: 'Accent', description: 'Highlights and CTAs' },
+  { key: 'text', label: 'Text', description: 'Main text color' },
   { key: 'success', label: 'Success', description: 'Success states' },
   { key: 'warning', label: 'Warning', description: 'Warning states' },
   { key: 'error', label: 'Error', description: 'Error states' },
@@ -59,14 +61,47 @@ export function ThemeCustomizer() {
   const theme = useAppSelector((state) => state.theme);
   const dispatch = useAppDispatch();
   const [previewMode, setPreviewMode] = useState(false);
+  const [patchPreferences] = usePatchUserPreferencesMutation();
+
+  const saveThemePreferences = async () => {
+    try {
+      await patchPreferences({
+        theme: {
+          mode: theme.mode,
+          primaryColor: theme.primaryColor,
+          preset: theme.preset,
+          customTheme: theme.customTheme,
+        }
+      }).unwrap();
+      toast.success('Theme preferences saved');
+    } catch (error) {
+      toast.error('Failed to save theme preferences');
+    }
+  };
 
   const handleColorChange = (colorKey: string, value: string) => {
     dispatch(updateThemeColors({ [colorKey]: value }));
+
+    // If changing primary color, also update the main primary color state
+    if (colorKey === 'primary') {
+      dispatch(setPrimaryColor(value));
+    }
+
+    // Auto-save after a short delay
+    setTimeout(saveThemePreferences, 500);
   };
 
   const handlePresetChange = (presetId: string) => {
     dispatch(setPreset(presetId));
     toast.success(`Applied ${theme.presets.find(p => p.id === presetId)?.name} theme`);
+    // Auto-save after applying preset
+    setTimeout(saveThemePreferences, 500);
+  };
+
+  const handleThemeModeChange = (mode: 'light' | 'dark' | 'auto') => {
+    dispatch(setThemeMode(mode));
+    // Auto-save after changing mode
+    setTimeout(saveThemePreferences, 500);
   };
 
   const handleExportTheme = () => {
@@ -109,14 +144,16 @@ export function ThemeCustomizer() {
   const handleReset = () => {
     dispatch(resetTheme());
     toast.success('Theme reset to default');
+    // Auto-save after reset
+    setTimeout(saveThemePreferences, 500);
   };
 
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-bold">Theme Customizer</h2>
-          <p className="text-gray-600 dark:text-gray-400">
+          <h2 className="text-2xl font-bold text-foreground dark:text-white">Theme Customizer</h2>
+          <p className="text-muted-foreground dark:text-gray-400">
             Customize the appearance of your dashboard
           </p>
         </div>
@@ -176,15 +213,15 @@ export function ThemeCustomizer() {
                 ].map((mode) => (
                   <button
                     key={mode.value}
-                    onClick={() => dispatch(setThemeMode(mode.value as any))}
+                    onClick={() => handleThemeModeChange(mode.value as any)}
                     className={`p-4 border rounded-lg flex flex-col items-center space-y-2 transition-colors ${
                       theme.mode === mode.value
-                        ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20'
-                        : 'border-gray-200 hover:border-gray-300'
+                        ? 'border-primary bg-primary/10 dark:bg-primary/20 text-primary dark:text-primary'
+                        : 'border-border dark:border-gray-700 hover:border-border/80 dark:hover:border-gray-600 bg-card dark:bg-gray-800 text-foreground dark:text-gray-200'
                     }`}
                   >
                     <mode.icon className="h-6 w-6" />
-                    <span className="font-medium">{mode.label}</span>
+                    <span className="font-medium text-sm">{mode.label}</span>
                   </button>
                 ))}
               </div>
@@ -204,8 +241,8 @@ export function ThemeCustomizer() {
                     onClick={() => handlePresetChange(preset.id)}
                     className={`p-4 border rounded-lg transition-colors ${
                       theme.preset === preset.id
-                        ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20'
-                        : 'border-gray-200 hover:border-gray-300'
+                        ? 'border-primary bg-primary/10 dark:bg-primary/20'
+                        : 'border-border dark:border-gray-700 hover:border-border/80 dark:hover:border-gray-600 bg-card dark:bg-gray-800'
                     }`}
                   >
                     <div className="flex items-center space-x-2 mb-2">
@@ -248,7 +285,7 @@ export function ThemeCustomizer() {
                         id={colorInput.key}
                         value={theme.customTheme.colors[colorInput.key as keyof typeof theme.customTheme.colors]}
                         onChange={(e) => handleColorChange(colorInput.key, e.target.value)}
-                        className="w-12 h-10 border rounded cursor-pointer"
+                        className="w-12 h-10 border border-border dark:border-gray-600 rounded cursor-pointer bg-background dark:bg-gray-800"
                       />
                       <Input
                         value={theme.customTheme.colors[colorInput.key as keyof typeof theme.customTheme.colors]}
@@ -256,7 +293,7 @@ export function ThemeCustomizer() {
                         className="flex-1"
                       />
                     </div>
-                    <p className="text-xs text-gray-500">{colorInput.description}</p>
+                    <p className="text-xs text-muted-foreground dark:text-gray-400">{colorInput.description}</p>
                   </div>
                 ))}
               </div>
@@ -279,7 +316,10 @@ export function ThemeCustomizer() {
                   <Label>Font Family</Label>
                   <Select
                     value={theme.customTheme.typography.fontFamily}
-                    onValueChange={(value) => dispatch(updateTypography({ fontFamily: value }))}
+                    onValueChange={(value) => {
+                      dispatch(updateTypography({ fontFamily: value }));
+                      setTimeout(saveThemePreferences, 500);
+                    }}
                   >
                     <SelectTrigger>
                       <SelectValue />
@@ -298,7 +338,10 @@ export function ThemeCustomizer() {
                   <Label>Font Size</Label>
                   <Select
                     value={theme.customTheme.typography.fontSize}
-                    onValueChange={(value) => dispatch(updateTypography({ fontSize: value as any }))}
+                    onValueChange={(value) => {
+                      dispatch(updateTypography({ fontSize: value as any }));
+                      setTimeout(saveThemePreferences, 500);
+                    }}
                   >
                     <SelectTrigger>
                       <SelectValue />
@@ -330,7 +373,10 @@ export function ThemeCustomizer() {
                   <Label>Spacing Density</Label>
                   <Select
                     value={theme.customTheme.spacing.density}
-                    onValueChange={(value) => dispatch(updateSpacing({ density: value as any }))}
+                    onValueChange={(value) => {
+                      dispatch(updateSpacing({ density: value as any }));
+                      setTimeout(saveThemePreferences, 500);
+                    }}
                   >
                     <SelectTrigger>
                       <SelectValue />
@@ -347,7 +393,10 @@ export function ThemeCustomizer() {
                   <Label>Border Radius</Label>
                   <Select
                     value={theme.customTheme.borderRadius}
-                    onValueChange={(value) => dispatch(setBorderRadius(value as any))}
+                    onValueChange={(value) => {
+                      dispatch(setBorderRadius(value as any));
+                      setTimeout(saveThemePreferences, 500);
+                    }}
                   >
                     <SelectTrigger>
                       <SelectValue />
@@ -366,11 +415,14 @@ export function ThemeCustomizer() {
                 <div className="flex items-center justify-between">
                   <div>
                     <Label className="text-base">Animations</Label>
-                    <p className="text-sm text-gray-500">Enable smooth transitions and animations</p>
+                    <p className="text-sm text-muted-foreground dark:text-gray-400">Enable smooth transitions and animations</p>
                   </div>
                   <Switch
                     checked={theme.customTheme.animations}
-                    onCheckedChange={() => dispatch(toggleAnimations())}
+                    onCheckedChange={() => {
+                      dispatch(toggleAnimations());
+                      setTimeout(saveThemePreferences, 500);
+                    }}
                   />
                 </div>
               </div>

@@ -63,6 +63,22 @@ export const webhookLeadSchema = z.object({
   custom_fields: z.record(z.any()).optional()
 });
 
+export const createWebhookSchema = z.object({
+  workspaceId: objectIdSchema,
+  name: z.string().min(1, 'Name is required').max(100),
+  description: z.string().max(500).optional(),
+  webhookType: z.enum(['facebook_leads', 'google_forms', 'zapier', 'custom', 'mailchimp', 'hubspot', 'salesforce']),
+  events: z.array(z.enum(['lead.created', 'lead.updated', 'lead.deleted', 'contact.created', 'contact.updated'])).min(1),
+  headers: z.record(z.string()).optional(),
+  transformationRules: z.record(z.any()).optional(),
+  retryConfig: z.object({
+    maxRetries: z.number().min(0).max(10).optional(),
+    retryDelay: z.number().min(100).max(60000).optional()
+  }).optional()
+});
+
+export const updateWebhookSchema = createWebhookSchema.partial().omit({ workspaceId: true });
+
 // Sanitization functions
 export function sanitizeString(input: string): string {
   if (typeof input !== 'string') return '';

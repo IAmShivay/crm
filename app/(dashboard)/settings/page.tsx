@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
@@ -12,8 +12,9 @@ import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { useAppSelector, useAppDispatch } from '@/lib/hooks';
-import { toggleTheme, setPrimaryColor } from '@/lib/slices/themeSlice';
+import { toggleTheme, setPrimaryColor, loadThemeFromPreferences } from '@/lib/slices/themeSlice';
 import { ThemeCustomizer } from '@/components/theme/ThemeCustomizer';
+import { useGetUserPreferencesQuery, usePatchUserPreferencesMutation } from '@/lib/api/userPreferencesApi';
 import { 
   User, 
   Bell, 
@@ -41,7 +42,10 @@ export default function SettingsPage() {
   const { user } = useAppSelector((state) => state.auth);
   const { mode, primaryColor } = useAppSelector((state) => state.theme);
   const dispatch = useAppDispatch();
-  
+
+  const { data: userPreferences, isLoading: preferencesLoading } = useGetUserPreferencesQuery();
+  const [patchPreferences] = usePatchUserPreferencesMutation();
+
   const [showCurrentPassword, setShowCurrentPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [notifications, setNotifications] = useState({
@@ -52,6 +56,24 @@ export default function SettingsPage() {
     weeklyReports: false,
   });
 
+  // Load user preferences on mount
+  useEffect(() => {
+    if (userPreferences?.preferences) {
+      // Load theme preferences
+      if (userPreferences.preferences.theme) {
+        dispatch(loadThemeFromPreferences(userPreferences.preferences));
+      }
+
+      // Load notification preferences
+      if (userPreferences.preferences.notifications) {
+        setNotifications(prev => ({
+          ...prev,
+          ...userPreferences.preferences.notifications
+        }));
+      }
+    }
+  }, [userPreferences, dispatch]);
+
   const handleSaveProfile = () => {
     toast.success('Profile updated successfully');
   };
@@ -60,21 +82,28 @@ export default function SettingsPage() {
     toast.success('Password updated successfully');
   };
 
-  const handleSaveNotifications = () => {
-    toast.success('Notification preferences saved');
+  const handleSaveNotifications = async () => {
+    try {
+      await patchPreferences({
+        notifications
+      }).unwrap();
+      toast.success('Notification preferences saved');
+    } catch (error) {
+      toast.error('Failed to save notification preferences');
+    }
   };
 
   return (
     <div className="w-full space-y-6">
       <div className="w-full">
-        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">Settings</h1>
-        <p className="text-gray-600 dark:text-gray-400 mt-1">
+        <h1 className="text-2xl sm:text-3xl font-bold text-foreground dark:text-white">Settings</h1>
+        <p className="text-muted-foreground dark:text-gray-400 mt-1">
           Manage your account settings and preferences
         </p>
       </div>
 
       <Tabs defaultValue="profile" className="w-full space-y-4">
-        <TabsList className="grid w-full grid-cols-2 sm:grid-cols-3 lg:grid-cols-5">
+        <TabsList className="grid w-full grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 bg-muted dark:bg-gray-800">
           <TabsTrigger value="profile" className="flex items-center space-x-2">
             <User className="h-4 w-4" />
             <span>Profile</span>
@@ -235,7 +264,7 @@ export default function SettingsPage() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="font-medium">SMS Authentication</p>
-                  <p className="text-sm text-gray-500">Receive codes via SMS</p>
+                  <p className="text-sm text-muted-foreground dark:text-gray-400">Receive codes via SMS</p>
                 </div>
                 <Switch />
               </div>
@@ -243,7 +272,7 @@ export default function SettingsPage() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="font-medium">Authenticator App</p>
-                  <p className="text-sm text-gray-500">Use an authenticator app</p>
+                  <p className="text-sm text-muted-foreground dark:text-gray-400">Use an authenticator app</p>
                 </div>
                 <Switch />
               </div>
@@ -264,7 +293,7 @@ export default function SettingsPage() {
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="font-medium">Email Notifications</p>
-                    <p className="text-sm text-gray-500">Receive notifications via email</p>
+                    <p className="text-sm text-muted-foreground dark:text-gray-400">Receive notifications via email</p>
                   </div>
                   <Switch 
                     checked={notifications.email}
@@ -279,7 +308,7 @@ export default function SettingsPage() {
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="font-medium">Lead Updates</p>
-                    <p className="text-sm text-gray-500">New leads and status changes</p>
+                    <p className="text-sm text-muted-foreground dark:text-gray-400">New leads and status changes</p>
                   </div>
                   <Switch 
                     checked={notifications.leadUpdates}
@@ -292,7 +321,7 @@ export default function SettingsPage() {
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="font-medium">Team Activity</p>
-                    <p className="text-sm text-gray-500">Team member actions and updates</p>
+                    <p className="text-sm text-muted-foreground dark:text-gray-400">Team member actions and updates</p>
                   </div>
                   <Switch 
                     checked={notifications.teamActivity}
@@ -305,7 +334,7 @@ export default function SettingsPage() {
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="font-medium">Weekly Reports</p>
-                    <p className="text-sm text-gray-500">Weekly performance summaries</p>
+                    <p className="text-sm text-muted-foreground dark:text-gray-400">Weekly performance summaries</p>
                   </div>
                   <Switch 
                     checked={notifications.weeklyReports}
@@ -341,7 +370,7 @@ export default function SettingsPage() {
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="font-medium">API Access</p>
-                    <p className="text-sm text-gray-500">Enable API access for integrations</p>
+                    <p className="text-sm text-muted-foreground dark:text-gray-400">Enable API access for integrations</p>
                   </div>
                   <Switch />
                 </div>
@@ -349,7 +378,7 @@ export default function SettingsPage() {
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="font-medium">Data Export</p>
-                    <p className="text-sm text-gray-500">Allow data export functionality</p>
+                    <p className="text-sm text-muted-foreground dark:text-gray-400">Allow data export functionality</p>
                   </div>
                   <Switch defaultChecked />
                 </div>
@@ -360,7 +389,7 @@ export default function SettingsPage() {
               <div className="space-y-4">
                 <div>
                   <h4 className="font-medium text-red-600">Danger Zone</h4>
-                  <p className="text-sm text-gray-500">Irreversible and destructive actions</p>
+                  <p className="text-sm text-muted-foreground dark:text-gray-400">Irreversible and destructive actions</p>
                 </div>
                 
                 <Button variant="destructive" size="sm">

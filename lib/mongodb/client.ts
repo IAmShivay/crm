@@ -1,13 +1,13 @@
 import connectToMongoDB from './connection';
-import { 
-  User, 
-  Workspace, 
-  WorkspaceMember, 
-  Role, 
-  Lead, 
-  Plan, 
-  Subscription, 
-  Activity, 
+import {
+  User,
+  Workspace,
+  WorkspaceMember,
+  Role,
+  Lead,
+  Plan,
+  Subscription,
+  Activity,
   Invitation,
   type IUser,
   type IWorkspace,
@@ -19,6 +19,11 @@ import {
   type IActivity,
   type IInvitation
 } from './models';
+import { Webhook, type IWebhook } from './models/Webhook';
+import { WebhookLog, type IWebhookLog } from './models/WebhookLog';
+import { Tag, type ITag } from './models/Tag';
+import { LeadNote, type ILeadNote } from './models/LeadNote';
+import { LeadStatus, type ILeadStatus } from './models/LeadStatus';
 
 // Database client class to replace Supabase functionality
 export class MongoDBClient {
@@ -129,6 +134,48 @@ export class MongoDBClient {
       .limit(limit)
       .populate('performedBy', 'fullName email');
   }
+
+  // Webhook operations
+  async getWebhooks(workspaceId: string): Promise<IWebhook[]> {
+    await this.ensureConnection();
+    return await Webhook.find({ workspaceId }).sort({ createdAt: -1 });
+  }
+
+  async createWebhook(webhookData: Partial<IWebhook>): Promise<IWebhook> {
+    await this.ensureConnection();
+    const webhook = new Webhook(webhookData);
+    return await webhook.save();
+  }
+
+  async updateWebhook(id: string, updates: Partial<IWebhook>): Promise<IWebhook | null> {
+    await this.ensureConnection();
+    return await Webhook.findByIdAndUpdate(id, updates, { new: true });
+  }
+
+  async deleteWebhook(id: string): Promise<boolean> {
+    await this.ensureConnection();
+    const result = await Webhook.findByIdAndDelete(id);
+    return !!result;
+  }
+
+  async getWebhookByUrl(url: string): Promise<IWebhook | null> {
+    await this.ensureConnection();
+    return await Webhook.findOne({ url, isActive: true });
+  }
+
+  // Webhook log operations
+  async createWebhookLog(logData: Partial<IWebhookLog>): Promise<IWebhookLog> {
+    await this.ensureConnection();
+    const log = new WebhookLog(logData);
+    return await log.save();
+  }
+
+  async getWebhookLogs(webhookId: string, limit: number = 100): Promise<IWebhookLog[]> {
+    await this.ensureConnection();
+    return await WebhookLog.find({ webhookId })
+      .sort({ createdAt: -1 })
+      .limit(limit);
+  }
 }
 
 // Create singleton instance
@@ -144,5 +191,10 @@ export {
   Plan,
   Subscription,
   Activity,
-  Invitation
+  Invitation,
+  Webhook,
+  WebhookLog,
+  Tag,
+  LeadNote,
+  LeadStatus
 };

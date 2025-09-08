@@ -1,103 +1,280 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { verifyToken } from '@/lib/auth';
+import { verifyAuthToken } from '@/lib/mongodb/auth';
+import { Lead, WorkspaceMember, Tag, LeadStatus } from '@/lib/mongodb/client';
+import { connectToMongoDB } from '@/lib/mongodb/connection';
+import { withLogging, withSecurityLogging, logUserActivity, logBusinessEvent } from '@/lib/logging/middleware';
+import { log } from '@/lib/logging/logger';
+import { z } from 'zod';
 
-// Mock leads data
-const mockLeads = [
-  {
-    id: '1',
-    name: 'John Smith',
-    email: 'john@example.com',
-    phone: '+1-555-0123',
-    company: 'Tech Corp',
-    status: 'new' as const,
-    source: 'Website',
-    value: 5000,
-    assignedTo: 'user-1',
-    createdAt: '2024-01-15T10:00:00Z',
-    updatedAt: '2024-01-15T10:00:00Z',
-  },
-  {
-    id: '2',
-    name: 'Sarah Johnson',
-    email: 'sarah@company.com',
-    phone: '+1-555-0124',
-    company: 'Innovation Ltd',
-    status: 'contacted' as const,
-    source: 'Referral',
-    value: 12000,
-    assignedTo: 'user-2',
-    createdAt: '2024-01-14T14:30:00Z',
-    updatedAt: '2024-01-16T09:15:00Z',
-  },
-  {
-    id: '3',
-    name: 'Mike Wilson',
-    email: 'mike@startup.io',
-    company: 'StartupXYZ',
-    status: 'qualified' as const,
-    source: 'LinkedIn',
-    value: 8500,
-    createdAt: '2024-01-13T16:45:00Z',
-    updatedAt: '2024-01-17T11:20:00Z',
-  },
-];
+const createLeadSchema = z.object({
+  name: z.string().min(1).max(100),
+  email: z.string().email().optional(),
+  phone: z.string().max(20).optional(),
+  company: z.string().max(100).optional(),
+  status: z.string().optional(),
+  statusId: z.string().optional(),
+  source: z.string().optional(),
+  value: z.number().min(0).optional(),
+  assignedTo: z.string().optional(),
+  tags: z.array(z.string()).optional(),
+  tagIds: z.array(z.string()).optional(),
+  notes: z.string().max(1000).optional(),
+  priority: z.enum(['low', 'medium', 'high']).optional(),
+  nextFollowUpAt: z.string().datetime().optional(),
+  customFields: z.record(z.any()).optional(),
+});
 
-export async function GET(request: NextRequest) {
+// GET /api/leads - Get leads for a workspace with pagination and filtering
+export const GET = withSecurityLogging(withLogging(async (request: NextRequest) => {
+  const startTime = Date.now();
+
   try {
-    const authHeader = request.headers.get('authorization');
-    if (!authHeader) {
-      return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
-    }
+    await connectToMongoDB();
 
-    const token = authHeader.replace('Bearer ', '');
-    const payload = verifyToken(token);
-    if (!payload) {
-      return NextResponse.json({ message: 'Invalid token' }, { status: 401 });
+    const auth = await verifyAuthToken(request);
+    if (!auth) {
+      return NextResponse.json(
+        { message: 'Authentication required' },
+        { status: 401 }
+      );
     }
 
     const url = new URL(request.url);
+    const workspaceId = url.searchParams.get('workspaceId');
     const page = parseInt(url.searchParams.get('page') || '1');
-    const limit = parseInt(url.searchParams.get('limit') || '10');
+    const limit = parseInt(url.searchParams.get('limit') || '20');
     const status = url.searchParams.get('status');
+    const assignedTo = url.searchParams.get('assignedTo');
+    const priority = url.searchParams.get('priority');
+    const search = url.searchParams.get('search');
+    const tags = url.searchParams.get('tags')?.split(',').filter(Boolean);
+    const skip = (page - 1) * limit;
 
-    let filteredLeads = mockLeads;
-    if (status) {
-      filteredLeads = mockLeads.filter(lead => lead.status === status);
+    if (!workspaceId) {
+      return NextResponse.json(
+        { message: 'Workspace ID is required' },
+        { status: 400 }
+      );
     }
 
-    return NextResponse.json(filteredLeads);
+    // Check if user has access to workspace
+    const member = await WorkspaceMember.findOne({
+      userId: auth.user.id,
+      workspaceId,
+      status: 'active'
+    });
+
+    if (!member) {
+      return NextResponse.json(
+        { message: 'Access denied' },
+        { status: 403 }
+      );
+    }
+
+    // Build query
+    const query: any = { workspaceId };
+
+    if (status) query.status = status;
+    if (assignedTo) query.assignedTo = assignedTo;
+    if (priority) query.priority = priority;
+    if (tags && tags.length > 0) query.tagIds = { $in: tags };
+
+    if (search) {
+      query.$or = [
+        { name: { $regex: search, $options: 'i' } },
+        { email: { $regex: search, $options: 'i' } },
+        { company: { $regex: search, $options: 'i' } },
+        { phone: { $regex: search, $options: 'i' } }
+      ];
+    }
+
+    // Get leads with pagination
+    const [leads, total] = await Promise.all([
+      Lead.find(query)
+        .sort({ createdAt: -1 })
+        .skip(skip)
+        .limit(limit)
+        .populate('tagIds', 'name color')
+        .populate('statusId', 'name color')
+        .populate('assignedTo', 'fullName email')
+        .populate('createdBy', 'fullName email')
+        .lean(),
+      Lead.countDocuments(query)
+    ]);
+
+    logBusinessEvent('leads_listed', auth.user.id, workspaceId, {
+      count: leads.length,
+      page,
+      filters: { status, assignedTo, priority, search, tags },
+      duration: Date.now() - startTime
+    });
+
+    return NextResponse.json({
+      success: true,
+      leads: leads.map(lead => ({
+        ...lead,
+        id: lead._id,
+        tagIds: lead.tagIds || [],
+        statusId: lead.statusId || null,
+        assignedTo: lead.assignedTo || null,
+        createdBy: lead.createdBy || null
+      })),
+      pagination: {
+        page,
+        limit,
+        total,
+        pages: Math.ceil(total / limit),
+        hasNext: page * limit < total,
+        hasPrev: page > 1
+      }
+    });
+
   } catch (error) {
-    return NextResponse.json({ message: 'Server error' }, { status: 500 });
+    log.error('Get leads error:', error);
+    return NextResponse.json(
+      { message: 'Internal server error' },
+      { status: 500 }
+    );
   }
-}
+}, {
+  logBody: false,
+  logHeaders: true
+}));
 
-export async function POST(request: NextRequest) {
+
+
+// POST /api/leads - Create a new lead
+export const POST = withSecurityLogging(withLogging(async (request: NextRequest) => {
+  const startTime = Date.now();
+
   try {
-    const authHeader = request.headers.get('authorization');
-    if (!authHeader) {
-      return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
+    await connectToMongoDB();
+
+    const auth = await verifyAuthToken(request);
+    if (!auth) {
+      return NextResponse.json(
+        { message: 'Authentication required' },
+        { status: 401 }
+      );
     }
 
-    const token = authHeader.replace('Bearer ', '');
-    const payload = verifyToken(token);
-    if (!payload) {
-      return NextResponse.json({ message: 'Invalid token' }, { status: 401 });
+    const body = await request.json();
+    const validationResult = createLeadSchema.safeParse(body);
+
+    if (!validationResult.success) {
+      return NextResponse.json(
+        {
+          message: 'Validation failed',
+          errors: validationResult.error.errors
+        },
+        { status: 400 }
+      );
     }
 
-    const leadData = await request.json();
-    const newLead = {
-      id: Math.random().toString(36).substr(2, 9),
-      ...leadData,
-      status: leadData.status || 'new',
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
+    const { workspaceId } = body;
+
+    if (!workspaceId) {
+      return NextResponse.json(
+        { message: 'Workspace ID is required' },
+        { status: 400 }
+      );
+    }
+
+    // Check if user has access to workspace
+    const member = await WorkspaceMember.findOne({
+      userId: auth.user.id,
+      workspaceId,
+      status: 'active'
+    });
+
+    if (!member) {
+      return NextResponse.json(
+        { message: 'Access denied' },
+        { status: 403 }
+      );
+    }
+
+    // Get default status if not provided
+    let finalStatus = validationResult.data.status || 'new';
+    let finalStatusId = validationResult.data.statusId;
+
+    if (!finalStatusId) {
+      const defaultStatus = await LeadStatus.findOne({
+        workspaceId,
+        isDefault: true,
+        isActive: true
+      });
+      if (defaultStatus) {
+        finalStatusId = defaultStatus._id;
+        finalStatus = defaultStatus.name.toLowerCase().replace(/\s+/g, '_');
+      }
+    }
+
+    // Determine source from request or use default
+    let finalSource = validationResult.data.source;
+    if (!finalSource) {
+      const origin = request.headers.get('origin') || request.headers.get('referer');
+      if (origin) {
+        try {
+          const url = new URL(origin);
+          finalSource = url.hostname;
+        } catch {
+          finalSource = 'website';
+        }
+      } else {
+        finalSource = 'manual';
+      }
+    }
+
+    const leadData = {
+      ...validationResult.data,
+      workspaceId,
+      status: finalStatus,
+      statusId: finalStatusId,
+      source: finalSource,
+      priority: validationResult.data.priority || 'medium',
+      createdBy: auth.user.id,
+      nextFollowUpAt: validationResult.data.nextFollowUpAt ? new Date(validationResult.data.nextFollowUpAt) : undefined
     };
 
-    // In a real app, save to database
-    mockLeads.push(newLead);
+    // Create lead
+    const lead = await Lead.create(leadData);
 
-    return NextResponse.json(newLead, { status: 201 });
+    // Populate the created lead
+    const populatedLead = await Lead.findById(lead._id)
+      .populate('tagIds', 'name color')
+      .populate('statusId', 'name color')
+      .populate('assignedTo', 'fullName email')
+      .populate('createdBy', 'fullName email');
+
+    // Log activity
+    logUserActivity(auth.user.id, 'lead_created', 'lead', {
+      leadId: lead._id,
+      leadName: leadData.name,
+      workspaceId
+    });
+
+    logBusinessEvent('lead_created', auth.user.id, workspaceId, {
+      leadName: leadData.name,
+      source: leadData.source,
+      value: leadData.value,
+      duration: Date.now() - startTime
+    });
+
+    return NextResponse.json({
+      success: true,
+      message: 'Lead created successfully',
+      lead: populatedLead?.toJSON()
+    }, { status: 201 });
+
   } catch (error) {
-    return NextResponse.json({ message: 'Server error' }, { status: 500 });
+    log.error('Create lead error:', error);
+    return NextResponse.json(
+      { message: 'Internal server error' },
+      { status: 500 }
+    );
   }
-}
+}, {
+  logBody: true,
+  logHeaders: true
+}));

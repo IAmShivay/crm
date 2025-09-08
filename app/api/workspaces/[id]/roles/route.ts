@@ -7,13 +7,11 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { requireAuth } from '@/lib/security/auth-middleware';
-import { Role, WorkspaceMember } from '@/lib/mongodb/models';
+import { verifyAuthToken } from '@/lib/mongodb/auth';
+import { Role, WorkspaceMember } from '@/lib/mongodb/client';
 import { connectToMongoDB } from '@/lib/mongodb/connection';
 import { log } from '@/lib/logging/logger';
 import { logUserActivity, logBusinessEvent, withLogging, withSecurityLogging } from '@/lib/logging/middleware';
-import { rateLimit } from '@/lib/security/rate-limiter';
-import { getClientIP } from '@/lib/utils/ip-utils';
 import { z } from 'zod';
 import mongoose from 'mongoose';
 
@@ -87,23 +85,16 @@ export const GET = withSecurityLogging(withLogging(async (request: NextRequest, 
     // Ensure database connection
     await connectToMongoDB();
 
-    // Rate limiting
-    const clientIp = getClientIP(request);
-    const rateLimitResult = await rateLimit(clientIp, 'api');
-    if (!rateLimitResult.success) {
+    // Authentication
+    const auth = await verifyAuthToken(request);
+    if (!auth) {
       return NextResponse.json(
-        { message: 'Too many requests. Please try again later.' },
-        { status: 429 }
+        { message: 'Authentication required' },
+        { status: 401 }
       );
     }
 
-    // Authentication
-    const authResult = await requireAuth(request);
-    if (!authResult.success) {
-      return authResult.response;
-    }
-
-    const userId = authResult.user.id;
+    const userId = auth.user.id;
     const workspaceId = params.id;
 
     // Validate workspace ID format

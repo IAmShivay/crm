@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { useAppSelector } from '@/lib/hooks';
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const { mode, customTheme } = useAppSelector((state) => state.theme);
+  const { mode, customTheme, primaryColor } = useAppSelector((state) => state.theme);
 
   useEffect(() => {
     const root = document.documentElement;
@@ -25,20 +25,86 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     }
   }, [mode]);
 
+  // Helper function to convert hex to HSL
+  const hexToHsl = (hex: string): string => {
+    if (!hex || !hex.startsWith('#')) return '0 0% 50%';
+
+    const r = parseInt(hex.slice(1, 3), 16) / 255;
+    const g = parseInt(hex.slice(3, 5), 16) / 255;
+    const b = parseInt(hex.slice(5, 7), 16) / 255;
+
+    const max = Math.max(r, g, b);
+    const min = Math.min(r, g, b);
+    let h = 0;
+    let s = 0;
+    const l = (max + min) / 2;
+
+    if (max !== min) {
+      const d = max - min;
+      s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+      switch (max) {
+        case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+        case g: h = (b - r) / d + 2; break;
+        case b: h = (r - g) / d + 4; break;
+      }
+      h /= 6;
+    }
+
+    return `${Math.round(h * 360)} ${Math.round(s * 100)}% ${Math.round(l * 100)}%`;
+  };
+
   useEffect(() => {
     const root = document.documentElement;
-    
-    // Apply custom theme colors
-    root.style.setProperty('--primary', customTheme.colors.primary);
-    root.style.setProperty('--secondary', customTheme.colors.secondary);
-    root.style.setProperty('--accent', customTheme.colors.accent);
-    root.style.setProperty('--background', customTheme.colors.background);
-    root.style.setProperty('--surface', customTheme.colors.surface);
-    root.style.setProperty('--text', customTheme.colors.text);
-    root.style.setProperty('--border', customTheme.colors.border);
-    root.style.setProperty('--success', customTheme.colors.success);
-    root.style.setProperty('--warning', customTheme.colors.warning);
-    root.style.setProperty('--error', customTheme.colors.error);
+
+    // Apply custom theme colors in HSL format for Tailwind CSS
+    // Use primaryColor from state if available, otherwise use customTheme.colors.primary
+    const effectivePrimaryColor = primaryColor || customTheme.colors.primary;
+    if (effectivePrimaryColor) {
+      const primaryHsl = hexToHsl(effectivePrimaryColor);
+      root.style.setProperty('--primary', primaryHsl);
+      root.style.setProperty('--theme-primary', primaryHsl);
+      root.style.setProperty('--ring', primaryHsl);
+    }
+    if (customTheme.colors.secondary) {
+      const secondaryHsl = hexToHsl(customTheme.colors.secondary);
+      root.style.setProperty('--secondary', secondaryHsl);
+      root.style.setProperty('--theme-secondary', secondaryHsl);
+    }
+    if (customTheme.colors.accent) {
+      const accentHsl = hexToHsl(customTheme.colors.accent);
+      root.style.setProperty('--accent', accentHsl);
+      root.style.setProperty('--theme-accent', accentHsl);
+    }
+    if (customTheme.colors.background) {
+      const backgroundHsl = hexToHsl(customTheme.colors.background);
+      root.style.setProperty('--background', backgroundHsl);
+      root.style.setProperty('--theme-background', backgroundHsl);
+    }
+    if (customTheme.colors.surface) {
+      const surfaceHsl = hexToHsl(customTheme.colors.surface);
+      root.style.setProperty('--card', surfaceHsl);
+      root.style.setProperty('--theme-surface', surfaceHsl);
+    }
+    if (customTheme.colors.text) {
+      const textHsl = hexToHsl(customTheme.colors.text);
+      root.style.setProperty('--foreground', textHsl);
+      root.style.setProperty('--theme-text', textHsl);
+    }
+    if (customTheme.colors.border) {
+      const borderHsl = hexToHsl(customTheme.colors.border);
+      root.style.setProperty('--border', borderHsl);
+      root.style.setProperty('--theme-border', borderHsl);
+      root.style.setProperty('--input', borderHsl);
+    }
+    if (customTheme.colors.success) {
+      root.style.setProperty('--theme-success', hexToHsl(customTheme.colors.success));
+    }
+    if (customTheme.colors.warning) {
+      root.style.setProperty('--theme-warning', hexToHsl(customTheme.colors.warning));
+    }
+    if (customTheme.colors.error) {
+      root.style.setProperty('--theme-error', hexToHsl(customTheme.colors.error));
+    }
     
     // Apply typography
     root.style.setProperty('--font-family', customTheme.typography.fontFamily);
@@ -77,7 +143,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     // Apply CSS classes for animations
     root.classList.toggle('animations-disabled', !customTheme.animations);
     
-  }, [customTheme]);
+  }, [customTheme, primaryColor]);
 
   return <>{children}</>;
 }

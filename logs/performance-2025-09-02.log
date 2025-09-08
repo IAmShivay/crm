@@ -5521,3 +5521,140 @@
   level: 'performance',
   message: 'PERFORMANCE: Slow API call: GET http://localhost:3000/api/workspaces/68b5f978932ddff74ab75f58/roles took 1905ms'
 }
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-02T00:28:42.531Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  endpoint: 'api',
+  identifier: 'dev-localhost',
+  config: { windowMs: 60000, maxRequests: 100 },
+  level: 'debug',
+  message: 'Created new rate limit entry for api:dev-localhost',
+  timestamp: '2025-09-02T00:28:42.545Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  remaining: 99,
+  requestCount: 1,
+  maxRequests: 100,
+  processingTime: 4,
+  level: 'debug',
+  message: 'Rate limit check passed for dev-localhost on api',
+  timestamp: '2025-09-02T00:28:42.549Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  operation: 'Get workspaces',
+  duration: 508,
+  timestamp: '2025-09-02T00:28:43.050Z',
+  userId: '68b5f978932ddff74ab75f56',
+  workspaceCount: 1,
+  level: 'performance',
+  message: 'PERFORMANCE: Get workspaces took 508ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-02T00:28:43.050Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  statusCode: 200,
+  duration: 524,
+  timestamp: '2025-09-02T00:28:43.053Z',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'http',
+  message: 'GET http://localhost:3000/api/workspaces 200 - 524ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-02T00:28:43.081Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  remaining: 98,
+  requestCount: 2,
+  maxRequests: 100,
+  processingTime: 0,
+  level: 'debug',
+  message: 'Rate limit check passed for dev-localhost on api',
+  timestamp: '2025-09-02T00:28:43.082Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  operation: 'Get workspaces',
+  duration: 387,
+  timestamp: '2025-09-02T00:28:43.469Z',
+  userId: '68b5f978932ddff74ab75f56',
+  workspaceCount: 1,
+  level: 'performance',
+  message: 'PERFORMANCE: Get workspaces took 387ms'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-02T00:28:43.469Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  statusCode: 200,
+  duration: 389,
+  timestamp: '2025-09-02T00:28:43.470Z',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'http',
+  message: 'GET http://localhost:3000/api/workspaces 200 - 389ms'
+}

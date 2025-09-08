@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Plus, Shield, Edit, Trash2, Users } from 'lucide-react';
+import { Plus, Shield, Edit, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -13,28 +13,48 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import { useGetRolesQuery, useDeleteRoleMutation } from '@/lib/api/mongoApi';
+import { useAppSelector } from '@/lib/hooks';
 import { RoleForm } from './RoleForm';
 import { toast } from 'sonner';
+import { CardSkeleton, PageHeaderSkeleton } from '@/components/ui/skeleton';
+import { useGetRolesQuery, useDeleteRoleMutation } from '@/lib/api/mongoApi';
 
 export function RoleManager() {
-  const [selectedRole, setSelectedRole] = useState(null);
   const [isCreateOpen, setIsCreateOpen] = useState(false);
 
-  const { data: roles = [], isLoading } = useGetRolesQuery('default-workspace');
+  const { currentWorkspace } = useAppSelector((state) => state.workspace);
+
+  // RTK Query hooks
+  const { data: rolesData, isLoading, refetch } = useGetRolesQuery(currentWorkspace?.id || '', {
+    skip: !currentWorkspace?.id
+  });
   const [deleteRole] = useDeleteRoleMutation();
 
+  const roles = rolesData || [];
+
   const handleDelete = async (id: string) => {
+    if (!currentWorkspace?.id) return;
+
     try {
-      await deleteRole(id);
+      await deleteRole({ id, workspaceId: currentWorkspace.id }).unwrap();
       toast.success('Role deleted successfully');
     } catch (error) {
+      console.error('Error deleting role:', error);
       toast.error('Failed to delete role');
     }
   };
 
   if (isLoading) {
-    return <div className="flex items-center justify-center h-64">Loading roles...</div>;
+    return (
+      <div className="w-full space-y-6">
+        <PageHeaderSkeleton />
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {Array.from({ length: 6 }).map((_, i) => (
+            <CardSkeleton key={i} />
+          ))}
+        </div>
+      </div>
+    );
   }
 
   return (
@@ -58,7 +78,10 @@ export function RoleManager() {
                 Define a new role with specific permissions for your workspace.
               </DialogDescription>
             </DialogHeader>
-            <RoleForm onSuccess={() => setIsCreateOpen(false)} />
+            <RoleForm onSuccess={() => {
+              setIsCreateOpen(false);
+              refetch();
+            }} />
           </DialogContent>
         </Dialog>
       </div>

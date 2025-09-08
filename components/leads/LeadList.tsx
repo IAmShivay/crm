@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Plus, Search, Filter, MoreHorizontal, Edit, Trash2, Eye } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -28,10 +28,11 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import { useGetLeadsQuery, useDeleteLeadMutation } from '@/lib/api/mongoApi';
 import { useAppSelector } from '@/lib/hooks';
 import { toast } from 'sonner';
 import { LeadForm } from './LeadForm';
+import { TableSkeleton, PageHeaderSkeleton } from '@/components/ui/skeleton';
+import { useGetLeadsQuery, useDeleteLeadMutation } from '@/lib/api/mongoApi';
 
 const statusColors = {
   new: 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300',
@@ -47,19 +48,30 @@ export function LeadList() {
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('');
   const [isCreateOpen, setIsCreateOpen] = useState(false);
-  
+
   const { currentWorkspace } = useAppSelector((state) => state.workspace);
-  const { data: leads = [], isLoading, error } = useGetLeadsQuery(
-    { workspaceId: currentWorkspace?.id || '' },
+
+  // RTK Query hooks
+  const { data: leadsData, isLoading, error, refetch } = useGetLeadsQuery(
+    {
+      workspaceId: currentWorkspace?.id || '',
+      search: searchTerm,
+      status: statusFilter
+    },
     { skip: !currentWorkspace?.id }
   );
   const [deleteLead] = useDeleteLeadMutation();
 
+  const leads = leadsData?.leads || [];
+
   const handleDelete = async (id: string) => {
+    if (!currentWorkspace?.id) return;
+
     try {
-      await deleteLead(id).unwrap();
+      await deleteLead({ id, workspaceId: currentWorkspace.id }).unwrap();
       toast.success('Lead deleted successfully');
     } catch (error) {
+      console.error('Error deleting lead:', error);
       toast.error('Failed to delete lead');
     }
   };
@@ -74,8 +86,16 @@ export function LeadList() {
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center h-64">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+      <div className="w-full space-y-6">
+        <PageHeaderSkeleton />
+        <div className="flex items-center space-x-4 mb-6">
+          <div className="flex-1">
+            <div className="h-10 bg-muted animate-pulse rounded-md"></div>
+          </div>
+          <div className="h-10 w-32 bg-muted animate-pulse rounded-md"></div>
+          <div className="h-10 w-32 bg-muted animate-pulse rounded-md"></div>
+        </div>
+        <TableSkeleton rows={8} columns={6} />
       </div>
     );
   }
@@ -83,7 +103,10 @@ export function LeadList() {
   if (error) {
     return (
       <div className="text-center py-8">
-        <p className="text-red-600">Error loading leads. Please try again.</p>
+        <p className="text-red-600 dark:text-red-400">Error loading leads. Please try again.</p>
+        <Button onClick={() => refetch()} className="mt-4">
+          Try Again
+        </Button>
       </div>
     );
   }
@@ -109,7 +132,10 @@ export function LeadList() {
                 Add a new lead to your sales pipeline.
               </DialogDescription>
             </DialogHeader>
-            <LeadForm onSuccess={() => setIsCreateOpen(false)} />
+            <LeadForm onSuccess={() => {
+              setIsCreateOpen(false);
+              fetchLeads();
+            }} />
           </DialogContent>
         </Dialog>
       </div>

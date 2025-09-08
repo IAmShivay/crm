@@ -1,0 +1,338 @@
+{
+  "info": {
+    "name": "CRM API Collection",
+    "description": "Complete API collection for the CRM system including authentication, leads, webhooks, and user preferences",
+    "version": "2.0.0",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{auth_token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:3000",
+      "type": "string"
+    },
+    {
+      "key": "auth_token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "workspace_id",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "webhook_id",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"user@example.com\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/login",
+              "host": ["{{base_url}}"],
+              "path": ["api", "auth", "login"]
+            }
+          }
+        },
+        {
+          "name": "Signup",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"newuser@example.com\",\n  \"password\": \"password123\",\n  \"fullName\": \"John Doe\",\n  \"workspaceName\": \"My Company\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/signup",
+              "host": ["{{base_url}}"],
+              "path": ["api", "auth", "signup"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "User Preferences",
+      "item": [
+        {
+          "name": "Get User Preferences",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/users/preferences",
+              "host": ["{{base_url}}"],
+              "path": ["api", "users", "preferences"]
+            }
+          }
+        },
+        {
+          "name": "Update User Preferences (Full)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"theme\": {\n    \"mode\": \"dark\",\n    \"primaryColor\": \"#3b82f6\",\n    \"preset\": \"blue\",\n    \"customTheme\": {\n      \"colors\": {\n        \"primary\": \"#3b82f6\",\n        \"secondary\": \"#64748b\"\n      },\n      \"typography\": {\n        \"fontFamily\": \"Inter\",\n        \"fontSize\": \"medium\"\n      },\n      \"animations\": true\n    }\n  },\n  \"notifications\": {\n    \"email\": true,\n    \"push\": false,\n    \"leadUpdates\": true,\n    \"teamActivity\": true,\n    \"weeklyReports\": false\n  },\n  \"timezone\": \"UTC\",\n  \"language\": \"en\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/users/preferences",
+              "host": ["{{base_url}}"],
+              "path": ["api", "users", "preferences"]
+            }
+          }
+        },
+        {
+          "name": "Update User Preferences (Partial)",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"theme\": {\n    \"mode\": \"light\"\n  },\n  \"notifications\": {\n    \"email\": false\n  }\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/users/preferences",
+              "host": ["{{base_url}}"],
+              "path": ["api", "users", "preferences"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Webhooks Management",
+      "item": [
+        {
+          "name": "Get Webhooks",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/webhooks?workspaceId={{workspace_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "webhooks"],
+              "query": [
+                {
+                  "key": "workspaceId",
+                  "value": "{{workspace_id}}"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Webhook",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"workspaceId\": \"{{workspace_id}}\",\n  \"name\": \"Facebook Lead Ads\",\n  \"description\": \"Receives leads from Facebook campaigns\",\n  \"webhookType\": \"facebook_leads\",\n  \"events\": [\"lead.created\"],\n  \"retryConfig\": {\n    \"maxRetries\": 3,\n    \"retryDelay\": 1000\n  }\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/webhooks",
+              "host": ["{{base_url}}"],
+              "path": ["api", "webhooks"]
+            }
+          }
+        },
+        {
+          "name": "Get Webhook Details",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/webhooks/{{webhook_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "webhooks", "{{webhook_id}}"]
+            }
+          }
+        },
+        {
+          "name": "Update Webhook",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Updated Facebook Lead Ads\",\n  \"description\": \"Updated description\",\n  \"isActive\": true,\n  \"events\": [\"lead.created\", \"lead.updated\"]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/webhooks/{{webhook_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "webhooks", "{{webhook_id}}"]
+            }
+          }
+        },
+        {
+          "name": "Delete Webhook",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/webhooks/{{webhook_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "webhooks", "{{webhook_id}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Webhook Receivers",
+      "item": [
+        {
+          "name": "Custom Webhook",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-Webhook-Signature",
+                "value": "sha256=webhook_signature",
+                "disabled": true
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"John Smith\",\n  \"email\": \"john@example.com\",\n  \"phone\": \"+1234567890\",\n  \"company\": \"Acme Corp\",\n  \"source\": \"website\",\n  \"value\": 5000,\n  \"custom_fields\": {\n    \"campaign\": \"Q1 2024\",\n    \"utm_source\": \"google\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/webhooks/receive/{{webhook_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "webhooks", "receive", "{{webhook_id}}"]
+            }
+          }
+        },
+        {
+          "name": "Facebook Lead Ads Webhook",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"entry\": [\n    {\n      \"changes\": [\n        {\n          \"value\": {\n            \"leadgen_id\": \"123456789\",\n            \"first_name\": \"John\",\n            \"last_name\": \"Smith\",\n            \"email\": \"john@example.com\",\n            \"phone_number\": \"+1234567890\",\n            \"company_name\": \"Acme Corp\",\n            \"ad_id\": \"987654321\",\n            \"form_id\": \"456789123\"\n          }\n        }\n      ]\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/webhooks/receive/{{webhook_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "webhooks", "receive", "{{webhook_id}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Leads",
+      "item": [
+        {
+          "name": "Get Leads",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/leads?workspaceId={{workspace_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "leads"],
+              "query": [
+                {
+                  "key": "workspaceId",
+                  "value": "{{workspace_id}}"
+                },
+                {
+                  "key": "status",
+                  "value": "new",
+                  "disabled": true
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Lead",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"workspaceId\": \"{{workspace_id}}\",\n  \"name\": \"Jane Doe\",\n  \"email\": \"jane@example.com\",\n  \"phone\": \"+1234567890\",\n  \"company\": \"Example Corp\",\n  \"status\": \"new\",\n  \"source\": \"website\",\n  \"value\": 10000,\n  \"notes\": \"Interested in enterprise plan\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/leads",
+              "host": ["{{base_url}}"],
+              "path": ["api", "leads"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

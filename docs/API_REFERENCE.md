@@ -146,23 +146,178 @@ Create a new role.
 }
 ```
 
-## Webhooks
+## User Preferences
 
-### POST /api/webhooks/leads/[workspaceId]
-Webhook endpoint for external lead creation.
+### GET /api/users/preferences
+Get current user preferences including theme, notifications, and other settings.
+
+**Response:**
+```json
+{
+  "success": true,
+  "preferences": {
+    "theme": {
+      "mode": "dark",
+      "primaryColor": "#3b82f6",
+      "preset": "blue",
+      "customTheme": {
+        "colors": {
+          "primary": "#3b82f6",
+          "secondary": "#64748b"
+        },
+        "typography": {
+          "fontFamily": "Inter",
+          "fontSize": "medium"
+        },
+        "animations": true
+      }
+    },
+    "notifications": {
+      "email": true,
+      "push": false,
+      "leadUpdates": true
+    },
+    "timezone": "UTC",
+    "language": "en"
+  }
+}
+```
+
+### PUT /api/users/preferences
+Update user preferences (replaces all preferences).
 
 **Request Body:**
+```json
+{
+  "theme": {
+    "mode": "dark",
+    "primaryColor": "#3b82f6"
+  },
+  "notifications": {
+    "email": true,
+    "leadUpdates": true
+  }
+}
+```
+
+### PATCH /api/users/preferences
+Partially update user preferences (merges with existing).
+
+**Request Body:**
+```json
+{
+  "theme": {
+    "mode": "light"
+  }
+}
+```
+
+## Webhooks Management
+
+### GET /api/webhooks?workspaceId=xxx
+Get all webhooks for a workspace.
+
+**Response:**
+```json
+{
+  "success": true,
+  "webhooks": [
+    {
+      "id": "webhook_id",
+      "workspaceId": "workspace_id",
+      "name": "Facebook Lead Ads",
+      "description": "Receives leads from Facebook campaigns",
+      "webhookUrl": "https://app.com/api/webhooks/receive/webhook_id",
+      "isActive": true,
+      "webhookType": "facebook_leads",
+      "events": ["lead.created"],
+      "totalRequests": 150,
+      "successfulRequests": 145,
+      "failedRequests": 5,
+      "lastTriggered": "2024-01-15T10:30:00Z",
+      "createdAt": "2024-01-01T00:00:00Z"
+    }
+  ]
+}
+```
+
+### POST /api/webhooks
+Create a new webhook.
+
+**Request Body:**
+```json
+{
+  "workspaceId": "workspace_id",
+  "name": "Facebook Lead Ads",
+  "description": "Receives leads from Facebook campaigns",
+  "webhookType": "facebook_leads",
+  "events": ["lead.created"],
+  "retryConfig": {
+    "maxRetries": 3,
+    "retryDelay": 1000
+  }
+}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "message": "Webhook created successfully",
+  "webhook": {
+    "id": "webhook_id",
+    "webhookUrl": "https://app.com/api/webhooks/receive/webhook_id",
+    "secret": "webhook_secret_key",
+    "...": "other webhook properties"
+  }
+}
+```
+
+### GET /api/webhooks/[id]
+Get webhook details including recent logs.
+
+### PUT /api/webhooks/[id]
+Update webhook configuration.
+
+### DELETE /api/webhooks/[id]
+Delete a webhook.
+
+## Webhook Receivers
+
+### POST /api/webhooks/receive/[id]
+Receive webhook data from external sources.
+
+**Supported Webhook Types:**
+- `facebook_leads` - Facebook Lead Ads
+- `google_forms` - Google Forms submissions
+- `zapier` - Zapier integrations
+- `mailchimp` - Mailchimp subscribers
+- `hubspot` - HubSpot contacts
+- `salesforce` - Salesforce leads
+- `custom` - Custom webhook format
+
+**Request Body (Custom format):**
 ```json
 {
   "name": "John Smith",
   "email": "john@example.com",
   "phone": "+1234567890",
   "company": "Acme Corp",
-  "source": "facebook_ads",
+  "source": "website",
   "value": 5000,
   "custom_fields": {
-    "campaign": "Q1 2024"
+    "campaign": "Q1 2024",
+    "utm_source": "google"
   }
+}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "leadId": "lead_id",
+  "message": "Lead created successfully"
 }
 ```
 

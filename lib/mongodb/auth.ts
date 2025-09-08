@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken';
 import { NextRequest } from 'next/server';
 import { User, Workspace, WorkspaceMember, Role, type IUser } from './models';
 import connectToMongoDB from './connection';
+import { seedWorkspaceDefaults } from './seedDefaults';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'your-super-secret-jwt-key';
 const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || '7d';
@@ -111,6 +112,9 @@ export async function signUp({ email, password, fullName, workspaceName }: SignU
         joinedAt: new Date()
       });
       await member.save();
+
+      // Seed default data for the workspace
+      await seedWorkspaceDefaults(workspace._id, user._id);
     }
 
     // Generate token

@@ -8,6 +8,11 @@ export { Plan, type IPlan } from './Plan';
 export { Subscription, type ISubscription } from './Subscription';
 export { Activity, type IActivity } from './Activity';
 export { Invitation, type IInvitation } from './Invitation';
+export { Webhook, type IWebhook } from './Webhook';
+export { WebhookLog, type IWebhookLog } from './WebhookLog';
+export { Tag, type ITag } from './Tag';
+export { LeadNote, type ILeadNote } from './LeadNote';
+export { LeadStatus, type ILeadStatus } from './LeadStatus';
 
 // Re-export mongoose for convenience
 export { default as mongoose } from 'mongoose';

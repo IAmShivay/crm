@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -13,9 +13,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { useCreateLeadMutation, useGetLeadSourcesQuery } from '@/lib/api/mongoApi';
 import { useAppSelector } from '@/lib/hooks';
 import { toast } from 'sonner';
+import { useCreateLeadMutation, useGetLeadStatusesQuery, useGetTagsQuery } from '@/lib/api/mongoApi';
 
 interface LeadFormProps {
   onSuccess?: () => void;
@@ -32,30 +32,46 @@ interface LeadFormData {
   notes: string;
 }
 
-const leadStatuses = [
-  { value: 'new', label: 'New' },
-  { value: 'contacted', label: 'Contacted' },
-  { value: 'qualified', label: 'Qualified' },
-  { value: 'proposal', label: 'Proposal' },
-  { value: 'negotiation', label: 'Negotiation' },
-  { value: 'closed_won', label: 'Closed Won' },
-  { value: 'closed_lost', label: 'Closed Lost' },
-];
+
 
 export function LeadForm({ onSuccess }: LeadFormProps) {
-  const [selectedStatus, setSelectedStatus] = useState('new');
+  const [selectedStatus, setSelectedStatus] = useState('');
   const [selectedSource, setSelectedSource] = useState('');
-  
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
+
   const { currentWorkspace } = useAppSelector((state) => state.workspace);
   const { user } = useAppSelector((state) => state.auth);
-  const { register, handleSubmit, formState: { errors }, setValue } = useForm<LeadFormData>();
-  
-  const { data: leadSources = [] } = useGetLeadSourcesQuery(
-    currentWorkspace?.id || '',
-    { skip: !currentWorkspace?.id }
-  );
-  const [createLead, { isLoading }] = useCreateLeadMutation();
+  const { register, handleSubmit, formState: { errors } } = useForm<LeadFormData>();
 
+  // RTK Query hooks
+  const [createLead, { isLoading: isCreating }] = useCreateLeadMutation();
+  const { data: statusesData,isLoading:loadingStatuses } = useGetLeadStatusesQuery(currentWorkspace?.id || '', {
+    skip: !currentWorkspace?.id
+  });
+  const { data: tagsData } = useGetTagsQuery(currentWorkspace?.id || '', {
+    skip: !currentWorkspace?.id
+  });
+  
+  // Default lead sources
+  const leadSources = [
+    { id: 'website', name: 'Website' },
+    { id: 'referral', name: 'Referral' },
+    { id: 'social_media', name: 'Social Media' },
+    { id: 'cold_outreach', name: 'Cold Outreach' },
+    { id: 'event', name: 'Event' },
+    { id: 'linkedin', name: 'LinkedIn' },
+    { id: 'google_ads', name: 'Google Ads' },
+    { id: 'facebook_ads', name: 'Facebook Ads' },
+    { id: 'email_campaign', name: 'Email Campaign' },
+    { id: 'phone_call', name: 'Phone Call' },
+    { id: 'walk_in', name: 'Walk-in' },
+    { id: 'other', name: 'Other' }
+  ];
+
+  // Fetch lead statuses
+  // Get data from RTK Query
+  const leadStatuses = statusesData?.statuses || [];
+  const tags = tagsData?.tags || [];
   const onSubmit = async (data: LeadFormData) => {
     if (!currentWorkspace?.id) {
       toast.error('No workspace selected');
@@ -71,18 +87,18 @@ export function LeadForm({ onSuccess }: LeadFormProps) {
       await createLead({
         ...data,
         workspaceId: currentWorkspace.id,
-        status: selectedStatus as "new" | "contacted" | "qualified" | "proposal" | "negotiation" | "closed_won" | "closed_lost",
+        statusId: selectedStatus || undefined,
         source: selectedSource || 'manual',
         value: Number(data.value) || 0,
-        tags: [],
+        tagIds: selectedTags,
         customFields: {},
-        createdBy: user.id,
         notes: data.notes || '',
       }).unwrap();
-      
+
       toast.success('Lead created successfully');
       onSuccess?.();
     } catch (error) {
+      console.error('Error creating lead:', error);
       toast.error('Failed to create lead');
     }
   };
@@ -149,11 +165,25 @@ export function LeadForm({ onSuccess }: LeadFormProps) {
               <SelectValue placeholder="Select status" />
             </SelectTrigger>
             <SelectContent>
-              {leadStatuses.map((status) => (
-                <SelectItem key={status.value} value={status.value}>
-                  {status.label}
-                </SelectItem>
-              ))}
+              {loadingStatuses ? (
+                <SelectItem value="loading" disabled>Loading statuses...</SelectItem>
+              ) : leadStatuses.length > 0 ? (
+                leadStatuses.map((status) => (
+                  <SelectItem key={status.id} value={status.id}>
+                    {status.name}
+                  </SelectItem>
+                ))
+              ) : (
+                <>
+                  <SelectItem value="new">New</SelectItem>
+                  <SelectItem value="contacted">Contacted</SelectItem>
+                  <SelectItem value="qualified">Qualified</SelectItem>
+                  <SelectItem value="proposal">Proposal</SelectItem>
+                  <SelectItem value="negotiation">Negotiation</SelectItem>
+                  <SelectItem value="closed_won">Closed Won</SelectItem>
+                  <SelectItem value="closed_lost">Closed Lost</SelectItem>
+                </>
+              )}
             </SelectContent>
           </Select>
         </div>
@@ -165,14 +195,8 @@ export function LeadForm({ onSuccess }: LeadFormProps) {
               <SelectValue placeholder="Select source" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="manual">Manual Entry</SelectItem>
-              <SelectItem value="website">Website</SelectItem>
-              <SelectItem value="referral">Referral</SelectItem>
-              <SelectItem value="social">Social Media</SelectItem>
-              <SelectItem value="email">Email Campaign</SelectItem>
-              <SelectItem value="phone">Phone Call</SelectItem>
               {leadSources.map((source) => (
-                <SelectItem key={source.id} value={source.name}>
+                <SelectItem key={source.id} value={source.id}>
                   {source.name}
                 </SelectItem>
               ))}
@@ -194,6 +218,28 @@ export function LeadForm({ onSuccess }: LeadFormProps) {
       </div>
 
       <div className="space-y-2">
+        <Label>Tags</Label>
+        <Select value={selectedTags.join(',')} onValueChange={(value) => setSelectedTags(value ? value.split(',') : [])}>
+          <SelectTrigger>
+            <SelectValue placeholder="Select tags (optional)" />
+          </SelectTrigger>
+          <SelectContent>
+            {tags.map((tag) => (
+              <SelectItem key={tag.id} value={tag.id}>
+                <div className="flex items-center space-x-2">
+                  <div
+                    className="w-3 h-3 rounded-full"
+                    style={{ backgroundColor: tag.color }}
+                  />
+                  <span>{tag.name}</span>
+                </div>
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </div>
+
+      <div className="space-y-2">
         <Label htmlFor="notes">Notes</Label>
         <Textarea
           id="notes"
@@ -207,8 +253,8 @@ export function LeadForm({ onSuccess }: LeadFormProps) {
         <Button type="button" variant="outline" onClick={onSuccess}>
           Cancel
         </Button>
-        <Button type="submit" disabled={isLoading}>
-          {isLoading ? 'Creating...' : 'Create Lead'}
+        <Button type="submit" disabled={isCreating}>
+          {isCreating ? 'Creating...' : 'Create Lead'}
         </Button>
       </div>
     </form>

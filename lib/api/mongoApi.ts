@@ -1,95 +1,175 @@
-import { createApi, fakeBaseQuery } from '@reduxjs/toolkit/query/react';
-import { mongoClient } from '../mongodb/client';
-import { 
-  type ILead, 
-  type IRole, 
-  type IWorkspace, 
-  type IActivity, 
-  type IUser 
-} from '../mongodb/models';
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { RootState } from '../store';
 
-// Types matching your existing interfaces
-export interface Lead extends Omit<ILead, '_id'> {
+// API Types
+export interface Lead {
   id: string;
+  name: string;
+  email?: string;
+  phone?: string;
+  company?: string;
+  status: string;
+  statusId?: string;
+  source: string;
+  value?: number;
+  assignedTo?: string;
+  tags?: string[];
+  tagIds?: string[];
+  notes?: string;
+  priority: 'low' | 'medium' | 'high';
+  workspaceId: string;
+  createdBy: string;
+  createdAt: string;
+  updatedAt: string;
+  nextFollowUpAt?: string;
+  customFields?: Record<string, any>;
 }
 
-export interface Role extends Omit<IRole, '_id'> {
+export interface Role {
   id: string;
+  name: string;
+  description?: string;
+  permissions: string[];
+  workspaceId: string;
+  isDefault: boolean;
+  createdBy: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
-export interface Workspace extends Omit<IWorkspace, '_id'> {
+export interface LeadStatus {
   id: string;
+  name: string;
+  color: string;
+  description?: string;
+  order: number;
+  isDefault: boolean;
+  isActive: boolean;
+  workspaceId: string;
+  createdBy: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
-export interface Activity extends Omit<IActivity, '_id'> {
+export interface Tag {
   id: string;
+  name: string;
+  color: string;
+  description?: string;
+  workspaceId: string;
+  createdBy: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
-export interface User extends Omit<IUser, '_id' | 'password'> {
+export interface LeadStatus {
   id: string;
+  name: string;
+  color: string;
+  description?: string;
+  order: number;
+  isDefault: boolean;
+  isActive: boolean;
+  workspaceId: string;
+  createdBy: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface Tag {
+  id: string;
+  name: string;
+  color: string;
+  description?: string;
+  workspaceId: string;
+  createdBy: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface Activity {
+  id: string;
+  type: string;
+  description: string;
+  entityType: string;
+  entityId: string;
+  workspaceId: string;
+  userId: string;
+  metadata?: Record<string, any>;
+  createdAt: string;
+}
+
+export interface Workspace {
+  id: string;
+  name: string;
+  description?: string;
+  slug: string;
+  ownerId: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface User {
+  id: string;
+  email: string;
+  fullName: string;
+  avatar?: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export const mongoApi = createApi({
   reducerPath: 'mongoApi',
-  baseQuery: fakeBaseQuery(),
-  tagTypes: ['Lead', 'Role', 'Workspace', 'Activity', 'User'],
+  baseQuery: fetchBaseQuery({
+    baseUrl: '/api',
+    prepareHeaders: (headers, { getState }) => {
+      const token = (getState() as RootState).auth.token;
+      if (token) {
+        headers.set('authorization', `Bearer ${token}`);
+      }
+      return headers;
+    },
+  }),
+  tagTypes: ['Lead', 'Role', 'Workspace', 'Activity', 'User', 'LeadStatus', 'Tag'],
   endpoints: (builder) => ({
     // Leads
-    getLeads: builder.query<Lead[], { workspaceId: string; status?: string }>({
-      queryFn: async ({ workspaceId, status }) => {
-        try {
-          const leads = await mongoClient.getLeads(workspaceId, { status });
-          return {
-            data: leads.map(lead => ({ ...lead.toJSON(), id: lead._id.toString() })) as Lead[]
-          };
-        } catch (error) {
-          return { error: error instanceof Error ? error.message : 'Failed to fetch leads' };
-        }
+    getLeads: builder.query<{ leads: Lead[]; pagination: any }, { workspaceId: string; page?: number; limit?: number; status?: string; search?: string }>({
+      query: ({ workspaceId, page = 1, limit = 20, status, search }) => {
+        const params = new URLSearchParams({
+          workspaceId,
+          page: page.toString(),
+          limit: limit.toString(),
+        });
+        if (status) params.append('status', status);
+        if (search) params.append('search', search);
+        return `leads?${params}`;
       },
       providesTags: ['Lead'],
     }),
 
-    createLead: builder.mutation<Lead, Partial<Lead> & { workspaceId: string }>({
-      queryFn: async (leadData) => {
-        try {
-          const lead = await mongoClient.createLead(leadData);
-          return {
-            data: { ...lead.toJSON(), id: lead._id.toString() } as Lead
-          };
-        } catch (error) {
-          return { error: error instanceof Error ? error.message : 'Failed to create lead' };
-        }
-      },
+    createLead: builder.mutation<{ lead: Lead }, Partial<Lead> & { workspaceId: string }>({
+      query: (leadData) => ({
+        url: `leads?workspaceId=${leadData.workspaceId}`,
+        method: 'POST',
+        body: leadData,
+      }),
       invalidatesTags: ['Lead'],
     }),
 
-    updateLead: builder.mutation<Lead, { id: string } & Partial<Lead>>({
-      queryFn: async ({ id, ...updates }) => {
-        try {
-          const lead = await mongoClient.updateLead(id, updates);
-          if (!lead) {
-            return { error: 'Lead not found' };
-          }
-          return { data: { ...lead.toJSON(), id: lead._id.toString() } as Lead };
-        } catch (error) {
-          return { error: error instanceof Error ? error.message : 'Failed to update lead' };
-        }
-      },
+    updateLead: builder.mutation<{ lead: Lead }, { id: string; workspaceId: string } & Partial<Lead>>({
+      query: ({ id, workspaceId, ...updates }) => ({
+        url: `leads/${id}?workspaceId=${workspaceId}`,
+        method: 'PUT',
+        body: updates,
+      }),
       invalidatesTags: ['Lead'],
     }),
 
-    deleteLead: builder.mutation<void, string>({
-      queryFn: async (id) => {
-        try {
-          const success = await mongoClient.deleteLead(id);
-          if (!success) {
-            return { error: 'Lead not found' };
-          }
-          return { data: undefined };
-        } catch (error) {
-          return { error: error instanceof Error ? error.message : 'Failed to delete lead' };
-        }
-      },
+    deleteLead: builder.mutation<void, { id: string; workspaceId: string }>({
+      query: ({ id, workspaceId }) => ({
+        url: `leads/${id}?workspaceId=${workspaceId}`,
+        method: 'DELETE',
+      }),
       invalidatesTags: ['Lead'],
     }),
 
@@ -117,30 +197,65 @@ export const mongoApi = createApi({
       },
       invalidatesTags: ['Role'],
     }),
+    deleteRole: builder.mutation<{ success: boolean }, { id: string; workspaceId: string }>({
+      query: ({ id, workspaceId }) => ({
+        url: `roles/${id}?workspaceId=${workspaceId}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['Role'],
+    }),
 
     // Workspaces
-    getUserWorkspaces: builder.query<Workspace[], string>({
-      queryFn: async (userId) => {
-        try {
-          const workspaces = await mongoClient.getUserWorkspaces(userId);
-          return { data: workspaces.map(workspace => ({ ...workspace.toJSON(), id: workspace._id.toString() })) as Workspace[] };
-        } catch (error) {
-          return { error: error instanceof Error ? error.message : 'Failed to fetch workspaces' };
-        }
-      },
+    getUserWorkspaces: builder.query<{ success: boolean; workspaces: Workspace[] }, string>({
+      query: (userId) => `workspaces?userId=${userId}`,
       providesTags: ['Workspace'],
     }),
 
+    // Lead Statuses
+    getLeadStatuses: builder.query<{ success: boolean; statuses: LeadStatus[] }, string>({
+      query: (workspaceId) => `lead-statuses?workspaceId=${workspaceId}`,
+      providesTags: ['LeadStatus'],
+    }),
+    createLeadStatus: builder.mutation<{ success: boolean; status: LeadStatus }, Partial<LeadStatus>>({
+      query: (status) => ({
+        url: `lead-statuses?workspaceId=${status.workspaceId}`,
+        method: 'POST',
+        body: status,
+      }),
+      invalidatesTags: ['LeadStatus'],
+    }),
+    deleteLeadStatus: builder.mutation<{ success: boolean }, { id: string; workspaceId: string }>({
+      query: ({ id, workspaceId }) => ({
+        url: `lead-statuses/${id}?workspaceId=${workspaceId}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['LeadStatus'],
+    }),
+
+    // Tags
+    getTags: builder.query<{ success: boolean; tags: Tag[] }, string>({
+      query: (workspaceId) => `tags?workspaceId=${workspaceId}`,
+      providesTags: ['Tag'],
+    }),
+    createTag: builder.mutation<{ success: boolean; tag: Tag }, Partial<Tag>>({
+      query: (tag) => ({
+        url: `tags?workspaceId=${tag.workspaceId}`,
+        method: 'POST',
+        body: tag,
+      }),
+      invalidatesTags: ['Tag'],
+    }),
+    deleteTag: builder.mutation<{ success: boolean }, { id: string; workspaceId: string }>({
+      query: ({ id, workspaceId }) => ({
+        url: `tags/${id}?workspaceId=${workspaceId}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['Tag'],
+    }),
+
     // Activities
-    getActivities: builder.query<Activity[], { workspaceId: string; limit?: number }>({
-      queryFn: async ({ workspaceId, limit = 50 }) => {
-        try {
-          const activities = await mongoClient.getActivities(workspaceId, limit);
-          return { data: activities.map(activity => ({ ...activity.toJSON(), id: activity._id.toString() })) as Activity[] };
-        } catch (error) {
-          return { error: error instanceof Error ? error.message : 'Failed to fetch activities' };
-        }
-      },
+    getActivities: builder.query<{ success: boolean; activities: Activity[] }, { workspaceId: string; limit?: number }>({
+      query: ({ workspaceId, limit = 50 }) => `activities?workspaceId=${workspaceId}&limit=${limit}`,
       providesTags: ['Activity'],
     }),
   }),
@@ -153,21 +268,19 @@ export const {
   useDeleteLeadMutation,
   useGetRolesQuery,
   useCreateRoleMutation,
+  useDeleteRoleMutation,
   useGetUserWorkspacesQuery,
+  useGetLeadStatusesQuery,
+  useCreateLeadStatusMutation,
+  useDeleteLeadStatusMutation,
+  useGetTagsQuery,
+  useCreateTagMutation,
+  useDeleteTagMutation,
   useGetActivitiesQuery,
 } = mongoApi;
 
 // Mock exports for features not yet implemented
-export const useGetLeadSourcesQuery = (_workspaceId?: string, _options?: any) => ({
-  data: [
-    { id: '1', name: 'Website', description: 'Website form submissions', color: '#3b82f6', is_active: true, created_at: '2024-01-01T00:00:00Z' },
-    { id: '2', name: 'Social Media', description: 'Social media campaigns', color: '#8b5cf6', is_active: true, created_at: '2024-01-01T00:00:00Z' },
-    { id: '3', name: 'Referral', description: 'Customer referrals', color: '#10b981', is_active: true, created_at: '2024-01-01T00:00:00Z' },
-    { id: '4', name: 'Cold Outreach', description: 'Cold email/calling', color: '#f59e0b', is_active: false, created_at: '2024-01-01T00:00:00Z' }
-  ],
-  isLoading: false,
-  error: null
-});
+
 
 export const useGetPermissionsQuery = () => ({
   data: [
@@ -187,22 +300,6 @@ export const useGetPermissionsQuery = () => ({
   isLoading: false,
   error: null
 });
-export const useDeleteRoleMutation = () => [
-  async (_data: any) => Promise.resolve(),
-  { isLoading: false }
-] as const;
 
-export const useCreateLeadSourceMutation = () => [
-  async (_data: any) => Promise.resolve(),
-  { isLoading: false }
-] as const;
 
-export const useUpdateLeadSourceMutation = () => [
-  async (_data: any) => Promise.resolve(),
-  { isLoading: false }
-] as const;
 
-export const useDeleteLeadSourceMutation = () => [
-  async (_data: any) => Promise.resolve(),
-  { isLoading: false }
-] as const;

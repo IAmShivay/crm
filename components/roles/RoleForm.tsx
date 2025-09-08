@@ -8,7 +8,7 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { useCreateRoleMutation, useGetPermissionsQuery } from '@/lib/api/mongoApi';
+import { useAppSelector } from '@/lib/hooks';
 import { toast } from 'sonner';
 
 interface RoleFormProps {
@@ -23,22 +23,61 @@ interface RoleFormData {
 
 export function RoleForm({ onSuccess }: RoleFormProps) {
   const [selectedPermissions, setSelectedPermissions] = useState<string[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
   const { register, handleSubmit, formState: { errors } } = useForm<RoleFormData>();
-  
-  const { data: permissions = [] } = useGetPermissionsQuery();
-  const [createRole, { isLoading }] = useCreateRoleMutation();
+
+  const { currentWorkspace } = useAppSelector((state) => state.workspace);
+  const { token } = useAppSelector((state) => state.auth);
+
+  // Available permissions
+  const permissions = [
+    { id: 'leads.create', name: 'Create Leads', category: 'leads' },
+    { id: 'leads.read', name: 'View Leads', category: 'leads' },
+    { id: 'leads.update', name: 'Edit Leads', category: 'leads' },
+    { id: 'leads.delete', name: 'Delete Leads', category: 'leads' },
+    { id: 'users.create', name: 'Create Users', category: 'users' },
+    { id: 'users.read', name: 'View Users', category: 'users' },
+    { id: 'users.update', name: 'Edit Users', category: 'users' },
+    { id: 'users.delete', name: 'Delete Users', category: 'users' },
+    { id: 'workspace.manage', name: 'Manage Workspace', category: 'workspace' },
+    { id: 'roles.manage', name: 'Manage Roles', category: 'roles' },
+    { id: 'webhooks.manage', name: 'Manage Webhooks', category: 'webhooks' },
+    { id: 'analytics.view', name: 'View Analytics', category: 'analytics' },
+  ];
 
   const onSubmit = async (data: RoleFormData) => {
+    if (!currentWorkspace?.id || !token) {
+      toast.error('Workspace not found');
+      return;
+    }
+
+    setIsLoading(true);
     try {
-      await createRole({
-        ...data,
-        permissions: selectedPermissions,
-        workspaceId: 'default',
+      const response = await fetch(`/api/roles?workspaceId=${currentWorkspace.id}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          ...data,
+          permissions: selectedPermissions,
+          workspaceId: currentWorkspace.id,
+        }),
       });
-      toast.success('Role created successfully');
-      onSuccess?.();
+
+      const result = await response.json();
+      if (result.success) {
+        toast.success('Role created successfully');
+        onSuccess?.();
+      } else {
+        toast.error(result.message || 'Failed to create role');
+      }
     } catch (error) {
+      console.error('Error creating role:', error);
       toast.error('Failed to create role');
+    } finally {
+      setIsLoading(false);
     }
   };
 
