@@ -268,9 +268,9 @@ export const POST = withSecurityLogging(withLogging(async (request: NextRequest)
     try {
       await Activity.create({
         workspaceId,
-        userId: auth.user.id,
-        action: 'lead_created',
-        entityType: 'Lead',
+        performedBy: auth.user.id,
+        activityType: 'created',
+        entityType: 'lead',
         entityId: lead._id,
         description: `${auth.user.fullName} created new lead "${leadData.name}"`,
         metadata: {

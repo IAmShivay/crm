@@ -15,17 +15,20 @@ import { useAppSelector, useAppDispatch } from '@/lib/hooks';
 import { toggleTheme, setPrimaryColor, loadThemeFromPreferences } from '@/lib/slices/themeSlice';
 import { ThemeCustomizer } from '@/components/theme/ThemeCustomizer';
 import { useGetUserPreferencesQuery, usePatchUserPreferencesMutation } from '@/lib/api/userPreferencesApi';
-import { 
-  User, 
-  Bell, 
-  Shield, 
-  Palette, 
-  Globe, 
-  Key, 
+import { useGetWorkspaceQuery, useUpdateWorkspaceMutation } from '@/lib/api/mongoApi';
+import { getSupportedCurrencies, getSupportedTimezones } from '@/lib/utils/workspace-formatting';
+import {
+  User,
+  Bell,
+  Shield,
+  Palette,
+  Globe,
+  Key,
   Trash2,
   Save,
   Eye,
-  EyeOff
+  EyeOff,
+  Building2
 } from 'lucide-react';
 import { toast } from 'sonner';
 
@@ -40,11 +43,18 @@ const colorOptions = [
 
 export default function SettingsPage() {
   const { user } = useAppSelector((state) => state.auth);
+  const { currentWorkspace } = useAppSelector((state) => state.workspace);
   const { mode, primaryColor } = useAppSelector((state) => state.theme);
   const dispatch = useAppDispatch();
 
   const { data: userPreferences, isLoading: preferencesLoading } = useGetUserPreferencesQuery();
   const [patchPreferences] = usePatchUserPreferencesMutation();
+
+  // Workspace settings
+  const { data: workspaceData, isLoading: workspaceLoading } = useGetWorkspaceQuery(currentWorkspace?.id || '', {
+    skip: !currentWorkspace?.id
+  });
+  const [updateWorkspace] = useUpdateWorkspaceMutation();
 
   const [showCurrentPassword, setShowCurrentPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
@@ -54,6 +64,20 @@ export default function SettingsPage() {
     leadUpdates: true,
     teamActivity: true,
     weeklyReports: false,
+  });
+
+  // Workspace form state
+  const [workspaceForm, setWorkspaceForm] = useState({
+    name: '',
+    description: '',
+    currency: 'USD',
+    timezone: 'UTC',
+    settings: {
+      dateFormat: 'MM/DD/YYYY',
+      timeFormat: '12h',
+      weekStartsOn: 0,
+      language: 'en'
+    }
   });
 
   // Load user preferences on mount
@@ -74,6 +98,24 @@ export default function SettingsPage() {
     }
   }, [userPreferences, dispatch]);
 
+  // Load workspace data
+  useEffect(() => {
+    if (workspaceData?.workspace) {
+      setWorkspaceForm({
+        name: workspaceData.workspace.name || '',
+        description: workspaceData.workspace.description || '',
+        currency: workspaceData.workspace.currency || 'USD',
+        timezone: workspaceData.workspace.timezone || 'UTC',
+        settings: {
+          dateFormat: workspaceData.workspace.settings?.dateFormat || 'MM/DD/YYYY',
+          timeFormat: workspaceData.workspace.settings?.timeFormat || '12h',
+          weekStartsOn: workspaceData.workspace.settings?.weekStartsOn || 0,
+          language: workspaceData.workspace.settings?.language || 'en'
+        }
+      });
+    }
+  }, [workspaceData]);
+
   const handleSaveProfile = () => {
     toast.success('Profile updated successfully');
   };
@@ -93,6 +135,21 @@ export default function SettingsPage() {
     }
   };
 
+  const handleSaveWorkspace = async () => {
+    if (!currentWorkspace?.id) return;
+
+    try {
+      await updateWorkspace({
+        id: currentWorkspace.id,
+        ...workspaceForm
+      }).unwrap();
+      toast.success('Workspace settings saved');
+    } catch (error) {
+      console.error('Failed to save workspace settings:', error);
+      toast.error('Failed to save workspace settings');
+    }
+  };
+
   return (
     <div className="w-full space-y-6">
       <div className="w-full">
@@ -103,10 +160,14 @@ export default function SettingsPage() {
       </div>
 
       <Tabs defaultValue="profile" className="w-full space-y-4">
-        <TabsList className="grid w-full grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 bg-muted dark:bg-gray-800">
+        <TabsList className="grid w-full grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 bg-muted dark:bg-gray-800">
           <TabsTrigger value="profile" className="flex items-center space-x-2">
             <User className="h-4 w-4" />
             <span>Profile</span>
+          </TabsTrigger>
+          <TabsTrigger value="workspace" className="flex items-center space-x-2">
+            <Building2 className="h-4 w-4" />
+            <span>Workspace</span>
           </TabsTrigger>
           <TabsTrigger value="security" className="flex items-center space-x-2">
             <Shield className="h-4 w-4" />
@@ -190,6 +251,160 @@ export default function SettingsPage() {
                 <Save className="h-4 w-4 mr-2" />
                 Save Changes
               </Button>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="workspace" className="space-y-4">
+          <Card>
+            <CardHeader>
+              <CardTitle>Workspace Settings</CardTitle>
+              <CardDescription>
+                Configure your workspace preferences including currency, timezone, and regional settings
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              {workspaceLoading ? (
+                <div className="space-y-4">
+                  <div className="h-4 bg-gray-200 rounded animate-pulse"></div>
+                  <div className="h-4 bg-gray-200 rounded animate-pulse w-3/4"></div>
+                  <div className="h-4 bg-gray-200 rounded animate-pulse w-1/2"></div>
+                </div>
+              ) : (
+                <>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="workspace-name">Workspace Name</Label>
+                      <Input
+                        id="workspace-name"
+                        value={workspaceForm.name}
+                        onChange={(e) => setWorkspaceForm(prev => ({ ...prev, name: e.target.value }))}
+                        placeholder="Enter workspace name"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="workspace-currency">Currency</Label>
+                      <Select
+                        value={workspaceForm.currency}
+                        onValueChange={(value) => setWorkspaceForm(prev => ({ ...prev, currency: value }))}
+                      >
+                        <SelectTrigger>
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {getSupportedCurrencies().map((currency) => (
+                            <SelectItem key={currency.code} value={currency.code}>
+                              {currency.symbol} {currency.name} ({currency.code})
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="workspace-description">Description</Label>
+                    <Textarea
+                      id="workspace-description"
+                      value={workspaceForm.description}
+                      onChange={(e) => setWorkspaceForm(prev => ({ ...prev, description: e.target.value }))}
+                      placeholder="Describe your workspace"
+                      rows={3}
+                    />
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="workspace-timezone">Timezone</Label>
+                      <Select
+                        value={workspaceForm.timezone}
+                        onValueChange={(value) => setWorkspaceForm(prev => ({ ...prev, timezone: value }))}
+                      >
+                        <SelectTrigger>
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {getSupportedTimezones().map((timezone) => (
+                            <SelectItem key={timezone.value} value={timezone.value}>
+                              {timezone.label} ({timezone.offset})
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="date-format">Date Format</Label>
+                      <Select
+                        value={workspaceForm.settings.dateFormat}
+                        onValueChange={(value) => setWorkspaceForm(prev => ({
+                          ...prev,
+                          settings: { ...prev.settings, dateFormat: value }
+                        }))}
+                      >
+                        <SelectTrigger>
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="MM/DD/YYYY">MM/DD/YYYY</SelectItem>
+                          <SelectItem value="DD/MM/YYYY">DD/MM/YYYY</SelectItem>
+                          <SelectItem value="YYYY-MM-DD">YYYY-MM-DD</SelectItem>
+                          <SelectItem value="DD-MM-YYYY">DD-MM-YYYY</SelectItem>
+                          <SelectItem value="MM-DD-YYYY">MM-DD-YYYY</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="time-format">Time Format</Label>
+                      <Select
+                        value={workspaceForm.settings.timeFormat}
+                        onValueChange={(value) => setWorkspaceForm(prev => ({
+                          ...prev,
+                          settings: { ...prev.settings, timeFormat: value }
+                        }))}
+                      >
+                        <SelectTrigger>
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="12h">12 Hour (AM/PM)</SelectItem>
+                          <SelectItem value="24h">24 Hour</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="week-starts">Week Starts On</Label>
+                      <Select
+                        value={workspaceForm.settings.weekStartsOn.toString()}
+                        onValueChange={(value) => setWorkspaceForm(prev => ({
+                          ...prev,
+                          settings: { ...prev.settings, weekStartsOn: parseInt(value) }
+                        }))}
+                      >
+                        <SelectTrigger>
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="0">Sunday</SelectItem>
+                          <SelectItem value="1">Monday</SelectItem>
+                          <SelectItem value="2">Tuesday</SelectItem>
+                          <SelectItem value="3">Wednesday</SelectItem>
+                          <SelectItem value="4">Thursday</SelectItem>
+                          <SelectItem value="5">Friday</SelectItem>
+                          <SelectItem value="6">Saturday</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  </div>
+
+                  <Button onClick={handleSaveWorkspace} className="w-full sm:w-auto">
+                    <Save className="h-4 w-4 mr-2" />
+                    Save Workspace Settings
+                  </Button>
+                </>
+              )}
             </CardContent>
           </Card>
         </TabsContent>

@@ -204,7 +204,7 @@ export function EnhancedLeadList() {
   // Initial load and filter changes
   useEffect(() => {
     fetchLeads(1, true);
-  }, [searchTerm, statusFilter, priorityFilter, assignedToFilter]);
+  }, [searchTerm, statusFilter, priorityFilter, assignedToFilter, fetchLeads]);
 
   const handleDelete = async (id: string) => {
     if (!token) return;
@@ -503,8 +503,17 @@ export function EnhancedLeadList() {
           </Table>
 
           {loading && (
-            <div className="flex items-center justify-center py-8">
-              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+            <div className="space-y-3 p-4">
+              {Array.from({ length: 3 }).map((_, i) => (
+                <div key={i} className="flex space-x-4">
+                  <div className="h-8 w-8 bg-muted animate-pulse rounded"></div>
+                  <div className="flex-1 space-y-2">
+                    <div className="h-4 bg-muted animate-pulse rounded w-3/4"></div>
+                    <div className="h-3 bg-muted animate-pulse rounded w-1/2"></div>
+                  </div>
+                  <div className="h-8 w-16 bg-muted animate-pulse rounded"></div>
+                </div>
+              ))}
             </div>
           )}
 

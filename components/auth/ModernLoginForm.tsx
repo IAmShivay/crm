@@ -418,7 +418,7 @@ export function ModernLoginForm() {
                 >
                   {loading ? (
                     <div className="flex items-center space-x-2">
-                      <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                      <div className="h-5 w-5 bg-white/20 animate-pulse rounded"></div>
                       <span>Signing in...</span>
                     </div>
                   ) : (

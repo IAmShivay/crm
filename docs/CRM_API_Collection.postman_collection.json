@@ -1,8 +1,8 @@
 {
   "info": {
-    "name": "CRM API Collection",
-    "description": "Complete API collection for the MongoDB-based CRM system",
-    "version": "1.0.0",
+    "name": "CRM Pro API Collection - Updated",
+    "description": "Complete API collection for the MongoDB-based CRM system with latest fixes and improvements. Includes workspace management, lead tracking, role-based access control, and comprehensive error handling.",
+    "version": "2.0.0",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "auth": {
@@ -142,6 +142,194 @@
               }
             }
           ]
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/auth/logout",
+              "host": ["{{base_url}}"],
+              "path": ["api", "auth", "logout"]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "    pm.test('Logout successful', function () {",
+                  "        const response = pm.response.json();",
+                  "        pm.expect(response.success).to.be.true;",
+                  "    });",
+                  "    // Clear auth token after logout",
+                  "    pm.collectionVariables.set('auth_token', '');",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Workspaces",
+      "item": [
+        {
+          "name": "Get User Workspaces",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/workspaces?userId={{user_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "workspaces"],
+              "query": [
+                {
+                  "key": "userId",
+                  "value": "{{user_id}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Workspace",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"My New Workspace\",\n  \"description\": \"A workspace for managing our sales pipeline\",\n  \"currency\": \"USD\",\n  \"timezone\": \"America/New_York\",\n  \"settings\": {\n    \"dateFormat\": \"MM/DD/YYYY\",\n    \"timeFormat\": \"12h\",\n    \"weekStartsOn\": 0,\n    \"language\": \"en\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/workspaces",
+              "host": ["{{base_url}}"],
+              "path": ["api", "workspaces"]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 201) {",
+                  "    const response = pm.response.json();",
+                  "    pm.collectionVariables.set('workspace_id', response.workspace.id);",
+                  "    pm.test('Workspace created successfully', function () {",
+                  "        pm.expect(response.workspace.name).to.equal('My New Workspace');",
+                  "        pm.expect(response.workspace.currency).to.equal('USD');",
+                  "        pm.expect(response.workspace.timezone).to.equal('America/New_York');",
+                  "    });",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "response": []
+        },
+        {
+          "name": "Get Workspace Details",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/workspaces/{{workspace_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "workspaces", "{{workspace_id}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Workspace",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Updated Workspace Name\",\n  \"description\": \"Updated description for the workspace\",\n  \"currency\": \"EUR\",\n  \"timezone\": \"Europe/London\",\n  \"settings\": {\n    \"dateFormat\": \"DD/MM/YYYY\",\n    \"timeFormat\": \"24h\",\n    \"weekStartsOn\": 1,\n    \"language\": \"en\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/workspaces/{{workspace_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "workspaces", "{{workspace_id}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Workspace",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/workspaces/{{workspace_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "workspaces", "{{workspace_id}}"]
+            }
+          },
+          "response": []
         }
       ]
     },
@@ -380,6 +568,63 @@
               "path": ["api", "webhooks", "dodo"]
             }
           },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Activities",
+      "item": [
+        {
+          "name": "Get Workspace Activities",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/activities?workspaceId={{workspace_id}}&limit=10",
+              "host": ["{{base_url}}"],
+              "path": ["api", "activities"],
+              "query": [
+                {
+                  "key": "workspaceId",
+                  "value": "{{workspace_id}}"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "    const response = pm.response.json();",
+                  "    pm.test('Activities retrieved successfully', function () {",
+                  "        pm.expect(response.activities).to.be.an('array');",
+                  "        pm.expect(response.total).to.be.a('number');",
+                  "    });",
+                  "} else if (pm.response.code === 400) {",
+                  "    pm.test('Handles missing workspace gracefully', function () {",
+                  "        const response = pm.response.json();",
+                  "        pm.expect(response.activities).to.be.an('array');",
+                  "        pm.expect(response.activities).to.have.lengthOf(0);",
+                  "    });",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
           "response": []
         }
       ]

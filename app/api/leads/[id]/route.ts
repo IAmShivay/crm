@@ -150,9 +150,9 @@ export const PUT = withSecurityLogging(withLogging(async (request: NextRequest, 
     try {
       await Activity.create({
         workspaceId,
-        userId: auth.user.id,
-        action: 'lead_updated',
-        entityType: 'Lead',
+        performedBy: auth.user.id,
+        activityType: 'updated',
+        entityType: 'lead',
         entityId: leadId,
         description: `${auth.user.fullName} updated lead "${lead.name}"`,
         metadata: {

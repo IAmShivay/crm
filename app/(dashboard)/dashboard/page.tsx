@@ -35,34 +35,34 @@ export default function DashboardPage() {
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <span className="text-sm font-medium">Prospecting</span>
-                <span className="text-sm text-muted-foreground">12 leads</span>
+                <span className="text-sm text-muted-foreground">0 leads</span>
               </div>
               <div className="w-full bg-muted rounded-full h-2">
-                <div className="bg-primary h-2 rounded-full" style={{ width: '25%' }}></div>
+                <div className="bg-primary h-2 rounded-full" style={{ width: '0%' }}></div>
               </div>
 
               <div className="flex items-center justify-between">
                 <span className="text-sm font-medium">Qualified</span>
-                <span className="text-sm text-muted-foreground">8 leads</span>
+                <span className="text-sm text-muted-foreground">0 leads</span>
               </div>
               <div className="w-full bg-muted rounded-full h-2">
-                <div className="bg-yellow-500 h-2 rounded-full" style={{ width: '45%' }}></div>
+                <div className="bg-yellow-500 h-2 rounded-full" style={{ width: '0%' }}></div>
               </div>
 
               <div className="flex items-center justify-between">
                 <span className="text-sm font-medium">Proposal</span>
-                <span className="text-sm text-muted-foreground">5 leads</span>
+                <span className="text-sm text-muted-foreground">0 leads</span>
               </div>
               <div className="w-full bg-muted rounded-full h-2">
-                <div className="bg-orange-500 h-2 rounded-full" style={{ width: '65%' }}></div>
+                <div className="bg-orange-500 h-2 rounded-full" style={{ width: '0%' }}></div>
               </div>
 
               <div className="flex items-center justify-between">
                 <span className="text-sm font-medium">Negotiation</span>
-                <span className="text-sm text-muted-foreground">3 leads</span>
+                <span className="text-sm text-muted-foreground">0 leads</span>
               </div>
               <div className="w-full bg-muted rounded-full h-2">
-                <div className="bg-green-500 h-2 rounded-full" style={{ width: '85%' }}></div>
+                <div className="bg-green-500 h-2 rounded-full" style={{ width: '0%' }}></div>
               </div>
             </div>
           </CardContent>

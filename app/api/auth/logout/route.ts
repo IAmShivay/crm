@@ -23,14 +23,15 @@ export async function POST(request: NextRequest) {
       for (const membership of userMemberships) {
         await Activity.create({
           workspaceId: membership.workspaceId,
-          userId: auth.user._id,
-          action: 'user_signed_out',
-          entityType: 'User',
-          entityId: auth.user._id,
+          performedBy: auth.user.id,
+          activityType: 'deleted', // Using 'deleted' as closest match for sign-out
+          entityType: 'user',
+          entityId: auth.user.id,
           description: `${auth.user.fullName} signed out`,
           metadata: {
             userEmail: auth.user.email,
-            signOutTime: new Date().toISOString()
+            signOutTime: new Date().toISOString(),
+            activitySubType: 'user_signed_out'
           }
         });
       }

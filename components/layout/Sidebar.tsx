@@ -38,7 +38,7 @@ const navigation = [
   { name: 'Analytics', href: '/analytics', icon: BarChart3 },
   { name: 'Roles', href: '/roles', icon: UserCheck },
   { name: 'Workspace', href: '/workspace', icon: Building },
-  { name: 'Plans', href: '/plans', icon: CreditCard },
+  // { name: 'Plans', href: '/plans', icon: CreditCard }, // Hidden for now
   { name: 'Settings', href: '/settings', icon: Settings },
 ];
 

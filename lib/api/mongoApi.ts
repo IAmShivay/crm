@@ -238,6 +238,20 @@ export const mongoApi = createApi({
       providesTags: ['Activity'],
     }),
 
+    // Workspaces
+    getWorkspace: builder.query<{ success: boolean; workspace: any }, string>({
+      query: (workspaceId) => `workspaces/${workspaceId}`,
+      providesTags: ['Workspace'],
+    }),
+    updateWorkspace: builder.mutation<{ success: boolean; workspace: any }, { id: string; [key: string]: any }>({
+      query: ({ id, ...data }) => ({
+        url: `workspaces/${id}`,
+        method: 'PUT',
+        body: data,
+      }),
+      invalidatesTags: ['Workspace'],
+    }),
+
     // Workspace Members
     getWorkspaceMembers: builder.query<{ success: boolean; members: WorkspaceMember[] }, string>({
       query: (workspaceId) => `workspaces/${workspaceId}/members`,
@@ -262,6 +276,8 @@ export const {
   useCreateTagMutation,
   useDeleteTagMutation,
   useGetActivitiesQuery,
+  useGetWorkspaceQuery,
+  useUpdateWorkspaceMutation,
   useGetWorkspaceMembersQuery,
 } = mongoApi;
 

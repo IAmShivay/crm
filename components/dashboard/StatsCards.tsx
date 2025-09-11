@@ -4,36 +4,46 @@ import { useState, useEffect } from 'react';
 import { TrendingUp, Users, DollarSign, Target } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { StatsCardSkeleton } from '@/components/ui/skeleton';
+import { useAppSelector } from '@/lib/hooks';
 
-const stats = [
+interface StatData {
+  title: string;
+  value: string;
+  change: string;
+  trend: 'up' | 'down';
+  icon: any;
+  color: string;
+}
+
+const defaultStats: StatData[] = [
   {
     title: 'Total Leads',
-    value: '2,345',
-    change: '+12.5%',
+    value: '0',
+    change: '+0%',
     trend: 'up',
     icon: Users,
     color: 'text-blue-600',
   },
   {
     title: 'Conversion Rate',
-    value: '23.1%',
-    change: '+2.3%',
+    value: '0%',
+    change: '+0%',
     trend: 'up',
     icon: Target,
     color: 'text-green-600',
   },
   {
     title: 'Revenue',
-    value: '$45,231',
-    change: '+8.7%',
+    value: '$0',
+    change: '+0%',
     trend: 'up',
     icon: DollarSign,
     color: 'text-yellow-600',
   },
   {
     title: 'Growth',
-    value: '12.5%',
-    change: '+1.2%',
+    value: '0%',
+    change: '+0%',
     trend: 'up',
     icon: TrendingUp,
     color: 'text-purple-600',
@@ -42,15 +52,30 @@ const stats = [
 
 export function StatsCards() {
   const [isLoading, setIsLoading] = useState(true);
+  const [stats, setStats] = useState<StatData[]>(defaultStats);
+  const { currentWorkspace } = useAppSelector((state) => state.workspace);
 
   useEffect(() => {
-    // Simulate API call
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 1500);
+    const fetchStats = async () => {
+      if (!currentWorkspace?.id) {
+        setIsLoading(false);
+        return;
+      }
 
-    return () => clearTimeout(timer);
-  }, []);
+      try {
+        // TODO: Replace with actual API calls when endpoints are ready
+        // For now, show default values to avoid static data
+        setStats(defaultStats);
+      } catch (error) {
+        console.error('Error fetching stats:', error);
+        setStats(defaultStats);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchStats();
+  }, [currentWorkspace?.id]);
 
   if (isLoading) {
     return (

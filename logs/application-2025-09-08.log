@@ -16801,3 +16801,4353 @@
   message: 'Create workspace failed after 957ms',
   timestamp: '2025-09-08T11:25:53.984Z'
 }
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-08T11:55:48.786Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/activities?workspaceId=68b5f978932ddff74ab75f58&limit=10',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/activities?workspaceId=68b5f978932ddff74ab75f58&limit=10',
+  timestamp: '2025-09-08T11:55:48.827Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-08T11:55:48.875Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-08T11:55:52.677Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/activities?workspaceId=68b5f978932ddff74ab75f58&limit=10',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/activities?workspaceId=68b5f978932ddff74ab75f58&limit=10',
+  timestamp: '2025-09-08T11:55:52.725Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  workspaceId: '68b5f978932ddff74ab75f58',
+  activityCount: 5,
+  limit: 10,
+  duration: 241,
+  level: 'info',
+  message: 'Activities retrieved for workspace 68b5f978932ddff74ab75f58',
+  timestamp: '2025-09-08T11:55:52.974Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-08T11:55:53.172Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-08T11:55:53.209Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-08T11:55:53.687Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/leads?workspaceId=68b5f978932ddff74ab75f58&page=1&limit=20',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  headers: {
+    accept: '*/*',
+    'accept-encoding': 'gzip, deflate, br, zstd',
+    'accept-language': 'en-US,en;q=0.8',
+    connection: 'keep-alive',
+    'content-security-policy': "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self'; frame-ancestors 'none'",
+    host: 'localhost:3000',
+    'permissions-policy': 'camera=(), microphone=(), geolocation=()',
+    referer: 'http://localhost:3000/leads',
+    'referrer-policy': 'strict-origin-when-cross-origin',
+    'sec-ch-ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Brave";v="140"',
+    'sec-ch-ua-mobile': '?0',
+    'sec-ch-ua-platform': '"Windows"',
+    'sec-fetch-dest': 'empty',
+    'sec-fetch-mode': 'cors',
+    'sec-fetch-site': 'same-origin',
+    'sec-gpc': '1',
+    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+    'x-content-type-options': 'nosniff',
+    'x-frame-options': 'DENY',
+    'x-ratelimit-limit': '100',
+    'x-ratelimit-remaining': '99',
+    'x-ratelimit-reset': '1757333455',
+    'x-xss-protection': '1; mode=block'
+  },
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/leads?workspaceId=68b5f978932ddff74ab75f58&page=1&limit=20',
+  timestamp: '2025-09-08T11:55:55.426Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'business',
+  event: 'leads_listed',
+  timestamp: '2025-09-08T11:55:55.709Z',
+  userId: '68b5f978932ddff74ab75f56',
+  workspaceId: '68b5f978932ddff74ab75f58',
+  count: 2,
+  page: 1,
+  filters: {
+    status: null,
+    assignedTo: null,
+    priority: null,
+    search: null,
+    tags: undefined
+  },
+  duration: 277,
+  level: 'info',
+  message: 'BUSINESS_EVENT: leads_listed'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/tags?workspaceId=68b5f978932ddff74ab75f58',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  headers: {
+    accept: '*/*',
+    'accept-encoding': 'gzip, deflate, br, zstd',
+    'accept-language': 'en-US,en;q=0.8',
+    connection: 'keep-alive',
+    'content-security-policy': "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self'; frame-ancestors 'none'",
+    host: 'localhost:3000',
+    'permissions-policy': 'camera=(), microphone=(), geolocation=()',
+    referer: 'http://localhost:3000/leads',
+    'referrer-policy': 'strict-origin-when-cross-origin',
+    'sec-ch-ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Brave";v="140"',
+    'sec-ch-ua-mobile': '?0',
+    'sec-ch-ua-platform': '"Windows"',
+    'sec-fetch-dest': 'empty',
+    'sec-fetch-mode': 'cors',
+    'sec-fetch-site': 'same-origin',
+    'sec-gpc': '1',
+    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+    'x-content-type-options': 'nosniff',
+    'x-frame-options': 'DENY',
+    'x-ratelimit-limit': '200',
+    'x-ratelimit-remaining': '199',
+    'x-ratelimit-reset': '1757333456',
+    'x-xss-protection': '1; mode=block'
+  },
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/tags?workspaceId=68b5f978932ddff74ab75f58',
+  timestamp: '2025-09-08T11:55:56.399Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/lead-statuses?workspaceId=68b5f978932ddff74ab75f58',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  headers: {
+    accept: '*/*',
+    'accept-encoding': 'gzip, deflate, br, zstd',
+    'accept-language': 'en-US,en;q=0.8',
+    connection: 'keep-alive',
+    'content-security-policy': "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self'; frame-ancestors 'none'",
+    host: 'localhost:3000',
+    'permissions-policy': 'camera=(), microphone=(), geolocation=()',
+    referer: 'http://localhost:3000/leads',
+    'referrer-policy': 'strict-origin-when-cross-origin',
+    'sec-ch-ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Brave";v="140"',
+    'sec-ch-ua-mobile': '?0',
+    'sec-ch-ua-platform': '"Windows"',
+    'sec-fetch-dest': 'empty',
+    'sec-fetch-mode': 'cors',
+    'sec-fetch-site': 'same-origin',
+    'sec-gpc': '1',
+    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+    'x-content-type-options': 'nosniff',
+    'x-frame-options': 'DENY',
+    'x-ratelimit-limit': '200',
+    'x-ratelimit-remaining': '199',
+    'x-ratelimit-reset': '1757333456',
+    'x-xss-protection': '1; mode=block'
+  },
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/lead-statuses?workspaceId=68b5f978932ddff74ab75f58',
+  timestamp: '2025-09-08T11:55:56.414Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'business',
+  event: 'tags_listed',
+  timestamp: '2025-09-08T11:55:56.811Z',
+  userId: '68b5f978932ddff74ab75f56',
+  workspaceId: '68b5f978932ddff74ab75f58',
+  count: 3,
+  duration: 410,
+  level: 'info',
+  message: 'BUSINESS_EVENT: tags_listed'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'business',
+  event: 'lead_statuses_listed',
+  timestamp: '2025-09-08T11:55:56.833Z',
+  userId: '68b5f978932ddff74ab75f56',
+  workspaceId: '68b5f978932ddff74ab75f58',
+  count: 2,
+  duration: 418,
+  level: 'info',
+  message: 'BUSINESS_EVENT: lead_statuses_listed'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces/68b5f978932ddff74ab75f58/members',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces/68b5f978932ddff74ab75f58/members',
+  timestamp: '2025-09-08T11:55:57.674Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  workspaceId: '68b5f978932ddff74ab75f58',
+  memberCount: 1,
+  duration: 353,
+  level: 'info',
+  message: 'Workspace members retrieved for workspace 68b5f978932ddff74ab75f58',
+  timestamp: '2025-09-08T11:55:58.030Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'POST',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming POST http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-08T11:55:59.436Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  error: 'Transaction numbers are only allowed on a replica set member or mongos',
+  stack: 'MongoServerError: Transaction numbers are only allowed on a replica set member or mongos\n' +
+    '    at Connection.sendCommand (D:\\NEW CRM\\crm\\node_modules\\mongoose\\node_modules\\mongodb\\lib\\cmap\\connection.js:305:27)\n' +
+    '    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n' +
+    '    at async Connection.command (D:\\NEW CRM\\crm\\node_modules\\mongoose\\node_modules\\mongodb\\lib\\cmap\\connection.js:333:26)\n' +
+    '    at async Server.command (D:\\NEW CRM\\crm\\node_modules\\mongoose\\node_modules\\mongodb\\lib\\sdam\\server.js:171:29)\n' +
+    '    at async InsertOneOperation.executeCommand (D:\\NEW CRM\\crm\\node_modules\\mongoose\\node_modules\\mongodb\\lib\\operations\\command.js:76:16)\n' +
+    '    at async InsertOneOperation.execute (D:\\NEW CRM\\crm\\node_modules\\mongoose\\node_modules\\mongodb\\lib\\operations\\insert.js:37:16)\n' +
+    '    at async InsertOneOperation.execute (D:\\NEW CRM\\crm\\node_modules\\mongoose\\node_modules\\mongodb\\lib\\operations\\insert.js:46:21)\n' +
+    '    at async tryOperation (D:\\NEW CRM\\crm\\node_modules\\mongoose\\node_modules\\mongodb\\lib\\operations\\execute_operation.js:207:20)\n' +
+    '    at async executeOperation (D:\\NEW CRM\\crm\\node_modules\\mongoose\\node_modules\\mongodb\\lib\\operations\\execute_operation.js:75:16)\n' +
+    '    at async Collection.insertOne (D:\\NEW CRM\\crm\\node_modules\\mongoose\\node_modules\\mongodb\\lib\\collection.js:157:16)',
+  level: 'error',
+  message: 'Create workspace failed after 762ms',
+  timestamp: '2025-09-08T11:56:00.199Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'POST',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Mobile/15E148 Safari/604.1',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming POST http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-08T11:56:07.751Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  error: 'Transaction numbers are only allowed on a replica set member or mongos',
+  stack: 'MongoServerError: Transaction numbers are only allowed on a replica set member or mongos\n' +
+    '    at Connection.sendCommand (D:\\NEW CRM\\crm\\node_modules\\mongoose\\node_modules\\mongodb\\lib\\cmap\\connection.js:305:27)\n' +
+    '    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n' +
+    '    at async Connection.command (D:\\NEW CRM\\crm\\node_modules\\mongoose\\node_modules\\mongodb\\lib\\cmap\\connection.js:333:26)\n' +
+    '    at async Server.command (D:\\NEW CRM\\crm\\node_modules\\mongoose\\node_modules\\mongodb\\lib\\sdam\\server.js:171:29)\n' +
+    '    at async InsertOneOperation.executeCommand (D:\\NEW CRM\\crm\\node_modules\\mongoose\\node_modules\\mongodb\\lib\\operations\\command.js:76:16)\n' +
+    '    at async InsertOneOperation.execute (D:\\NEW CRM\\crm\\node_modules\\mongoose\\node_modules\\mongodb\\lib\\operations\\insert.js:37:16)\n' +
+    '    at async InsertOneOperation.execute (D:\\NEW CRM\\crm\\node_modules\\mongoose\\node_modules\\mongodb\\lib\\operations\\insert.js:46:21)\n' +
+    '    at async tryOperation (D:\\NEW CRM\\crm\\node_modules\\mongoose\\node_modules\\mongodb\\lib\\operations\\execute_operation.js:207:20)\n' +
+    '    at async executeOperation (D:\\NEW CRM\\crm\\node_modules\\mongoose\\node_modules\\mongodb\\lib\\operations\\execute_operation.js:75:16)\n' +
+    '    at async Collection.insertOne (D:\\NEW CRM\\crm\\node_modules\\mongoose\\node_modules\\mongodb\\lib\\collection.js:157:16)',
+  level: 'error',
+  message: 'Create workspace failed after 619ms',
+  timestamp: '2025-09-08T11:56:08.372Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/leads?workspaceId=68b5f978932ddff74ab75f58&page=1&limit=20',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  headers: {
+    accept: '*/*',
+    'accept-encoding': 'gzip, deflate, br, zstd',
+    'accept-language': 'en-US,en;q=0.8',
+    connection: 'keep-alive',
+    'content-security-policy': "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self'; frame-ancestors 'none'",
+    host: 'localhost:3000',
+    'permissions-policy': 'camera=(), microphone=(), geolocation=()',
+    referer: 'http://localhost:3000/leads',
+    'referrer-policy': 'strict-origin-when-cross-origin',
+    'sec-ch-ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Brave";v="140"',
+    'sec-ch-ua-mobile': '?0',
+    'sec-ch-ua-platform': '"Windows"',
+    'sec-fetch-dest': 'empty',
+    'sec-fetch-mode': 'cors',
+    'sec-fetch-site': 'same-origin',
+    'sec-gpc': '1',
+    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+    'x-content-type-options': 'nosniff',
+    'x-frame-options': 'DENY',
+    'x-ratelimit-limit': '100',
+    'x-ratelimit-remaining': '99',
+    'x-ratelimit-reset': '1757339547',
+    'x-xss-protection': '1; mode=block'
+  },
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/leads?workspaceId=68b5f978932ddff74ab75f58&page=1&limit=20',
+  timestamp: '2025-09-08T13:37:33.342Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-08T13:37:35.426Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-08T13:37:35.673Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-08T13:37:35.799Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-08T13:37:35.943Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-08T13:37:36.004Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-08T13:37:36.166Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-08T13:37:37.529Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-08T13:37:37.614Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-08T13:37:37.912Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-08T13:37:37.944Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-08T13:37:38.256Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-08T13:37:38.279Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-08T13:37:38.633Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-08T13:37:38.660Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-08T13:37:38.933Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-08T13:37:38.974Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-08T13:37:39.292Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-08T13:37:39.311Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-08T13:37:39.660Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-08T13:37:39.698Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-08T13:37:39.974Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-08T13:37:40.005Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-08T13:37:40.316Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-08T13:37:40.345Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-08T13:37:40.772Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-08T13:37:40.797Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-08T13:37:41.262Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/leads?workspaceId=68b5f978932ddff74ab75f58&page=1&limit=20',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  headers: {
+    accept: '*/*',
+    'accept-encoding': 'gzip, deflate, br, zstd',
+    'accept-language': 'en-US,en;q=0.8',
+    connection: 'keep-alive',
+    'content-security-policy': "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self'; frame-ancestors 'none'",
+    host: 'localhost:3000',
+    'permissions-policy': 'camera=(), microphone=(), geolocation=()',
+    referer: 'http://localhost:3000/leads',
+    'referrer-policy': 'strict-origin-when-cross-origin',
+    'sec-ch-ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Brave";v="140"',
+    'sec-ch-ua-mobile': '?0',
+    'sec-ch-ua-platform': '"Windows"',
+    'sec-fetch-dest': 'empty',
+    'sec-fetch-mode': 'cors',
+    'sec-fetch-site': 'same-origin',
+    'sec-gpc': '1',
+    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+    'x-content-type-options': 'nosniff',
+    'x-frame-options': 'DENY',
+    'x-ratelimit-limit': '100',
+    'x-ratelimit-remaining': '99',
+    'x-ratelimit-reset': '1757339581',
+    'x-xss-protection': '1; mode=block'
+  },
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/leads?workspaceId=68b5f978932ddff74ab75f58&page=1&limit=20',
+  timestamp: '2025-09-08T13:38:03.253Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-08T13:38:31.574Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/activities?workspaceId=68b5f978932ddff74ab75f58&limit=10',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/activities?workspaceId=68b5f978932ddff74ab75f58&limit=10',
+  timestamp: '2025-09-08T13:38:31.620Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  workspaceId: '68b5f978932ddff74ab75f58',
+  activityCount: 5,
+  limit: 10,
+  duration: 275,
+  level: 'info',
+  message: 'Activities retrieved for workspace 68b5f978932ddff74ab75f58',
+  timestamp: '2025-09-08T13:38:31.897Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-08T13:38:32.096Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-08T13:38:32.120Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-08T13:38:32.431Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/leads?workspaceId=68b5f978932ddff74ab75f58&page=1&limit=20',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  headers: {
+    accept: '*/*',
+    'accept-encoding': 'gzip, deflate, br, zstd',
+    'accept-language': 'en-US,en;q=0.8',
+    connection: 'keep-alive',
+    'content-security-policy': "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self'; frame-ancestors 'none'",
+    host: 'localhost:3000',
+    'permissions-policy': 'camera=(), microphone=(), geolocation=()',
+    referer: 'http://localhost:3000/leads',
+    'referrer-policy': 'strict-origin-when-cross-origin',
+    'sec-ch-ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Brave";v="140"',
+    'sec-ch-ua-mobile': '?0',
+    'sec-ch-ua-platform': '"Windows"',
+    'sec-fetch-dest': 'empty',
+    'sec-fetch-mode': 'cors',
+    'sec-fetch-site': 'same-origin',
+    'sec-gpc': '1',
+    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+    'x-content-type-options': 'nosniff',
+    'x-frame-options': 'DENY',
+    'x-ratelimit-limit': '100',
+    'x-ratelimit-remaining': '98',
+    'x-ratelimit-reset': '1757339581',
+    'x-xss-protection': '1; mode=block'
+  },
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/leads?workspaceId=68b5f978932ddff74ab75f58&page=1&limit=20',
+  timestamp: '2025-09-08T13:38:36.527Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'business',
+  event: 'leads_listed',
+  timestamp: '2025-09-08T13:38:36.895Z',
+  userId: '68b5f978932ddff74ab75f56',
+  workspaceId: '68b5f978932ddff74ab75f58',
+  count: 2,
+  page: 1,
+  filters: {
+    status: null,
+    assignedTo: null,
+    priority: null,
+    search: null,
+    tags: undefined
+  },
+  duration: 355,
+  level: 'info',
+  message: 'BUSINESS_EVENT: leads_listed'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/lead-statuses?workspaceId=68b5f978932ddff74ab75f58',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  headers: {
+    accept: '*/*',
+    'accept-encoding': 'gzip, deflate, br, zstd',
+    'accept-language': 'en-US,en;q=0.8',
+    connection: 'keep-alive',
+    'content-security-policy': "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self'; frame-ancestors 'none'",
+    host: 'localhost:3000',
+    'permissions-policy': 'camera=(), microphone=(), geolocation=()',
+    referer: 'http://localhost:3000/leads',
+    'referrer-policy': 'strict-origin-when-cross-origin',
+    'sec-ch-ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Brave";v="140"',
+    'sec-ch-ua-mobile': '?0',
+    'sec-ch-ua-platform': '"Windows"',
+    'sec-fetch-dest': 'empty',
+    'sec-fetch-mode': 'cors',
+    'sec-fetch-site': 'same-origin',
+    'sec-gpc': '1',
+    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+    'x-content-type-options': 'nosniff',
+    'x-frame-options': 'DENY',
+    'x-ratelimit-limit': '200',
+    'x-ratelimit-remaining': '199',
+    'x-ratelimit-reset': '1757339617',
+    'x-xss-protection': '1; mode=block'
+  },
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/lead-statuses?workspaceId=68b5f978932ddff74ab75f58',
+  timestamp: '2025-09-08T13:38:37.360Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/tags?workspaceId=68b5f978932ddff74ab75f58',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  headers: {
+    accept: '*/*',
+    'accept-encoding': 'gzip, deflate, br, zstd',
+    'accept-language': 'en-US,en;q=0.8',
+    connection: 'keep-alive',
+    'content-security-policy': "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self'; frame-ancestors 'none'",
+    host: 'localhost:3000',
+    'permissions-policy': 'camera=(), microphone=(), geolocation=()',
+    referer: 'http://localhost:3000/leads',
+    'referrer-policy': 'strict-origin-when-cross-origin',
+    'sec-ch-ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Brave";v="140"',
+    'sec-ch-ua-mobile': '?0',
+    'sec-ch-ua-platform': '"Windows"',
+    'sec-fetch-dest': 'empty',
+    'sec-fetch-mode': 'cors',
+    'sec-fetch-site': 'same-origin',
+    'sec-gpc': '1',
+    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+    'x-content-type-options': 'nosniff',
+    'x-frame-options': 'DENY',
+    'x-ratelimit-limit': '200',
+    'x-ratelimit-remaining': '199',
+    'x-ratelimit-reset': '1757339617',
+    'x-xss-protection': '1; mode=block'
+  },
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/tags?workspaceId=68b5f978932ddff74ab75f58',
+  timestamp: '2025-09-08T13:38:37.370Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'business',
+  event: 'lead_statuses_listed',
+  timestamp: '2025-09-08T13:38:37.708Z',
+  userId: '68b5f978932ddff74ab75f56',
+  workspaceId: '68b5f978932ddff74ab75f58',
+  count: 2,
+  duration: 345,
+  level: 'info',
+  message: 'BUSINESS_EVENT: lead_statuses_listed'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'business',
+  event: 'tags_listed',
+  timestamp: '2025-09-08T13:38:37.715Z',
+  userId: '68b5f978932ddff74ab75f56',
+  workspaceId: '68b5f978932ddff74ab75f58',
+  count: 3,
+  duration: 343,
+  level: 'info',
+  message: 'BUSINESS_EVENT: tags_listed'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces/68b5f978932ddff74ab75f58/members',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces/68b5f978932ddff74ab75f58/members',
+  timestamp: '2025-09-08T13:38:38.351Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  workspaceId: '68b5f978932ddff74ab75f58',
+  memberCount: 1,
+  duration: 446,
+  level: 'info',
+  message: 'Workspace members retrieved for workspace 68b5f978932ddff74ab75f58',
+  timestamp: '2025-09-08T13:38:38.798Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-08T13:38:40.047Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-08T13:38:40.533Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-08T13:38:40.558Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-08T13:38:40.933Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'POST',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming POST http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-08T13:38:44.941Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  error: 'Transaction numbers are only allowed on a replica set member or mongos',
+  stack: 'MongoServerError: Transaction numbers are only allowed on a replica set member or mongos\n' +
+    '    at Connection.sendCommand (D:\\NEW CRM\\crm\\node_modules\\mongoose\\node_modules\\mongodb\\lib\\cmap\\connection.js:305:27)\n' +
+    '    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n' +
+    '    at async Connection.command (D:\\NEW CRM\\crm\\node_modules\\mongoose\\node_modules\\mongodb\\lib\\cmap\\connection.js:333:26)\n' +
+    '    at async Server.command (D:\\NEW CRM\\crm\\node_modules\\mongoose\\node_modules\\mongodb\\lib\\sdam\\server.js:171:29)\n' +
+    '    at async InsertOneOperation.executeCommand (D:\\NEW CRM\\crm\\node_modules\\mongoose\\node_modules\\mongodb\\lib\\operations\\command.js:76:16)\n' +
+    '    at async InsertOneOperation.execute (D:\\NEW CRM\\crm\\node_modules\\mongoose\\node_modules\\mongodb\\lib\\operations\\insert.js:37:16)\n' +
+    '    at async InsertOneOperation.execute (D:\\NEW CRM\\crm\\node_modules\\mongoose\\node_modules\\mongodb\\lib\\operations\\insert.js:46:21)\n' +
+    '    at async tryOperation (D:\\NEW CRM\\crm\\node_modules\\mongoose\\node_modules\\mongodb\\lib\\operations\\execute_operation.js:207:20)\n' +
+    '    at async executeOperation (D:\\NEW CRM\\crm\\node_modules\\mongoose\\node_modules\\mongodb\\lib\\operations\\execute_operation.js:75:16)\n' +
+    '    at async Collection.insertOne (D:\\NEW CRM\\crm\\node_modules\\mongoose\\node_modules\\mongodb\\lib\\collection.js:157:16)',
+  level: 'error',
+  message: 'Create workspace failed after 554ms',
+  timestamp: '2025-09-08T13:38:45.496Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'POST',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Mobile/15E148 Safari/604.1',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming POST http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-08T13:38:51.755Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  error: 'Transaction numbers are only allowed on a replica set member or mongos',
+  stack: 'MongoServerError: Transaction numbers are only allowed on a replica set member or mongos\n' +
+    '    at Connection.sendCommand (D:\\NEW CRM\\crm\\node_modules\\mongoose\\node_modules\\mongodb\\lib\\cmap\\connection.js:305:27)\n' +
+    '    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n' +
+    '    at async Connection.command (D:\\NEW CRM\\crm\\node_modules\\mongoose\\node_modules\\mongodb\\lib\\cmap\\connection.js:333:26)\n' +
+    '    at async Server.command (D:\\NEW CRM\\crm\\node_modules\\mongoose\\node_modules\\mongodb\\lib\\sdam\\server.js:171:29)\n' +
+    '    at async InsertOneOperation.executeCommand (D:\\NEW CRM\\crm\\node_modules\\mongoose\\node_modules\\mongodb\\lib\\operations\\command.js:76:16)\n' +
+    '    at async InsertOneOperation.execute (D:\\NEW CRM\\crm\\node_modules\\mongoose\\node_modules\\mongodb\\lib\\operations\\insert.js:37:16)\n' +
+    '    at async InsertOneOperation.execute (D:\\NEW CRM\\crm\\node_modules\\mongoose\\node_modules\\mongodb\\lib\\operations\\insert.js:46:21)\n' +
+    '    at async tryOperation (D:\\NEW CRM\\crm\\node_modules\\mongoose\\node_modules\\mongodb\\lib\\operations\\execute_operation.js:207:20)\n' +
+    '    at async executeOperation (D:\\NEW CRM\\crm\\node_modules\\mongoose\\node_modules\\mongodb\\lib\\operations\\execute_operation.js:75:16)\n' +
+    '    at async Collection.insertOne (D:\\NEW CRM\\crm\\node_modules\\mongoose\\node_modules\\mongodb\\lib\\collection.js:157:16)',
+  level: 'error',
+  message: 'Create workspace failed after 548ms',
+  timestamp: '2025-09-08T13:38:52.304Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces/68b5f978932ddff74ab75f58',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces/68b5f978932ddff74ab75f58',
+  timestamp: '2025-09-08T13:40:03.029Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'workspace_viewed',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspace',
+  timestamp: '2025-09-08T13:40:03.663Z',
+  workspaceId: '68b5f978932ddff74ab75f58',
+  workspaceName: 'Admin Workspace',
+  level: 'info',
+  message: 'AUDIT: workspace_viewed on workspace by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'business',
+  event: 'workspace_access',
+  timestamp: '2025-09-08T13:40:03.664Z',
+  userId: '68b5f978932ddff74ab75f56',
+  workspaceId: '68b5f978932ddff74ab75f58',
+  memberCount: 1,
+  duration: 631,
+  level: 'info',
+  message: 'BUSINESS_EVENT: workspace_access'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  workspaceId: '68b5f978932ddff74ab75f58',
+  memberCount: 1,
+  duration: 632,
+  level: 'info',
+  message: 'Workspace details retrieved for user 68b5f978932ddff74ab75f56',
+  timestamp: '2025-09-08T13:40:03.665Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces/68b5f978932ddff74ab75f58',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces/68b5f978932ddff74ab75f58',
+  timestamp: '2025-09-08T13:40:03.735Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'workspace_viewed',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspace',
+  timestamp: '2025-09-08T13:40:04.557Z',
+  workspaceId: '68b5f978932ddff74ab75f58',
+  workspaceName: 'Admin Workspace',
+  level: 'info',
+  message: 'AUDIT: workspace_viewed on workspace by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'business',
+  event: 'workspace_access',
+  timestamp: '2025-09-08T13:40:04.559Z',
+  userId: '68b5f978932ddff74ab75f56',
+  workspaceId: '68b5f978932ddff74ab75f58',
+  memberCount: 1,
+  duration: 823,
+  level: 'info',
+  message: 'BUSINESS_EVENT: workspace_access'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  workspaceId: '68b5f978932ddff74ab75f58',
+  memberCount: 1,
+  duration: 824,
+  level: 'info',
+  message: 'Workspace details retrieved for user 68b5f978932ddff74ab75f56',
+  timestamp: '2025-09-08T13:40:04.560Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces/68b5f978932ddff74ab75f58/roles',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces/68b5f978932ddff74ab75f58/roles',
+  timestamp: '2025-09-08T13:40:05.515Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'roles_viewed',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspace',
+  timestamp: '2025-09-08T13:40:07.328Z',
+  workspaceId: '68b5f978932ddff74ab75f58',
+  roleCount: 5,
+  level: 'info',
+  message: 'AUDIT: roles_viewed on workspace by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'business',
+  event: 'roles_accessed',
+  timestamp: '2025-09-08T13:40:07.330Z',
+  userId: '68b5f978932ddff74ab75f56',
+  workspaceId: '68b5f978932ddff74ab75f58',
+  roleCount: 5,
+  duration: 1811,
+  level: 'info',
+  message: 'BUSINESS_EVENT: roles_accessed'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  workspaceId: '68b5f978932ddff74ab75f58',
+  userId: '68b5f978932ddff74ab75f56',
+  roleCount: 5,
+  duration: 1812,
+  level: 'info',
+  message: 'Roles retrieved for workspace 68b5f978932ddff74ab75f58 by user 68b5f978932ddff74ab75f56',
+  timestamp: '2025-09-08T13:40:07.331Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces/68b5f978932ddff74ab75f58/roles',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces/68b5f978932ddff74ab75f58/roles',
+  timestamp: '2025-09-08T13:40:07.391Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'roles_viewed',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspace',
+  timestamp: '2025-09-08T13:40:07.959Z',
+  workspaceId: '68b5f978932ddff74ab75f58',
+  roleCount: 5,
+  level: 'info',
+  message: 'AUDIT: roles_viewed on workspace by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'business',
+  event: 'roles_accessed',
+  timestamp: '2025-09-08T13:40:07.963Z',
+  userId: '68b5f978932ddff74ab75f56',
+  workspaceId: '68b5f978932ddff74ab75f58',
+  roleCount: 5,
+  duration: 570,
+  level: 'info',
+  message: 'BUSINESS_EVENT: roles_accessed'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  workspaceId: '68b5f978932ddff74ab75f58',
+  userId: '68b5f978932ddff74ab75f56',
+  roleCount: 5,
+  duration: 571,
+  level: 'info',
+  message: 'Roles retrieved for workspace 68b5f978932ddff74ab75f58 by user 68b5f978932ddff74ab75f56',
+  timestamp: '2025-09-08T13:40:07.964Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/leads?workspaceId=68b5f978932ddff74ab75f58&page=1&limit=20',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  headers: {
+    accept: '*/*',
+    'accept-encoding': 'gzip, deflate, br, zstd',
+    'accept-language': 'en-US,en;q=0.8',
+    connection: 'keep-alive',
+    'content-security-policy': "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self'; frame-ancestors 'none'",
+    host: 'localhost:3000',
+    'permissions-policy': 'camera=(), microphone=(), geolocation=()',
+    referer: 'http://localhost:3000/leads',
+    'referrer-policy': 'strict-origin-when-cross-origin',
+    'sec-ch-ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Brave";v="140"',
+    'sec-ch-ua-mobile': '?0',
+    'sec-ch-ua-platform': '"Windows"',
+    'sec-fetch-dest': 'empty',
+    'sec-fetch-mode': 'cors',
+    'sec-fetch-site': 'same-origin',
+    'sec-gpc': '1',
+    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+    'x-content-type-options': 'nosniff',
+    'x-frame-options': 'DENY',
+    'x-ratelimit-limit': '100',
+    'x-ratelimit-remaining': '97',
+    'x-ratelimit-reset': '1757339581',
+    'x-xss-protection': '1; mode=block'
+  },
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/leads?workspaceId=68b5f978932ddff74ab75f58&page=1&limit=20',
+  timestamp: '2025-09-08T13:44:29.886Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'business',
+  event: 'leads_listed',
+  timestamp: '2025-09-08T13:44:30.387Z',
+  userId: '68b5f978932ddff74ab75f56',
+  workspaceId: '68b5f978932ddff74ab75f58',
+  count: 2,
+  page: 1,
+  filters: {
+    status: null,
+    assignedTo: null,
+    priority: null,
+    search: null,
+    tags: undefined
+  },
+  duration: 490,
+  level: 'info',
+  message: 'BUSINESS_EVENT: leads_listed'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/tags?workspaceId=68b5f978932ddff74ab75f58',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  headers: {
+    accept: '*/*',
+    'accept-encoding': 'gzip, deflate, br, zstd',
+    'accept-language': 'en-US,en;q=0.8',
+    connection: 'keep-alive',
+    'content-security-policy': "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self'; frame-ancestors 'none'",
+    host: 'localhost:3000',
+    'permissions-policy': 'camera=(), microphone=(), geolocation=()',
+    referer: 'http://localhost:3000/leads',
+    'referrer-policy': 'strict-origin-when-cross-origin',
+    'sec-ch-ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Brave";v="140"',
+    'sec-ch-ua-mobile': '?0',
+    'sec-ch-ua-platform': '"Windows"',
+    'sec-fetch-dest': 'empty',
+    'sec-fetch-mode': 'cors',
+    'sec-fetch-site': 'same-origin',
+    'sec-gpc': '1',
+    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+    'x-content-type-options': 'nosniff',
+    'x-frame-options': 'DENY',
+    'x-ratelimit-limit': '200',
+    'x-ratelimit-remaining': '198',
+    'x-ratelimit-reset': '1757339617',
+    'x-xss-protection': '1; mode=block'
+  },
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/tags?workspaceId=68b5f978932ddff74ab75f58',
+  timestamp: '2025-09-08T13:44:32.302Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/lead-statuses?workspaceId=68b5f978932ddff74ab75f58',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  headers: {
+    accept: '*/*',
+    'accept-encoding': 'gzip, deflate, br, zstd',
+    'accept-language': 'en-US,en;q=0.8',
+    connection: 'keep-alive',
+    'content-security-policy': "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self'; frame-ancestors 'none'",
+    host: 'localhost:3000',
+    'permissions-policy': 'camera=(), microphone=(), geolocation=()',
+    referer: 'http://localhost:3000/leads',
+    'referrer-policy': 'strict-origin-when-cross-origin',
+    'sec-ch-ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Brave";v="140"',
+    'sec-ch-ua-mobile': '?0',
+    'sec-ch-ua-platform': '"Windows"',
+    'sec-fetch-dest': 'empty',
+    'sec-fetch-mode': 'cors',
+    'sec-fetch-site': 'same-origin',
+    'sec-gpc': '1',
+    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+    'x-content-type-options': 'nosniff',
+    'x-frame-options': 'DENY',
+    'x-ratelimit-limit': '200',
+    'x-ratelimit-remaining': '198',
+    'x-ratelimit-reset': '1757339617',
+    'x-xss-protection': '1; mode=block'
+  },
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/lead-statuses?workspaceId=68b5f978932ddff74ab75f58',
+  timestamp: '2025-09-08T13:44:32.343Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces/68b5f978932ddff74ab75f58/members',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces/68b5f978932ddff74ab75f58/members',
+  timestamp: '2025-09-08T13:44:32.422Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'business',
+  event: 'lead_statuses_listed',
+  timestamp: '2025-09-08T13:44:32.666Z',
+  userId: '68b5f978932ddff74ab75f56',
+  workspaceId: '68b5f978932ddff74ab75f58',
+  count: 2,
+  duration: 321,
+  level: 'info',
+  message: 'BUSINESS_EVENT: lead_statuses_listed'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'business',
+  event: 'tags_listed',
+  timestamp: '2025-09-08T13:44:32.677Z',
+  userId: '68b5f978932ddff74ab75f56',
+  workspaceId: '68b5f978932ddff74ab75f58',
+  count: 3,
+  duration: 363,
+  level: 'info',
+  message: 'BUSINESS_EVENT: tags_listed'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  workspaceId: '68b5f978932ddff74ab75f58',
+  memberCount: 1,
+  duration: 524,
+  level: 'info',
+  message: 'Workspace members retrieved for workspace 68b5f978932ddff74ab75f58',
+  timestamp: '2025-09-08T13:44:32.949Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/leads?workspaceId=68b5f978932ddff74ab75f58&page=1&limit=20',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  headers: {
+    accept: '*/*',
+    'accept-encoding': 'gzip, deflate, br, zstd',
+    'accept-language': 'en-US,en;q=0.8',
+    connection: 'keep-alive',
+    'content-security-policy': "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self'; frame-ancestors 'none'",
+    host: 'localhost:3000',
+    'permissions-policy': 'camera=(), microphone=(), geolocation=()',
+    referer: 'http://localhost:3000/leads',
+    'referrer-policy': 'strict-origin-when-cross-origin',
+    'sec-ch-ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Brave";v="140"',
+    'sec-ch-ua-mobile': '?0',
+    'sec-ch-ua-platform': '"Windows"',
+    'sec-fetch-dest': 'empty',
+    'sec-fetch-mode': 'cors',
+    'sec-fetch-site': 'same-origin',
+    'sec-gpc': '1',
+    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+    'x-content-type-options': 'nosniff',
+    'x-frame-options': 'DENY',
+    'x-ratelimit-limit': '100',
+    'x-ratelimit-remaining': '96',
+    'x-ratelimit-reset': '1757339581',
+    'x-xss-protection': '1; mode=block'
+  },
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/leads?workspaceId=68b5f978932ddff74ab75f58&page=1&limit=20',
+  timestamp: '2025-09-08T13:46:01.438Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-08T13:46:01.452Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'business',
+  event: 'leads_listed',
+  timestamp: '2025-09-08T13:46:01.986Z',
+  userId: '68b5f978932ddff74ab75f56',
+  workspaceId: '68b5f978932ddff74ab75f58',
+  count: 2,
+  page: 1,
+  filters: {
+    status: null,
+    assignedTo: null,
+    priority: null,
+    search: null,
+    tags: undefined
+  },
+  duration: 539,
+  level: 'info',
+  message: 'BUSINESS_EVENT: leads_listed'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-08T13:46:02.217Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-08T13:46:02.640Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-08T13:46:03.374Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/lead-statuses?workspaceId=68b5f978932ddff74ab75f58',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  headers: {
+    accept: '*/*',
+    'accept-encoding': 'gzip, deflate, br, zstd',
+    'accept-language': 'en-US,en;q=0.8',
+    connection: 'keep-alive',
+    'content-security-policy': "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self'; frame-ancestors 'none'",
+    host: 'localhost:3000',
+    'permissions-policy': 'camera=(), microphone=(), geolocation=()',
+    referer: 'http://localhost:3000/leads',
+    'referrer-policy': 'strict-origin-when-cross-origin',
+    'sec-ch-ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Brave";v="140"',
+    'sec-ch-ua-mobile': '?0',
+    'sec-ch-ua-platform': '"Windows"',
+    'sec-fetch-dest': 'empty',
+    'sec-fetch-mode': 'cors',
+    'sec-fetch-site': 'same-origin',
+    'sec-gpc': '1',
+    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+    'x-content-type-options': 'nosniff',
+    'x-frame-options': 'DENY',
+    'x-ratelimit-limit': '200',
+    'x-ratelimit-remaining': '197',
+    'x-ratelimit-reset': '1757339617',
+    'x-xss-protection': '1; mode=block'
+  },
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/lead-statuses?workspaceId=68b5f978932ddff74ab75f58',
+  timestamp: '2025-09-08T13:46:07.709Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/tags?workspaceId=68b5f978932ddff74ab75f58',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  headers: {
+    accept: '*/*',
+    'accept-encoding': 'gzip, deflate, br, zstd',
+    'accept-language': 'en-US,en;q=0.8',
+    connection: 'keep-alive',
+    'content-security-policy': "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self'; frame-ancestors 'none'",
+    host: 'localhost:3000',
+    'permissions-policy': 'camera=(), microphone=(), geolocation=()',
+    referer: 'http://localhost:3000/leads',
+    'referrer-policy': 'strict-origin-when-cross-origin',
+    'sec-ch-ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Brave";v="140"',
+    'sec-ch-ua-mobile': '?0',
+    'sec-ch-ua-platform': '"Windows"',
+    'sec-fetch-dest': 'empty',
+    'sec-fetch-mode': 'cors',
+    'sec-fetch-site': 'same-origin',
+    'sec-gpc': '1',
+    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+    'x-content-type-options': 'nosniff',
+    'x-frame-options': 'DENY',
+    'x-ratelimit-limit': '200',
+    'x-ratelimit-remaining': '197',
+    'x-ratelimit-reset': '1757339617',
+    'x-xss-protection': '1; mode=block'
+  },
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/tags?workspaceId=68b5f978932ddff74ab75f58',
+  timestamp: '2025-09-08T13:46:07.767Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces/68b5f978932ddff74ab75f58/members',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces/68b5f978932ddff74ab75f58/members',
+  timestamp: '2025-09-08T13:46:07.888Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'business',
+  event: 'tags_listed',
+  timestamp: '2025-09-08T13:46:08.182Z',
+  userId: '68b5f978932ddff74ab75f56',
+  workspaceId: '68b5f978932ddff74ab75f58',
+  count: 3,
+  duration: 409,
+  level: 'info',
+  message: 'BUSINESS_EVENT: tags_listed'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'business',
+  event: 'lead_statuses_listed',
+  timestamp: '2025-09-08T13:46:08.232Z',
+  userId: '68b5f978932ddff74ab75f56',
+  workspaceId: '68b5f978932ddff74ab75f58',
+  count: 2,
+  duration: 513,
+  level: 'info',
+  message: 'BUSINESS_EVENT: lead_statuses_listed'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  workspaceId: '68b5f978932ddff74ab75f58',
+  memberCount: 1,
+  duration: 437,
+  level: 'info',
+  message: 'Workspace members retrieved for workspace 68b5f978932ddff74ab75f58',
+  timestamp: '2025-09-08T13:46:08.329Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-08T13:52:26.078Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-08T13:52:26.590Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-08T13:52:26.660Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-08T13:52:27.030Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces/68b5f978932ddff74ab75f58',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces/68b5f978932ddff74ab75f58',
+  timestamp: '2025-09-08T13:52:29.538Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'workspace_viewed',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspace',
+  timestamp: '2025-09-08T13:52:30.280Z',
+  workspaceId: '68b5f978932ddff74ab75f58',
+  workspaceName: 'Admin Workspace',
+  level: 'info',
+  message: 'AUDIT: workspace_viewed on workspace by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'business',
+  event: 'workspace_access',
+  timestamp: '2025-09-08T13:52:30.282Z',
+  userId: '68b5f978932ddff74ab75f56',
+  workspaceId: '68b5f978932ddff74ab75f58',
+  memberCount: 1,
+  duration: 742,
+  level: 'info',
+  message: 'BUSINESS_EVENT: workspace_access'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  workspaceId: '68b5f978932ddff74ab75f58',
+  memberCount: 1,
+  duration: 743,
+  level: 'info',
+  message: 'Workspace details retrieved for user 68b5f978932ddff74ab75f56',
+  timestamp: '2025-09-08T13:52:30.283Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/activities?workspaceId=68b5f978932ddff74ab75f58&limit=10',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/activities?workspaceId=68b5f978932ddff74ab75f58&limit=10',
+  timestamp: '2025-09-08T13:57:56.694Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-08T13:57:57.591Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-08T13:57:57.649Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Mobile/15E148 Safari/604.1',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-08T13:58:05.909Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/activities?workspaceId=68b5f978932ddff74ab75f58&limit=10',
+  userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Mobile/15E148 Safari/604.1',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/activities?workspaceId=68b5f978932ddff74ab75f58&limit=10',
+  timestamp: '2025-09-08T13:58:05.957Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  workspaceId: '68b5f978932ddff74ab75f58',
+  activityCount: 5,
+  limit: 10,
+  duration: 196,
+  level: 'info',
+  message: 'Activities retrieved for workspace 68b5f978932ddff74ab75f58',
+  timestamp: '2025-09-08T13:58:06.156Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-08T13:58:06.334Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Mobile/15E148 Safari/604.1',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-08T13:58:06.357Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-08T13:58:06.791Z',
+  count: 1,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'POST',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Mobile/15E148 Safari/604.1',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming POST http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-08T13:58:15.356Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  error: 'E11000 duplicate key error collection: test.roles index: name_1 dup key: { name: "Owner" }',
+  stack: 'MongoServerError: E11000 duplicate key error collection: test.roles index: name_1 dup key: { name: "Owner" }\n' +
+    '    at InsertOneOperation.execute (D:\\NEW CRM\\crm\\node_modules\\mongoose\\node_modules\\mongodb\\lib\\operations\\insert.js:51:19)\n' +
+    '    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n' +
+    '    at async tryOperation (D:\\NEW CRM\\crm\\node_modules\\mongoose\\node_modules\\mongodb\\lib\\operations\\execute_operation.js:207:20)\n' +
+    '    at async executeOperation (D:\\NEW CRM\\crm\\node_modules\\mongoose\\node_modules\\mongodb\\lib\\operations\\execute_operation.js:75:16)\n' +
+    '    at async Collection.insertOne (D:\\NEW CRM\\crm\\node_modules\\mongoose\\node_modules\\mongodb\\lib\\collection.js:157:16)',
+  level: 'error',
+  message: 'Create workspace failed after 721ms',
+  timestamp: '2025-09-08T13:58:16.078Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'POST',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Mobile/15E148 Safari/604.1',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming POST http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-08T13:58:32.626Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'POST',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Mobile/15E148 Safari/604.1',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming POST http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-08T13:58:49.285Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'POST',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Mobile/15E148 Safari/604.1',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming POST http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-08T13:58:51.974Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  error: 'E11000 duplicate key error collection: test.roles index: name_1 dup key: { name: "Owner" }',
+  stack: 'MongoServerError: E11000 duplicate key error collection: test.roles index: name_1 dup key: { name: "Owner" }\n' +
+    '    at InsertOneOperation.execute (D:\\NEW CRM\\crm\\node_modules\\mongoose\\node_modules\\mongodb\\lib\\operations\\insert.js:51:19)\n' +
+    '    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n' +
+    '    at async tryOperation (D:\\NEW CRM\\crm\\node_modules\\mongoose\\node_modules\\mongodb\\lib\\operations\\execute_operation.js:207:20)\n' +
+    '    at async executeOperation (D:\\NEW CRM\\crm\\node_modules\\mongoose\\node_modules\\mongodb\\lib\\operations\\execute_operation.js:75:16)\n' +
+    '    at async Collection.insertOne (D:\\NEW CRM\\crm\\node_modules\\mongoose\\node_modules\\mongodb\\lib\\collection.js:157:16)',
+  level: 'error',
+  message: 'Create workspace failed after 754ms',
+  timestamp: '2025-09-08T13:58:52.729Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'POST',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Mobile/15E148 Safari/604.1',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming POST http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-08T13:59:13.786Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  error: 'E11000 duplicate key error collection: test.roles index: name_1 dup key: { name: "Owner" }',
+  stack: 'MongoServerError: E11000 duplicate key error collection: test.roles index: name_1 dup key: { name: "Owner" }\n' +
+    '    at InsertOneOperation.execute (D:\\NEW CRM\\crm\\node_modules\\mongoose\\node_modules\\mongodb\\lib\\operations\\insert.js:51:19)\n' +
+    '    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n' +
+    '    at async tryOperation (D:\\NEW CRM\\crm\\node_modules\\mongoose\\node_modules\\mongodb\\lib\\operations\\execute_operation.js:207:20)\n' +
+    '    at async executeOperation (D:\\NEW CRM\\crm\\node_modules\\mongoose\\node_modules\\mongodb\\lib\\operations\\execute_operation.js:75:16)\n' +
+    '    at async Collection.insertOne (D:\\NEW CRM\\crm\\node_modules\\mongoose\\node_modules\\mongodb\\lib\\collection.js:157:16)',
+  level: 'error',
+  message: 'Create workspace failed after 1088ms',
+  timestamp: '2025-09-08T13:59:14.876Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'POST',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Mobile/15E148 Safari/604.1',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming POST http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-08T14:02:24.855Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  error: 'E11000 duplicate key error collection: test.roles index: name_1 dup key: { name: "Owner" }',
+  stack: 'MongoServerError: E11000 duplicate key error collection: test.roles index: name_1 dup key: { name: "Owner" }\n' +
+    '    at InsertOneOperation.execute (D:\\NEW CRM\\crm\\node_modules\\mongoose\\node_modules\\mongodb\\lib\\operations\\insert.js:51:19)\n' +
+    '    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n' +
+    '    at async tryOperation (D:\\NEW CRM\\crm\\node_modules\\mongoose\\node_modules\\mongodb\\lib\\operations\\execute_operation.js:207:20)\n' +
+    '    at async executeOperation (D:\\NEW CRM\\crm\\node_modules\\mongoose\\node_modules\\mongodb\\lib\\operations\\execute_operation.js:75:16)\n' +
+    '    at async Collection.insertOne (D:\\NEW CRM\\crm\\node_modules\\mongoose\\node_modules\\mongodb\\lib\\collection.js:157:16)',
+  level: 'error',
+  message: 'Create workspace failed after 1493ms',
+  timestamp: '2025-09-08T14:02:26.353Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'POST',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Mobile/15E148 Safari/604.1',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming POST http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-08T14:07:13.377Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'business',
+  event: 'workspace_created',
+  timestamp: '2025-09-08T14:07:14.750Z',
+  userId: '68b5f978932ddff74ab75f56',
+  workspaceId: '68bee312b4fd3981cc8c6c29',
+  workspaceName: 'handle_new_use',
+  planId: 'free',
+  level: 'info',
+  message: 'BUSINESS_EVENT: workspace_created'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'create_workspace',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspace',
+  timestamp: '2025-09-08T14:07:14.751Z',
+  workspaceId: '68bee312b4fd3981cc8c6c29',
+  workspaceName: 'handle_new_use',
+  level: 'info',
+  message: 'AUDIT: create_workspace on workspace by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  userId: '68b5f978932ddff74ab75f56',
+  workspaceId: '68bee312b4fd3981cc8c6c29',
+  workspaceName: 'handle_new_use',
+  slug: 'handlenewuse-2',
+  level: 'info',
+  message: 'Workspace created successfully',
+  timestamp: '2025-09-08T14:07:14.868Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/activities?workspaceId=68bee312b4fd3981cc8c6c29&limit=10',
+  userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Mobile/15E148 Safari/604.1',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/activities?workspaceId=68bee312b4fd3981cc8c6c29&limit=10',
+  timestamp: '2025-09-08T14:07:15.717Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  workspaceId: '68bee312b4fd3981cc8c6c29',
+  activityCount: 5,
+  limit: 10,
+  duration: 229,
+  level: 'info',
+  message: 'Activities retrieved for workspace 68bee312b4fd3981cc8c6c29',
+  timestamp: '2025-09-08T14:07:15.949Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'POST',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming POST http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-08T14:07:25.179Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'business',
+  event: 'workspace_created',
+  timestamp: '2025-09-08T14:07:26.235Z',
+  userId: '68b5f978932ddff74ab75f56',
+  workspaceId: '68bee31db4fd3981cc8c6c3a',
+  workspaceName: 'handle_new_user',
+  planId: 'free',
+  level: 'info',
+  message: 'BUSINESS_EVENT: workspace_created'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'create_workspace',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspace',
+  timestamp: '2025-09-08T14:07:26.236Z',
+  workspaceId: '68bee31db4fd3981cc8c6c3a',
+  workspaceName: 'handle_new_user',
+  level: 'info',
+  message: 'AUDIT: create_workspace on workspace by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  userId: '68b5f978932ddff74ab75f56',
+  workspaceId: '68bee31db4fd3981cc8c6c3a',
+  workspaceName: 'handle_new_user',
+  slug: 'handlenewuser-1',
+  level: 'info',
+  message: 'Workspace created successfully',
+  timestamp: '2025-09-08T14:07:26.390Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/activities?workspaceId=68bee31db4fd3981cc8c6c3a&limit=10',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/activities?workspaceId=68bee31db4fd3981cc8c6c3a&limit=10',
+  timestamp: '2025-09-08T14:07:26.443Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  workspaceId: '68bee31db4fd3981cc8c6c3a',
+  activityCount: 5,
+  limit: 10,
+  duration: 244,
+  level: 'info',
+  message: 'Activities retrieved for workspace 68bee31db4fd3981cc8c6c3a',
+  timestamp: '2025-09-08T14:07:26.690Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces/68bee31db4fd3981cc8c6c3a',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces/68bee31db4fd3981cc8c6c3a',
+  timestamp: '2025-09-08T14:08:23.856Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'workspace_viewed',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspace',
+  timestamp: '2025-09-08T14:08:24.617Z',
+  workspaceId: '68bee31db4fd3981cc8c6c3a',
+  workspaceName: 'handle_new_user',
+  level: 'info',
+  message: 'AUDIT: workspace_viewed on workspace by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'business',
+  event: 'workspace_access',
+  timestamp: '2025-09-08T14:08:24.628Z',
+  userId: '68b5f978932ddff74ab75f56',
+  workspaceId: '68bee31db4fd3981cc8c6c3a',
+  memberCount: 1,
+  duration: 767,
+  level: 'info',
+  message: 'BUSINESS_EVENT: workspace_access'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  workspaceId: '68bee31db4fd3981cc8c6c3a',
+  memberCount: 1,
+  duration: 769,
+  level: 'info',
+  message: 'Workspace details retrieved for user 68b5f978932ddff74ab75f56',
+  timestamp: '2025-09-08T14:08:24.629Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces/68bee31db4fd3981cc8c6c3a',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces/68bee31db4fd3981cc8c6c3a',
+  timestamp: '2025-09-08T14:08:24.829Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'workspace_viewed',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspace',
+  timestamp: '2025-09-08T14:08:25.750Z',
+  workspaceId: '68bee31db4fd3981cc8c6c3a',
+  workspaceName: 'handle_new_user',
+  level: 'info',
+  message: 'AUDIT: workspace_viewed on workspace by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'business',
+  event: 'workspace_access',
+  timestamp: '2025-09-08T14:08:25.752Z',
+  userId: '68b5f978932ddff74ab75f56',
+  workspaceId: '68bee31db4fd3981cc8c6c3a',
+  memberCount: 1,
+  duration: 921,
+  level: 'info',
+  message: 'BUSINESS_EVENT: workspace_access'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  workspaceId: '68bee31db4fd3981cc8c6c3a',
+  memberCount: 1,
+  duration: 922,
+  level: 'info',
+  message: 'Workspace details retrieved for user 68b5f978932ddff74ab75f56',
+  timestamp: '2025-09-08T14:08:25.753Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces/68bee31db4fd3981cc8c6c3a/roles',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces/68bee31db4fd3981cc8c6c3a/roles',
+  timestamp: '2025-09-08T14:08:26.975Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'roles_viewed',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspace',
+  timestamp: '2025-09-08T14:08:27.508Z',
+  workspaceId: '68bee31db4fd3981cc8c6c3a',
+  roleCount: 1,
+  level: 'info',
+  message: 'AUDIT: roles_viewed on workspace by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'business',
+  event: 'roles_accessed',
+  timestamp: '2025-09-08T14:08:27.509Z',
+  userId: '68b5f978932ddff74ab75f56',
+  workspaceId: '68bee31db4fd3981cc8c6c3a',
+  roleCount: 1,
+  duration: 531,
+  level: 'info',
+  message: 'BUSINESS_EVENT: roles_accessed'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  workspaceId: '68bee31db4fd3981cc8c6c3a',
+  userId: '68b5f978932ddff74ab75f56',
+  roleCount: 1,
+  duration: 532,
+  level: 'info',
+  message: 'Roles retrieved for workspace 68bee31db4fd3981cc8c6c3a by user 68b5f978932ddff74ab75f56',
+  timestamp: '2025-09-08T14:08:27.510Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces/68bee31db4fd3981cc8c6c3a/roles',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces/68bee31db4fd3981cc8c6c3a/roles',
+  timestamp: '2025-09-08T14:08:27.573Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'roles_viewed',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspace',
+  timestamp: '2025-09-08T14:08:28.067Z',
+  workspaceId: '68bee31db4fd3981cc8c6c3a',
+  roleCount: 1,
+  level: 'info',
+  message: 'AUDIT: roles_viewed on workspace by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'business',
+  event: 'roles_accessed',
+  timestamp: '2025-09-08T14:08:28.069Z',
+  userId: '68b5f978932ddff74ab75f56',
+  workspaceId: '68bee31db4fd3981cc8c6c3a',
+  roleCount: 1,
+  duration: 495,
+  level: 'info',
+  message: 'BUSINESS_EVENT: roles_accessed'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  workspaceId: '68bee31db4fd3981cc8c6c3a',
+  userId: '68b5f978932ddff74ab75f56',
+  roleCount: 1,
+  duration: 495,
+  level: 'info',
+  message: 'Roles retrieved for workspace 68bee31db4fd3981cc8c6c3a by user 68b5f978932ddff74ab75f56',
+  timestamp: '2025-09-08T14:08:28.070Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-08T14:09:01.041Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces/68b5f978932ddff74ab75f58',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces/68b5f978932ddff74ab75f58',
+  timestamp: '2025-09-08T14:09:01.227Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  error: "Cannot read properties of null (reading '_id')",
+  stack: "TypeError: Cannot read properties of null (reading '_id')\n" +
+    '    at eval (webpack-internal:///(rsc)/./app/api/workspaces/route.ts:180:44)\n' +
+    '    at Array.map (<anonymous>)\n' +
+    '    at eval (webpack-internal:///(rsc)/./app/api/workspaces/route.ts:179:40)\n' +
+    '    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n' +
+    '    at async eval (webpack-internal:///(rsc)/./lib/logging/middleware.ts:69:24)\n' +
+    '    at async D:\\NEW CRM\\crm\\node_modules\\next\\dist\\compiled\\next-server\\app-route.runtime.dev.js:1:66877',
+  level: 'error',
+  message: 'Get workspaces failed after 527ms',
+  timestamp: '2025-09-08T14:09:01.572Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-08T14:09:01.725Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  error: "Cannot read properties of null (reading '_id')",
+  stack: "TypeError: Cannot read properties of null (reading '_id')\n" +
+    '    at eval (webpack-internal:///(rsc)/./app/api/workspaces/route.ts:180:44)\n' +
+    '    at Array.map (<anonymous>)\n' +
+    '    at eval (webpack-internal:///(rsc)/./app/api/workspaces/route.ts:179:40)\n' +
+    '    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n' +
+    '    at async eval (webpack-internal:///(rsc)/./lib/logging/middleware.ts:69:24)\n' +
+    '    at async D:\\NEW CRM\\crm\\node_modules\\next\\dist\\compiled\\next-server\\app-route.runtime.dev.js:1:66877',
+  level: 'error',
+  message: 'Get workspaces failed after 316ms',
+  timestamp: '2025-09-08T14:09:02.045Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'workspace_viewed',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspace',
+  timestamp: '2025-09-08T14:09:02.124Z',
+  workspaceId: '68b5f978932ddff74ab75f58',
+  workspaceName: 'Admin Workspace',
+  level: 'info',
+  message: 'AUDIT: workspace_viewed on workspace by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'business',
+  event: 'workspace_access',
+  timestamp: '2025-09-08T14:09:02.125Z',
+  userId: '68b5f978932ddff74ab75f56',
+  workspaceId: '68b5f978932ddff74ab75f58',
+  memberCount: 1,
+  duration: 897,
+  level: 'info',
+  message: 'BUSINESS_EVENT: workspace_access'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  workspaceId: '68b5f978932ddff74ab75f58',
+  memberCount: 1,
+  duration: 898,
+  level: 'info',
+  message: 'Workspace details retrieved for user 68b5f978932ddff74ab75f56',
+  timestamp: '2025-09-08T14:09:02.127Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces/68b5f978932ddff74ab75f58',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces/68b5f978932ddff74ab75f58',
+  timestamp: '2025-09-08T14:09:02.226Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces/68b5f978932ddff74ab75f58/roles',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces/68b5f978932ddff74ab75f58/roles',
+  timestamp: '2025-09-08T14:09:02.273Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'workspace_viewed',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspace',
+  timestamp: '2025-09-08T14:09:03.249Z',
+  workspaceId: '68b5f978932ddff74ab75f58',
+  workspaceName: 'Admin Workspace',
+  level: 'info',
+  message: 'AUDIT: workspace_viewed on workspace by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'business',
+  event: 'workspace_access',
+  timestamp: '2025-09-08T14:09:03.251Z',
+  userId: '68b5f978932ddff74ab75f56',
+  workspaceId: '68b5f978932ddff74ab75f58',
+  memberCount: 1,
+  duration: 1023,
+  level: 'info',
+  message: 'BUSINESS_EVENT: workspace_access'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  workspaceId: '68b5f978932ddff74ab75f58',
+  memberCount: 1,
+  duration: 1024,
+  level: 'info',
+  message: 'Workspace details retrieved for user 68b5f978932ddff74ab75f56',
+  timestamp: '2025-09-08T14:09:03.251Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'roles_viewed',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspace',
+  timestamp: '2025-09-08T14:09:03.331Z',
+  workspaceId: '68b5f978932ddff74ab75f58',
+  roleCount: 5,
+  level: 'info',
+  message: 'AUDIT: roles_viewed on workspace by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'business',
+  event: 'roles_accessed',
+  timestamp: '2025-09-08T14:09:03.332Z',
+  userId: '68b5f978932ddff74ab75f56',
+  workspaceId: '68b5f978932ddff74ab75f58',
+  roleCount: 5,
+  duration: 1057,
+  level: 'info',
+  message: 'BUSINESS_EVENT: roles_accessed'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  workspaceId: '68b5f978932ddff74ab75f58',
+  userId: '68b5f978932ddff74ab75f56',
+  roleCount: 5,
+  duration: 1058,
+  level: 'info',
+  message: 'Roles retrieved for workspace 68b5f978932ddff74ab75f58 by user 68b5f978932ddff74ab75f56',
+  timestamp: '2025-09-08T14:09:03.333Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces/68b5f978932ddff74ab75f58/roles',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces/68b5f978932ddff74ab75f58/roles',
+  timestamp: '2025-09-08T14:09:03.370Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'roles_viewed',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspace',
+  timestamp: '2025-09-08T14:09:03.870Z',
+  workspaceId: '68b5f978932ddff74ab75f58',
+  roleCount: 5,
+  level: 'info',
+  message: 'AUDIT: roles_viewed on workspace by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'business',
+  event: 'roles_accessed',
+  timestamp: '2025-09-08T14:09:03.871Z',
+  userId: '68b5f978932ddff74ab75f56',
+  workspaceId: '68b5f978932ddff74ab75f58',
+  roleCount: 5,
+  duration: 500,
+  level: 'info',
+  message: 'BUSINESS_EVENT: roles_accessed'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  workspaceId: '68b5f978932ddff74ab75f58',
+  userId: '68b5f978932ddff74ab75f56',
+  roleCount: 5,
+  duration: 501,
+  level: 'info',
+  message: 'Roles retrieved for workspace 68b5f978932ddff74ab75f58 by user 68b5f978932ddff74ab75f56',
+  timestamp: '2025-09-08T14:09:03.872Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/activities?workspaceId=68b5f978932ddff74ab75f58&limit=10',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/activities?workspaceId=68b5f978932ddff74ab75f58&limit=10',
+  timestamp: '2025-09-08T14:09:05.935Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  workspaceId: '68b5f978932ddff74ab75f58',
+  activityCount: 5,
+  limit: 10,
+  duration: 224,
+  level: 'info',
+  message: 'Activities retrieved for workspace 68b5f978932ddff74ab75f58',
+  timestamp: '2025-09-08T14:09:06.169Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-08T14:09:08.568Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/activities?workspaceId=68b5f978932ddff74ab75f58&limit=10',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/activities?workspaceId=68b5f978932ddff74ab75f58&limit=10',
+  timestamp: '2025-09-08T14:09:08.614Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  workspaceId: '68b5f978932ddff74ab75f58',
+  activityCount: 5,
+  limit: 10,
+  duration: 151,
+  level: 'info',
+  message: 'Activities retrieved for workspace 68b5f978932ddff74ab75f58',
+  timestamp: '2025-09-08T14:09:08.766Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  error: "Cannot read properties of null (reading '_id')",
+  stack: "TypeError: Cannot read properties of null (reading '_id')\n" +
+    '    at eval (webpack-internal:///(rsc)/./app/api/workspaces/route.ts:180:44)\n' +
+    '    at Array.map (<anonymous>)\n' +
+    '    at eval (webpack-internal:///(rsc)/./app/api/workspaces/route.ts:179:40)\n' +
+    '    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n' +
+    '    at async eval (webpack-internal:///(rsc)/./lib/logging/middleware.ts:69:24)\n' +
+    '    at async D:\\NEW CRM\\crm\\node_modules\\next\\dist\\compiled\\next-server\\app-route.runtime.dev.js:1:66877',
+  level: 'error',
+  message: 'Get workspaces failed after 351ms',
+  timestamp: '2025-09-08T14:09:08.922Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-08T14:09:08.950Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  error: "Cannot read properties of null (reading '_id')",
+  stack: "TypeError: Cannot read properties of null (reading '_id')\n" +
+    '    at eval (webpack-internal:///(rsc)/./app/api/workspaces/route.ts:180:44)\n' +
+    '    at Array.map (<anonymous>)\n' +
+    '    at eval (webpack-internal:///(rsc)/./app/api/workspaces/route.ts:179:40)\n' +
+    '    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n' +
+    '    at async eval (webpack-internal:///(rsc)/./lib/logging/middleware.ts:69:24)\n' +
+    '    at async D:\\NEW CRM\\crm\\node_modules\\next\\dist\\compiled\\next-server\\app-route.runtime.dev.js:1:66877',
+  level: 'error',
+  message: 'Get workspaces failed after 436ms',
+  timestamp: '2025-09-08T14:09:09.389Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'POST',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming POST http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-08T14:09:18.760Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  error: "Cannot read properties of null (reading 'name')",
+  stack: "TypeError: Cannot read properties of null (reading 'name')\n" +
+    '    at eval (webpack-internal:///(rsc)/./app/api/workspaces/route.ts:287:100)\n' +
+    '    at Array.some (<anonymous>)\n' +
+    '    at eval (webpack-internal:///(rsc)/./app/api/workspaces/route.ts:287:58)\n' +
+    '    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n' +
+    '    at async eval (webpack-internal:///(rsc)/./lib/logging/middleware.ts:69:24)\n' +
+    '    at async D:\\NEW CRM\\crm\\node_modules\\next\\dist\\compiled\\next-server\\app-route.runtime.dev.js:1:66877',
+  level: 'error',
+  message: 'Create workspace failed after 348ms',
+  timestamp: '2025-09-08T14:09:19.109Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'POST',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming POST http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-08T14:09:32.284Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  error: "Cannot read properties of null (reading 'name')",
+  stack: "TypeError: Cannot read properties of null (reading 'name')\n" +
+    '    at eval (webpack-internal:///(rsc)/./app/api/workspaces/route.ts:287:100)\n' +
+    '    at Array.some (<anonymous>)\n' +
+    '    at eval (webpack-internal:///(rsc)/./app/api/workspaces/route.ts:287:58)\n' +
+    '    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n' +
+    '    at async eval (webpack-internal:///(rsc)/./lib/logging/middleware.ts:69:24)\n' +
+    '    at async D:\\NEW CRM\\crm\\node_modules\\next\\dist\\compiled\\next-server\\app-route.runtime.dev.js:1:66877',
+  level: 'error',
+  message: 'Create workspace failed after 477ms',
+  timestamp: '2025-09-08T14:09:32.762Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'POST',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Mobile/15E148 Safari/604.1',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming POST http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-08T14:09:38.546Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  error: "Cannot read properties of null (reading 'name')",
+  stack: "TypeError: Cannot read properties of null (reading 'name')\n" +
+    '    at eval (webpack-internal:///(rsc)/./app/api/workspaces/route.ts:287:100)\n' +
+    '    at Array.some (<anonymous>)\n' +
+    '    at eval (webpack-internal:///(rsc)/./app/api/workspaces/route.ts:287:58)\n' +
+    '    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n' +
+    '    at async eval (webpack-internal:///(rsc)/./lib/logging/middleware.ts:69:24)\n' +
+    '    at async D:\\NEW CRM\\crm\\node_modules\\next\\dist\\compiled\\next-server\\app-route.runtime.dev.js:1:66877',
+  level: 'error',
+  message: 'Create workspace failed after 377ms',
+  timestamp: '2025-09-08T14:09:38.924Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-08T14:12:14.092Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/activities?workspaceId=68b5f978932ddff74ab75f58&limit=10',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/activities?workspaceId=68b5f978932ddff74ab75f58&limit=10',
+  timestamp: '2025-09-08T14:12:14.438Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  workspaceId: '68b5f978932ddff74ab75f58',
+  activityCount: 5,
+  limit: 10,
+  duration: 237,
+  level: 'info',
+  message: 'Activities retrieved for workspace 68b5f978932ddff74ab75f58',
+  timestamp: '2025-09-08T14:12:14.692Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  error: "Cannot read properties of null (reading '_id')",
+  stack: "TypeError: Cannot read properties of null (reading '_id')\n" +
+    '    at eval (webpack-internal:///(rsc)/./app/api/workspaces/route.ts:180:44)\n' +
+    '    at Array.map (<anonymous>)\n' +
+    '    at eval (webpack-internal:///(rsc)/./app/api/workspaces/route.ts:179:40)\n' +
+    '    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n' +
+    '    at async eval (webpack-internal:///(rsc)/./lib/logging/middleware.ts:69:24)\n' +
+    '    at async D:\\NEW CRM\\crm\\node_modules\\next\\dist\\compiled\\next-server\\app-route.runtime.dev.js:1:66877',
+  level: 'error',
+  message: 'Get workspaces failed after 656ms',
+  timestamp: '2025-09-08T14:12:14.753Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-08T14:12:14.905Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  error: "Cannot read properties of null (reading '_id')",
+  stack: "TypeError: Cannot read properties of null (reading '_id')\n" +
+    '    at eval (webpack-internal:///(rsc)/./app/api/workspaces/route.ts:180:44)\n' +
+    '    at Array.map (<anonymous>)\n' +
+    '    at eval (webpack-internal:///(rsc)/./app/api/workspaces/route.ts:179:40)\n' +
+    '    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n' +
+    '    at async eval (webpack-internal:///(rsc)/./lib/logging/middleware.ts:69:24)\n' +
+    '    at async D:\\NEW CRM\\crm\\node_modules\\next\\dist\\compiled\\next-server\\app-route.runtime.dev.js:1:66877',
+  level: 'error',
+  message: 'Get workspaces failed after 531ms',
+  timestamp: '2025-09-08T14:12:15.438Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-08T14:12:20.618Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/activities?workspaceId=68b5f978932ddff74ab75f58&limit=10',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/activities?workspaceId=68b5f978932ddff74ab75f58&limit=10',
+  timestamp: '2025-09-08T14:12:20.641Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  workspaceId: '68b5f978932ddff74ab75f58',
+  activityCount: 5,
+  limit: 10,
+  duration: 203,
+  level: 'info',
+  message: 'Activities retrieved for workspace 68b5f978932ddff74ab75f58',
+  timestamp: '2025-09-08T14:12:20.847Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  error: "Cannot read properties of null (reading '_id')",
+  stack: "TypeError: Cannot read properties of null (reading '_id')\n" +
+    '    at eval (webpack-internal:///(rsc)/./app/api/workspaces/route.ts:180:44)\n' +
+    '    at Array.map (<anonymous>)\n' +
+    '    at eval (webpack-internal:///(rsc)/./app/api/workspaces/route.ts:179:40)\n' +
+    '    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n' +
+    '    at async eval (webpack-internal:///(rsc)/./lib/logging/middleware.ts:69:24)\n' +
+    '    at async D:\\NEW CRM\\crm\\node_modules\\next\\dist\\compiled\\next-server\\app-route.runtime.dev.js:1:66877',
+  level: 'error',
+  message: 'Get workspaces failed after 418ms',
+  timestamp: '2025-09-08T14:12:21.041Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-08T14:12:21.078Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  error: "Cannot read properties of null (reading '_id')",
+  stack: "TypeError: Cannot read properties of null (reading '_id')\n" +
+    '    at eval (webpack-internal:///(rsc)/./app/api/workspaces/route.ts:180:44)\n' +
+    '    at Array.map (<anonymous>)\n' +
+    '    at eval (webpack-internal:///(rsc)/./app/api/workspaces/route.ts:179:40)\n' +
+    '    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n' +
+    '    at async eval (webpack-internal:///(rsc)/./lib/logging/middleware.ts:69:24)\n' +
+    '    at async D:\\NEW CRM\\crm\\node_modules\\next\\dist\\compiled\\next-server\\app-route.runtime.dev.js:1:66877',
+  level: 'error',
+  message: 'Get workspaces failed after 505ms',
+  timestamp: '2025-09-08T14:12:21.585Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Mobile/15E148 Safari/604.1',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-08T14:12:30.717Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/activities?workspaceId=68b5f978932ddff74ab75f58&limit=10',
+  userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Mobile/15E148 Safari/604.1',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/activities?workspaceId=68b5f978932ddff74ab75f58&limit=10',
+  timestamp: '2025-09-08T14:12:30.797Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  workspaceId: '68b5f978932ddff74ab75f58',
+  activityCount: 5,
+  limit: 10,
+  duration: 358,
+  level: 'info',
+  message: 'Activities retrieved for workspace 68b5f978932ddff74ab75f58',
+  timestamp: '2025-09-08T14:12:31.157Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  error: "Cannot read properties of null (reading '_id')",
+  stack: "TypeError: Cannot read properties of null (reading '_id')\n" +
+    '    at eval (webpack-internal:///(rsc)/./app/api/workspaces/route.ts:180:44)\n' +
+    '    at Array.map (<anonymous>)\n' +
+    '    at eval (webpack-internal:///(rsc)/./app/api/workspaces/route.ts:179:40)\n' +
+    '    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n' +
+    '    at async eval (webpack-internal:///(rsc)/./lib/logging/middleware.ts:69:24)\n' +
+    '    at async D:\\NEW CRM\\crm\\node_modules\\next\\dist\\compiled\\next-server\\app-route.runtime.dev.js:1:66877',
+  level: 'error',
+  message: 'Get workspaces failed after 569ms',
+  timestamp: '2025-09-08T14:12:31.294Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Mobile/15E148 Safari/604.1',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-08T14:12:31.366Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  error: "Cannot read properties of null (reading '_id')",
+  stack: "TypeError: Cannot read properties of null (reading '_id')\n" +
+    '    at eval (webpack-internal:///(rsc)/./app/api/workspaces/route.ts:180:44)\n' +
+    '    at Array.map (<anonymous>)\n' +
+    '    at eval (webpack-internal:///(rsc)/./app/api/workspaces/route.ts:179:40)\n' +
+    '    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n' +
+    '    at async eval (webpack-internal:///(rsc)/./lib/logging/middleware.ts:69:24)\n' +
+    '    at async D:\\NEW CRM\\crm\\node_modules\\next\\dist\\compiled\\next-server\\app-route.runtime.dev.js:1:66877',
+  level: 'error',
+  message: 'Get workspaces failed after 550ms',
+  timestamp: '2025-09-08T14:12:31.919Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/activities?workspaceId=68b5f978932ddff74ab75f58&limit=10',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/activities?workspaceId=68b5f978932ddff74ab75f58&limit=10',
+  timestamp: '2025-09-08T14:23:28.205Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-08T14:23:29.124Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-08T14:23:29.177Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'POST',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming POST http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-08T14:23:35.110Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'business',
+  event: 'workspace_created',
+  timestamp: '2025-09-08T14:23:36.278Z',
+  userId: '68b5f978932ddff74ab75f56',
+  workspaceId: '68bee6e7700a04017b50f1cb',
+  workspaceName: 'Mitchell Newby',
+  planId: 'free',
+  level: 'info',
+  message: 'BUSINESS_EVENT: workspace_created'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'create_workspace',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspace',
+  timestamp: '2025-09-08T14:23:36.279Z',
+  workspaceId: '68bee6e7700a04017b50f1cb',
+  workspaceName: 'Mitchell Newby',
+  level: 'info',
+  message: 'AUDIT: create_workspace on workspace by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  userId: '68b5f978932ddff74ab75f56',
+  workspaceId: '68bee6e7700a04017b50f1cb',
+  workspaceName: 'Mitchell Newby',
+  slug: 'mitchell-newby',
+  level: 'info',
+  message: 'Workspace created successfully',
+  timestamp: '2025-09-08T14:23:36.622Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/activities?workspaceId=68bee6e7700a04017b50f1cb&limit=10',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/activities?workspaceId=68bee6e7700a04017b50f1cb&limit=10',
+  timestamp: '2025-09-08T14:23:36.678Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  workspaceId: '68bee6e7700a04017b50f1cb',
+  activityCount: 5,
+  limit: 10,
+  duration: 635,
+  level: 'info',
+  message: 'Activities retrieved for workspace 68bee6e7700a04017b50f1cb',
+  timestamp: '2025-09-08T14:23:37.314Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/leads?workspaceId=68bee6e7700a04017b50f1cb&page=1&limit=20',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  headers: {
+    accept: '*/*',
+    'accept-encoding': 'gzip, deflate, br, zstd',
+    'accept-language': 'en-US,en;q=0.8',
+    connection: 'keep-alive',
+    'content-security-policy': "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self'; frame-ancestors 'none'",
+    host: 'localhost:3000',
+    'permissions-policy': 'camera=(), microphone=(), geolocation=()',
+    referer: 'http://localhost:3000/leads',
+    'referrer-policy': 'strict-origin-when-cross-origin',
+    'sec-ch-ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Brave";v="140"',
+    'sec-ch-ua-mobile': '?0',
+    'sec-ch-ua-platform': '"Windows"',
+    'sec-fetch-dest': 'empty',
+    'sec-fetch-mode': 'cors',
+    'sec-fetch-site': 'same-origin',
+    'sec-gpc': '1',
+    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+    'x-content-type-options': 'nosniff',
+    'x-frame-options': 'DENY',
+    'x-ratelimit-limit': '100',
+    'x-ratelimit-remaining': '99',
+    'x-ratelimit-reset': '1757342326',
+    'x-xss-protection': '1; mode=block'
+  },
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/leads?workspaceId=68bee6e7700a04017b50f1cb&page=1&limit=20',
+  timestamp: '2025-09-08T14:23:45.924Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'business',
+  event: 'leads_listed',
+  timestamp: '2025-09-08T14:23:46.618Z',
+  userId: '68b5f978932ddff74ab75f56',
+  workspaceId: '68bee6e7700a04017b50f1cb',
+  count: 0,
+  page: 1,
+  filters: {
+    status: null,
+    assignedTo: null,
+    priority: null,
+    search: null,
+    tags: undefined
+  },
+  duration: 688,
+  level: 'info',
+  message: 'BUSINESS_EVENT: leads_listed'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/tags?workspaceId=68bee6e7700a04017b50f1cb',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  headers: {
+    accept: '*/*',
+    'accept-encoding': 'gzip, deflate, br, zstd',
+    'accept-language': 'en-US,en;q=0.8',
+    connection: 'keep-alive',
+    'content-security-policy': "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self'; frame-ancestors 'none'",
+    host: 'localhost:3000',
+    'permissions-policy': 'camera=(), microphone=(), geolocation=()',
+    referer: 'http://localhost:3000/leads',
+    'referrer-policy': 'strict-origin-when-cross-origin',
+    'sec-ch-ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Brave";v="140"',
+    'sec-ch-ua-mobile': '?0',
+    'sec-ch-ua-platform': '"Windows"',
+    'sec-fetch-dest': 'empty',
+    'sec-fetch-mode': 'cors',
+    'sec-fetch-site': 'same-origin',
+    'sec-gpc': '1',
+    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+    'x-content-type-options': 'nosniff',
+    'x-frame-options': 'DENY',
+    'x-ratelimit-limit': '200',
+    'x-ratelimit-remaining': '199',
+    'x-ratelimit-reset': '1757342327',
+    'x-xss-protection': '1; mode=block'
+  },
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/tags?workspaceId=68bee6e7700a04017b50f1cb',
+  timestamp: '2025-09-08T14:23:47.230Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/lead-statuses?workspaceId=68bee6e7700a04017b50f1cb',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  headers: {
+    accept: '*/*',
+    'accept-encoding': 'gzip, deflate, br, zstd',
+    'accept-language': 'en-US,en;q=0.8',
+    connection: 'keep-alive',
+    'content-security-policy': "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self'; frame-ancestors 'none'",
+    host: 'localhost:3000',
+    'permissions-policy': 'camera=(), microphone=(), geolocation=()',
+    referer: 'http://localhost:3000/leads',
+    'referrer-policy': 'strict-origin-when-cross-origin',
+    'sec-ch-ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Brave";v="140"',
+    'sec-ch-ua-mobile': '?0',
+    'sec-ch-ua-platform': '"Windows"',
+    'sec-fetch-dest': 'empty',
+    'sec-fetch-mode': 'cors',
+    'sec-fetch-site': 'same-origin',
+    'sec-gpc': '1',
+    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+    'x-content-type-options': 'nosniff',
+    'x-frame-options': 'DENY',
+    'x-ratelimit-limit': '200',
+    'x-ratelimit-remaining': '199',
+    'x-ratelimit-reset': '1757342327',
+    'x-xss-protection': '1; mode=block'
+  },
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/lead-statuses?workspaceId=68bee6e7700a04017b50f1cb',
+  timestamp: '2025-09-08T14:23:47.244Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'business',
+  event: 'lead_statuses_listed',
+  timestamp: '2025-09-08T14:23:47.645Z',
+  userId: '68b5f978932ddff74ab75f56',
+  workspaceId: '68bee6e7700a04017b50f1cb',
+  count: 0,
+  duration: 399,
+  level: 'info',
+  message: 'BUSINESS_EVENT: lead_statuses_listed'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'business',
+  event: 'tags_listed',
+  timestamp: '2025-09-08T14:23:47.697Z',
+  userId: '68b5f978932ddff74ab75f56',
+  workspaceId: '68bee6e7700a04017b50f1cb',
+  count: 0,
+  duration: 465,
+  level: 'info',
+  message: 'BUSINESS_EVENT: tags_listed'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces/68bee6e7700a04017b50f1cb/members',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces/68bee6e7700a04017b50f1cb/members',
+  timestamp: '2025-09-08T14:23:48.178Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  workspaceId: '68bee6e7700a04017b50f1cb',
+  memberCount: 1,
+  duration: 494,
+  level: 'info',
+  message: 'Workspace members retrieved for workspace 68bee6e7700a04017b50f1cb',
+  timestamp: '2025-09-08T14:23:48.674Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'POST',
+  url: 'http://localhost:3000/api/leads?workspaceId=68bee6e7700a04017b50f1cb',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  headers: {
+    accept: '*/*',
+    'accept-encoding': 'gzip, deflate, br, zstd',
+    'accept-language': 'en-US,en;q=0.8',
+    connection: 'keep-alive',
+    'content-length': '253',
+    'content-security-policy': "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self'; frame-ancestors 'none'",
+    'content-type': 'application/json',
+    host: 'localhost:3000',
+    origin: 'http://localhost:3000',
+    'permissions-policy': 'camera=(), microphone=(), geolocation=()',
+    referer: 'http://localhost:3000/leads',
+    'referrer-policy': 'strict-origin-when-cross-origin',
+    'sec-ch-ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Brave";v="140"',
+    'sec-ch-ua-mobile': '?0',
+    'sec-ch-ua-platform': '"Windows"',
+    'sec-fetch-dest': 'empty',
+    'sec-fetch-mode': 'cors',
+    'sec-fetch-site': 'same-origin',
+    'sec-gpc': '1',
+    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+    'x-content-type-options': 'nosniff',
+    'x-frame-options': 'DENY',
+    'x-ratelimit-limit': '100',
+    'x-ratelimit-remaining': '98',
+    'x-ratelimit-reset': '1757342326',
+    'x-xss-protection': '1; mode=block'
+  },
+  body: {
+    name: 'Mitchell Newby',
+    email: 'shivaysharma77893@gmail.com',
+    phone: '8115754480',
+    company: 'Luckshack.mobi',
+    value: 0,
+    notes: 'oko',
+    workspaceId: '68bee6e7700a04017b50f1cb',
+    statusId: 'contacted',
+    source: 'social_media',
+    tagIds: [],
+    customFields: {}
+  },
+  level: 'info',
+  message: 'Incoming POST http://localhost:3000/api/leads?workspaceId=68bee6e7700a04017b50f1cb',
+  timestamp: '2025-09-08T14:24:05.505Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  stringValue: '"contacted"',
+  messageFormat: undefined,
+  kind: 'ObjectId',
+  value: 'contacted',
+  path: '_id',
+  reason: BSONError: input must be a 24 character hex string, 12 byte Uint8Array, or an integer
+      at new ObjectId (D:\NEW CRM\crm\node_modules\bson\lib\bson.cjs:2538:23)
+      at castObjectId (D:\NEW CRM\crm\node_modules\mongoose\lib\cast\objectid.js:25:12)
+      at SchemaObjectId.cast (D:\NEW CRM\crm\node_modules\mongoose\lib\schema\objectId.js:249:12)
+      at SchemaType.applySetters (D:\NEW CRM\crm\node_modules\mongoose\lib\schemaType.js:1258:12)
+      at SchemaType.castForQuery (D:\NEW CRM\crm\node_modules\mongoose\lib\schemaType.js:1694:17)
+      at D:\NEW CRM\crm\node_modules\mongoose\lib\schemaType.js:1649:18
+      at Array.map (<anonymous>)
+      at SchemaObjectId.handle$in (D:\NEW CRM\crm\node_modules\mongoose\lib\schemaType.js:1645:14)
+      at SchemaType.castForQuery (D:\NEW CRM\crm\node_modules\mongoose\lib\schemaType.js:1690:20)
+      at cast (D:\NEW CRM\crm\node_modules\mongoose\lib\cast.js:367:39)
+      at Query.cast (D:\NEW CRM\crm\node_modules\mongoose\lib\query.js:5060:12)
+      at Query._castConditions (D:\NEW CRM\crm\node_modules\mongoose\lib\query.js:2374:10)
+      at model.Query._find (D:\NEW CRM\crm\node_modules\mongoose\lib\query.js:2401:8)
+      at model.Query.exec (D:\NEW CRM\crm\node_modules\mongoose\lib\query.js:4627:80)
+      at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+      at async Promise.all (index 0)
+      at async _populatePath (D:\NEW CRM\crm\node_modules\mongoose\lib\model.js:4569:5)
+      at async Promise.all (index 1)
+      at async model.populate (D:\NEW CRM\crm\node_modules\mongoose\lib\model.js:4435:5),
+  valueType: 'string',
+  level: 'error',
+  message: 'Create lead error: Cast to ObjectId failed for value "contacted" (type string) at path "_id" for model "LeadStatus"',
+  stack: 'CastError: Cast to ObjectId failed for value "contacted" (type string) at path "_id" for model "LeadStatus"\n' +
+    '    at SchemaObjectId.cast (D:\\NEW CRM\\crm\\node_modules\\mongoose\\lib\\schema\\objectId.js:251:11)\n' +
+    '    at SchemaType.applySetters (D:\\NEW CRM\\crm\\node_modules\\mongoose\\lib\\schemaType.js:1258:12)\n' +
+    '    at SchemaType.castForQuery (D:\\NEW CRM\\crm\\node_modules\\mongoose\\lib\\schemaType.js:1694:17)\n' +
+    '    at D:\\NEW CRM\\crm\\node_modules\\mongoose\\lib\\schemaType.js:1649:18\n' +
+    '    at Array.map (<anonymous>)\n' +
+    '    at SchemaObjectId.handle$in (D:\\NEW CRM\\crm\\node_modules\\mongoose\\lib\\schemaType.js:1645:14)\n' +
+    '    at SchemaType.castForQuery (D:\\NEW CRM\\crm\\node_modules\\mongoose\\lib\\schemaType.js:1690:20)\n' +
+    '    at cast (D:\\NEW CRM\\crm\\node_modules\\mongoose\\lib\\cast.js:367:39)\n' +
+    '    at Query.cast (D:\\NEW CRM\\crm\\node_modules\\mongoose\\lib\\query.js:5060:12)\n' +
+    '    at Query._castConditions (D:\\NEW CRM\\crm\\node_modules\\mongoose\\lib\\query.js:2374:10)\n' +
+    '    at model.Query._find (D:\\NEW CRM\\crm\\node_modules\\mongoose\\lib\\query.js:2401:8)\n' +
+    '    at model.Query.exec (D:\\NEW CRM\\crm\\node_modules\\mongoose\\lib\\query.js:4627:80)\n' +
+    '    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n' +
+    '    at async Promise.all (index 0)\n' +
+    '    at async _populatePath (D:\\NEW CRM\\crm\\node_modules\\mongoose\\lib\\model.js:4569:5)\n' +
+    '    at async Promise.all (index 1)\n' +
+    '    at async model.populate (D:\\NEW CRM\\crm\\node_modules\\mongoose\\lib\\model.js:4435:5)',
+  timestamp: '2025-09-08T14:24:06.072Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/leads?workspaceId=68bee6e7700a04017b50f1cb&page=1&limit=20',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  headers: {
+    accept: '*/*',
+    'accept-encoding': 'gzip, deflate, br, zstd',
+    'accept-language': 'en-US,en;q=0.8',
+    connection: 'keep-alive',
+    'content-security-policy': "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self'; frame-ancestors 'none'",
+    host: 'localhost:3000',
+    'permissions-policy': 'camera=(), microphone=(), geolocation=()',
+    referer: 'http://localhost:3000/leads',
+    'referrer-policy': 'strict-origin-when-cross-origin',
+    'sec-ch-ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Brave";v="140"',
+    'sec-ch-ua-mobile': '?0',
+    'sec-ch-ua-platform': '"Windows"',
+    'sec-fetch-dest': 'empty',
+    'sec-fetch-mode': 'cors',
+    'sec-fetch-site': 'same-origin',
+    'sec-gpc': '1',
+    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+    'x-content-type-options': 'nosniff',
+    'x-frame-options': 'DENY',
+    'x-ratelimit-limit': '100',
+    'x-ratelimit-remaining': '97',
+    'x-ratelimit-reset': '1757342326',
+    'x-xss-protection': '1; mode=block'
+  },
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/leads?workspaceId=68bee6e7700a04017b50f1cb&page=1&limit=20',
+  timestamp: '2025-09-08T14:24:06.109Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'business',
+  event: 'leads_listed',
+  timestamp: '2025-09-08T14:24:06.437Z',
+  userId: '68b5f978932ddff74ab75f56',
+  workspaceId: '68bee6e7700a04017b50f1cb',
+  count: 1,
+  page: 1,
+  filters: {
+    status: null,
+    assignedTo: null,
+    priority: null,
+    search: null,
+    tags: undefined
+  },
+  duration: 327,
+  level: 'info',
+  message: 'BUSINESS_EVENT: leads_listed'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'POST',
+  url: 'http://localhost:3000/api/lead-statuses?workspaceId=68bee6e7700a04017b50f1cb',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  headers: {
+    accept: '*/*',
+    'accept-encoding': 'gzip, deflate, br, zstd',
+    'accept-language': 'en-US,en;q=0.8',
+    connection: 'keep-alive',
+    'content-length': '146',
+    'content-security-policy': "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self'; frame-ancestors 'none'",
+    'content-type': 'application/json',
+    host: 'localhost:3000',
+    origin: 'http://localhost:3000',
+    'permissions-policy': 'camera=(), microphone=(), geolocation=()',
+    referer: 'http://localhost:3000/leads/statuses',
+    'referrer-policy': 'strict-origin-when-cross-origin',
+    'sec-ch-ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Brave";v="140"',
+    'sec-ch-ua-mobile': '?0',
+    'sec-ch-ua-platform': '"Windows"',
+    'sec-fetch-dest': 'empty',
+    'sec-fetch-mode': 'cors',
+    'sec-fetch-site': 'same-origin',
+    'sec-gpc': '1',
+    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+    'x-content-type-options': 'nosniff',
+    'x-frame-options': 'DENY',
+    'x-ratelimit-limit': '200',
+    'x-ratelimit-remaining': '198',
+    'x-ratelimit-reset': '1757342327',
+    'x-xss-protection': '1; mode=block'
+  },
+  body: {
+    name: 'Vegetable Seeds',
+    color: '#f73b3b',
+    description: '',
+    workspaceId: '68bee6e7700a04017b50f1cb',
+    order: 0,
+    isDefault: false,
+    isActive: true
+  },
+  level: 'info',
+  message: 'Incoming POST http://localhost:3000/api/lead-statuses?workspaceId=68bee6e7700a04017b50f1cb',
+  timestamp: '2025-09-08T14:24:15.489Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'lead_status_created',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'lead_status',
+  timestamp: '2025-09-08T14:24:15.845Z',
+  statusId: new ObjectId('68bee70f700a04017b50f1f1'),
+  statusName: 'Vegetable Seeds',
+  workspaceId: '68bee6e7700a04017b50f1cb',
+  level: 'info',
+  message: 'AUDIT: lead_status_created on lead_status by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'business',
+  event: 'lead_status_created',
+  timestamp: '2025-09-08T14:24:15.846Z',
+  userId: '68b5f978932ddff74ab75f56',
+  workspaceId: '68bee6e7700a04017b50f1cb',
+  statusName: 'Vegetable Seeds',
+  color: '#f73b3b',
+  isDefault: false,
+  duration: 355,
+  level: 'info',
+  message: 'BUSINESS_EVENT: lead_status_created'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/lead-statuses?workspaceId=68bee6e7700a04017b50f1cb',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  headers: {
+    accept: '*/*',
+    'accept-encoding': 'gzip, deflate, br, zstd',
+    'accept-language': 'en-US,en;q=0.8',
+    connection: 'keep-alive',
+    'content-security-policy': "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self'; frame-ancestors 'none'",
+    host: 'localhost:3000',
+    'permissions-policy': 'camera=(), microphone=(), geolocation=()',
+    referer: 'http://localhost:3000/leads/statuses',
+    'referrer-policy': 'strict-origin-when-cross-origin',
+    'sec-ch-ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Brave";v="140"',
+    'sec-ch-ua-mobile': '?0',
+    'sec-ch-ua-platform': '"Windows"',
+    'sec-fetch-dest': 'empty',
+    'sec-fetch-mode': 'cors',
+    'sec-fetch-site': 'same-origin',
+    'sec-gpc': '1',
+    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+    'x-content-type-options': 'nosniff',
+    'x-frame-options': 'DENY',
+    'x-ratelimit-limit': '200',
+    'x-ratelimit-remaining': '197',
+    'x-ratelimit-reset': '1757342327',
+    'x-xss-protection': '1; mode=block'
+  },
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/lead-statuses?workspaceId=68bee6e7700a04017b50f1cb',
+  timestamp: '2025-09-08T14:24:15.871Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'business',
+  event: 'lead_statuses_listed',
+  timestamp: '2025-09-08T14:24:16.241Z',
+  userId: '68b5f978932ddff74ab75f56',
+  workspaceId: '68bee6e7700a04017b50f1cb',
+  count: 1,
+  duration: 368,
+  level: 'info',
+  message: 'BUSINESS_EVENT: lead_statuses_listed'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'POST',
+  url: 'http://localhost:3000/api/tags?workspaceId=68bee6e7700a04017b50f1cb',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  headers: {
+    accept: '*/*',
+    'accept-encoding': 'gzip, deflate, br, zstd',
+    'accept-language': 'en-US,en;q=0.8',
+    connection: 'keep-alive',
+    'content-length': '101',
+    'content-security-policy': "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self'; frame-ancestors 'none'",
+    'content-type': 'application/json',
+    host: 'localhost:3000',
+    origin: 'http://localhost:3000',
+    'permissions-policy': 'camera=(), microphone=(), geolocation=()',
+    referer: 'http://localhost:3000/leads/tags',
+    'referrer-policy': 'strict-origin-when-cross-origin',
+    'sec-ch-ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Brave";v="140"',
+    'sec-ch-ua-mobile': '?0',
+    'sec-ch-ua-platform': '"Windows"',
+    'sec-fetch-dest': 'empty',
+    'sec-fetch-mode': 'cors',
+    'sec-fetch-site': 'same-origin',
+    'sec-gpc': '1',
+    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+    'x-content-type-options': 'nosniff',
+    'x-frame-options': 'DENY',
+    'x-ratelimit-limit': '200',
+    'x-ratelimit-remaining': '198',
+    'x-ratelimit-reset': '1757342327',
+    'x-xss-protection': '1; mode=block'
+  },
+  body: {
+    name: 'Mitchell Newby',
+    color: '#ff0a0a',
+    description: '',
+    workspaceId: '68bee6e7700a04017b50f1cb'
+  },
+  level: 'info',
+  message: 'Incoming POST http://localhost:3000/api/tags?workspaceId=68bee6e7700a04017b50f1cb',
+  timestamp: '2025-09-08T14:24:29.084Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'tag_created',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'tag',
+  timestamp: '2025-09-08T14:24:29.854Z',
+  tagId: new ObjectId('68bee71d700a04017b50f1f9'),
+  tagName: 'Mitchell Newby',
+  workspaceId: '68bee6e7700a04017b50f1cb',
+  level: 'info',
+  message: 'AUDIT: tag_created on tag by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'business',
+  event: 'tag_created',
+  timestamp: '2025-09-08T14:24:29.856Z',
+  userId: '68b5f978932ddff74ab75f56',
+  workspaceId: '68bee6e7700a04017b50f1cb',
+  tagName: 'Mitchell Newby',
+  color: '#ff0a0a',
+  duration: 769,
+  level: 'info',
+  message: 'BUSINESS_EVENT: tag_created'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/tags?workspaceId=68bee6e7700a04017b50f1cb',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  headers: {
+    accept: '*/*',
+    'accept-encoding': 'gzip, deflate, br, zstd',
+    'accept-language': 'en-US,en;q=0.8',
+    connection: 'keep-alive',
+    'content-security-policy': "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self'; frame-ancestors 'none'",
+    host: 'localhost:3000',
+    'permissions-policy': 'camera=(), microphone=(), geolocation=()',
+    referer: 'http://localhost:3000/leads/tags',
+    'referrer-policy': 'strict-origin-when-cross-origin',
+    'sec-ch-ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Brave";v="140"',
+    'sec-ch-ua-mobile': '?0',
+    'sec-ch-ua-platform': '"Windows"',
+    'sec-fetch-dest': 'empty',
+    'sec-fetch-mode': 'cors',
+    'sec-fetch-site': 'same-origin',
+    'sec-gpc': '1',
+    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+    'x-content-type-options': 'nosniff',
+    'x-frame-options': 'DENY',
+    'x-ratelimit-limit': '200',
+    'x-ratelimit-remaining': '197',
+    'x-ratelimit-reset': '1757342327',
+    'x-xss-protection': '1; mode=block'
+  },
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/tags?workspaceId=68bee6e7700a04017b50f1cb',
+  timestamp: '2025-09-08T14:24:29.888Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'business',
+  event: 'tags_listed',
+  timestamp: '2025-09-08T14:24:30.200Z',
+  userId: '68b5f978932ddff74ab75f56',
+  workspaceId: '68bee6e7700a04017b50f1cb',
+  count: 1,
+  duration: 311,
+  level: 'info',
+  message: 'BUSINESS_EVENT: tags_listed'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'PUT',
+  url: 'http://localhost:3000/api/leads/68bee705700a04017b50f1e6?workspaceId=68bee6e7700a04017b50f1cb',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  headers: {
+    accept: '*/*',
+    'accept-encoding': 'gzip, deflate, br, zstd',
+    'accept-language': 'en-US,en;q=0.8',
+    connection: 'keep-alive',
+    'content-length': '275',
+    'content-security-policy': "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self'; frame-ancestors 'none'",
+    'content-type': 'application/json',
+    host: 'localhost:3000',
+    origin: 'http://localhost:3000',
+    'permissions-policy': 'camera=(), microphone=(), geolocation=()',
+    referer: 'http://localhost:3000/leads',
+    'referrer-policy': 'strict-origin-when-cross-origin',
+    'sec-ch-ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Brave";v="140"',
+    'sec-ch-ua-mobile': '?0',
+    'sec-ch-ua-platform': '"Windows"',
+    'sec-fetch-dest': 'empty',
+    'sec-fetch-mode': 'cors',
+    'sec-fetch-site': 'same-origin',
+    'sec-gpc': '1',
+    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+    'x-content-type-options': 'nosniff',
+    'x-frame-options': 'DENY',
+    'x-ratelimit-limit': '100',
+    'x-ratelimit-remaining': '99',
+    'x-ratelimit-reset': '1757342387',
+    'x-xss-protection': '1; mode=block'
+  },
+  body: {
+    name: 'Mitchell Newby',
+    email: 'shivaysharma77893@gmail.com',
+    phone: '8115754480',
+    company: 'Luckshack.mobi',
+    value: 0,
+    source: 'social_media',
+    notes: 'oko',
+    statusId: '68bee70f700a04017b50f1f1',
+    tagIds: [ '68bee71d700a04017b50f1f9' ],
+    assignedTo: '68b5f978932ddff74ab75f56'
+  },
+  level: 'info',
+  message: 'Incoming PUT http://localhost:3000/api/leads/68bee705700a04017b50f1e6?workspaceId=68bee6e7700a04017b50f1cb',
+  timestamp: '2025-09-08T14:24:47.620Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'lead_updated',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'lead',
+  timestamp: '2025-09-08T14:24:50.272Z',
+  leadId: '68bee705700a04017b50f1e6',
+  leadName: 'Mitchell Newby',
+  updatedFields: [
+    'name',   'email',
+    'phone',  'company',
+    'value',  'source',
+    'notes',  'statusId',
+    'tagIds', 'assignedTo'
+  ],
+  workspaceId: '68bee6e7700a04017b50f1cb',
+  level: 'info',
+  message: 'AUDIT: lead_updated on lead by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'business',
+  event: 'lead_updated',
+  timestamp: '2025-09-08T14:24:50.274Z',
+  userId: '68b5f978932ddff74ab75f56',
+  workspaceId: '68bee6e7700a04017b50f1cb',
+  leadId: '68bee705700a04017b50f1e6',
+  leadName: 'Mitchell Newby',
+  value: 0,
+  updatedFields: [
+    'name',   'email',
+    'phone',  'company',
+    'value',  'source',
+    'notes',  'statusId',
+    'tagIds', 'assignedTo'
+  ],
+  level: 'info',
+  message: 'BUSINESS_EVENT: lead_updated'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  leadId: '68bee705700a04017b50f1e6',
+  workspaceId: '68bee6e7700a04017b50f1cb',
+  updatedBy: '68b5f978932ddff74ab75f56',
+  updatedFields: [
+    'name',   'email',
+    'phone',  'company',
+    'value',  'source',
+    'notes',  'statusId',
+    'tagIds', 'assignedTo'
+  ],
+  duration: 2651,
+  level: 'info',
+  message: 'Lead updated successfully',
+  timestamp: '2025-09-08T14:24:50.275Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/leads?workspaceId=68bee6e7700a04017b50f1cb&page=1&limit=20',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  headers: {
+    accept: '*/*',
+    'accept-encoding': 'gzip, deflate, br, zstd',
+    'accept-language': 'en-US,en;q=0.8',
+    connection: 'keep-alive',
+    'content-security-policy': "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self'; frame-ancestors 'none'",
+    host: 'localhost:3000',
+    'permissions-policy': 'camera=(), microphone=(), geolocation=()',
+    referer: 'http://localhost:3000/leads',
+    'referrer-policy': 'strict-origin-when-cross-origin',
+    'sec-ch-ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Brave";v="140"',
+    'sec-ch-ua-mobile': '?0',
+    'sec-ch-ua-platform': '"Windows"',
+    'sec-fetch-dest': 'empty',
+    'sec-fetch-mode': 'cors',
+    'sec-fetch-site': 'same-origin',
+    'sec-gpc': '1',
+    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+    'x-content-type-options': 'nosniff',
+    'x-frame-options': 'DENY',
+    'x-ratelimit-limit': '100',
+    'x-ratelimit-remaining': '96',
+    'x-ratelimit-reset': '1757342326',
+    'x-xss-protection': '1; mode=block'
+  },
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/leads?workspaceId=68bee6e7700a04017b50f1cb&page=1&limit=20',
+  timestamp: '2025-09-08T14:24:50.312Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'business',
+  event: 'leads_listed',
+  timestamp: '2025-09-08T14:24:50.980Z',
+  userId: '68b5f978932ddff74ab75f56',
+  workspaceId: '68bee6e7700a04017b50f1cb',
+  count: 1,
+  page: 1,
+  filters: {
+    status: null,
+    assignedTo: null,
+    priority: null,
+    search: null,
+    tags: undefined
+  },
+  duration: 666,
+  level: 'info',
+  message: 'BUSINESS_EVENT: leads_listed'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/activities?workspaceId=68bee6e7700a04017b50f1cb&limit=10',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/activities?workspaceId=68bee6e7700a04017b50f1cb&limit=10',
+  timestamp: '2025-09-08T14:24:59.904Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  workspaceId: '68bee6e7700a04017b50f1cb',
+  activityCount: 5,
+  limit: 10,
+  duration: 235,
+  level: 'info',
+  message: 'Activities retrieved for workspace 68bee6e7700a04017b50f1cb',
+  timestamp: '2025-09-08T14:25:00.141Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-08T14:25:09.299Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/activities?workspaceId=68b5f978932ddff74ab75f58&limit=10',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/activities?workspaceId=68b5f978932ddff74ab75f58&limit=10',
+  timestamp: '2025-09-08T14:25:09.332Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  workspaceId: '68b5f978932ddff74ab75f58',
+  activityCount: 5,
+  limit: 10,
+  duration: 474,
+  level: 'info',
+  message: 'Activities retrieved for workspace 68b5f978932ddff74ab75f58',
+  timestamp: '2025-09-08T14:25:09.810Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-08T14:25:10.107Z',
+  count: 2,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces',
+  timestamp: '2025-09-08T14:25:10.135Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'list_workspaces',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspaces',
+  timestamp: '2025-09-08T14:25:10.732Z',
+  count: 2,
+  level: 'info',
+  message: 'AUDIT: list_workspaces on workspaces by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces/68b5f978932ddff74ab75f58',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces/68b5f978932ddff74ab75f58',
+  timestamp: '2025-09-08T14:25:27.070Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'workspace_viewed',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspace',
+  timestamp: '2025-09-08T14:25:27.771Z',
+  workspaceId: '68b5f978932ddff74ab75f58',
+  workspaceName: 'Admin Workspace',
+  level: 'info',
+  message: 'AUDIT: workspace_viewed on workspace by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'business',
+  event: 'workspace_access',
+  timestamp: '2025-09-08T14:25:27.771Z',
+  userId: '68b5f978932ddff74ab75f56',
+  workspaceId: '68b5f978932ddff74ab75f58',
+  memberCount: 1,
+  duration: 699,
+  level: 'info',
+  message: 'BUSINESS_EVENT: workspace_access'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  workspaceId: '68b5f978932ddff74ab75f58',
+  memberCount: 1,
+  duration: 700,
+  level: 'info',
+  message: 'Workspace details retrieved for user 68b5f978932ddff74ab75f56',
+  timestamp: '2025-09-08T14:25:27.772Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces/68b5f978932ddff74ab75f58',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces/68b5f978932ddff74ab75f58',
+  timestamp: '2025-09-08T14:25:27.838Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'workspace_viewed',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspace',
+  timestamp: '2025-09-08T14:25:28.721Z',
+  workspaceId: '68b5f978932ddff74ab75f58',
+  workspaceName: 'Admin Workspace',
+  level: 'info',
+  message: 'AUDIT: workspace_viewed on workspace by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'business',
+  event: 'workspace_access',
+  timestamp: '2025-09-08T14:25:28.722Z',
+  userId: '68b5f978932ddff74ab75f56',
+  workspaceId: '68b5f978932ddff74ab75f58',
+  memberCount: 1,
+  duration: 883,
+  level: 'info',
+  message: 'BUSINESS_EVENT: workspace_access'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  workspaceId: '68b5f978932ddff74ab75f58',
+  memberCount: 1,
+  duration: 884,
+  level: 'info',
+  message: 'Workspace details retrieved for user 68b5f978932ddff74ab75f56',
+  timestamp: '2025-09-08T14:25:28.723Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces/68b5f978932ddff74ab75f58/roles',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces/68b5f978932ddff74ab75f58/roles',
+  timestamp: '2025-09-08T14:25:30.276Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'roles_viewed',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspace',
+  timestamp: '2025-09-08T14:25:30.855Z',
+  workspaceId: '68b5f978932ddff74ab75f58',
+  roleCount: 5,
+  level: 'info',
+  message: 'AUDIT: roles_viewed on workspace by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'business',
+  event: 'roles_accessed',
+  timestamp: '2025-09-08T14:25:30.857Z',
+  userId: '68b5f978932ddff74ab75f56',
+  workspaceId: '68b5f978932ddff74ab75f58',
+  roleCount: 5,
+  duration: 580,
+  level: 'info',
+  message: 'BUSINESS_EVENT: roles_accessed'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  workspaceId: '68b5f978932ddff74ab75f58',
+  userId: '68b5f978932ddff74ab75f56',
+  roleCount: 5,
+  duration: 582,
+  level: 'info',
+  message: 'Roles retrieved for workspace 68b5f978932ddff74ab75f58 by user 68b5f978932ddff74ab75f56',
+  timestamp: '2025-09-08T14:25:30.859Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  method: 'GET',
+  url: 'http://localhost:3000/api/workspaces/68b5f978932ddff74ab75f58/roles',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  ip: 'unknown',
+  level: 'info',
+  message: 'Incoming GET http://localhost:3000/api/workspaces/68b5f978932ddff74ab75f58/roles',
+  timestamp: '2025-09-08T14:25:30.955Z'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'audit',
+  action: 'roles_viewed',
+  userId: '68b5f978932ddff74ab75f56',
+  resource: 'workspace',
+  timestamp: '2025-09-08T14:25:31.846Z',
+  workspaceId: '68b5f978932ddff74ab75f58',
+  roleCount: 5,
+  level: 'info',
+  message: 'AUDIT: roles_viewed on workspace by 68b5f978932ddff74ab75f56'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  type: 'business',
+  event: 'roles_accessed',
+  timestamp: '2025-09-08T14:25:31.848Z',
+  userId: '68b5f978932ddff74ab75f56',
+  workspaceId: '68b5f978932ddff74ab75f58',
+  roleCount: 5,
+  duration: 891,
+  level: 'info',
+  message: 'BUSINESS_EVENT: roles_accessed'
+}
+{
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  workspaceId: '68b5f978932ddff74ab75f58',
+  userId: '68b5f978932ddff74ab75f56',
+  roleCount: 5,
+  duration: 891,
+  level: 'info',
+  message: 'Roles retrieved for workspace 68b5f978932ddff74ab75f58 by user 68b5f978932ddff74ab75f56',
+  timestamp: '2025-09-08T14:25:31.848Z'
+}

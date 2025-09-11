@@ -14,6 +14,11 @@
             "date": 1757300239901,
             "name": "D:\\NEW CRM\\crm\\logs\\security-2025-09-08.log",
             "hash": "123926df3d4ff814199ef1eef92731d4390fbff429f61707e3c22215a7b14af4"
+        },
+        {
+            "date": 1757445228384,
+            "name": "D:\\NEW CRM\\crm\\logs\\security-2025-09-10.log",
+            "hash": "d144915dbd31ee65a010597485daf85e9c864ec421b57dbc645884370aad5c4c"
         }
     ],
     "hashType": "sha256"

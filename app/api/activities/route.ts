@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { verifyAuthToken } from '@/lib/mongodb/auth';
-import { WorkspaceMember } from '@/lib/mongodb/client';
+import { WorkspaceMember, Activity, User } from '@/lib/mongodb/client';
 import { connectToMongoDB } from '@/lib/mongodb/connection';
 import { withLogging, withSecurityLogging } from '@/lib/logging/middleware';
 import { log } from '@/lib/logging/logger';
@@ -24,11 +24,19 @@ export const GET = withSecurityLogging(withLogging(async (request: NextRequest) 
     const workspaceId = url.searchParams.get('workspaceId');
     const limit = parseInt(url.searchParams.get('limit') || '50');
 
+    console.log('Activities API - workspaceId:', workspaceId, 'limit:', limit);
+
     if (!workspaceId) {
-      return NextResponse.json({ message: 'Workspace ID is required' }, { status: 400 });
+      console.log('Activities API - No workspaceId provided');
+      return NextResponse.json({
+        message: 'Workspace ID is required',
+        activities: [],
+        total: 0
+      }, { status: 400 });
     }
 
     // Check if user has access to this workspace
+    console.log('Activities API - Checking workspace membership for user:', auth.user.id);
     const userMembership = await WorkspaceMember.findOne({
       workspaceId,
       userId: auth.user.id,
@@ -36,105 +44,69 @@ export const GET = withSecurityLogging(withLogging(async (request: NextRequest) 
     });
 
     if (!userMembership) {
-      return NextResponse.json({ message: 'Access denied' }, { status: 403 });
+      console.log('Activities API - User does not have access to workspace');
+      return NextResponse.json({
+        message: 'Access denied',
+        activities: [],
+        total: 0
+      }, { status: 403 });
     }
 
-    // For now, return mock activities since we don't have an Activity model yet
-    // In a real implementation, you would query the Activity collection
-    const mockActivities = [
-      {
-        id: '1',
-        type: 'lead_created',
-        description: 'New lead "John Doe" was created',
-        userId: auth.user.id,
-        userName: auth.user.fullName || auth.user.email,
-        workspaceId,
-        createdAt: new Date(Date.now() - 1000 * 60 * 30).toISOString(), // 30 minutes ago
-        metadata: {
-          leadName: 'John Doe',
-          leadId: 'lead123'
-        }
-      },
-      {
-        id: '2',
-        type: 'lead_updated',
-        description: 'Lead "Jane Smith" status changed to "Qualified"',
-        userId: auth.user.id,
-        userName: auth.user.fullName || auth.user.email,
-        workspaceId,
-        createdAt: new Date(Date.now() - 1000 * 60 * 60).toISOString(), // 1 hour ago
-        metadata: {
-          leadName: 'Jane Smith',
-          leadId: 'lead456',
-          oldStatus: 'New',
-          newStatus: 'Qualified'
-        }
-      },
-      {
-        id: '3',
-        type: 'lead_assigned',
-        description: 'Lead "Bob Johnson" was assigned to you',
-        userId: auth.user.id,
-        userName: auth.user.fullName || auth.user.email,
-        workspaceId,
-        createdAt: new Date(Date.now() - 1000 * 60 * 60 * 2).toISOString(), // 2 hours ago
-        metadata: {
-          leadName: 'Bob Johnson',
-          leadId: 'lead789',
-          assignedTo: auth.user.fullName || auth.user.email
-        }
-      },
-      {
-        id: '4',
-        type: 'tag_created',
-        description: 'New tag "VIP Customer" was created',
-        userId: auth.user.id,
-        userName: auth.user.fullName || auth.user.email,
-        workspaceId,
-        createdAt: new Date(Date.now() - 1000 * 60 * 60 * 3).toISOString(), // 3 hours ago
-        metadata: {
-          tagName: 'VIP Customer',
-          tagId: 'tag123'
-        }
-      },
-      {
-        id: '5',
-        type: 'status_created',
-        description: 'New lead status "Hot Lead" was created',
-        userId: auth.user.id,
-        userName: auth.user.fullName || auth.user.email,
-        workspaceId,
-        createdAt: new Date(Date.now() - 1000 * 60 * 60 * 4).toISOString(), // 4 hours ago
-        metadata: {
-          statusName: 'Hot Lead',
-          statusId: 'status123'
-        }
-      }
-    ];
+    console.log('Activities API - User has access to workspace');
 
-    // Limit the results
-    const activities = mockActivities.slice(0, limit);
+    // Try to get real activities from the database
+    console.log('Activities API - Fetching activities from database');
+    try {
+      const activities = await Activity.find({
+        workspaceId: workspaceId
+      })
+      .populate('performedBy', 'fullName email')
+      .sort({ createdAt: -1 })
+      .limit(limit)
+      .lean();
 
-    log.info(`Activities retrieved for workspace ${workspaceId}`, {
-      workspaceId,
-      activityCount: activities.length,
-      limit,
-      duration: Date.now() - startTime
-    });
+      console.log('Activities API - Found', activities.length, 'activities');
 
-    return NextResponse.json({
-      success: true,
-      activities
-    });
+      // Transform activities for frontend
+      const transformedActivities = activities.map(activity => ({
+        id: typeof activity._id === 'string' ? activity._id : String(activity._id),
+        type: activity.activityType,
+        description: activity.description || `${activity.activityType} on ${activity.entityType}`,
+        userId: activity.performedBy?._id?.toString() || activity.performedBy,
+        userName: activity.performedBy?.fullName || activity.performedBy?.email || 'Unknown User',
+        workspaceId: activity.workspaceId,
+        createdAt: activity.createdAt,
+        metadata: activity.metadata || {}
+      }));
+
+      return NextResponse.json({
+        activities: transformedActivities,
+        total: transformedActivities.length
+      });
+
+    } catch (activityError) {
+      console.error('Activities API - Error fetching activities:', activityError);
+
+      // Fallback to empty activities if there's an error
+      return NextResponse.json({
+        activities: [],
+        total: 0
+      });
+    }
 
   } catch (error) {
-    log.error('Get activities error:', error);
+    console.error('Activities API - General error:', error);
+    const duration = Date.now() - startTime;
+    log.error(`Get activities failed after ${duration}ms`, {
+      error: error instanceof Error ? error.message : 'Unknown error',
+      stack: error instanceof Error ? error.stack : undefined
+    });
+
     return NextResponse.json(
-      { 
-        success: false,
-        message: 'Internal server error' 
-      }, 
-      { status: 500 }
-    );
+      {
+        message: 'Failed to fetch activities',
+        activities: [],
+        total: 0
+  });
   }
 }));

@@ -158,14 +158,15 @@ export async function signIn({ email, password }: SignInData): Promise<AuthResul
       for (const membership of userMemberships) {
         await Activity.create({
           workspaceId: membership.workspaceId,
-          userId: user._id,
-          action: 'user_signed_in',
-          entityType: 'User',
+          performedBy: user._id,
+          activityType: 'created', // Using 'created' as closest match for sign-in
+          entityType: 'user',
           entityId: user._id,
           description: `${user.fullName} signed in`,
           metadata: {
             userEmail: user.email,
-            signInTime: new Date().toISOString()
+            signInTime: new Date().toISOString(),
+            activitySubType: 'user_signed_in'
           }
         });
       }

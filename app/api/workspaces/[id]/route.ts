@@ -9,7 +9,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { requireAuth } from '@/lib/security/auth-middleware';
-import { Workspace, WorkspaceMember, User } from '@/lib/mongodb/models';
+import { Workspace, WorkspaceMember, User, Activity } from '@/lib/mongodb/models';
 import { connectToMongoDB } from '@/lib/mongodb/connection';
 import { log } from '@/lib/logging/logger';
 import { logUserActivity, logBusinessEvent, withLogging, withSecurityLogging } from '@/lib/logging/middleware';
@@ -18,17 +18,46 @@ import { getClientIP } from '@/lib/utils/ip-utils';
 import { z } from 'zod';
 import mongoose from 'mongoose';
 
+// Supported currencies and timezones
+const SUPPORTED_CURRENCIES = [
+  'USD', 'EUR', 'GBP', 'JPY', 'AUD', 'CAD', 'CHF', 'CNY', 'SEK', 'NZD',
+  'MXN', 'SGD', 'HKD', 'NOK', 'TRY', 'RUB', 'INR', 'BRL', 'ZAR', 'KRW'
+] as const;
+
+const SUPPORTED_TIMEZONES = [
+  'UTC', 'America/New_York', 'America/Chicago', 'America/Denver', 'America/Los_Angeles',
+  'America/Toronto', 'America/Vancouver', 'America/Mexico_City', 'America/Sao_Paulo',
+  'Europe/London', 'Europe/Paris', 'Europe/Berlin', 'Europe/Rome', 'Europe/Madrid',
+  'Europe/Amsterdam', 'Europe/Stockholm', 'Europe/Moscow', 'Asia/Tokyo', 'Asia/Shanghai',
+  'Asia/Hong_Kong', 'Asia/Singapore', 'Asia/Mumbai', 'Asia/Dubai', 'Australia/Sydney',
+  'Australia/Melbourne', 'Pacific/Auckland'
+] as const;
+
 // Validation schemas
 const updateWorkspaceSchema = z.object({
   name: z
     .string()
     .min(1, 'Workspace name is required')
     .max(100, 'Workspace name must be less than 100 characters')
-    .regex(/^[a-zA-Z0-9\s\-_]+$/, 'Workspace name contains invalid characters'),
+    .regex(/^[a-zA-Z0-9\s\-_]+$/, 'Workspace name contains invalid characters')
+    .optional(),
   description: z
     .string()
     .max(500, 'Description must be less than 500 characters')
     .optional(),
+  currency: z
+    .enum(SUPPORTED_CURRENCIES)
+    .optional(),
+  timezone: z
+    .string()
+    .refine(tz => SUPPORTED_TIMEZONES.includes(tz as any), 'Invalid timezone')
+    .optional(),
+  settings: z.object({
+    dateFormat: z.enum(['MM/DD/YYYY', 'DD/MM/YYYY', 'YYYY-MM-DD', 'DD-MM-YYYY', 'MM-DD-YYYY']).optional(),
+    timeFormat: z.enum(['12h', '24h']).optional(),
+    weekStartsOn: z.number().min(0).max(6).optional(),
+    language: z.enum(['en', 'es', 'fr', 'de', 'it', 'pt', 'ru', 'ja', 'ko', 'zh']).optional()
+  }).optional(),
   slug: z
     .string()
     .min(3, 'Slug must be at least 3 characters')
@@ -114,6 +143,10 @@ export const GET = withSecurityLogging(withLogging(async (request: NextRequest, 
       description: workspace.description,
       slug: workspace.slug,
       planId: workspace.planId,
+      currency: workspace.currency,
+      timezone: workspace.timezone,
+      settings: workspace.settings,
+      createdBy: workspace.createdBy,
       createdAt: workspace.createdAt,
       updatedAt: workspace.updatedAt,
       memberCount,
@@ -215,7 +248,7 @@ export const PUT = withSecurityLogging(withLogging(async (request: NextRequest, 
       );
     }
 
-    const { name, description, slug } = validationResult.data;
+    const { name, description, slug, currency, timezone, settings } = validationResult.data;
 
     // Find workspace and check user permissions
     const workspace = await Workspace.findById(workspaceId);
@@ -256,12 +289,23 @@ export const PUT = withSecurityLogging(withLogging(async (request: NextRequest, 
     }
 
     // Update workspace
-    const updateData = {
-      name,
-      description,
+    const updateData: any = {
+      ...(name && { name }),
+      ...(description !== undefined && { description }),
       ...(slug && { slug }),
+      ...(currency && { currency }),
+      ...(timezone && { timezone }),
       updatedAt: new Date()
     };
+
+    // Handle settings update - merge with existing settings
+    if (settings) {
+      const existingSettings = workspace.settings || {};
+      updateData.settings = {
+        ...existingSettings,
+        ...settings
+      };
+    }
 
     const updatedWorkspace = await Workspace.findByIdAndUpdate(
       workspaceId,
@@ -269,10 +313,31 @@ export const PUT = withSecurityLogging(withLogging(async (request: NextRequest, 
       { new: true }
     );
 
+    // Log activity in the Activity collection for recent activity display
+    try {
+      await Activity.create({
+        workspaceId,
+        performedBy: userId,
+        activityType: 'updated',
+        entityType: 'workspace',
+        entityId: workspaceId,
+        description: `${authResult.user.fullName} updated workspace settings`,
+        metadata: {
+          workspaceName: updatedWorkspace.name,
+          changes: Object.keys(updateData).filter(key => key !== 'updatedAt'),
+          previousValues: {},
+          newValues: updateData
+        }
+      });
+    } catch (activityError) {
+      console.error('Failed to log workspace update activity:', activityError);
+      // Don't fail the update if activity logging fails
+    }
+
     // Log successful update
     logUserActivity(userId, 'workspace_updated', 'workspace', {
       workspaceId,
-      workspaceName: name,
+      workspaceName: updatedWorkspace.name,
       changes: Object.keys(updateData)
     });
 
@@ -295,6 +360,9 @@ export const PUT = withSecurityLogging(withLogging(async (request: NextRequest, 
         name: updatedWorkspace.name,
         description: updatedWorkspace.description,
         slug: updatedWorkspace.slug,
+        currency: updatedWorkspace.currency,
+        timezone: updatedWorkspace.timezone,
+        settings: updatedWorkspace.settings,
         planId: updatedWorkspace.planId,
         updatedAt: updatedWorkspace.updatedAt
       }
