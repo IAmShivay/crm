@@ -187,7 +187,7 @@ export function LeadForm({ onSuccess }: LeadFormProps) {
                   </SelectItem>
                 ))
               ) : (
-                <SelectItem value="" disabled>No statuses available</SelectItem>
+                <SelectItem value="no-status" disabled>No statuses available</SelectItem>
               )}
             </SelectContent>
           </Select>

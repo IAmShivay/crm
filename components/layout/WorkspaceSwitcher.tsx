@@ -42,6 +42,7 @@ import {
 } from 'lucide-react';
 import { useAppSelector, useAppDispatch } from '@/lib/hooks';
 import { setCurrentWorkspace } from '@/lib/slices/workspaceSlice';
+import { useGetUserWorkspacesQuery, useCreateWorkspaceMutation } from '@/lib/api/mongoApi';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -90,12 +91,15 @@ export function WorkspaceSwitcher({
   const dispatch = useAppDispatch();
   const router = useRouter();
   
+  // RTK Query hooks
+  const { data: workspacesData, isLoading, refetch } = useGetUserWorkspacesQuery();
+  const [createWorkspace, { isLoading: isCreatingWorkspace }] = useCreateWorkspaceMutation();
+
   // State management
-  const [workspaces, setWorkspaces] = useState<Workspace[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
-  const [isCreatingWorkspace, setIsCreatingWorkspace] = useState(false);
   const [isSwitching, setIsSwitching] = useState(false);
+
+  const workspaces = workspacesData?.workspaces || [];
 
   // Form for workspace creation
   const {
@@ -107,33 +111,7 @@ export function WorkspaceSwitcher({
     resolver: zodResolver(workspaceSchema)
   });
 
-  // Load user's workspaces
-  useEffect(() => {
-    loadWorkspaces();
-  }, []);
-
-  const loadWorkspaces = async () => {
-    try {
-      setIsLoading(true);
-      const response = await fetch('/api/workspaces', {
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('auth_token')}`,
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to load workspaces');
-      }
-
-      const data = await response.json();
-      setWorkspaces(data.workspaces || []);
-    } catch (error) {
-      console.error('Error loading workspaces:', error);
-      toast.error('Failed to load workspaces');
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  // No need for manual loading - RTK Query handles it automatically
 
   // Handle workspace switching
   const handleWorkspaceSwitch = async (workspace: Workspace) => {
@@ -165,59 +143,29 @@ export function WorkspaceSwitcher({
 
   // Handle workspace creation
   const onCreateWorkspace = async (data: WorkspaceFormData) => {
-    setIsCreatingWorkspace(true);
-    
     try {
-      const response = await fetch('/api/workspaces', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('auth_token')}`,
-        },
-        body: JSON.stringify({
-          name: data.name.trim(),
-          description: data.description?.trim() || '',
-        }),
-      });
+      const result = await createWorkspace({
+        name: data.name.trim(),
+        description: data.description?.trim() || '',
+      }).unwrap();
 
-      if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.message || 'Failed to create workspace');
-      }
-
-      const result = await response.json();
-      
-      // Add new workspace to list
-      const newWorkspace: Workspace = {
-        id: result.workspace.id,
-        name: result.workspace.name,
-        slug: result.workspace.slug,
-        planId: result.workspace.planId,
-        subscriptionStatus: result.workspace.subscriptionStatus,
-        createdAt: result.workspace.createdAt,
-        memberCount: 1
-      };
-
-      setWorkspaces(prev => [...prev, newWorkspace]);
-      
       // Switch to new workspace
       dispatch(setCurrentWorkspace({
-        id: newWorkspace.id,
-        name: newWorkspace.name,
-        plan: newWorkspace.planId,
+        id: result.workspace.id,
+        name: result.workspace.name,
+        plan: result.workspace.planId,
         memberCount: 1,
-        createdAt: newWorkspace.createdAt,
+        createdAt: result.workspace.createdAt,
       }));
 
       toast.success('Workspace created successfully!');
       setIsCreateDialogOpen(false);
       reset();
-      
-    } catch (error) {
+
+    } catch (error: any) {
       console.error('Workspace creation error:', error);
-      toast.error(error instanceof Error ? error.message : 'Failed to create workspace');
-    } finally {
-      setIsCreatingWorkspace(false);
+      const errorMessage = error?.data?.message || error?.message || 'Failed to create workspace';
+      toast.error(errorMessage);
     }
   };
 

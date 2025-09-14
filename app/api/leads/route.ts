@@ -208,74 +208,7 @@ export const POST = withSecurityLogging(withLogging(async (request: NextRequest)
       );
     }
 
-    // Get default status if not provided
-    let finalStatus = validationResult.data.status || 'new';
-    let finalStatusId = validationResult.data.statusId;
-
-    if (!finalStatusId) {
-      const defaultStatus = await LeadStatus.findOne({
-        workspaceId,
-        isDefault: true,
-        isActive: true
-      });
-      if (defaultStatus) {
-        finalStatusId = defaultStatus._id;
-        finalStatus = defaultStatus.name.toLowerCase().replace(/\s+/g, '_');
-      }
-    } else {
-      // If statusId is provided, validate it exists and is a valid ObjectId
-      if (typeof finalStatusId === 'string') {
-        // Check if it's a valid ObjectId format
-        if (finalStatusId.match(/^[0-9a-fA-F]{24}$/)) {
-          // It's already a valid ObjectId, verify it exists
-          const existingStatus = await LeadStatus.findOne({
-            _id: finalStatusId,
-            workspaceId,
-            isActive: true
-          });
-          if (existingStatus) {
-            finalStatus = existingStatus.name.toLowerCase().replace(/\s+/g, '_');
-          } else {
-            // Status not found, use default
-            const defaultStatus = await LeadStatus.findOne({
-              workspaceId,
-              isDefault: true,
-              isActive: true
-            });
-            if (defaultStatus) {
-              finalStatusId = defaultStatus._id;
-              finalStatus = defaultStatus.name.toLowerCase().replace(/\s+/g, '_');
-            }
-          }
-        } else {
-          // It's a string name, look it up by name
-          const statusByName = await LeadStatus.findOne({
-            workspaceId,
-            $or: [
-              { name: { $regex: new RegExp(`^${finalStatusId}$`, 'i') } },
-              { name: { $regex: new RegExp(`^${finalStatusId.replace('_', ' ')}$`, 'i') } }
-            ],
-            isActive: true
-          });
-          if (statusByName) {
-            finalStatusId = statusByName._id;
-            finalStatus = statusByName.name.toLowerCase().replace(/\s+/g, '_');
-          } else {
-            // Status not found, use default
-            const defaultStatus = await LeadStatus.findOne({
-              workspaceId,
-              isDefault: true,
-              isActive: true
-            });
-            if (defaultStatus) {
-              finalStatusId = defaultStatus._id;
-              finalStatus = defaultStatus.name.toLowerCase().replace(/\s+/g, '_');
-            }
-          }
-        }
-      }
-    }
-
+   
     // Determine source from request or use default
     let finalSource = validationResult.data.source || 'manual';
     if (!validationResult.data.source) {
@@ -298,8 +231,8 @@ export const POST = withSecurityLogging(withLogging(async (request: NextRequest)
     const leadData = {
       ...validationResult.data,
       workspaceId,
-      status: finalStatus,
-      statusId: finalStatusId,
+      status: "new",
+      statusId: validationResult.data.status,
       source: finalSource,
       priority: validationResult.data.priority || 'medium',
       createdBy: auth.user.id,

@@ -53,7 +53,6 @@ const LeadSchema = new Schema<ILead>({
   },
   status: {
     type: String,
-    enum: ['new', 'contacted', 'qualified', 'proposal', 'negotiation', 'closed_won', 'closed_lost'],
     default: 'new'
   },
   statusId: {

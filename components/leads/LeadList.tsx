@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Plus, Search, Filter, MoreHorizontal, Trash2, Eye } from 'lucide-react';
+import { Plus, Search, MoreHorizontal, Trash2, Eye } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -12,6 +12,13 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import {
   Table,
   TableBody,
@@ -33,7 +40,7 @@ import { toast } from 'sonner';
 import { LeadForm } from './LeadForm';
 import { LeadDetailsSheet } from './LeadDetailsSheet';
 import { TableSkeleton, PageHeaderSkeleton } from '@/components/ui/skeleton';
-import { useGetLeadsQuery, useDeleteLeadMutation } from '@/lib/api/mongoApi';
+import { useGetLeadsQuery, useDeleteLeadMutation, useGetLeadStatusesQuery } from '@/lib/api/mongoApi';
 
 const statusColors = {
   new: 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300',
@@ -47,7 +54,7 @@ const statusColors = {
 
 export function LeadList() {
   const [searchTerm, setSearchTerm] = useState('');
-  const [statusFilter, setStatusFilter] = useState('');
+  const [statusFilter, setStatusFilter] = useState('all');
   const [isCreateOpen, setIsCreateOpen] = useState(false);
   const [selectedLead, setSelectedLead] = useState<any>(null);
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
@@ -59,13 +66,18 @@ export function LeadList() {
     {
       workspaceId: currentWorkspace?.id || '',
       search: searchTerm,
-      status: statusFilter
+      status: statusFilter !== 'all' ? statusFilter : undefined
     },
+    { skip: !currentWorkspace?.id }
+  );
+  const { data: statusesData, isLoading: loadingStatuses } = useGetLeadStatusesQuery(
+    currentWorkspace?.id || '',
     { skip: !currentWorkspace?.id }
   );
   const [deleteLead] = useDeleteLeadMutation();
 
   const leads = leadsData?.leads || [];
+  const leadStatuses = statusesData?.statuses || [];
 
   const handleDelete = async (id: string) => {
     if (!currentWorkspace?.id) return;
@@ -84,12 +96,13 @@ export function LeadList() {
     setIsDetailsOpen(true);
   };
 
+  // Since we're filtering on the server side via RTK Query, we don't need client-side filtering
+  // But we'll keep search filtering for immediate feedback
   const filteredLeads = leads.filter(lead => {
-    const matchesSearch = lead.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         (lead.email && lead.email.toLowerCase().includes(searchTerm.toLowerCase())) ||
-                         (lead.company && lead.company.toLowerCase().includes(searchTerm.toLowerCase()));
-    const matchesStatus = !statusFilter || lead.status === statusFilter;
-    return matchesSearch && matchesStatus;
+    if (!searchTerm) return true;
+    return lead.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+           (lead.email && lead.email.toLowerCase().includes(searchTerm.toLowerCase())) ||
+           (lead.company && lead.company.toLowerCase().includes(searchTerm.toLowerCase()));
   });
 
   if (isLoading) {
@@ -159,10 +172,31 @@ export function LeadList() {
                   className="pl-10 w-full"
                 />
               </div>
-              <Button variant="outline" size="sm" className="w-full sm:w-auto">
-                <Filter className="h-4 w-4 mr-2" />
-                Filter
-              </Button>
+              <Select value={statusFilter} onValueChange={setStatusFilter}>
+                <SelectTrigger className="w-full sm:w-48">
+                  <SelectValue placeholder="Filter by status" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Statuses</SelectItem>
+                  {loadingStatuses ? (
+                    <SelectItem value="loading" disabled>Loading statuses...</SelectItem>
+                  ) : leadStatuses.length > 0 ? (
+                    leadStatuses.map((status) => (
+                      <SelectItem key={status.id} value={status.id}>
+                        <div className="flex items-center space-x-2">
+                          <div
+                            className="w-3 h-3 rounded-full"
+                            style={{ backgroundColor: status.color }}
+                          />
+                          <span>{status.name}</span>
+                        </div>
+                      </SelectItem>
+                    ))
+                  ) : (
+                    <SelectItem value="no-status" disabled>No statuses available</SelectItem>
+                  )}
+                </SelectContent>
+              </Select>
             </div>
           </div>
         </CardHeader>
