@@ -6,6 +6,9 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
+import { Badge } from '@/components/ui/badge';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Plus, X } from 'lucide-react';
 import {
   Select,
   SelectContent,
@@ -38,6 +41,8 @@ export function LeadForm({ onSuccess }: LeadFormProps) {
   const [selectedStatus, setSelectedStatus] = useState('');
   const [selectedSource, setSelectedSource] = useState('manual');
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const [customFields, setCustomFields] = useState<Record<string, any>>({});
+  const [newCustomField, setNewCustomField] = useState({ key: '', value: '' });
 
   const { currentWorkspace } = useAppSelector((state) => state.workspace);
   const { user } = useAppSelector((state) => state.auth);
@@ -83,6 +88,25 @@ export function LeadForm({ onSuccess }: LeadFormProps) {
       }
     }
   }, [statusesData, selectedStatus]);
+
+  const handleAddCustomField = () => {
+    if (newCustomField.key && newCustomField.value) {
+      setCustomFields(prev => ({
+        ...prev,
+        [newCustomField.key]: newCustomField.value
+      }));
+      setNewCustomField({ key: '', value: '' });
+    }
+  };
+
+  const handleRemoveCustomField = (key: string) => {
+    setCustomFields(prev => {
+      const updated = { ...prev };
+      delete updated[key];
+      return updated;
+    });
+  };
+
   const onSubmit = async (data: LeadFormData) => {
     if (!currentWorkspace?.id) {
       toast.error('No workspace selected');
@@ -102,7 +126,7 @@ export function LeadForm({ onSuccess }: LeadFormProps) {
         source: selectedSource || 'manual',
         value: Number(data.value) || 0,
         tagIds: selectedTags,
-        customFields: {},
+        customFields: customFields,
         notes: data.notes || '',
       }).unwrap();
 
@@ -253,6 +277,53 @@ export function LeadForm({ onSuccess }: LeadFormProps) {
           {...register('notes')}
         />
       </div>
+
+      {/* Custom Fields */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-lg">Custom Fields</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          {Object.entries(customFields).map(([key, value]) => (
+            <div key={key} className="flex items-center space-x-2">
+              <Badge variant="outline" className="min-w-0 flex-shrink-0">
+                {key}
+              </Badge>
+              <span className="flex-1 truncate">{String(value)}</span>
+              <Button
+                type="button"
+                variant="ghost"
+                size="sm"
+                onClick={() => handleRemoveCustomField(key)}
+              >
+                <X className="h-4 w-4" />
+              </Button>
+            </div>
+          ))}
+
+          <div className="flex items-center space-x-2">
+            <Input
+              placeholder="Field name"
+              value={newCustomField.key}
+              onChange={(e) => setNewCustomField(prev => ({ ...prev, key: e.target.value }))}
+            />
+            <Input
+              placeholder="Field value"
+              value={newCustomField.value}
+              onChange={(e) => setNewCustomField(prev => ({ ...prev, value: e.target.value }))}
+            />
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              onClick={handleAddCustomField}
+              disabled={!newCustomField.key || !newCustomField.value}
+            >
+              <Plus className="h-4 w-4" />
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
 
       <div className="flex justify-end space-x-2">
         <Button type="button" variant="outline" onClick={onSuccess}>

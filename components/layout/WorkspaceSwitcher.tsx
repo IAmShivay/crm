@@ -42,7 +42,7 @@ import {
 } from 'lucide-react';
 import { useAppSelector, useAppDispatch } from '@/lib/hooks';
 import { setCurrentWorkspace } from '@/lib/slices/workspaceSlice';
-import { useGetUserWorkspacesQuery, useCreateWorkspaceMutation } from '@/lib/api/mongoApi';
+import { useGetUserWorkspacesQuery, useCreateWorkspaceMutation, Workspace as ApiWorkspace } from '@/lib/api/mongoApi';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -88,11 +88,14 @@ export function WorkspaceSwitcher({
   compact = false
 }: WorkspaceSwitcherProps) {
   const { currentWorkspace } = useAppSelector((state) => state.workspace);
+  const { user } = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
   const router = useRouter();
-  
+
   // RTK Query hooks
-  const { data: workspacesData, isLoading, refetch } = useGetUserWorkspacesQuery();
+  const { data: workspacesData, isLoading, refetch } = useGetUserWorkspacesQuery(user?.id || '', {
+    skip: !user?.id
+  });
   const [createWorkspace, { isLoading: isCreatingWorkspace }] = useCreateWorkspaceMutation();
 
   // State management
@@ -114,18 +117,18 @@ export function WorkspaceSwitcher({
   // No need for manual loading - RTK Query handles it automatically
 
   // Handle workspace switching
-  const handleWorkspaceSwitch = async (workspace: Workspace) => {
+  const handleWorkspaceSwitch = async (workspace: ApiWorkspace) => {
     if (workspace.id === currentWorkspace?.id) return;
 
     try {
       setIsSwitching(true);
-      
+
       // Update Redux state
       dispatch(setCurrentWorkspace({
         id: workspace.id,
         name: workspace.name,
-        plan: workspace.planId,
-        memberCount: workspace.memberCount || 1,
+        plan: 'free', // Default plan since API workspace doesn't have planId
+        memberCount: 1, // Default member count
         createdAt: workspace.createdAt,
       }));
 
@@ -211,7 +214,7 @@ export function WorkspaceSwitcher({
                           {currentWorkspace?.name || 'Select Workspace'}
                         </p>
                         <p className="text-xs text-gray-500 truncate">
-                          {workspaces.find(w => w.id === currentWorkspace?.id)?.planId || 'Free Plan'}
+                          Free Plan
                         </p>
                       </div>
                     </div>
@@ -240,7 +243,7 @@ export function WorkspaceSwitcher({
                     <div className="min-w-0">
                       <p className="font-medium truncate">{workspace.name}</p>
                       <p className="text-xs text-gray-500 truncate">
-                        {workspace.planId} • {workspace.memberCount || 1} member{(workspace.memberCount || 1) !== 1 ? 's' : ''}
+                        Free Plan • 1 member
                       </p>
                     </div>
                   </div>

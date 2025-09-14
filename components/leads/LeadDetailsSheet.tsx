@@ -23,18 +23,20 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
-import { 
-  User, 
-  Mail, 
-  Phone, 
-  Building, 
-  DollarSign, 
+import {
+  User,
+  Mail,
+  Phone,
+  Building,
+  DollarSign,
   Calendar,
   Tag,
   FileText,
   Edit,
   Trash2,
-  ExternalLink
+  ExternalLink,
+  Plus,
+  X
 } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
 import { useAppSelector } from '@/lib/hooks';
@@ -93,6 +95,8 @@ export function LeadDetailsSheet({
   const [editValue, setEditValue] = useState('');
   const [editSource, setEditSource] = useState('');
   const [editNotes, setEditNotes] = useState('');
+  const [customFields, setCustomFields] = useState<Record<string, any>>({});
+  const [newCustomField, setNewCustomField] = useState({ key: '', value: '' });
 
   const { currentWorkspace } = useAppSelector((state) => state.workspace);
 
@@ -138,6 +142,7 @@ export function LeadDetailsSheet({
       setEditValue(lead.value?.toString() || '');
       setEditSource(lead.source || '');
       setEditNotes(lead.notes || '');
+      setCustomFields(lead.customFields || {});
     }
   }, [lead]);
 
@@ -172,6 +177,7 @@ export function LeadDetailsSheet({
         statusId: selectedStatus || '',
         tagIds: selectedTags,
         assignedTo: assignedUser === 'unassigned' ? '' : assignedUser,
+        customFields: customFields,
       };
 
       await updateLead({
@@ -187,6 +193,24 @@ export function LeadDetailsSheet({
       const errorMessage = error?.data?.message || error?.message || 'Failed to update lead';
       toast.error(errorMessage);
     }
+  };
+
+  const handleAddCustomField = () => {
+    if (newCustomField.key && newCustomField.value) {
+      setCustomFields(prev => ({
+        ...prev,
+        [newCustomField.key]: newCustomField.value
+      }));
+      setNewCustomField({ key: '', value: '' });
+    }
+  };
+
+  const handleRemoveCustomField = (key: string) => {
+    setCustomFields(prev => {
+      const updated = { ...prev };
+      delete updated[key];
+      return updated;
+    });
   };
 
   const handleCancel = () => {
@@ -531,6 +555,73 @@ export function LeadDetailsSheet({
                     })
                   ) : (
                     <span className="text-sm text-muted-foreground">No tags assigned</span>
+                  )}
+                </div>
+              )}
+            </CardContent>
+          </Card>
+
+          {/* Custom Fields */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-lg flex items-center space-x-2">
+                <Tag className="h-5 w-5" />
+                <span>Custom Fields</span>
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              {isEditing ? (
+                <>
+                  {Object.entries(customFields).map(([key, value]) => (
+                    <div key={key} className="flex items-center space-x-2">
+                      <Badge variant="outline" className="min-w-0 flex-shrink-0">
+                        {key}
+                      </Badge>
+                      <span className="flex-1 truncate">{String(value)}</span>
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => handleRemoveCustomField(key)}
+                      >
+                        <X className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  ))}
+
+                  <div className="flex items-center space-x-2">
+                    <Input
+                      placeholder="Field name"
+                      value={newCustomField.key}
+                      onChange={(e) => setNewCustomField(prev => ({ ...prev, key: e.target.value }))}
+                    />
+                    <Input
+                      placeholder="Field value"
+                      value={newCustomField.value}
+                      onChange={(e) => setNewCustomField(prev => ({ ...prev, value: e.target.value }))}
+                    />
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      onClick={handleAddCustomField}
+                      disabled={!newCustomField.key || !newCustomField.value}
+                    >
+                      <Plus className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </>
+              ) : (
+                <div className="space-y-2">
+                  {Object.keys(customFields).length > 0 ? (
+                    Object.entries(customFields).map(([key, value]) => (
+                      <div key={key} className="flex items-center justify-between">
+                        <span className="text-sm font-medium capitalize">{key}</span>
+                        <span className="text-sm text-muted-foreground">{String(value)}</span>
+                      </div>
+                    ))
+                  ) : (
+                    <span className="text-sm text-muted-foreground">No custom fields added</span>
                   )}
                 </div>
               )}

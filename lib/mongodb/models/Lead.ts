@@ -15,13 +15,16 @@ export interface ILead extends Document {
   tags: string[];
   tagIds: string[];
   notes?: string;
-  customFields: Record<string, any>;
+  customData: Record<string, any>;
   priority: 'low' | 'medium' | 'high';
   lastContactedAt?: Date;
   nextFollowUpAt?: Date;
   createdBy: string;
   createdAt: Date;
   updatedAt: Date;
+  // Conversion fields
+  convertedToContactId?: string;
+  convertedAt?: Date;
 }
 
 const LeadSchema = new Schema<ILead>({
@@ -85,7 +88,7 @@ const LeadSchema = new Schema<ILead>({
     type: String,
     trim: true
   },
-  customFields: {
+  customData: {
     type: Schema.Types.Mixed,
     default: {}
   },
@@ -104,6 +107,14 @@ const LeadSchema = new Schema<ILead>({
     type: String,
     ref: 'User',
     required: true
+  },
+  // Conversion fields
+  convertedToContactId: {
+    type: Schema.Types.ObjectId,
+    ref: 'Contact'
+  },
+  convertedAt: {
+    type: Date
   }
 }, {
   timestamps: true,

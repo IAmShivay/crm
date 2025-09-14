@@ -15,7 +15,8 @@ import {
   BarChart3,
   Webhook,
   Tag,
-  Circle
+  Circle,
+  Contact
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -32,6 +33,7 @@ interface SidebarProps {
 const navigation = [
   { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
   { name: 'Leads', href: '/leads', icon: Users },
+  { name: 'Contacts', href: '/contacts', icon: Contact },
   { name: 'Lead Statuses', href: '/leads/statuses', icon: Circle },
   { name: 'Lead Tags', href: '/leads/tags', icon: Tag },
   { name: 'Webhooks', href: '/webhooks', icon: Webhook },

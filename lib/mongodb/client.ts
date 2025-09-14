@@ -24,6 +24,7 @@ import { WebhookLog, type IWebhookLog } from './models/WebhookLog';
 import { Tag, type ITag } from './models/Tag';
 import { LeadNote, type ILeadNote } from './models/LeadNote';
 import { LeadStatus, type ILeadStatus } from './models/LeadStatus';
+import { Contact, type IContact } from './models/Contact';
 
 // Database client class to replace Supabase functionality
 export class MongoDBClient {
@@ -196,5 +197,6 @@ export {
   WebhookLog,
   Tag,
   LeadNote,
-  LeadStatus
+  LeadStatus,
+  Contact
 };

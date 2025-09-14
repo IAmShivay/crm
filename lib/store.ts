@@ -4,6 +4,7 @@ import { mongoApi } from './api/mongoApi';
 import { userPreferencesApi } from './api/userPreferencesApi';
 import { webhookApi } from './api/webhookApi';
 import { authApi } from './api/authApi';
+import { contactsApi } from './api/contactsApi';
 import authReducer from './slices/authSlice';
 import themeReducer from './slices/themeSlice';
 import workspaceReducer from './slices/workspaceSlice';
@@ -18,13 +19,15 @@ export const store = configureStore({
     [userPreferencesApi.reducerPath]: userPreferencesApi.reducer,
     [webhookApi.reducerPath]: webhookApi.reducer,
     [authApi.reducerPath]: authApi.reducer,
+    [contactsApi.reducerPath]: contactsApi.reducer,
   } as any,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
       mongoApi.middleware,
       userPreferencesApi.middleware,
       webhookApi.middleware,
-      authApi.middleware
+      authApi.middleware,
+      contactsApi.middleware
     ),
 });
 

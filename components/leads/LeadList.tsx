@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Plus, Search, MoreHorizontal, Trash2, Eye } from 'lucide-react';
+import { Plus, Search, MoreHorizontal, Trash2, Eye, UserPlus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -41,6 +41,7 @@ import { LeadForm } from './LeadForm';
 import { LeadDetailsSheet } from './LeadDetailsSheet';
 import { TableSkeleton, PageHeaderSkeleton } from '@/components/ui/skeleton';
 import { useGetLeadsQuery, useDeleteLeadMutation, useGetLeadStatusesQuery } from '@/lib/api/mongoApi';
+import { useConvertLeadToContactMutation } from '@/lib/api/contactsApi';
 
 const statusColors = {
   new: 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300',
@@ -75,6 +76,7 @@ export function LeadList() {
     { skip: !currentWorkspace?.id }
   );
   const [deleteLead] = useDeleteLeadMutation();
+  const [convertLeadToContact] = useConvertLeadToContactMutation();
 
   const leads = leadsData?.leads || [];
   const leadStatuses = statusesData?.statuses || [];
@@ -94,6 +96,28 @@ export function LeadList() {
   const handleViewDetails = (lead: any) => {
     setSelectedLead(lead);
     setIsDetailsOpen(true);
+  };
+
+  const handleConvertToContact = async (lead: any) => {
+    if (!currentWorkspace?.id) return;
+
+    try {
+      const result = await convertLeadToContact({
+        leadId: lead.id,
+        workspaceId: currentWorkspace.id
+      }).unwrap();
+
+      toast.success(`Lead "${lead.name}" successfully converted to contact!`);
+      // Optionally redirect to contacts page or show contact details
+      // router.push('/contacts');
+    } catch (error: any) {
+      console.error('Error converting lead to contact:', error);
+      if (error.data?.message) {
+        toast.error(error.data.message);
+      } else {
+        toast.error('Failed to convert lead to contact');
+      }
+    }
   };
 
   // Since we're filtering on the server side via RTK Query, we don't need client-side filtering
@@ -292,6 +316,13 @@ export function LeadList() {
                           <DropdownMenuItem onClick={() => handleViewDetails(lead)}>
                             <Eye className="h-4 w-4 mr-2" />
                             View & Edit
+                          </DropdownMenuItem>
+                          <DropdownMenuItem
+                            onClick={() => handleConvertToContact(lead)}
+                            className="text-green-600"
+                          >
+                            <UserPlus className="h-4 w-4 mr-2" />
+                            Convert to Contact
                           </DropdownMenuItem>
                           <DropdownMenuItem
                             className="text-red-600"
