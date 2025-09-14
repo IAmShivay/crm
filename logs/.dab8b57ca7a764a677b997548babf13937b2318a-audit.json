@@ -6,19 +6,14 @@
     "auditLog": "D:\\NEW CRM\\crm\\logs\\.dab8b57ca7a764a677b997548babf13937b2318a-audit.json",
     "files": [
         {
-            "date": 1756768041789,
-            "name": "D:\\NEW CRM\\crm\\logs\\error-2025-09-02.log",
-            "hash": "b8d3796531deb97092fa2cca33e6a30d57fb6e395e421ab297b77b08d94f23c7"
+            "date": 1757874184186,
+            "name": "D:\\NEW CRM\\crm\\logs\\error-2025-09-14.log",
+            "hash": "12c095d4622f9c40e3bd28f3e52da5649d2fd7dbb620905568749ed2a52ab218"
         },
         {
-            "date": 1757300239896,
-            "name": "D:\\NEW CRM\\crm\\logs\\error-2025-09-08.log",
-            "hash": "15da52a2fc168ac9472f2604f101fcaeed1df19f4ff08021df771625ad886485"
-        },
-        {
-            "date": 1757445228383,
-            "name": "D:\\NEW CRM\\crm\\logs\\error-2025-09-10.log",
-            "hash": "4fa2dd98ec87d3705b7e4a84ff90d4d269783171710a767aa72231a101ed0800"
+            "date": 1757876085916,
+            "name": "D:\\NEW CRM\\crm\\logs\\error-2025-09-15.log",
+            "hash": "98f6bf7ead9f211c0afd17029af90d1c324ee51ac36cd3521ed32b9d28f77ad5"
         }
     ],
     "hashType": "sha256"

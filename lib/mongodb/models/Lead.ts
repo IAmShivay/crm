@@ -118,19 +118,13 @@ const LeadSchema = new Schema<ILead>({
   }
 });
 
-// Indexes (only create on server side to prevent client-side errors)
+// Optimized indexes for performance
 if (typeof window === 'undefined') {
   LeadSchema.index({ workspaceId: 1, status: 1 });
   LeadSchema.index({ workspaceId: 1, assignedTo: 1 });
   LeadSchema.index({ workspaceId: 1, createdAt: -1 });
-  LeadSchema.index({ workspaceId: 1, priority: 1 });
-  LeadSchema.index({ workspaceId: 1, statusId: 1 });
-  LeadSchema.index({ email: 1 });
-  LeadSchema.index({ createdBy: 1 });
-  LeadSchema.index({ tags: 1 });
-  LeadSchema.index({ tagIds: 1 });
-  LeadSchema.index({ nextFollowUpAt: 1 });
-  LeadSchema.index({ lastContactedAt: -1 });
+  LeadSchema.index({ email: 1 }, { sparse: true });
+  LeadSchema.index({ nextFollowUpAt: 1 }, { sparse: true });
 }
 
 export const Lead = mongoose.models?.Lead || mongoose.model<ILead>('Lead', LeadSchema);

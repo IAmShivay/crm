@@ -36,19 +36,20 @@ export default function AuthSetupPage() {
   useEffect(() => {
     const checkUserAndSetup = async () => {
       try {
-        // Check if user is authenticated via localStorage
-        const token = localStorage.getItem('auth_token');
-        const userData = localStorage.getItem('user_data');
+        // Check if user is authenticated via cookie
+        const response = await fetch('/api/auth/verify', {
+          method: 'POST',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
 
-        if (!token || !userData) {
+        if (!response.ok || !(await response.json()).valid) {
           toast.error('Please sign in first');
           router.push('/login');
           return;
         }
-
-        const user = JSON.parse(userData);
-        setUserEmail(user.email || '');
-        setUserId(user.id);
 
         // For now, redirect to dashboard since we're using complete signup flow
         // In the future, you can implement profile completion here

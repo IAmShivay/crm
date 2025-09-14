@@ -80,14 +80,11 @@ const SubscriptionSchema = new Schema<ISubscription>({
   }
 });
 
-// Indexes (only create on server side to prevent client-side errors)
+// Optimized indexes for performance
 if (typeof window === 'undefined') {
-  SubscriptionSchema.index({ workspaceId: 1 });
-  SubscriptionSchema.index({ planId: 1 });
-  SubscriptionSchema.index({ status: 1 });
-  SubscriptionSchema.index({ currentPeriodEnd: 1 });
+  SubscriptionSchema.index({ workspaceId: 1 }, { unique: true });
+  SubscriptionSchema.index({ status: 1, currentPeriodEnd: 1 });
   SubscriptionSchema.index({ dodoSubscriptionId: 1 }, { sparse: true });
-  SubscriptionSchema.index({ dodoCustomerId: 1 }, { sparse: true });
 }
 
 export const Subscription = mongoose.models?.Subscription || mongoose.model<ISubscription>('Subscription', SubscriptionSchema);

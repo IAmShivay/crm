@@ -6,8 +6,8 @@ export async function POST(request: NextRequest) {
     const { email, password, fullName, workspaceName } = await request.json();
 
     if (!email || !password || !fullName) {
-      return NextResponse.json({ 
-        message: 'Email, password, and full name are required' 
+      return NextResponse.json({
+        message: 'Email, password, and full name are required'
       }, { status: 400 });
     }
 
@@ -18,12 +18,23 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ message: result.error }, { status: 400 });
     }
 
-    // Return user data and token
-    return NextResponse.json({
+    // Create response with user data (no token in response body)
+    const response = NextResponse.json({
       user: result.user,
-      token: result.token,
-      workspace: result.workspace
+      workspace: result.workspace,
+      success: true
     });
+
+    // Set secure HTTP-only cookie with JWT token
+    response.cookies.set('auth_token', result.token!, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      maxAge: 7 * 24 * 60 * 60, // 7 days
+      path: '/'
+    });
+
+    return response;
 
   } catch (error) {
     console.error('Signup error:', error);

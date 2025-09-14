@@ -1,3 +1,7 @@
+/**
+ * @deprecated This component uses direct fetch calls and should be replaced with
+ * the LeadList component that uses RTK Query for better caching and state management.
+ */
 'use client';
 
 import { useState, useEffect, useCallback, useRef } from 'react';
@@ -127,8 +131,8 @@ export function EnhancedLeadList() {
   const [hasMore, setHasMore] = useState(true);
   const [page, setPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState('');
-  const [statusFilter, setStatusFilter] = useState('');
-  const [priorityFilter, setPriorityFilter] = useState('');
+  const [statusFilter, setStatusFilter] = useState('all');
+  const [priorityFilter, setPriorityFilter] = useState('all');
   const [assignedToFilter, setAssignedToFilter] = useState('');
   const [isCreateOpen, setIsCreateOpen] = useState(false);
   const [selectedLead, setSelectedLead] = useState<Lead | null>(null);
@@ -154,8 +158,8 @@ export function EnhancedLeadList() {
       });
       
       if (searchTerm) params.append('search', searchTerm);
-      if (statusFilter) params.append('status', statusFilter);
-      if (priorityFilter) params.append('priority', priorityFilter);
+      if (statusFilter && statusFilter !== 'all') params.append('status', statusFilter);
+      if (priorityFilter && priorityFilter !== 'all') params.append('priority', priorityFilter);
       if (assignedToFilter) params.append('assignedTo', assignedToFilter);
 
       const response = await fetch(`/api/leads?${params}`, {
@@ -321,7 +325,7 @@ export function EnhancedLeadList() {
                 <SelectValue placeholder="All Statuses" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All Statuses</SelectItem>
+                <SelectItem value="all">All Statuses</SelectItem>
                 <SelectItem value="new">New</SelectItem>
                 <SelectItem value="contacted">Contacted</SelectItem>
                 <SelectItem value="qualified">Qualified</SelectItem>
@@ -336,7 +340,7 @@ export function EnhancedLeadList() {
                 <SelectValue placeholder="All Priorities" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All Priorities</SelectItem>
+                <SelectItem value="all">All Priorities</SelectItem>
                 <SelectItem value="high">High</SelectItem>
                 <SelectItem value="medium">Medium</SelectItem>
                 <SelectItem value="low">Low</SelectItem>

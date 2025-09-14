@@ -68,10 +68,9 @@ const UserSchema = new Schema<IUser>({
   }
 });
 
-// Additional indexes (only create on server side to prevent client-side errors)
+// Optimized indexes for performance
 if (typeof window === 'undefined') {
-  UserSchema.index({ createdAt: -1 });
-  UserSchema.index({ lastSignInAt: -1 });
+  UserSchema.index({ lastSignInAt: -1 }, { sparse: true });
 }
 
 export const User = mongoose.models?.User || mongoose.model<IUser>('User', UserSchema);

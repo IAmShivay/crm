@@ -111,11 +111,9 @@ export const mongoApi = createApi({
   reducerPath: 'mongoApi',
   baseQuery: fetchBaseQuery({
     baseUrl: '/api',
-    prepareHeaders: (headers, { getState }) => {
-      const token = (getState() as RootState).auth.token;
-      if (token) {
-        headers.set('authorization', `Bearer ${token}`);
-      }
+    credentials: 'include', // Include cookies for authentication
+    prepareHeaders: (headers) => {
+      headers.set('Content-Type', 'application/json');
       return headers;
     },
   }),
@@ -243,6 +241,15 @@ export const mongoApi = createApi({
       query: (workspaceId) => `workspaces/${workspaceId}`,
       providesTags: ['Workspace'],
     }),
+
+    createWorkspace: builder.mutation<{ success: boolean; workspace: any }, { name: string; description?: string }>({
+      query: (workspace) => ({
+        url: 'workspaces',
+        method: 'POST',
+        body: workspace,
+      }),
+      invalidatesTags: ['Workspace'],
+    }),
     updateWorkspace: builder.mutation<{ success: boolean; workspace: any }, { id: string; [key: string]: any }>({
       query: ({ id, ...data }) => ({
         url: `workspaces/${id}`,
@@ -277,6 +284,7 @@ export const {
   useDeleteTagMutation,
   useGetActivitiesQuery,
   useGetWorkspaceQuery,
+  useCreateWorkspaceMutation,
   useUpdateWorkspaceMutation,
   useGetWorkspaceMembersQuery,
 } = mongoApi;

@@ -55,12 +55,10 @@ const LeadNoteSchema = new Schema<ILeadNote>({
   }
 });
 
-// Indexes for better performance
+// Optimized indexes for performance
 if (typeof window === 'undefined') {
   LeadNoteSchema.index({ leadId: 1, createdAt: -1 });
-  LeadNoteSchema.index({ workspaceId: 1, createdAt: -1 });
-  LeadNoteSchema.index({ createdBy: 1 });
-  LeadNoteSchema.index({ type: 1 });
+  LeadNoteSchema.index({ workspaceId: 1, type: 1 });
 }
 
 export const LeadNote = mongoose.models?.LeadNote || mongoose.model<ILeadNote>('LeadNote', LeadNoteSchema);

@@ -36,7 +36,7 @@ interface LeadFormData {
 
 export function LeadForm({ onSuccess }: LeadFormProps) {
   const [selectedStatus, setSelectedStatus] = useState('');
-  const [selectedSource, setSelectedSource] = useState('');
+  const [selectedSource, setSelectedSource] = useState('manual');
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
   const { currentWorkspace } = useAppSelector((state) => state.workspace);
@@ -72,6 +72,17 @@ export function LeadForm({ onSuccess }: LeadFormProps) {
   // Get data from RTK Query
   const leadStatuses = statusesData?.statuses || [];
   const tags = tagsData?.tags || [];
+
+  // Set default status when statuses are loaded
+  useEffect(() => {
+    if (statusesData?.statuses && statusesData.statuses.length > 0 && !selectedStatus) {
+      // Find default status or use first status
+      const defaultStatus = statusesData.statuses.find(status => status.isDefault) || statusesData.statuses[0];
+      if (defaultStatus) {
+        setSelectedStatus(defaultStatus.id);
+      }
+    }
+  }, [statusesData, selectedStatus]);
   const onSubmit = async (data: LeadFormData) => {
     if (!currentWorkspace?.id) {
       toast.error('No workspace selected');
@@ -87,7 +98,7 @@ export function LeadForm({ onSuccess }: LeadFormProps) {
       await createLead({
         ...data,
         workspaceId: currentWorkspace.id,
-        statusId: selectedStatus || undefined,
+        statusId: selectedStatus, // Will be set by useEffect or fallback to API default
         source: selectedSource || 'manual',
         value: Number(data.value) || 0,
         tagIds: selectedTags,
@@ -176,15 +187,7 @@ export function LeadForm({ onSuccess }: LeadFormProps) {
                   </SelectItem>
                 ))
               ) : (
-                <>
-                  <SelectItem value="new">New</SelectItem>
-                  <SelectItem value="contacted">Contacted</SelectItem>
-                  <SelectItem value="qualified">Qualified</SelectItem>
-                  <SelectItem value="proposal">Proposal</SelectItem>
-                  <SelectItem value="negotiation">Negotiation</SelectItem>
-                  <SelectItem value="closed_won">Closed Won</SelectItem>
-                  <SelectItem value="closed_lost">Closed Lost</SelectItem>
-                </>
+                <SelectItem value="" disabled>No statuses available</SelectItem>
               )}
             </SelectContent>
           </Select>

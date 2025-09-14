@@ -67,12 +67,10 @@ const LeadStatusSchema = new Schema<ILeadStatus>({
   }
 });
 
-// Indexes for better performance
+// Optimized indexes for performance
 if (typeof window === 'undefined') {
-  LeadStatusSchema.index({ workspaceId: 1, order: 1 });
   LeadStatusSchema.index({ workspaceId: 1, name: 1 }, { unique: true });
-  LeadStatusSchema.index({ workspaceId: 1, isActive: 1 });
-  LeadStatusSchema.index({ createdBy: 1 });
+  LeadStatusSchema.index({ workspaceId: 1, order: 1 });
 }
 
 export const LeadStatus = mongoose.models?.LeadStatus || mongoose.model<ILeadStatus>('LeadStatus', LeadStatusSchema);

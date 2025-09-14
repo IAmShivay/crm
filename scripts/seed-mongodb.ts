@@ -1,4 +1,10 @@
-import connectToMongoDB from '../lib/mongodb/connection.js';
+console.log('🚀 Script starting...');
+
+// Load environment variables
+import dotenv from 'dotenv';
+dotenv.config();
+
+import connectToMongoDB from '../lib/mongodb/connection';
 import {
   User,
   Workspace,
@@ -6,13 +12,17 @@ import {
   Role,
   Plan,
   Subscription
-} from '../lib/mongodb/models/index.js';
-import { hashPassword } from '../lib/mongodb/auth.js';
+} from '../lib/mongodb/models';
+import { hashPassword } from '../lib/mongodb/auth';
+
+console.log('📦 Imports loaded successfully');
 
 async function seedDatabase() {
   try {
     console.log('🌱 Starting MongoDB database seeding...');
-    
+    console.log('📍 Current working directory:', process.cwd());
+    console.log('🔗 MongoDB URI:', process.env.MONGODB_URI ? 'Set' : 'Not set');
+
     await connectToMongoDB();
     console.log('✅ Connected to MongoDB');
 
@@ -84,10 +94,10 @@ async function seedDatabase() {
 
     const adminUser = new (User as any)({
       email: 'admin@crm.com',
-      passwordHash: hashedAdminPassword,
+      password: hashedAdminPassword,
       fullName: 'System Administrator',
       timezone: 'UTC',
-      isEmailVerified: true,
+      emailConfirmed: true,
       emailVerifiedAt: new Date(),
       lastSignInAt: new Date(),
       createdAt: new Date(),
@@ -122,11 +132,11 @@ async function seedDatabase() {
       const hashedPassword = await hashPassword(userData.password);
       const user = new (User as any)({
         email: userData.email,
-        passwordHash: hashedPassword,
+        password: hashedPassword,
         fullName: userData.fullName,
         timezone: 'UTC',
-        isEmailVerified: true,
-        emailVerifiedAt: new Date(),
+        emailConfirmed: true,
+        emailConfirmedAt: new Date(),
         createdAt: new Date(),
         updatedAt: new Date()
       });
@@ -142,6 +152,7 @@ async function seedDatabase() {
       slug: 'admin-workspace',
       planId: 'enterprise',
       subscriptionStatus: 'active',
+      createdBy: adminUser._id,
       settings: {
         allowInvitations: true,
         requireEmailVerification: true,

@@ -45,10 +45,6 @@ const authSlice = createSlice({
       state.token = null;
       state.isAuthenticated = false;
       state.loading = false;
-      // Clear persisted data on logout
-      if (typeof window !== 'undefined') {
-        clearPersistedData();
-      }
     },
     updateUser: (state, action: PayloadAction<Partial<User>>) => {
       if (state.user) {

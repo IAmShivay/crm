@@ -3,6 +3,7 @@ import { setupListeners } from '@reduxjs/toolkit/query/react';
 import { mongoApi } from './api/mongoApi';
 import { userPreferencesApi } from './api/userPreferencesApi';
 import { webhookApi } from './api/webhookApi';
+import { authApi } from './api/authApi';
 import authReducer from './slices/authSlice';
 import themeReducer from './slices/themeSlice';
 import workspaceReducer from './slices/workspaceSlice';
@@ -19,6 +20,7 @@ export const store = configureStore({
     [mongoApi.reducerPath]: mongoApi.reducer,
     [userPreferencesApi.reducerPath]: userPreferencesApi.reducer,
     [webhookApi.reducerPath]: webhookApi.reducer,
+    [authApi.reducerPath]: authApi.reducer,
   } as any,
   preloadedState: persistedState as any,
   middleware: (getDefaultMiddleware) =>
@@ -26,6 +28,7 @@ export const store = configureStore({
       mongoApi.middleware,
       userPreferencesApi.middleware,
       webhookApi.middleware,
+      authApi.middleware,
       persistenceMiddleware
     ),
 });

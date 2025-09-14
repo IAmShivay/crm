@@ -68,12 +68,10 @@ const ActivitySchema = new Schema<IActivity>({
   }
 });
 
-// Indexes (only create on server side to prevent client-side errors)
+// Optimized indexes for performance
 if (typeof window === 'undefined') {
   ActivitySchema.index({ workspaceId: 1, createdAt: -1 });
   ActivitySchema.index({ entityType: 1, entityId: 1 });
-  ActivitySchema.index({ performedBy: 1 });
-  ActivitySchema.index({ activityType: 1 });
 }
 
 export const Activity = mongoose.models?.Activity || mongoose.model<IActivity>('Activity', ActivitySchema);

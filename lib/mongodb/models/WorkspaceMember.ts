@@ -57,12 +57,10 @@ const WorkspaceMemberSchema = new Schema<IWorkspaceMember>({
   }
 });
 
-// Indexes (only create on server side to prevent client-side errors)
+// Optimized indexes for performance
 if (typeof window === 'undefined') {
   WorkspaceMemberSchema.index({ workspaceId: 1, userId: 1 }, { unique: true });
-  WorkspaceMemberSchema.index({ userId: 1 });
-  WorkspaceMemberSchema.index({ roleId: 1 });
-  WorkspaceMemberSchema.index({ status: 1 });
+  WorkspaceMemberSchema.index({ userId: 1, status: 1 });
 }
 
 export const WorkspaceMember = mongoose.models?.WorkspaceMember || mongoose.model<IWorkspaceMember>('WorkspaceMember', WorkspaceMemberSchema);

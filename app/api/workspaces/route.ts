@@ -14,6 +14,7 @@ import { logUserActivity, logBusinessEvent, withLogging, withSecurityLogging } f
 import { rateLimit } from '@/lib/security/rate-limiter';
 import { getClientIP } from '@/lib/utils/ip-utils';
 import { z } from 'zod';
+import { seedDefaultLeadStatuses, seedDefaultTags } from '@/lib/mongodb/seedDefaults';
 
 // Supported currencies
 const SUPPORTED_CURRENCIES = [
@@ -544,6 +545,12 @@ export const POST = withSecurityLogging(withLogging(async (request: NextRequest)
 
       await membership.save();
       console.log('Workspace membership created successfully');
+
+      // Seed default lead statuses and tags for the new workspace
+      console.log('Seeding default lead statuses and tags...');
+      await seedDefaultLeadStatuses(workspace._id.toString(), userId);
+      await seedDefaultTags(workspace._id.toString(), userId);
+      console.log('Default data seeded successfully');
 
       const duration = Date.now() - startTime;
       log.performance('Create workspace', duration, {

@@ -2,7 +2,7 @@ import './globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { StoreProvider } from '@/components/providers/StoreProvider';
-import { AuthProvider } from '@/components/providers/AuthProvider';
+import { AuthInitializer } from '@/components/providers/AuthInitializer';
 import { ThemeProvider } from '@/components/providers/ThemeProvider';
 import { Toaster } from '@/components/ui/sonner';
 
@@ -22,12 +22,12 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <StoreProvider>
-          <AuthProvider>
+          <AuthInitializer>
             <ThemeProvider>
               {children}
               <Toaster />
             </ThemeProvider>
-          </AuthProvider>
+          </AuthInitializer>
         </StoreProvider>
       </body>
     </html>

@@ -12,6 +12,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { useAppDispatch } from '@/lib/hooks';
 import { loginSuccess } from '@/lib/slices/authSlice';
 import { setCurrentWorkspace } from '@/lib/slices/workspaceSlice';
+import { useLoginMutation } from '@/lib/api/authApi';
 import { toast } from 'sonner';
 import {
   Briefcase,
@@ -23,8 +24,7 @@ import {
   Shield,
   BarChart3,
   Users,
-  TrendingUp,
-  AlertTriangle
+  TrendingUp
 } from 'lucide-react';
 import Link from 'next/link';
 
@@ -51,6 +51,9 @@ export function ModernLoginForm() {
   const searchParams = useSearchParams();
   const dispatch = useAppDispatch();
 
+  // RTK Query mutation
+  const [loginUser, { isLoading }] = useLoginMutation();
+
   // Performance optimized state management
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -62,8 +65,7 @@ export function ModernLoginForm() {
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid, isDirty },
-    watch,
+    formState: { errors },
     setError,
     clearErrors
   } = useForm<LoginFormData>({
@@ -104,14 +106,7 @@ export function ModernLoginForm() {
     }
   }, [attemptCount]);
 
-  // Performance: Debounced password visibility toggle
-  const togglePasswordVisibility = useCallback(() => {
-    setShowPassword(prev => !prev);
-  }, []);
 
-  // Enhanced form validation
-  const watchedEmail = watch('email');
-  const watchedPassword = watch('password');
 
   // Enhanced submit function with security and performance optimizations
   const onSubmit = useCallback(async (data: LoginFormData) => {
@@ -125,68 +120,14 @@ export function ModernLoginForm() {
     clearErrors();
 
     try {
-      // Performance: Add request timeout and abort controller
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
+      const result = await loginUser({
+        email: data.email,
+        password: data.password,
+      }).unwrap();
 
-      const response = await fetch('/api/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-Requested-With': 'XMLHttpRequest', // CSRF protection
-          'X-Client-Version': '1.0.0', // Version tracking
-        },
-        body: JSON.stringify({
-          ...data,
-          timestamp: Date.now(), // Replay attack prevention
-          clientInfo: {
-            userAgent: navigator.userAgent,
-            timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-            language: navigator.language,
-            screen: `${screen.width}x${screen.height}`
-          }
-        }),
-        signal: controller.signal,
-        credentials: 'same-origin' // Security: Include cookies
-      });
+      // RTK Query handles the response automatically, so we get here only on success
 
-      clearTimeout(timeoutId);
-      const result = await response.json();
-
-      if (!response.ok) {
-        // Security: Handle failed attempts
-        setAttemptCount(prev => prev + 1);
-
-        if (response.status === 429) {
-          toast.error('Too many login attempts. Please try again later.');
-          setIsBlocked(true);
-        } else if (response.status === 401) {
-          setError('password', {
-            type: 'manual',
-            message: 'Invalid email or password'
-          });
-          toast.error('Invalid credentials');
-        } else {
-          toast.error(result.message || 'Login failed');
-        }
-        return;
-      }
-
-      // Security: Store token securely with additional metadata
-      const tokenData = {
-        token: result.token,
-        expiresAt: Date.now() + (7 * 24 * 60 * 60 * 1000), // 7 days
-        userId: result.user.id
-      };
-      localStorage.setItem('auth_token', result.token);
-      localStorage.setItem('auth_metadata', JSON.stringify(tokenData));
-      localStorage.setItem('user_data', JSON.stringify(result.user));
-
-      if (result.workspace) {
-        localStorage.setItem('current_workspace', JSON.stringify(result.workspace));
-      }
-
-      // Performance: Batch Redux updates
+      // Update Redux state (token is now in HTTP-only cookie)
       dispatch(loginSuccess({
         user: {
           id: result.user.id,
@@ -196,7 +137,7 @@ export function ModernLoginForm() {
           workspaceId: result.workspace?.id || '',
           permissions: [],
         },
-        token: result.token,
+        token: 'cookie-based', // Token is stored in HTTP-only cookie
       }));
 
       if (result.workspace) {
@@ -222,7 +163,7 @@ export function ModernLoginForm() {
       });
 
       // Performance: Optimized redirect with preloading
-      await router.prefetch(redirectUrl);
+      router.prefetch(redirectUrl);
 
       // Smooth transition delay for better UX
       setTimeout(() => {
@@ -232,10 +173,18 @@ export function ModernLoginForm() {
     } catch (error: any) {
       console.error('Login error:', error);
 
-      if (error instanceof Error && error.name === 'AbortError') {
-        toast.error('Login request timed out. Please try again.');
+      // Handle RTK Query errors
+      if (error?.status === 429) {
+        toast.error('Too many login attempts. Please try again later.');
+        setIsBlocked(true);
+      } else if (error?.status === 401) {
+        setError('password', {
+          type: 'manual',
+          message: 'Invalid email or password'
+        });
+        toast.error('Invalid credentials');
       } else {
-        toast.error('Network error. Please check your connection.');
+        toast.error(error?.data?.message || 'Login failed. Please try again.');
       }
 
       setAttemptCount(prev => prev + 1);

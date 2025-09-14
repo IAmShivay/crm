@@ -51,11 +51,9 @@ const TagSchema = new Schema<ITag>({
   }
 });
 
-// Indexes for better performance
+// Optimized indexes for performance
 if (typeof window === 'undefined') {
   TagSchema.index({ workspaceId: 1, name: 1 }, { unique: true });
-  TagSchema.index({ workspaceId: 1, createdAt: -1 });
-  TagSchema.index({ createdBy: 1 });
 }
 
 export const Tag = mongoose.models?.Tag || mongoose.model<ITag>('Tag', TagSchema);

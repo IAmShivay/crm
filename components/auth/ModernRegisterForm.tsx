@@ -13,6 +13,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { useAppDispatch } from '@/lib/hooks';
 import { loginSuccess } from '@/lib/slices/authSlice';
 import { setCurrentWorkspace } from '@/lib/slices/workspaceSlice';
+import { useSignupMutation } from '@/lib/api/authApi';
 import { toast } from 'sonner';
 import {
   Briefcase,
@@ -77,6 +78,9 @@ export function ModernRegisterForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const dispatch = useAppDispatch();
+
+  // RTK Query mutation
+  const [signupUser, { isLoading }] = useSignupMutation();
 
   // Performance optimized state management
   const [loading, setLoading] = useState(false);
@@ -192,69 +196,13 @@ export function ModernRegisterForm() {
     clearErrors();
 
     try {
-      // Performance: Add request timeout
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 15000); // 15 second timeout for registration
+      const result = await signupUser({
+        name: data.fullName.trim(),
+        email: data.email.toLowerCase().trim(),
+        password: data.password,
+      }).unwrap();
 
-      const response = await fetch('/api/auth/signup', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-Requested-With': 'XMLHttpRequest', // CSRF protection
-          'X-Client-Version': '1.0.0',
-        },
-        body: JSON.stringify({
-          fullName: data.fullName.trim(),
-          email: data.email.toLowerCase().trim(),
-          password: data.password,
-          workspaceName: data.workspaceName.trim(),
-          timestamp: Date.now(), // Replay attack prevention
-          clientInfo: {
-            userAgent: navigator.userAgent,
-            timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-            language: navigator.language,
-            screen: `${screen.width}x${screen.height}`,
-            referrer: document.referrer
-          }
-        }),
-        signal: controller.signal,
-        credentials: 'same-origin'
-      });
-
-      clearTimeout(timeoutId);
-      const result = await response.json();
-
-      if (!response.ok) {
-        // Security: Handle failed attempts
-        setAttemptCount(prev => prev + 1);
-
-        if (response.status === 429) {
-          toast.error('Too many registration attempts. Please try again later.');
-          setIsBlocked(true);
-        } else if (response.status === 409) {
-          setError('email', {
-            type: 'manual',
-            message: 'An account with this email already exists'
-          });
-          toast.error('Email already registered');
-        } else {
-          toast.error(result.message || 'Registration failed');
-        }
-        return;
-      }
-
-      // Security: Store token securely
-      const tokenData = {
-        token: result.token,
-        expiresAt: Date.now() + (7 * 24 * 60 * 60 * 1000),
-        userId: result.user.id
-      };
-      localStorage.setItem('auth_token', result.token);
-      localStorage.setItem('auth_metadata', JSON.stringify(tokenData));
-      localStorage.setItem('user_data', JSON.stringify(result.user));
-      localStorage.setItem('current_workspace', JSON.stringify(result.workspace));
-
-      // Performance: Batch Redux updates
+      // Update Redux state (token is now in HTTP-only cookie)
       dispatch(loginSuccess({
         user: {
           id: result.user.id,
@@ -264,7 +212,7 @@ export function ModernRegisterForm() {
           workspaceId: result.workspace.id,
           permissions: [],
         },
-        token: result.token,
+        token: 'cookie-based', // Token is stored in HTTP-only cookie
       }));
 
       dispatch(setCurrentWorkspace({
@@ -297,10 +245,18 @@ export function ModernRegisterForm() {
     } catch (error: any) {
       console.error('Registration error:', error);
 
-      if (error instanceof Error && error.name === 'AbortError') {
-        toast.error('Registration request timed out. Please try again.');
+      // Handle RTK Query errors
+      if (error?.status === 429) {
+        toast.error('Too many registration attempts. Please try again later.');
+        setIsBlocked(true);
+      } else if (error?.status === 409) {
+        setError('email', {
+          type: 'manual',
+          message: 'An account with this email already exists'
+        });
+        toast.error('Email already registered');
       } else {
-        toast.error('Network error. Please check your connection.');
+        toast.error(error?.data?.message || 'Registration failed. Please try again.');
       }
 
       setAttemptCount(prev => prev + 1);

@@ -67,11 +67,10 @@ const InvitationSchema = new Schema<IInvitation>({
   }
 });
 
-// Indexes (only create on server side to prevent client-side errors)
+// Optimized indexes for performance
 if (typeof window === 'undefined') {
-  InvitationSchema.index({ workspaceId: 1 });
-  InvitationSchema.index({ email: 1 });
-  InvitationSchema.index({ status: 1 });
+  InvitationSchema.index({ workspaceId: 1, status: 1 });
+  InvitationSchema.index({ email: 1, status: 1 });
   InvitationSchema.index({ expiresAt: 1 });
 }
 

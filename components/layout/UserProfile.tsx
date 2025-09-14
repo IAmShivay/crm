@@ -9,6 +9,7 @@
 
 import { useState } from 'react';
 import { useAppSelector } from '@/lib/hooks';
+import { useLogoutMutation } from '@/lib/api/authApi';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -94,6 +95,7 @@ function getPlanColor(planType: string) {
 export function UserProfile({ compact = false, className }: UserProfileProps) {
   const { user } = useAppSelector((state) => state.auth);
   const [showUpgradeDialog, setShowUpgradeDialog] = useState(false);
+  const [logoutUser] = useLogoutMutation();
   
   // Use real user data if available, otherwise use mock data
   const currentUser = user ? {
@@ -101,15 +103,25 @@ export function UserProfile({ compact = false, className }: UserProfileProps) {
     avatar: null, // User interface doesn't have avatar yet
     plan: mockUser.plan // Use mock plan data for now
   } : mockUser;
-  const userInitials = currentUser.name
+
+  // Safe handling of user initials
+  const userName = currentUser?.name || currentUser?.email || 'User';
+  const userInitials = userName
     .split(' ')
     .map((n: string) => n[0])
     .join('')
     .toUpperCase();
 
-  const handleLogout = () => {
-    // TODO: Implement logout functionality
-    console.log('Logout clicked');
+  const handleLogout = async () => {
+    try {
+      await logoutUser().unwrap();
+      // Redirect to login page
+      window.location.href = '/login';
+    } catch (error) {
+      console.error('Logout error:', error);
+      // Even if logout API fails, redirect to login
+      window.location.href = '/login';
+    }
   };
 
   const handleSettings = () => {

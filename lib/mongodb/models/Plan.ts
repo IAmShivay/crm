@@ -67,11 +67,9 @@ const PlanSchema = new Schema<IPlan>({
   }
 });
 
-// Indexes (only create on server side to prevent client-side errors)
+// Optimized indexes for performance
 if (typeof window === 'undefined') {
-  PlanSchema.index({ sortOrder: 1 });
-  PlanSchema.index({ isActive: 1 });
-  PlanSchema.index({ price: 1 });
+  PlanSchema.index({ isActive: 1, sortOrder: 1 });
 }
 
 export const Plan = mongoose.models?.Plan || mongoose.model<IPlan>('Plan', PlanSchema);

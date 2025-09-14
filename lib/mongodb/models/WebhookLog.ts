@@ -106,14 +106,10 @@ const WebhookLogSchema = new Schema<IWebhookLog>({
   }
 });
 
-// Indexes for better performance and data management
+// Optimized indexes for performance and data management
 if (typeof window === 'undefined') {
   WebhookLogSchema.index({ webhookId: 1, createdAt: -1 });
-  WebhookLogSchema.index({ workspaceId: 1, createdAt: -1 });
   WebhookLogSchema.index({ requestId: 1 }, { unique: true });
-  WebhookLogSchema.index({ success: 1, createdAt: -1 });
-  WebhookLogSchema.index({ leadId: 1 });
-  
   // TTL index to automatically delete logs older than 90 days
   WebhookLogSchema.index({ createdAt: 1 }, { expireAfterSeconds: 90 * 24 * 60 * 60 });
 }

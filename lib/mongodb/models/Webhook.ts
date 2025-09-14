@@ -125,13 +125,10 @@ const WebhookSchema = new Schema<IWebhook>({
   }
 });
 
-// Indexes for better performance
+// Optimized indexes for performance
 if (typeof window === 'undefined') {
   WebhookSchema.index({ workspaceId: 1, isActive: 1 });
-  WebhookSchema.index({ workspaceId: 1, webhookType: 1 });
   WebhookSchema.index({ url: 1 }, { unique: true });
-  WebhookSchema.index({ createdBy: 1 });
-  WebhookSchema.index({ createdAt: -1 });
 }
 
 export const Webhook = mongoose.models?.Webhook || mongoose.model<IWebhook>('Webhook', WebhookSchema);

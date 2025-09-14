@@ -40,10 +40,22 @@ export async function POST(request: NextRequest) {
       // Don't fail the sign-out if activity logging fails
     }
 
-    return NextResponse.json({
+    // Create response
+    const response = NextResponse.json({
       success: true,
       message: 'Signed out successfully'
     });
+
+    // Clear the auth cookie
+    response.cookies.set('auth_token', '', {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      maxAge: 0, // Expire immediately
+      path: '/'
+    });
+
+    return response;
 
   } catch (error) {
     console.error('Logout error:', error);

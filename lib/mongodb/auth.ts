@@ -185,15 +185,27 @@ export async function signIn({ email, password }: SignInData): Promise<AuthResul
   }
 }
 
-// Verify token from request
+// Verify token from request (supports both cookies and Authorization header)
 export async function verifyAuthToken(request: NextRequest): Promise<{ user: IUser } | null> {
   try {
-    const authHeader = request.headers.get('authorization');
-    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    let token: string | undefined;
+
+    // First try to get token from cookie (preferred method)
+    const cookieToken = request.cookies.get('auth_token');
+    if (cookieToken) {
+      token = cookieToken.value;
+    } else {
+      // Fallback to Authorization header for API calls
+      const authHeader = request.headers.get('authorization');
+      if (authHeader && authHeader.startsWith('Bearer ')) {
+        token = authHeader.substring(7);
+      }
+    }
+
+    if (!token) {
       return null;
     }
 
-    const token = authHeader.substring(7);
     const decoded = verifyToken(token);
     if (!decoded) {
       return null;

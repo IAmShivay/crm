@@ -114,11 +114,9 @@ const WorkspaceSchema = new Schema<IWorkspace>({
   }
 });
 
-// Additional indexes (only create on server side to prevent client-side errors)
+// Optimized indexes for performance
 if (typeof window === 'undefined') {
-  WorkspaceSchema.index({ planId: 1 });
-  WorkspaceSchema.index({ subscriptionStatus: 1 });
-  WorkspaceSchema.index({ createdAt: -1 });
+  WorkspaceSchema.index({ subscriptionStatus: 1, planId: 1 });
 }
 
 export const Workspace = mongoose.models?.Workspace || mongoose.model<IWorkspace>('Workspace', WorkspaceSchema);

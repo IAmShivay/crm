@@ -1,9 +1,94 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { jwtVerify } from 'jose';
 
-// Rate limiting store (in production, use Redis)
 const rateLimitStore = new Map<string, { count: number; resetTime: number }>();
 
-// Rate limiting configuration
+const PROTECTED_ROUTES = [
+  '/dashboard',
+  '/leads',
+  '/roles',
+  '/workspace',
+  '/settings',
+  '/analytics',
+  '/webhooks'
+];
+
+const PUBLIC_ROUTES = [
+  '/login',
+  '/signup',
+  '/auth',
+  '/',
+  '/api/auth/login',
+  '/api/auth/signup',
+  '/api/webhooks' 
+];
+
+function isProtectedRoute(pathname: string): boolean {
+  return PROTECTED_ROUTES.some(route => pathname.startsWith(route));
+}
+
+async function verifyToken(token: string): Promise<boolean> {
+  try {
+    const secret = new TextEncoder().encode(process.env.JWT_SECRET || 'fallback-secret');
+    const { payload } = await jwtVerify(token, secret);
+
+    // Verify payload has required fields
+    return !!(payload.userId && payload.exp && payload.exp > Date.now() / 1000);
+  } catch (error) {
+    console.error('[MIDDLEWARE] Token verification failed:', error);
+    return false;
+  }
+}
+
+const getAllowedOrigins = (): string[] => {
+  const origins = process.env.CORS_ORIGINS || process.env.ALLOWED_ORIGINS || 'http://localhost:3000,http://localhost:3001';
+  return origins.split(',').map(origin => origin.trim());
+};
+
+function handleCors(request: NextRequest, response: NextResponse): NextResponse {
+  const origin = request.headers.get('origin');
+  const allowedOrigins = getAllowedOrigins();
+
+  if (origin && allowedOrigins.includes(origin)) {
+    response.headers.set('Access-Control-Allow-Origin', origin);
+  } else if (allowedOrigins.includes('*')) {
+    response.headers.set('Access-Control-Allow-Origin', '*');
+  }
+
+  response.headers.set('Access-Control-Allow-Credentials', 'true');
+  response.headers.set(
+    'Access-Control-Allow-Methods',
+    'GET, POST, PUT, DELETE, OPTIONS, PATCH'
+  );
+  response.headers.set(
+    'Access-Control-Allow-Headers',
+    'Content-Type, Authorization, X-Requested-With, Accept, Origin, Cache-Control, X-File-Name'
+  );
+  response.headers.set('Access-Control-Max-Age', '86400'); // 24 hours
+
+  return response;
+}
+
+async function verifyAuthFromRequest(request: NextRequest): Promise<boolean> {
+  try {
+    const authHeader = request.headers.get('authorization');
+    if (authHeader && authHeader.startsWith('Bearer ')) {
+      const token = authHeader.substring(7);
+      return await verifyToken(token);
+    }
+
+    const tokenCookie = request.cookies.get('auth_token');
+    if (tokenCookie) {
+      return await verifyToken(tokenCookie.value);
+    }
+
+    return false;
+  } catch (error) {
+    console.error('Auth verification error:', error);
+    return false;
+  }
+}
+
 const RATE_LIMITS = {
   '/api/auth/login': { requests: 5, windowMs: 15 * 60 * 1000 }, // 5 requests per 15 minutes
   '/api/auth/signup': { requests: 3, windowMs: 60 * 60 * 1000 }, // 3 requests per hour
@@ -13,7 +98,6 @@ const RATE_LIMITS = {
 };
 
 function getRateLimit(pathname: string) {
-  // Find the most specific rate limit
   for (const [path, limit] of Object.entries(RATE_LIMITS)) {
     if (path !== 'default' && pathname.startsWith(path)) {
       return limit;
@@ -27,13 +111,12 @@ function checkRateLimit(key: string, limit: { requests: number; windowMs: number
   const record = rateLimitStore.get(key);
 
   if (!record || now > record.resetTime) {
-    // First request or window expired
     rateLimitStore.set(key, { count: 1, resetTime: now + limit.windowMs });
     return true;
   }
 
   if (record.count >= limit.requests) {
-    return false; // Rate limit exceeded
+    return false;
   }
 
   record.count++;
@@ -55,28 +138,72 @@ function getClientIP(request: NextRequest): string {
   return request.ip || 'unknown';
 }
 
-export function middleware(request: NextRequest) {
-  const response = NextResponse.next();
+export async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
 
-  // Skip middleware for static files and internal Next.js routes
+  console.log(`[MIDDLEWARE] Processing: ${request.method} ${pathname}`);
+
+  if (request.method === 'OPTIONS') {
+    const response = new NextResponse(null, { status: 200 });
+    return handleCors(request, response);
+  }
   if (
     pathname.startsWith('/_next/') ||
     pathname.startsWith('/static/') ||
     pathname.includes('.') ||
     pathname === '/favicon.ico'
   ) {
-    return response;
+    return NextResponse.next();
   }
 
-  // Apply security headers
+  if (isProtectedRoute(pathname)) {
+    const isAuthenticated = await verifyAuthFromRequest(request);
+
+    if (!isAuthenticated) {
+      console.log(`[AUTH] Unauthorized access attempt to ${pathname}`);
+
+      if (pathname.startsWith('/api/')) {
+        return NextResponse.json(
+          { message: 'Authentication required' },
+          { status: 401 }
+        );
+      }
+
+      const loginUrl = new URL('/login', request.url);
+      loginUrl.searchParams.set('redirect', pathname);
+      return NextResponse.redirect(loginUrl);
+    }
+
+    console.log(`[AUTH] Authenticated access to ${pathname}`);
+  }
+
+  if (pathname === '/login' || pathname === '/signup') {
+    const isAuthenticated = await verifyAuthFromRequest(request);
+
+    if (isAuthenticated) {
+      console.log(`[AUTH] Authenticated user redirected from ${pathname} to dashboard`);
+      return NextResponse.redirect(new URL('/dashboard', request.url));
+    }
+  }
+
+  if (pathname === '/') {
+    const isAuthenticated = await verifyAuthFromRequest(request);
+
+    if (isAuthenticated) {
+      return NextResponse.redirect(new URL('/dashboard', request.url));
+    } else {
+      return NextResponse.redirect(new URL('/login', request.url));
+    }
+  }
+
+  const response = NextResponse.next();
+
   response.headers.set('X-Content-Type-Options', 'nosniff');
   response.headers.set('X-Frame-Options', 'DENY');
   response.headers.set('X-XSS-Protection', '1; mode=block');
   response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
   response.headers.set('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
   
-  // Add HSTS header in production
   if (process.env.NODE_ENV === 'production') {
     response.headers.set(
       'Strict-Transport-Security',
@@ -84,7 +211,6 @@ export function middleware(request: NextRequest) {
     );
   }
 
-  // Content Security Policy
   const csp = [
     "default-src 'self'",
     "script-src 'self' 'unsafe-eval' 'unsafe-inline'",
@@ -97,7 +223,6 @@ export function middleware(request: NextRequest) {
   
   response.headers.set('Content-Security-Policy', csp);
 
-  // Apply rate limiting for API routes
   if (pathname.startsWith('/api/')) {
     const clientIP = getClientIP(request);
     const rateLimit = getRateLimit(pathname);
@@ -122,7 +247,6 @@ export function middleware(request: NextRequest) {
       );
     }
 
-    // Add rate limit headers to successful responses
     const record = rateLimitStore.get(rateLimitKey);
     if (record) {
       response.headers.set('X-RateLimit-Limit', rateLimit.requests.toString());
@@ -131,23 +255,15 @@ export function middleware(request: NextRequest) {
     }
   }
 
-  // Log security-relevant requests
   if (pathname.startsWith('/api/auth/') || pathname.startsWith('/api/webhooks/')) {
     console.log(`[SECURITY] ${request.method} ${pathname} from ${getClientIP(request)}`);
   }
 
-  return response;
+  return handleCors(request, response);
 }
 
 export const config = {
   matcher: [
-    /*
-     * Match all request paths except for the ones starting with:
-     * - api (API routes)
-     * - _next/static (static files)
-     * - _next/image (image optimization files)
-     * - favicon.ico (favicon file)
-     */
     '/((?!_next/static|_next/image|favicon.ico).*)',
   ],
 };

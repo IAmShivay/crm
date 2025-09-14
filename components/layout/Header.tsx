@@ -25,6 +25,8 @@ import { NotificationBell } from '@/components/ui/notification-bell';
 import { useAppSelector, useAppDispatch } from '@/lib/hooks';
 import { logout } from '@/lib/slices/authSlice';
 import { setCurrentWorkspace } from '@/lib/slices/workspaceSlice';
+import { useCreateWorkspaceMutation } from '@/lib/api/mongoApi';
+import { useLogoutMutation } from '@/lib/api/authApi';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -58,9 +60,12 @@ export function Header({ onMobileMenuToggle }: HeaderProps) {
   const dispatch = useAppDispatch();
   const router = useRouter();
 
+  // RTK Query mutations
+  const [createWorkspace, { isLoading: isCreatingWorkspace }] = useCreateWorkspaceMutation();
+  const [logoutUser] = useLogoutMutation();
+
   // State for workspace creation dialog
   const [isCreateWorkspaceOpen, setIsCreateWorkspaceOpen] = useState(false);
-  const [isCreatingWorkspace, setIsCreatingWorkspace] = useState(false);
 
   // Form for workspace creation
   const {
@@ -72,34 +77,27 @@ export function Header({ onMobileMenuToggle }: HeaderProps) {
     resolver: zodResolver(workspaceSchema)
   });
 
-  const handleLogout = () => {
-    dispatch(logout());
-    router.push('/login');
+  const handleLogout = async () => {
+    try {
+      await logoutUser().unwrap();
+      // Clear Redux state and redirect
+      dispatch(logout());
+      router.push('/login');
+    } catch (error) {
+      console.error('Logout error:', error);
+      // Even if logout API fails, clear local state and redirect
+      dispatch(logout());
+      router.push('/login');
+    }
   };
 
   // Handle workspace creation
   const onCreateWorkspace = async (data: WorkspaceFormData) => {
-    setIsCreatingWorkspace(true);
-
     try {
-      const response = await fetch('/api/workspaces', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('auth_token')}`,
-        },
-        body: JSON.stringify({
-          name: data.name.trim(),
-          description: data.description?.trim() || '',
-        }),
-      });
-
-      if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.message || 'Failed to create workspace');
-      }
-
-      const result = await response.json();
+      const result = await createWorkspace({
+        name: data.name.trim(),
+        description: data.description?.trim() || '',
+      }).unwrap();
 
       // Update current workspace in Redux
       dispatch(setCurrentWorkspace({
@@ -110,18 +108,13 @@ export function Header({ onMobileMenuToggle }: HeaderProps) {
         createdAt: result.workspace.createdAt,
       }));
 
-      toast.success('Workspace created successfully!');
+      toast.success(`Workspace "${result.workspace.name}" created successfully!`);
       setIsCreateWorkspaceOpen(false);
       reset();
 
-      // Optionally redirect to workspace settings
-      // router.push('/workspace');
-
-    } catch (error) {
+    } catch (error: any) {
       console.error('Workspace creation error:', error);
-      toast.error(error instanceof Error ? error.message : 'Failed to create workspace');
-    } finally {
-      setIsCreatingWorkspace(false);
+      toast.error(error?.data?.message || 'Failed to create workspace');
     }
   };
 
