@@ -231,7 +231,7 @@ export const POST = withSecurityLogging(withLogging(async (request: NextRequest)
     const leadData = {
       ...validationResult.data,
       workspaceId,
-      status: "new",
+      status: "Arrived",
       statusId: validationResult.data.status,
       source: finalSource,
       priority: validationResult.data.priority || 'medium',

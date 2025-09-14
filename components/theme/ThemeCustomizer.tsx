@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -63,9 +63,9 @@ export function ThemeCustomizer() {
   const [previewMode, setPreviewMode] = useState(false);
   const [patchPreferences] = usePatchUserPreferencesMutation();
 
-  const saveThemePreferences = async () => {
+  const saveThemePreferences = useCallback(async () => {
     try {
-      await patchPreferences({
+      const result = await patchPreferences({
         theme: {
           mode: theme.mode,
           primaryColor: theme.primaryColor,
@@ -73,13 +73,17 @@ export function ThemeCustomizer() {
           customTheme: theme.customTheme,
         }
       }).unwrap();
-      toast.success('Theme preferences saved');
-    } catch (error) {
-      toast.error('Failed to save theme preferences');
-    }
-  };
 
-  const handleColorChange = (colorKey: string, value: string) => {
+      console.log('Theme preferences saved successfully:', result);
+      toast.success('Theme preferences saved');
+    } catch (error: any) {
+      console.error('Failed to save theme preferences:', error);
+      const errorMessage = error?.data?.message || error?.message || 'Failed to save theme preferences';
+      toast.error(errorMessage);
+    }
+  }, [theme, patchPreferences]);
+
+  const handleColorChange = useCallback(async (colorKey: string, value: string) => {
     dispatch(updateThemeColors({ [colorKey]: value }));
 
     // If changing primary color, also update the main primary color state
@@ -87,22 +91,81 @@ export function ThemeCustomizer() {
       dispatch(setPrimaryColor(value));
     }
 
-    // Auto-save after a short delay
-    setTimeout(saveThemePreferences, 500);
-  };
+    // Save immediately using current state
+    try {
+      await patchPreferences({
+        theme: {
+          mode: theme.mode,
+          primaryColor: colorKey === 'primary' ? value : theme.primaryColor,
+          preset: 'custom', // Mark as custom when colors are changed
+          customTheme: {
+            ...theme.customTheme,
+            colors: {
+              ...theme.customTheme.colors,
+              [colorKey]: value
+            }
+          },
+        }
+      }).unwrap();
+      toast.success('Color updated');
+    } catch (error) {
+      console.error('Failed to save color change:', error);
+    }
+  }, [dispatch, theme, patchPreferences]);
 
-  const handlePresetChange = (presetId: string) => {
+  const handlePresetChange = useCallback(async (presetId: string) => {
+    const selectedPreset = theme.presets.find((p: any) => p.id === presetId);
     dispatch(setPreset(presetId));
-    toast.success(`Applied ${theme.presets.find((p: any) => p.id === presetId)?.name} theme`);
-    // Auto-save after applying preset
-    setTimeout(saveThemePreferences, 500);
-  };
 
-  const handleThemeModeChange = (mode: 'light' | 'dark' | 'auto') => {
+    if (selectedPreset) {
+      // Save immediately with preset data
+      try {
+        await patchPreferences({
+          theme: {
+            mode: theme.mode,
+            primaryColor: selectedPreset.primaryColor,
+            preset: presetId,
+            customTheme: {
+              ...theme.customTheme,
+              colors: {
+                ...theme.customTheme.colors,
+                primary: selectedPreset.primaryColor,
+                secondary: selectedPreset.secondaryColor,
+                accent: selectedPreset.accentColor,
+                background: selectedPreset.backgroundColor,
+                surface: selectedPreset.surfaceColor,
+                text: selectedPreset.textColor,
+                border: selectedPreset.borderColor,
+              }
+            },
+          }
+        }).unwrap();
+        toast.success(`Applied ${selectedPreset.name} theme`);
+      } catch (error) {
+        console.error('Failed to save preset change:', error);
+        toast.error('Failed to save theme preset');
+      }
+    }
+  }, [theme, dispatch, patchPreferences]);
+
+  const handleThemeModeChange = useCallback(async (mode: 'light' | 'dark' | 'auto') => {
     dispatch(setThemeMode(mode));
-    // Auto-save after changing mode
-    setTimeout(saveThemePreferences, 500);
-  };
+
+    // Save immediately
+    try {
+      await patchPreferences({
+        theme: {
+          mode: mode,
+          primaryColor: theme.primaryColor,
+          preset: theme.preset,
+          customTheme: theme.customTheme,
+        }
+      }).unwrap();
+      toast.success(`Switched to ${mode} mode`);
+    } catch (error) {
+      console.error('Failed to save theme mode:', error);
+    }
+  }, [dispatch, theme, patchPreferences]);
 
   const handleExportTheme = () => {
     const themeData = {
@@ -436,7 +499,7 @@ export function ThemeCustomizer() {
           <CardHeader>
             <CardTitle className="text-blue-800 dark:text-blue-200">Preview Mode Active</CardTitle>
             <CardDescription className="text-blue-600 dark:text-blue-300">
-              You're currently previewing theme changes. Changes are applied in real-time.
+              You&apos;re currently previewing theme changes. Changes are applied in real-time.
             </CardDescription>
           </CardHeader>
         </Card>

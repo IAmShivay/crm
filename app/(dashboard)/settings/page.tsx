@@ -80,12 +80,19 @@ export default function SettingsPage() {
     }
   });
 
-  // Load user preferences on mount
+  // Load user preferences on mount (only if not already loaded from localStorage)
   useEffect(() => {
-    if (userPreferences?.preferences) {
-      // Load theme preferences
+    if (userPreferences?.preferences && !preferencesLoading) {
+      // Only load theme preferences if they differ from current state
       if (userPreferences.preferences.theme) {
-        dispatch(loadThemeFromPreferences(userPreferences.preferences));
+        const serverTheme = userPreferences.preferences.theme;
+        const currentTheme = { mode, primaryColor };
+
+        // Only update if server preferences are different
+        if (serverTheme.mode !== currentTheme.mode ||
+            serverTheme.primaryColor !== currentTheme.primaryColor) {
+          dispatch(loadThemeFromPreferences(userPreferences.preferences));
+        }
       }
 
       // Load notification preferences
@@ -96,7 +103,7 @@ export default function SettingsPage() {
         }));
       }
     }
-  }, [userPreferences, dispatch]);
+  }, [userPreferences, dispatch, preferencesLoading, mode, primaryColor]);
 
   // Load workspace data
   useEffect(() => {

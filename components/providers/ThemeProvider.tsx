@@ -1,24 +1,37 @@
 'use client';
 
 import { useEffect } from 'react';
-import { useAppSelector } from '@/lib/hooks';
+import { useAppSelector, useAppDispatch } from '@/lib/hooks';
+import { useGetUserPreferencesQuery } from '@/lib/api/userPreferencesApi';
+import { loadThemeFromPreferences } from '@/lib/slices/themeSlice';
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const { mode, customTheme, primaryColor } = useAppSelector((state) => state.theme);
+  const dispatch = useAppDispatch();
+
+  // Load theme preferences from server using RTK Query
+  const { data: preferences } = useGetUserPreferencesQuery();
+
+  // Load theme from server preferences when available
+  useEffect(() => {
+    if (preferences?.preferences?.theme) {
+      dispatch(loadThemeFromPreferences(preferences.preferences));
+    }
+  }, [preferences, dispatch]);
 
   useEffect(() => {
     const root = document.documentElement;
-    
+
     // Apply theme mode
     if (mode === 'auto') {
       const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
       const applySystemTheme = () => {
         root.classList.toggle('dark', mediaQuery.matches);
       };
-      
+
       applySystemTheme();
       mediaQuery.addEventListener('change', applySystemTheme);
-      
+
       return () => mediaQuery.removeEventListener('change', applySystemTheme);
     } else {
       root.classList.toggle('dark', mode === 'dark');
@@ -142,7 +155,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     
     // Apply CSS classes for animations
     root.classList.toggle('animations-disabled', !customTheme.animations);
-    
+
   }, [customTheme, primaryColor]);
 
   return <>{children}</>;

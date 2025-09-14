@@ -24,8 +24,13 @@ const PERSIST_ACTIONS = [
   'workspace/setCurrentWorkspace'
 ];
 
-// Load persisted state from localStorage
+// Load persisted state from localStorage (client-side only)
 export const loadPersistedState = () => {
+  // Prevent hydration mismatch by only loading on client
+  if (typeof window === 'undefined') {
+    return {};
+  }
+
   try {
     const persistedState: any = {};
 
@@ -61,8 +66,10 @@ export const loadPersistedState = () => {
   }
 };
 
-// Save state to localStorage
+// Save state to localStorage (client-side only)
 const saveToLocalStorage = (key: string, state: any) => {
+  if (typeof window === 'undefined') return;
+
   try {
     localStorage.setItem(key, JSON.stringify(state));
   } catch (error) {
@@ -102,6 +109,8 @@ export const persistenceMiddleware: Middleware = (store) => (next) => (action: a
 
 // Clear persisted data (useful for logout)
 export const clearPersistedData = () => {
+  if (typeof window === 'undefined') return;
+
   try {
     Object.values(PERSIST_KEYS).forEach(key => {
       localStorage.removeItem(key);

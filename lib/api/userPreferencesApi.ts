@@ -51,17 +51,9 @@ export const userPreferencesApi = createApi({
   reducerPath: 'userPreferencesApi',
   baseQuery: fetchBaseQuery({
     baseUrl: '/api/users/preferences',
-    prepareHeaders: (headers, { getState }) => {
+    credentials: 'include', // Use cookies instead of Authorization header
+    prepareHeaders: (headers) => {
       headers.set('Content-Type', 'application/json');
-
-      // Get token from auth state
-      const state = getState() as any;
-      const token = state.auth?.token;
-
-      if (token) {
-        headers.set('Authorization', `Bearer ${token}`);
-      }
-
       return headers;
     },
   }),

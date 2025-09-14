@@ -34,7 +34,7 @@ export const createLeadSchema = z.object({
   email: emailSchema.optional(),
   phone: phoneSchema.optional(),
   company: z.string().max(100).optional(),
-  status: z.enum(['new', 'contacted', 'qualified', 'proposal', 'negotiation', 'closed_won', 'closed_lost']),
+  status: z.string().optional(),
   source: z.string().max(50),
   value: z.number().min(0).max(1000000),
   notes: z.string().max(1000).optional(),

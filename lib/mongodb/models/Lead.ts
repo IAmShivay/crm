@@ -53,7 +53,7 @@ const LeadSchema = new Schema<ILead>({
   },
   status: {
     type: String,
-    default: 'new'
+    default: 'Arrived'
   },
   statusId: {
     type: String,

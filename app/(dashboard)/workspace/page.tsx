@@ -13,7 +13,6 @@
 
 import { useState, useEffect } from 'react';
 import { useAppSelector } from '@/lib/hooks';
-import { useGetWorkspaceQuery } from '@/lib/api/mongoApi';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
@@ -97,12 +96,7 @@ interface WorkspaceDetails {
 export default function WorkspaceSettingsPage() {
   const { currentWorkspace } = useAppSelector((state) => state.workspace);
   const [activeTab, setActiveTab] = useState('general');
-
-  // RTK Query hook for workspace data
-  const { data: workspaceData, isLoading, error } = useGetWorkspaceQuery(
-    currentWorkspace?.id || '',
-    { skip: !currentWorkspace?.id }
-  );
+  const [isLoading, setIsLoading] = useState(false);
 
   // Workspace data state
   const [workspaceDetails, setWorkspaceDetails] = useState<WorkspaceDetails | null>(null);
@@ -124,26 +118,35 @@ export default function WorkspaceSettingsPage() {
   useEffect(() => {
     if (currentWorkspace) {
       setWorkspaceName(currentWorkspace.name);
+      loadWorkspaceDetails();
     }
-  }, [currentWorkspace]);
-
-  // Update local state when workspace data is loaded
-  useEffect(() => {
-    if (workspaceData?.success && workspaceData.workspace) {
-      const workspace = workspaceData.workspace;
-      setWorkspaceDetails(workspace);
-      setMembers(workspace.members || []);
-      setMemberCount(workspace.memberCount || 0);
-      setIsOwner(workspace.userRole === 'Owner');
-      setWorkspaceDescription(workspace.description || '');
-      setWorkspaceSlug(workspace.slug || '');
-    }
-  }, [workspaceData]);
+  }, [currentWorkspace]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const loadWorkspaceDetails = async () => {
     if (!currentWorkspace?.id) return;
 
-    // This will be handled by RTK Query hook instead of manual fetch
+    try {
+      setIsLoading(true);
+
+      // Fetch workspace details
+      const workspaceResponse = await fetch(`/api/workspaces/${currentWorkspace.id}`, {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('auth_token')}`,
+        },
+      });
+
+      if (workspaceResponse.ok) {
+        const workspaceData = await workspaceResponse.json();
+        if (workspaceData.success) {
+          const workspace = workspaceData.workspace;
+          setWorkspaceDetails(workspace);
+          setMembers(workspace.members || []);
+          setMemberCount(workspace.memberCount || 0);
+          setIsOwner(workspace.userRole === 'Owner');
+          setWorkspaceDescription(workspace.description || '');
+          setWorkspaceSlug(workspace.slug || '');
+        }
+      }
 
       // Fetch workspace roles
       const rolesResponse = await fetch(`/api/workspaces/${currentWorkspace.id}/roles`, {
