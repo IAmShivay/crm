@@ -55,15 +55,18 @@ export default function ContactsPage() {
   };
 
   const handleFilterChange = (filterType: string, value: string) => {
+    // Convert "all" values to empty string for API filtering
+    const filterValue = value === 'all' ? '' : value;
+
     switch (filterType) {
       case 'status':
-        setStatusFilter(value);
+        setStatusFilter(filterValue);
         break;
       case 'category':
-        setCategoryFilter(value);
+        setCategoryFilter(filterValue);
         break;
       case 'priority':
-        setPriorityFilter(value);
+        setPriorityFilter(filterValue);
         break;
     }
     setPage(1); // Reset to first page when filtering
@@ -177,23 +180,23 @@ export default function ContactsPage() {
                 />
               </div>
             </div>
-            <Select value={statusFilter} onValueChange={(value) => handleFilterChange('status', value)}>
+            <Select value={statusFilter || 'all'} onValueChange={(value) => handleFilterChange('status', value)}>
               <SelectTrigger className="w-full md:w-[180px]">
                 <SelectValue placeholder="Status" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All Statuses</SelectItem>
+                <SelectItem value="all">All Statuses</SelectItem>
                 <SelectItem value="active">Active</SelectItem>
                 <SelectItem value="inactive">Inactive</SelectItem>
                 <SelectItem value="archived">Archived</SelectItem>
               </SelectContent>
             </Select>
-            <Select value={categoryFilter} onValueChange={(value) => handleFilterChange('category', value)}>
+            <Select value={categoryFilter || 'all'} onValueChange={(value) => handleFilterChange('category', value)}>
               <SelectTrigger className="w-full md:w-[180px]">
                 <SelectValue placeholder="Category" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All Categories</SelectItem>
+                <SelectItem value="all">All Categories</SelectItem>
                 <SelectItem value="client">Client</SelectItem>
                 <SelectItem value="prospect">Prospect</SelectItem>
                 <SelectItem value="partner">Partner</SelectItem>
@@ -201,12 +204,12 @@ export default function ContactsPage() {
                 <SelectItem value="other">Other</SelectItem>
               </SelectContent>
             </Select>
-            <Select value={priorityFilter} onValueChange={(value) => handleFilterChange('priority', value)}>
+            <Select value={priorityFilter || 'all'} onValueChange={(value) => handleFilterChange('priority', value)}>
               <SelectTrigger className="w-full md:w-[180px]">
                 <SelectValue placeholder="Priority" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All Priorities</SelectItem>
+                <SelectItem value="all">All Priorities</SelectItem>
                 <SelectItem value="high">High</SelectItem>
                 <SelectItem value="medium">Medium</SelectItem>
                 <SelectItem value="low">Low</SelectItem>

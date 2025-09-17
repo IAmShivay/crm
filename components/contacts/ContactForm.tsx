@@ -399,6 +399,171 @@ export function ContactForm({ workspaceId, contact, onSuccess, onCancel }: Conta
         </CardContent>
       </Card>
 
+      {/* Address Information */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-lg flex items-center">
+            <MapPin className="h-5 w-5 mr-2" />
+            Address Information
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="md:col-span-2">
+              <Label htmlFor="street">Street Address</Label>
+              <Input
+                id="street"
+                {...register('street')}
+                placeholder="123 Main Street"
+              />
+            </div>
+            <div>
+              <Label htmlFor="city">City</Label>
+              <Input
+                id="city"
+                {...register('city')}
+                placeholder="New York"
+              />
+            </div>
+            <div>
+              <Label htmlFor="state">State/Province</Label>
+              <Input
+                id="state"
+                {...register('state')}
+                placeholder="NY"
+              />
+            </div>
+            <div>
+              <Label htmlFor="zipCode">ZIP/Postal Code</Label>
+              <Input
+                id="zipCode"
+                {...register('zipCode')}
+                placeholder="10001"
+              />
+            </div>
+            <div>
+              <Label htmlFor="country">Country</Label>
+              <Input
+                id="country"
+                {...register('country')}
+                placeholder="United States"
+              />
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Social & Web Presence */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-lg">Social & Web Presence</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div>
+              <Label htmlFor="website">Website</Label>
+              <Input
+                id="website"
+                {...register('website')}
+                placeholder="https://example.com"
+              />
+              {errors.website && (
+                <p className="text-sm text-red-600 mt-1">{errors.website.message}</p>
+              )}
+            </div>
+            <div>
+              <Label htmlFor="linkedIn">LinkedIn</Label>
+              <Input
+                id="linkedIn"
+                {...register('linkedIn')}
+                placeholder="https://linkedin.com/in/username"
+              />
+              {errors.linkedIn && (
+                <p className="text-sm text-red-600 mt-1">{errors.linkedIn.message}</p>
+              )}
+            </div>
+            <div>
+              <Label htmlFor="twitter">Twitter</Label>
+              <Input
+                id="twitter"
+                {...register('twitter')}
+                placeholder="https://twitter.com/username"
+              />
+              {errors.twitter && (
+                <p className="text-sm text-red-600 mt-1">{errors.twitter.message}</p>
+              )}
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Important Dates */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-lg flex items-center">
+            <Calendar className="h-5 w-5 mr-2" />
+            Important Dates
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <Label htmlFor="lastContactDate">Last Contact Date</Label>
+              <Input
+                id="lastContactDate"
+                type="date"
+                {...register('lastContactDate')}
+              />
+            </div>
+            <div>
+              <Label htmlFor="nextFollowUpDate">Next Follow-up Date</Label>
+              <Input
+                id="nextFollowUpDate"
+                type="date"
+                {...register('nextFollowUpDate')}
+              />
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Tags */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-lg">Tags</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="flex flex-wrap gap-2">
+            {tags.map((tag) => (
+              <div key={tag.id} className="flex items-center space-x-2">
+                <input
+                  type="checkbox"
+                  id={`tag-${tag.id}`}
+                  checked={selectedTags.includes(tag.id)}
+                  onChange={() => {
+                    setSelectedTags(prev =>
+                      prev.includes(tag.id)
+                        ? prev.filter(id => id !== tag.id)
+                        : [...prev, tag.id]
+                    );
+                  }}
+                />
+                <label
+                  htmlFor={`tag-${tag.id}`}
+                  className="flex items-center space-x-2 cursor-pointer"
+                >
+                  <div
+                    className="w-3 h-3 rounded-full"
+                    style={{ backgroundColor: tag.color }}
+                  />
+                  <span className="text-sm">{tag.name}</span>
+                </label>
+              </div>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+
       {/* Custom Fields */}
       <Card>
         <CardHeader>
@@ -421,7 +586,7 @@ export function ContactForm({ workspaceId, contact, onSuccess, onCancel }: Conta
               </Button>
             </div>
           ))}
-          
+
           <div className="flex items-center space-x-2">
             <Input
               placeholder="Field name"
