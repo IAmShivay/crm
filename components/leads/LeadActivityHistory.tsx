@@ -118,6 +118,17 @@ function ActivityItem({ activity }: { activity: LeadActivity }) {
           </div>
         </div>
 
+        {/* User information */}
+        <div className="flex items-center space-x-2 mt-1">
+          <User className="h-3 w-3 text-gray-400" />
+          <span className="text-xs text-gray-600">
+            {typeof activity.performedBy === 'object'
+              ? activity.performedBy.fullName
+              : 'Unknown User'
+            }
+          </span>
+        </div>
+
         {activity.changes && activity.changes.length > 0 && (
           <Collapsible open={isExpanded} onOpenChange={setIsExpanded}>
             <CollapsibleTrigger asChild>

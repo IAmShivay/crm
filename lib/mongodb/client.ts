@@ -191,7 +191,7 @@ export class MongoDBClient {
     return await LeadActivity.find({ leadId })
       .sort({ createdAt: -1 })
       .limit(limit)
-      .populate('performedBy', 'fullName email');
+      .populate('performedBy', 'fullName email avatar');
   }
 }
 

@@ -66,7 +66,7 @@ interface Lead {
   createdAt: string;
   updatedAt: string;
   nextFollowUpAt?: string;
-  customFields?: Record<string, any>;
+  customData?: Record<string, any>;
 }
 
 interface LeadDetailsSheetProps {
@@ -147,7 +147,7 @@ export function LeadDetailsSheet({
       setEditValue(lead.value?.toString() || '');
       setEditSource(lead.source || '');
       setEditNotes(lead.notes || '');
-      setCustomFields(lead.customFields || {});
+      setCustomFields(lead.customData || {});
     }
   }, [lead]);
 
@@ -273,7 +273,7 @@ export function LeadDetailsSheet({
       default: return 'bg-gray-100 text-gray-800 dark:bg-gray-900/20 dark:text-gray-400';
     }
   };
-
+console.log(lead)
   return (
     <Sheet open={open} onOpenChange={onClose}>
       <SheetContent className="w-full sm:max-w-6xl lg:max-w-7xl overflow-y-auto">
@@ -471,7 +471,17 @@ export function LeadDetailsSheet({
                     </SelectContent>
                   </Select>
                 ) : (
-                  <Badge variant="secondary">{lead.status}</Badge>
+                  <Badge
+                    variant="secondary"
+                    className="px-3 py-1 text-sm font-medium"
+                    style={{
+                      backgroundColor: (lead.statusId as any)?.color ? `${(lead.statusId as any).color}20` : undefined,
+                      color: (lead.statusId as any)?.color || undefined,
+                      borderColor: (lead.statusId as any)?.color || undefined
+                    }}
+                  >
+                    {typeof lead.statusId === 'object' && (lead.statusId as any)?.name ? (lead.statusId as any).name : lead.status}
+                  </Badge>
                 )}
               </div>
 

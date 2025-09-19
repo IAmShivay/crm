@@ -93,7 +93,12 @@ export interface LeadActivity {
   leadId: string;
   workspaceId: string;
   activityType: 'created' | 'updated' | 'status_changed' | 'assigned' | 'note_added' | 'converted' | 'deleted';
-  performedBy: string;
+  performedBy: string | {
+    id: string;
+    fullName: string;
+    email: string;
+    avatar?: string;
+  };
   description: string;
   changes?: {
     field: string;

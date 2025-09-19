@@ -98,6 +98,13 @@ export function LeadList() {
     setIsDetailsOpen(true);
   };
 
+  const handleLeadUpdate = (updatedLead: any) => {
+    // Update the selected lead with the new data
+    setSelectedLead(updatedLead);
+    // Trigger a refetch to update the list
+    refetch();
+  };
+
   const handleConvertToContact = async (lead: any) => {
     if (!currentWorkspace?.id) return;
 
@@ -364,6 +371,7 @@ export function LeadList() {
           setSelectedLead(null);
         }}
         onDelete={handleDelete}
+        onUpdate={handleLeadUpdate}
       />
     </div>
   );
