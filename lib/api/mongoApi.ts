@@ -88,6 +88,22 @@ export interface Activity {
   createdAt: string;
 }
 
+export interface LeadActivity {
+  id: string;
+  leadId: string;
+  workspaceId: string;
+  activityType: 'created' | 'updated' | 'status_changed' | 'assigned' | 'note_added' | 'converted' | 'deleted';
+  performedBy: string;
+  description: string;
+  changes?: {
+    field: string;
+    oldValue?: any;
+    newValue?: any;
+  }[];
+  metadata?: Record<string, any>;
+  createdAt: string;
+}
+
 export interface Workspace {
   id: string;
   name: string;
@@ -117,7 +133,7 @@ export const mongoApi = createApi({
       return headers;
     },
   }),
-  tagTypes: ['Lead', 'Role', 'Workspace', 'Activity', 'User', 'LeadStatus', 'Tag', 'WorkspaceMember'],
+  tagTypes: ['Lead', 'Role', 'Workspace', 'Activity', 'User', 'LeadStatus', 'Tag', 'WorkspaceMember', 'LeadActivity'],
   endpoints: (builder) => ({
     // Leads
     getLeads: builder.query<{ leads: Lead[]; pagination: any }, { workspaceId: string; page?: number; limit?: number; status?: string; search?: string }>({
@@ -158,6 +174,37 @@ export const mongoApi = createApi({
         method: 'DELETE',
       }),
       invalidatesTags: ['Lead'],
+    }),
+
+    // Lead Activities
+    getLeadActivities: builder.query<{ activities: LeadActivity[] }, { leadId: string; workspaceId: string; limit?: number }>({
+      query: ({ leadId, workspaceId, limit = 50 }) => ({
+        url: `leads/${leadId}/activities?workspaceId=${workspaceId}&limit=${limit}`,
+        method: 'GET',
+      }),
+      providesTags: (result, error, { leadId }) => [
+        { type: 'LeadActivity', id: leadId },
+        'LeadActivity'
+      ],
+    }),
+
+    createLeadActivity: builder.mutation<{ activity: LeadActivity }, {
+      leadId: string;
+      workspaceId: string;
+      activityType: string;
+      description: string;
+      changes?: { field: string; oldValue: any; newValue: any }[];
+      metadata?: Record<string, any>;
+    }>({
+      query: ({ leadId, workspaceId, ...body }) => ({
+        url: `leads/${leadId}/activities?workspaceId=${workspaceId}`,
+        method: 'POST',
+        body,
+      }),
+      invalidatesTags: (result, error, { leadId }) => [
+        { type: 'LeadActivity', id: leadId },
+        'LeadActivity'
+      ],
     }),
 
     // Roles
@@ -272,6 +319,8 @@ export const {
   useCreateLeadMutation,
   useUpdateLeadMutation,
   useDeleteLeadMutation,
+  useGetLeadActivitiesQuery,
+  useCreateLeadActivityMutation,
   useGetRolesQuery,
   useCreateRoleMutation,
   useDeleteRoleMutation,

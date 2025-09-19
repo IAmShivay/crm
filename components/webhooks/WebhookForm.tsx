@@ -49,7 +49,7 @@ import { toast } from 'sonner';
 const webhookFormSchema = z.object({
   name: z.string().min(1, 'Name is required').max(100),
   description: z.string().max(500).optional(),
-  webhookType: z.enum(['facebook_leads', 'google_forms', 'zapier', 'custom', 'mailchimp', 'hubspot', 'salesforce']),
+  webhookType: z.enum(['facebook_leads', 'google_forms', 'zapier', 'custom', 'mailchimp', 'hubspot', 'salesforce', 'swipepages']),
   events: z.array(z.string()).min(1, 'At least one event must be selected'),
   retryConfig: z.object({
     maxRetries: z.number().min(0).max(10),

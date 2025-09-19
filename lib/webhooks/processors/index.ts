@@ -35,6 +35,7 @@ import { GoogleFormsProcessor } from './google-forms';
 import { LinkedInProcessor } from './linkedin';
 import { HubSpotProcessor } from './hubspot';
 import { ZapierProcessor } from './zapier';
+import { SwipePagesProcessor } from './swipepages';
 import { GenericProcessor } from './generic';
 
 // Registry of all available processors
@@ -44,6 +45,7 @@ export const WEBHOOK_PROCESSORS: Record<string, WebhookProcessor> = {
   linkedin: new LinkedInProcessor(),
   hubspot: new HubSpotProcessor(),
   zapier: new ZapierProcessor(),
+  swipepages: new SwipePagesProcessor(),
   generic: new GenericProcessor(),
 };
 
@@ -90,7 +92,16 @@ export function detectWebhookType(request: NextRequest, data: any): string {
   if (userAgent.includes('zapier') || request.headers.get('x-zapier-source')) {
     return 'zapier';
   }
-  
+
+  // Check for SwipePages
+  if (userAgent.includes('swipepages') ||
+      request.headers.get('x-swipepages-webhook') ||
+      data.form_name ||
+      data.landing_page ||
+      (data.company && String(data.company).toLowerCase().includes('swipe'))) {
+    return 'swipepages';
+  }
+
   // Default to generic
   return 'generic';
 }

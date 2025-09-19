@@ -24,6 +24,7 @@ import { WebhookLog, type IWebhookLog } from './models/WebhookLog';
 import { Tag, type ITag } from './models/Tag';
 import { LeadNote, type ILeadNote } from './models/LeadNote';
 import { LeadStatus, type ILeadStatus } from './models/LeadStatus';
+import { LeadActivity, type ILeadActivity } from './models/LeadActivity';
 import { Contact, type IContact } from './models/Contact';
 
 // Database client class to replace Supabase functionality
@@ -177,6 +178,21 @@ export class MongoDBClient {
       .sort({ createdAt: -1 })
       .limit(limit);
   }
+
+  // Lead activity operations
+  async createLeadActivity(activityData: Partial<ILeadActivity>): Promise<ILeadActivity> {
+    await this.ensureConnection();
+    const activity = new LeadActivity(activityData);
+    return await activity.save();
+  }
+
+  async getLeadActivities(leadId: string, limit: number = 50): Promise<ILeadActivity[]> {
+    await this.ensureConnection();
+    return await LeadActivity.find({ leadId })
+      .sort({ createdAt: -1 })
+      .limit(limit)
+      .populate('performedBy', 'fullName email');
+  }
 }
 
 // Create singleton instance
@@ -198,5 +214,6 @@ export {
   Tag,
   LeadNote,
   LeadStatus,
+  LeadActivity,
   Contact
 };

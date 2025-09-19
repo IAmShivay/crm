@@ -42,6 +42,9 @@ import { formatDistanceToNow } from 'date-fns';
 import { useAppSelector } from '@/lib/hooks';
 import { useGetLeadStatusesQuery, useGetTagsQuery, useUpdateLeadMutation, useGetWorkspaceMembersQuery } from '@/lib/api/mongoApi';
 import { toast } from 'sonner';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { leadUpdateSchema, type LeadUpdateData, validateCustomFields } from '@/lib/validation/leadValidation';
+import { LeadActivityHistory } from './LeadActivityHistory';
 
 interface Lead {
   id: string;
@@ -72,6 +75,7 @@ interface LeadDetailsSheetProps {
   onClose: () => void;
   onEdit?: (lead: Lead) => void;
   onDelete?: (leadId: string) => void;
+  onUpdate?: (lead: any) => void;
 }
 
 export function LeadDetailsSheet({
@@ -79,7 +83,8 @@ export function LeadDetailsSheet({
   open,
   onClose,
   onEdit,
-  onDelete
+  onDelete,
+  onUpdate
 }: LeadDetailsSheetProps) {
   const [isDeleting, setIsDeleting] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
@@ -165,22 +170,29 @@ export function LeadDetailsSheet({
   const handleSave = async () => {
     if (!currentWorkspace?.id) return;
 
+    // Validate custom fields
+    const customFieldErrors = validateCustomFields(customFields);
+    if (customFieldErrors.length > 0) {
+      toast.error(`Custom field errors: ${customFieldErrors.join(', ')}`);
+      return;
+    }
+
     try {
       const updatePayload = {
         name: editName,
-        email: editEmail || '',
-        phone: editPhone || '',
-        company: editCompany || '',
-        value: editValue ? Number(editValue) : 0,
-        source: editSource || 'manual',
-        notes: editNotes || '',
-        statusId: selectedStatus || '',
+        email: editEmail || undefined, // Convert empty string to undefined for API compatibility
+        phone: editPhone || undefined,
+        company: editCompany || undefined,
+        value: editValue ? Number(editValue) : undefined,
+        source: editSource,
+        notes: editNotes || undefined,
+        statusId: selectedStatus || undefined,
         tagIds: selectedTags,
-        assignedTo: assignedUser === 'unassigned' ? '' : assignedUser,
+        assignedTo: assignedUser === 'unassigned' ? undefined : assignedUser,
         customFields: customFields,
       };
 
-      await updateLead({
+      const updatedLead = await updateLead({
         id: lead.id,
         workspaceId: currentWorkspace.id,
         ...updatePayload
@@ -188,6 +200,11 @@ export function LeadDetailsSheet({
 
       toast.success('Lead updated successfully');
       setIsEditing(false);
+
+      // Trigger a refetch of the lead data to ensure UI is updated
+      if (onUpdate) {
+        onUpdate(updatedLead);
+      }
     } catch (error: any) {
       console.error('Error updating lead:', error);
       const errorMessage = error?.data?.message || error?.message || 'Failed to update lead';
@@ -289,6 +306,7 @@ export function LeadDetailsSheet({
                 </>
               ) : (
                 <>
+                  <LeadActivityHistory leadId={lead.id} leadName={lead.name} />
                   <Button
                     variant="outline"
                     size="sm"

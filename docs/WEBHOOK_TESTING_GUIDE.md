@@ -213,6 +213,24 @@ db.leads.find().sort({createdAt: -1}).limit(5)
 }
 ```
 
+### SwipePages Format
+```json
+{
+  "email": "john@doe.com",
+  "phone": "1234567890",
+  "company": "Swipe Pages",
+  "city": "New York City",
+  "name": "John",
+  "role": "Full Stack Dev",
+  "budget": "10k-25k",
+  "utm_source": "google",
+  "utm_campaign": "landing-page-test",
+  "form_name": "Contact Form",
+  "landing_page": "https://example.swipepages.com/contact",
+  "message": "Interested in your services"
+}
+```
+
 ## 🔐 Testing with Webhook Signatures
 
 If your webhook has a secret, test with signature verification:

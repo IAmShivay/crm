@@ -8,7 +8,7 @@ export interface Webhook {
   url: string;
   webhookUrl?: string;
   isActive: boolean;
-  webhookType: 'facebook_leads' | 'google_forms' | 'zapier' | 'custom' | 'mailchimp' | 'hubspot' | 'salesforce';
+  webhookType: 'facebook_leads' | 'google_forms' | 'zapier' | 'custom' | 'mailchimp' | 'hubspot' | 'salesforce' | 'swipepages';
   events: string[];
   headers?: Record<string, string>;
   transformationRules?: Record<string, any>;
@@ -53,7 +53,7 @@ export interface CreateWebhookRequest {
   workspaceId: string;
   name: string;
   description?: string;
-  webhookType: 'facebook_leads' | 'google_forms' | 'zapier' | 'custom' | 'mailchimp' | 'hubspot' | 'salesforce';
+  webhookType: 'facebook_leads' | 'google_forms' | 'zapier' | 'custom' | 'mailchimp' | 'hubspot' | 'salesforce' | 'swipepages';
   events: string[];
   headers?: Record<string, string>;
   transformationRules?: Record<string, any>;
@@ -67,7 +67,7 @@ export interface UpdateWebhookRequest {
   id: string;
   name?: string;
   description?: string;
-  webhookType?: 'facebook_leads' | 'google_forms' | 'zapier' | 'custom' | 'mailchimp' | 'hubspot' | 'salesforce';
+  webhookType?: 'facebook_leads' | 'google_forms' | 'zapier' | 'custom' | 'mailchimp' | 'hubspot' | 'salesforce' | 'swipepages';
   events?: string[];
   headers?: Record<string, string>;
   transformationRules?: Record<string, any>;
@@ -205,6 +205,14 @@ export const webhookTypeConfigs = {
     fields: ['FirstName', 'LastName', 'Email', 'Phone', 'Company'],
     events: ['lead.created', 'lead.updated'],
     documentation: 'https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/'
+  },
+  swipepages: {
+    name: 'SwipePages',
+    description: 'Receive leads from SwipePages landing page forms',
+    icon: '📄',
+    fields: ['name', 'email', 'phone', 'company', 'city', 'role', 'budget', 'utm_source', 'utm_campaign', 'form_name'],
+    events: ['lead.created'],
+    documentation: '/docs/webhooks/swipepages'
   },
   custom: {
     name: 'Custom Webhook',

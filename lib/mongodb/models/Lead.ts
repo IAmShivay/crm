@@ -119,10 +119,14 @@ const LeadSchema = new Schema<ILead>({
 }, {
   timestamps: true,
   toJSON: {
-    transform: function(doc: any, ret: any) {
+    transform: function(_doc: any, ret: any) {
       ret.id = ret._id;
       delete ret._id;
       delete ret.__v;
+      // Map customData to customFields for frontend compatibility
+      if (ret.customData) {
+        ret.customFields = ret.customData;
+      }
       return ret;
     }
   }

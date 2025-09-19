@@ -18,6 +18,8 @@ const updateLeadSchema = z.object({
   statusId: z.string().regex(/^[a-f\d]{24}$/i, 'Invalid status ID format').optional().or(z.literal('')),
   tagIds: z.array(z.string().regex(/^[a-f\d]{24}$/i, 'Invalid tag ID format')).max(10, 'Too many tags').optional(),
   assignedTo: z.string().regex(/^[a-f\d]{24}$/i, 'Invalid user ID format').optional().or(z.literal('')),
+  customFields: z.record(z.any()).optional(), // Allow custom fields as key-value pairs
+  customData: z.record(z.any()).optional(), // Support both customFields and customData
 });
 
 // PUT /api/leads/[id] - Update a lead
@@ -131,8 +133,65 @@ export const PUT = withSecurityLogging(withLogging(async (request: NextRequest, 
       return NextResponse.json({ message: 'Lead not found' }, { status: 404 });
     }
 
+    // Track changes for activity logging
+    const changes: { field: string; oldValue: any; newValue: any }[] = [];
+    const originalLead = lead.toObject();
+
     // Update the lead with provided data
     console.log('Updating lead with data:', updateData);
+
+    // Handle custom fields mapping (frontend sends customFields, model uses customData)
+    if (updateData.customFields) {
+      console.log('Updating custom fields:', updateData.customFields);
+      const oldCustomData = { ...lead.customData };
+      lead.customData = { ...lead.customData, ...updateData.customFields };
+
+      // Track custom field changes
+      Object.keys(updateData.customFields).forEach(key => {
+        if (oldCustomData[key] !== updateData.customFields![key]) {
+          changes.push({
+            field: `customFields.${key}`,
+            oldValue: oldCustomData[key],
+            newValue: updateData.customFields![key]
+          });
+        }
+      });
+
+      delete updateData.customFields; // Remove from updateData to avoid overwriting
+    }
+
+    // Handle direct customData updates
+    if (updateData.customData) {
+      console.log('Updating custom data:', updateData.customData);
+      const oldCustomData = { ...lead.customData };
+      lead.customData = { ...lead.customData, ...updateData.customData };
+
+      // Track custom data changes
+      Object.keys(updateData.customData).forEach(key => {
+        if (oldCustomData[key] !== updateData.customData![key]) {
+          changes.push({
+            field: `customData.${key}`,
+            oldValue: oldCustomData[key],
+            newValue: updateData.customData![key]
+          });
+        }
+      });
+
+      delete updateData.customData; // Remove from updateData to avoid overwriting
+    }
+
+    // Track regular field changes
+    Object.keys(updateData).forEach(key => {
+      const typedKey = key as keyof typeof updateData;
+      if (originalLead[typedKey] !== updateData[typedKey]) {
+        changes.push({
+          field: key,
+          oldValue: originalLead[typedKey],
+          newValue: updateData[typedKey]
+        });
+      }
+    });
+
     Object.assign(lead, updateData);
     lead.updatedAt = new Date();
     console.log('Saving lead...');
@@ -158,13 +217,47 @@ export const PUT = withSecurityLogging(withLogging(async (request: NextRequest, 
         metadata: {
           leadName: lead.name,
           updatedFields: Object.keys(updateData),
-          previousValues: {},
-          newValues: updateData
+          changes: changes
         }
       });
     } catch (activityError) {
       console.error('Failed to log lead update activity:', activityError);
       // Don't fail the update if activity logging fails
+    }
+
+    // Log detailed lead activity
+    if (changes.length > 0) {
+      try {
+        const { LeadActivity } = await import('@/lib/mongodb/client');
+
+        // Determine activity type based on changes
+        let activityType: 'updated' | 'status_changed' | 'assigned' = 'updated';
+        let description = `Updated lead "${lead.name}"`;
+
+        if (changes.some(c => c.field === 'statusId')) {
+          activityType = 'status_changed';
+          description = `Changed status of lead "${lead.name}"`;
+        } else if (changes.some(c => c.field === 'assignedTo')) {
+          activityType = 'assigned';
+          description = `Reassigned lead "${lead.name}"`;
+        }
+
+        await LeadActivity.create({
+          leadId,
+          workspaceId,
+          activityType,
+          performedBy: auth.user.id,
+          description,
+          changes,
+          metadata: {
+            leadName: lead.name,
+            totalChanges: changes.length
+          }
+        });
+      } catch (leadActivityError) {
+        console.error('Failed to log lead activity:', leadActivityError);
+        // Don't fail the request if lead activity logging fails
+      }
     }
 
     // Log the activity
@@ -227,7 +320,6 @@ export const PUT = withSecurityLogging(withLogging(async (request: NextRequest, 
 
 // DELETE /api/leads/[id] - Delete a lead
 export const DELETE = withSecurityLogging(withLogging(async (request: NextRequest, { params }: { params: { id: string } }) => {
-  const startTime = Date.now();
 
   try {
     await connectToMongoDB();

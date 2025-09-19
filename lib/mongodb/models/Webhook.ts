@@ -8,7 +8,7 @@ export interface IWebhook extends Document {
   url: string;
   secret: string;
   isActive: boolean;
-  webhookType: 'facebook_leads' | 'google_forms' | 'zapier' | 'custom' | 'mailchimp' | 'hubspot' | 'salesforce';
+  webhookType: 'facebook_leads' | 'google_forms' | 'zapier' | 'custom' | 'mailchimp' | 'hubspot' | 'salesforce' | 'swipepages';
   events: string[];
   headers?: Record<string, string>;
   transformationRules?: Record<string, any>;
@@ -58,7 +58,7 @@ const WebhookSchema = new Schema<IWebhook>({
   },
   webhookType: {
     type: String,
-    enum: ['facebook_leads', 'google_forms', 'zapier', 'custom', 'mailchimp', 'hubspot', 'salesforce'],
+    enum: ['facebook_leads', 'google_forms', 'zapier', 'custom', 'mailchimp', 'hubspot', 'salesforce', 'swipepages'],
     required: true
   },
   events: [{

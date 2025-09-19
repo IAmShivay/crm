@@ -98,6 +98,21 @@ const TEST_PAYLOADS = {
       responseId: 'response-' + Date.now(),
       timestamp: new Date().toISOString()
     }
+  },
+
+  swipepages: {
+    email: 'john@doe.com',
+    phone: '1234567890',
+    company: 'Swipe Pages',
+    city: 'New York City',
+    name: 'John',
+    role: 'Full Stack Dev',
+    budget: '10k-25k',
+    utm_source: 'google',
+    utm_campaign: 'landing-page-test',
+    form_name: 'Contact Form',
+    landing_page: 'https://example.swipepages.com/contact',
+    message: 'Interested in your services'
   }
 };
 
@@ -126,6 +141,7 @@ Available webhook types:
   - facebook: Facebook Lead Ads format
   - zapier: Zapier webhook format
   - google_forms: Google Forms response format
+  - swipepages: SwipePages landing page format
 `);
 }
 
