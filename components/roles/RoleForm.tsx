@@ -10,6 +10,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useAppSelector } from '@/lib/hooks';
 import { toast } from 'sonner';
+import { useCreateRoleMutation } from '@/lib/api/mongoApi';
 
 interface RoleFormProps {
   onSuccess?: () => void;
@@ -23,10 +24,10 @@ interface RoleFormData {
 
 export function RoleForm({ onSuccess }: RoleFormProps) {
   const [selectedPermissions, setSelectedPermissions] = useState<string[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
   const { register, handleSubmit, formState: { errors } } = useForm<RoleFormData>();
 
   const { currentWorkspace } = useAppSelector((state) => state.workspace);
+  const [createRole, { isLoading }] = useCreateRoleMutation();
 
   // Available permissions
   const permissions = [
@@ -50,33 +51,20 @@ export function RoleForm({ onSuccess }: RoleFormProps) {
       return;
     }
 
-    setIsLoading(true);
     try {
-      const response = await fetch(`/api/roles?workspaceId=${currentWorkspace.id}`, {
-        method: 'POST',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          ...data,
-          permissions: selectedPermissions,
-          workspaceId: currentWorkspace.id,
-        }),
-      });
+      const result = await createRole({
+        ...data,
+        permissions: selectedPermissions,
+        workspaceId: currentWorkspace.id,
+      }).unwrap();
 
-      const result = await response.json();
       if (result.success) {
         toast.success('Role created successfully');
         onSuccess?.();
-      } else {
-        toast.error(result.message || 'Failed to create role');
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error creating role:', error);
-      toast.error('Failed to create role');
-    } finally {
-      setIsLoading(false);
+      toast.error(error?.data?.message || 'Failed to create role');
     }
   };
 

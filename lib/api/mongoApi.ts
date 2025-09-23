@@ -316,6 +316,46 @@ export const mongoApi = createApi({
       query: (workspaceId) => `workspaces/${workspaceId}/members`,
       providesTags: ['WorkspaceMember'],
     }),
+
+    // Workspace Roles
+    getWorkspaceRoles: builder.query<{ success: boolean; roles: Role[] }, string>({
+      query: (workspaceId) => `workspaces/${workspaceId}/roles`,
+      providesTags: ['Role'],
+    }),
+
+    // Workspace Invites
+    inviteToWorkspace: builder.mutation<{ success: boolean; message: string }, {
+      workspaceId: string;
+      email: string;
+      roleId: string;
+      message?: string
+    }>({
+      query: ({ workspaceId, ...body }) => ({
+        url: `workspaces/${workspaceId}/invites`,
+        method: 'POST',
+        body,
+      }),
+      invalidatesTags: ['WorkspaceMember'],
+    }),
+
+    // Lead Notes
+    createLeadNote: builder.mutation<{ success: boolean; note: any }, {
+      leadId: string;
+      workspaceId: string;
+      content: string;
+      type: string;
+      isPrivate?: boolean;
+    }>({
+      query: ({ leadId, workspaceId, ...body }) => ({
+        url: `leads/${leadId}/notes?workspaceId=${workspaceId}`,
+        method: 'POST',
+        body,
+      }),
+      invalidatesTags: (result, error, { leadId }) => [
+        { type: 'Lead', id: leadId },
+        'LeadActivity'
+      ],
+    }),
   }),
 });
 
@@ -341,6 +381,9 @@ export const {
   useCreateWorkspaceMutation,
   useUpdateWorkspaceMutation,
   useGetWorkspaceMembersQuery,
+  useGetWorkspaceRolesQuery,
+  useInviteToWorkspaceMutation,
+  useCreateLeadNoteMutation,
 } = mongoApi;
 
 // Mock exports for features not yet implemented

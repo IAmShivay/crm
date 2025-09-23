@@ -13,6 +13,12 @@
 
 import { useState, useEffect } from 'react';
 import { useAppSelector } from '@/lib/hooks';
+import {
+  useGetWorkspaceQuery,
+  useGetWorkspaceRolesQuery,
+  useInviteToWorkspaceMutation,
+  useUpdateWorkspaceMutation
+} from '@/lib/api/mongoApi';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
@@ -96,79 +102,51 @@ interface WorkspaceDetails {
 export default function WorkspaceSettingsPage() {
   const { currentWorkspace } = useAppSelector((state) => state.workspace);
   const [activeTab, setActiveTab] = useState('general');
-  const [isLoading, setIsLoading] = useState(false);
 
-  // Workspace data state
-  const [workspaceDetails, setWorkspaceDetails] = useState<WorkspaceDetails | null>(null);
-  const [members, setMembers] = useState<WorkspaceMember[]>([]);
-  const [roles, setRoles] = useState<WorkspaceRole[]>([]);
-  const [memberCount, setMemberCount] = useState(0);
-  const [isOwner, setIsOwner] = useState(false);
+  // RTK Query hooks
+  const { data: workspaceData, isLoading: workspaceLoading } = useGetWorkspaceQuery(
+    currentWorkspace?.id || '',
+    { skip: !currentWorkspace?.id }
+  );
+  const { data: rolesData, isLoading: rolesLoading } = useGetWorkspaceRolesQuery(
+    currentWorkspace?.id || '',
+    { skip: !currentWorkspace?.id }
+  );
+  const [inviteToWorkspace, { isLoading: inviteLoading }] = useInviteToWorkspaceMutation();
+  const [updateWorkspace, { isLoading: updateLoading }] = useUpdateWorkspaceMutation();
+
+  // Local state for form inputs
+  const [inviteDialogOpen, setInviteDialogOpen] = useState(false);
+  const [inviteEmail, setInviteEmail] = useState('');
+  const [inviteRole, setInviteRole] = useState('');
+
+  // Extract data from RTK Query responses
+  const workspaceDetails = workspaceData?.workspace;
+  const members = workspaceDetails?.members || [];
+  const roles = rolesData?.roles || [];
+  const memberCount = workspaceDetails?.memberCount || 0;
+  const isOwner = workspaceDetails?.userRole === 'Owner';
 
   // General settings state
   const [workspaceName, setWorkspaceName] = useState(currentWorkspace?.name || '');
   const [workspaceDescription, setWorkspaceDescription] = useState('');
   const [workspaceSlug, setWorkspaceSlug] = useState('');
 
-  // Member management state
-  const [inviteDialogOpen, setInviteDialogOpen] = useState(false);
-  const [inviteEmail, setInviteEmail] = useState('');
-  const [inviteRole, setInviteRole] = useState('');
-
+  // Update form state when workspace data loads
   useEffect(() => {
-    if (currentWorkspace) {
-      setWorkspaceName(currentWorkspace.name);
-      loadWorkspaceDetails();
+    if (workspaceDetails) {
+      setWorkspaceName(workspaceDetails.name);
+      setWorkspaceDescription(workspaceDetails.description || '');
+      setWorkspaceSlug(workspaceDetails.slug || '');
     }
-  }, [currentWorkspace]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [workspaceDetails]);
 
-  const loadWorkspaceDetails = async () => {
-    if (!currentWorkspace?.id) return;
-
-    try {
-      setIsLoading(true);
-
-      // Fetch workspace details (credentials: 'include' sends HTTP-only cookies)
-      const workspaceResponse = await fetch(`/api/workspaces/${currentWorkspace.id}`, {
-        credentials: 'include',
-      });
-
-      if (workspaceResponse.ok) {
-        const workspaceData = await workspaceResponse.json();
-        if (workspaceData.success) {
-          const workspace = workspaceData.workspace;
-          setWorkspaceDetails(workspace);
-          setMembers(workspace.members || []);
-          setMemberCount(workspace.memberCount || 0);
-          setIsOwner(workspace.userRole === 'Owner');
-          setWorkspaceDescription(workspace.description || '');
-          setWorkspaceSlug(workspace.slug || '');
-        }
-      }
-
-      // Fetch workspace roles
-      const rolesResponse = await fetch(`/api/workspaces/${currentWorkspace.id}/roles`, {
-        credentials: 'include',
-      });
-
-      if (rolesResponse.ok) {
-        const rolesData = await rolesResponse.json();
-        if (rolesData.success) {
-          setRoles(rolesData.roles || []);
-          // Set default invite role to first available role
-          if (rolesData.roles && rolesData.roles.length > 0) {
-            setInviteRole(rolesData.roles[0].id);
-          }
-        }
-      }
-
-    } catch (error) {
-      console.error('Error loading workspace details:', error);
-      toast.error('Failed to load workspace details');
-    } finally {
-      setIsLoading(false);
+  // Set default invite role when roles load
+  useEffect(() => {
+    if (roles && roles.length > 0 && !inviteRole) {
+      setInviteRole(roles[0].id);
     }
-  };
+  }, [roles, inviteRole]);
 
   const handleSaveGeneral = async () => {
     if (!workspaceName.trim()) {
@@ -176,25 +154,25 @@ export default function WorkspaceSettingsPage() {
       return;
     }
 
+    if (!currentWorkspace?.id) {
+      toast.error('Workspace not found');
+      return;
+    }
+
     try {
-      setIsLoading(true);
-      // TODO: Replace with actual API call
-      // await fetch(`/api/workspaces/${currentWorkspace.id}`, {
-      //   method: 'PUT',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify({
-      //     name: workspaceName,
-      //     description: workspaceDescription,
-      //     slug: workspaceSlug
-      //   })
-      // });
-      
-      toast.success('Workspace settings updated successfully');
-    } catch (error) {
+      const result = await updateWorkspace({
+        id: currentWorkspace.id,
+        name: workspaceName,
+        description: workspaceDescription,
+        slug: workspaceSlug
+      }).unwrap();
+
+      if (result.success) {
+        toast.success('Workspace settings updated successfully');
+      }
+    } catch (error: any) {
       console.error('Error updating workspace:', error);
-      toast.error('Failed to update workspace settings');
-    } finally {
-      setIsLoading(false);
+      toast.error(error?.data?.message || 'Failed to update workspace settings');
     }
   };
 
@@ -209,39 +187,28 @@ export default function WorkspaceSettingsPage() {
       return;
     }
 
+    if (!currentWorkspace?.id) {
+      toast.error('Workspace not found');
+      return;
+    }
+
     try {
-      setIsLoading(true);
+      const result = await inviteToWorkspace({
+        workspaceId: currentWorkspace.id,
+        email: inviteEmail,
+        roleId: inviteRole,
+        message: `You've been invited to join ${currentWorkspace.name} workspace.`
+      }).unwrap();
 
-      const response = await fetch(`/api/workspaces/${currentWorkspace?.id}/invites`, {
-        method: 'POST',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: inviteEmail,
-          roleId: inviteRole,
-          message: `You've been invited to join ${currentWorkspace?.name} workspace.`
-        }),
-      });
-
-      const data = await response.json();
-
-      if (response.ok && data.success) {
+      if (result.success) {
         toast.success(`Invitation sent to ${inviteEmail}`);
         setInviteEmail('');
         setInviteRole(roles.length > 0 ? roles[0].id : '');
         setInviteDialogOpen(false);
-        // Refresh workspace details to get updated member count
-        loadWorkspaceDetails();
-      } else {
-        toast.error(data.message || 'Failed to send invitation');
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error inviting member:', error);
-      toast.error('Failed to send invitation');
-    } finally {
-      setIsLoading(false);
+      toast.error(error?.data?.message || 'Failed to send invitation');
     }
   };
 
@@ -272,7 +239,7 @@ export default function WorkspaceSettingsPage() {
     );
   }
 
-  if (isLoading && !workspaceDetails) {
+  if ((workspaceLoading || rolesLoading) && !workspaceDetails) {
     return (
       <div className="w-full space-y-6">
         <PageHeaderSkeleton />
@@ -402,7 +369,7 @@ export default function WorkspaceSettingsPage() {
                     value={workspaceName}
                     onChange={(e) => setWorkspaceName(e.target.value)}
                     placeholder="Enter workspace name"
-                    disabled={isLoading}
+                    disabled={updateLoading}
                   />
                 </div>
                 <div className="space-y-2">
@@ -417,7 +384,7 @@ export default function WorkspaceSettingsPage() {
                       onChange={(e) => setWorkspaceSlug(e.target.value)}
                       className="rounded-l-none"
                       placeholder="workspace-url"
-                      disabled={isLoading}
+                      disabled={updateLoading}
                     />
                   </div>
                 </div>
@@ -431,14 +398,14 @@ export default function WorkspaceSettingsPage() {
                   onChange={(e) => setWorkspaceDescription(e.target.value)}
                   placeholder="Describe your workspace..."
                   rows={3}
-                  disabled={isLoading}
+                  disabled={workspaceLoading}
                 />
               </div>
 
               <div className="flex justify-end">
-                <Button onClick={handleSaveGeneral} disabled={isLoading}>
+                <Button onClick={handleSaveGeneral} disabled={updateLoading}>
                   <Save className="h-4 w-4 mr-2" />
-                  {isLoading ? 'Saving...' : 'Save Changes'}
+                  {updateLoading ? 'Saving...' : 'Save Changes'}
                 </Button>
               </div>
             </CardContent>
@@ -501,8 +468,8 @@ export default function WorkspaceSettingsPage() {
                       <Button variant="outline" onClick={() => setInviteDialogOpen(false)}>
                         Cancel
                       </Button>
-                      <Button onClick={handleInviteMember} disabled={!inviteEmail || isLoading}>
-                        {isLoading ? 'Sending...' : 'Send Invitation'}
+                      <Button onClick={handleInviteMember} disabled={!inviteEmail || inviteLoading}>
+                        {inviteLoading ? 'Sending...' : 'Send Invitation'}
                       </Button>
                     </DialogFooter>
                   </DialogContent>
@@ -511,13 +478,13 @@ export default function WorkspaceSettingsPage() {
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                {members.map((member) => (
+                {members.map((member: any) => (
                   <div key={member.id} className="flex items-center justify-between p-4 border rounded-lg dark:border-gray-700">
                     <div className="flex items-center space-x-4">
                       <Avatar>
                         <AvatarImage src={member.avatar || undefined} />
                         <AvatarFallback>
-                          {member.name.split(' ').map(n => n[0]).join('')}
+                          {member.name.split(' ').map((n: string) => n[0]).join('')}
                         </AvatarFallback>
                       </Avatar>
                       <div>
@@ -641,7 +608,7 @@ export default function WorkspaceSettingsPage() {
               </div>
             </CardHeader>
             <CardContent>
-              {isLoading ? (
+              {workspaceLoading ? (
                 <div className="space-y-4">
                   {Array.from({ length: 3 }).map((_, i) => (
                     <div key={i} className="flex items-center space-x-4 p-4 border rounded-lg animate-pulse">
@@ -694,7 +661,7 @@ export default function WorkspaceSettingsPage() {
                                 {role.description || `${role.permissions.length} permissions`}
                               </p>
                               <p className="text-xs text-gray-400">
-                                {role.memberCount} member{role.memberCount !== 1 ? 's' : ''}
+                                {(role as any).memberCount || 0} member{((role as any).memberCount || 0) !== 1 ? 's' : ''}
                               </p>
                             </div>
                           </div>
