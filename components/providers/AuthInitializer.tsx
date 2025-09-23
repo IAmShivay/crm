@@ -24,10 +24,9 @@ export function AuthInitializer({ children }: { children: React.ReactNode }) {
           const data = await response.json();
           
           if (data.valid && data.user) {
-            // Restore user session in Redux
+            // Restore user session in Redux (token is in HTTP-only cookie)
             dispatch(loginSuccess({
-              user: data.user,
-              token: 'cookie-based' // Token is in HTTP-only cookie
+              user: data.user
             }));
 
             // Restore workspace if available

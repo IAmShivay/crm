@@ -128,11 +128,9 @@ export default function WorkspaceSettingsPage() {
     try {
       setIsLoading(true);
 
-      // Fetch workspace details
+      // Fetch workspace details (credentials: 'include' sends HTTP-only cookies)
       const workspaceResponse = await fetch(`/api/workspaces/${currentWorkspace.id}`, {
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('auth_token')}`,
-        },
+        credentials: 'include',
       });
 
       if (workspaceResponse.ok) {
@@ -150,9 +148,7 @@ export default function WorkspaceSettingsPage() {
 
       // Fetch workspace roles
       const rolesResponse = await fetch(`/api/workspaces/${currentWorkspace.id}/roles`, {
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('auth_token')}`,
-        },
+        credentials: 'include',
       });
 
       if (rolesResponse.ok) {
@@ -218,9 +214,9 @@ export default function WorkspaceSettingsPage() {
 
       const response = await fetch(`/api/workspaces/${currentWorkspace?.id}/invites`, {
         method: 'POST',
+        credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('auth_token')}`,
         },
         body: JSON.stringify({
           email: inviteEmail,

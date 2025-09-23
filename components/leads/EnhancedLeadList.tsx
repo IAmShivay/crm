@@ -142,12 +142,11 @@ export function EnhancedLeadList() {
   const [noteType, setNoteType] = useState<'note' | 'call' | 'email' | 'meeting' | 'task'>('note');
   
   const { currentWorkspace } = useAppSelector((state) => state.workspace);
-  const { token } = useAppSelector((state) => state.auth);
   const observerRef = useRef<IntersectionObserver>();
   const lastLeadElementRef = useRef<HTMLTableRowElement>();
 
   const fetchLeads = useCallback(async (pageNum: number, reset = false) => {
-    if (!currentWorkspace?.id || !token) return;
+    if (!currentWorkspace?.id) return;
     
     setLoading(true);
     try {
@@ -163,8 +162,8 @@ export function EnhancedLeadList() {
       if (assignedToFilter) params.append('assignedTo', assignedToFilter);
 
       const response = await fetch(`/api/leads?${params}`, {
+        credentials: 'include',
         headers: {
-          'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json',
         },
       });
@@ -189,7 +188,7 @@ export function EnhancedLeadList() {
     } finally {
       setLoading(false);
     }
-  }, [currentWorkspace?.id, token, searchTerm, statusFilter, priorityFilter, assignedToFilter]);
+  }, [currentWorkspace?.id, searchTerm, statusFilter, priorityFilter, assignedToFilter]);
 
   // Infinite scroll callback
   const lastLeadElementCallback = useCallback((node: HTMLTableRowElement) => {
@@ -211,14 +210,11 @@ export function EnhancedLeadList() {
   }, [searchTerm, statusFilter, priorityFilter, assignedToFilter, fetchLeads]);
 
   const handleDelete = async (id: string) => {
-    if (!token) return;
     
     try {
       const response = await fetch(`/api/leads/${id}`, {
         method: 'DELETE',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-        },
+        credentials: 'include',
       });
 
       if (!response.ok) {
@@ -234,13 +230,13 @@ export function EnhancedLeadList() {
   };
 
   const handleAddNote = async () => {
-    if (!selectedLead || !noteContent.trim() || !token) return;
+    if (!selectedLead || !noteContent.trim()) return;
     
     try {
       const response = await fetch(`/api/leads/${selectedLead.id}/notes`, {
         method: 'POST',
+        credentials: 'include',
         headers: {
-          'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({

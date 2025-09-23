@@ -89,17 +89,9 @@ export const webhookApi = createApi({
   reducerPath: 'webhookApi',
   baseQuery: fetchBaseQuery({
     baseUrl: '/api/webhooks',
-    prepareHeaders: (headers, { getState }) => {
+    credentials: 'include', // Use HTTP-only cookies for authentication
+    prepareHeaders: (headers) => {
       headers.set('Content-Type', 'application/json');
-
-      // Get token from auth state
-      const state = getState() as any;
-      const token = state.auth?.token;
-
-      if (token) {
-        headers.set('Authorization', `Bearer ${token}`);
-      }
-
       return headers;
     },
   }),

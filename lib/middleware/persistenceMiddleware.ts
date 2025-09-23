@@ -47,7 +47,6 @@ export const loadPersistedState = () => {
       persistedState.auth = {
         isAuthenticated: parsed.isAuthenticated || false,
         user: parsed.user || null,
-        token: parsed.token || null,
         loading: false,
         error: null
       };
@@ -90,11 +89,10 @@ export const persistenceMiddleware: Middleware = (store) => (next) => (action: a
         saveToLocalStorage(PERSIST_KEYS.theme, state.theme);
         break;
       case 'auth':
-        // Only persist non-sensitive auth data
+        // Only persist non-sensitive auth data (no token)
         const authData = {
           isAuthenticated: state.auth.isAuthenticated,
-          user: state.auth.user,
-          token: state.auth.token
+          user: state.auth.user
         };
         saveToLocalStorage(PERSIST_KEYS.auth, authData);
         break;

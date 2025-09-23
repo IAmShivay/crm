@@ -27,7 +27,6 @@ export function RoleForm({ onSuccess }: RoleFormProps) {
   const { register, handleSubmit, formState: { errors } } = useForm<RoleFormData>();
 
   const { currentWorkspace } = useAppSelector((state) => state.workspace);
-  const { token } = useAppSelector((state) => state.auth);
 
   // Available permissions
   const permissions = [
@@ -46,7 +45,7 @@ export function RoleForm({ onSuccess }: RoleFormProps) {
   ];
 
   const onSubmit = async (data: RoleFormData) => {
-    if (!currentWorkspace?.id || !token) {
+    if (!currentWorkspace?.id) {
       toast.error('Workspace not found');
       return;
     }
@@ -55,9 +54,9 @@ export function RoleForm({ onSuccess }: RoleFormProps) {
     try {
       const response = await fetch(`/api/roles?workspaceId=${currentWorkspace.id}`, {
         method: 'POST',
+        credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
         },
         body: JSON.stringify({
           ...data,

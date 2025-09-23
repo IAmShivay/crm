@@ -136,8 +136,7 @@ export function ModernLoginForm() {
           role: 'user',
           workspaceId: result.workspace?.id || '',
           permissions: [],
-        },
-        token: 'cookie-based', // Token is stored in HTTP-only cookie
+        }
       }));
 
       if (result.workspace) {
