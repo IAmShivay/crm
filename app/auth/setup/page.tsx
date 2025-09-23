@@ -106,7 +106,7 @@ export default function AuthSetupPage() {
           </div>
           <CardTitle className="text-2xl font-bold">Complete Your Setup</CardTitle>
           <CardDescription>
-            Welcome! Let's set up your profile and workspace
+            Welcome! Let&apos;s set up your profile and workspace
           </CardDescription>
         </CardHeader>
         <CardContent>

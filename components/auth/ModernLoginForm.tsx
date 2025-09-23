@@ -190,7 +190,7 @@ export function ModernLoginForm() {
     } finally {
       setLoading(false);
     }
-  }, [isBlocked, blockTimeRemaining, clearErrors, dispatch, redirectUrl, router, setError]);
+  }, [isBlocked, blockTimeRemaining, clearErrors, dispatch, redirectUrl, router, setError, loginUser]);
 
   return (
     <div className="min-h-screen flex">

@@ -8,7 +8,7 @@ export default function DashboardPage() {
     <div className="w-full space-y-6">
       <div className="w-full">
         <h1 className="text-2xl sm:text-3xl font-bold text-foreground">Dashboard</h1>
-        <p className="text-muted-foreground mt-1">Welcome back! Here's what's happening with your sales.</p>
+        <p className="text-muted-foreground mt-1">Welcome back! Here&apos;s what&apos;s happening with your sales.</p>
       </div>
       
       <StatsCards />

@@ -41,4 +41,5 @@ const workspaceSlice = createSlice({
 });
 
 export const { setCurrentWorkspace, setWorkspaces, addWorkspace, updateWorkspace } = workspaceSlice.actions;
+export { workspaceSlice };
 export default workspaceSlice.reducer;

@@ -146,25 +146,6 @@ export function ModernRegisterForm() {
     }
   }, [attemptCount]);
 
-  // Performance: Calculate password strength
-  useEffect(() => {
-    if (watchedPassword) {
-      const strength = calculatePasswordStrength(watchedPassword);
-      setPasswordStrength(strength);
-    } else {
-      setPasswordStrength(0);
-    }
-  }, [watchedPassword]);
-
-  // Performance: Debounced password visibility toggles
-  const togglePasswordVisibility = useCallback(() => {
-    setShowPassword(prev => !prev);
-  }, []);
-
-  const toggleConfirmPasswordVisibility = useCallback(() => {
-    setShowConfirmPassword(prev => !prev);
-  }, []);
-
   // Password strength calculation
   const calculatePasswordStrength = useCallback((password: string): number => {
     let strength = 0;
@@ -176,6 +157,25 @@ export function ModernRegisterForm() {
     if (/[@$!%*?&]/.test(password)) strength += 1;
     if (password.length >= 16) strength += 1;
     return Math.min(strength, 5);
+  }, []);
+
+  // Performance: Calculate password strength
+  useEffect(() => {
+    if (watchedPassword) {
+      const strength = calculatePasswordStrength(watchedPassword);
+      setPasswordStrength(strength);
+    } else {
+      setPasswordStrength(0);
+    }
+  }, [watchedPassword, calculatePasswordStrength]);
+
+  // Performance: Debounced password visibility toggles
+  const togglePasswordVisibility = useCallback(() => {
+    setShowPassword(prev => !prev);
+  }, []);
+
+  const toggleConfirmPasswordVisibility = useCallback(() => {
+    setShowConfirmPassword(prev => !prev);
   }, []);
 
   // Enhanced submit function with security and performance optimizations
@@ -262,7 +262,7 @@ export function ModernRegisterForm() {
     } finally {
       setLoading(false);
     }
-  }, [isBlocked, blockTimeRemaining, passwordStrength, clearErrors, dispatch, redirectUrl, router, setError]);
+  }, [isBlocked, blockTimeRemaining, passwordStrength, clearErrors, dispatch, redirectUrl, router, setError, signupUser]);
 
   // Password strength calculation helper
   const getPasswordStrength = useCallback((password: string) => {

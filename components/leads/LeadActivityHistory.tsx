@@ -213,7 +213,7 @@ export function LeadActivityHistory({ leadId, leadName }: LeadActivityHistoryPro
             <span>Activity History</span>
           </DialogTitle>
           <DialogDescription>
-            Complete history of changes made to "{leadName}"
+            Complete history of changes made to &quot;{leadName}&quot;
           </DialogDescription>
         </DialogHeader>
 

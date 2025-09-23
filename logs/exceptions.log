@@ -727,3 +727,165 @@
   version: '0.1.0',
   timestamp: '2025-09-14T20:32:56.003Z'
 }
+{
+  error: TypeError [ERR_INVALID_ARG_TYPE]: The "code" argument must be of type number. Received type string ('SIGINT')
+      at process.set [as exitCode] (node:internal/bootstrap/node:119:9)
+      at process.exit (node:internal/process/per_thread:231:24)
+      at process.cleanup (S:\SHIVAY-MRC\SHIVAY\CRM-X-SHIVAY\node_modules\next\dist\server\lib\start-server.js:208:29)
+      at process.emit (node:events:520:35) {
+    code: 'ERR_INVALID_ARG_TYPE'
+  },
+  level: 'error',
+  message: `uncaughtException: The "code" argument must be of type number. Received type string ('SIGINT')\n` +
+    `TypeError [ERR_INVALID_ARG_TYPE]: The "code" argument must be of type number. Received type string ('SIGINT')\n` +
+    '    at process.set [as exitCode] (node:internal/bootstrap/node:119:9)\n' +
+    '    at process.exit (node:internal/process/per_thread:231:24)\n' +
+    '    at process.cleanup (S:\\SHIVAY-MRC\\SHIVAY\\CRM-X-SHIVAY\\node_modules\\next\\dist\\server\\lib\\start-server.js:208:29)\n' +
+    '    at process.emit (node:events:520:35)',
+  stack: `TypeError [ERR_INVALID_ARG_TYPE]: The "code" argument must be of type number. Received type string ('SIGINT')\n` +
+    '    at process.set [as exitCode] (node:internal/bootstrap/node:119:9)\n' +
+    '    at process.exit (node:internal/process/per_thread:231:24)\n' +
+    '    at process.cleanup (S:\\SHIVAY-MRC\\SHIVAY\\CRM-X-SHIVAY\\node_modules\\next\\dist\\server\\lib\\start-server.js:208:29)\n' +
+    '    at process.emit (node:events:520:35)',
+  exception: true,
+  date: 'Wed Sep 24 2025 00:55:15 GMT+0530 (India Standard Time)',
+  process: {
+    pid: 6348,
+    uid: null,
+    gid: null,
+    cwd: 'S:\\SHIVAY-MRC\\SHIVAY\\CRM-X-SHIVAY',
+    execPath: 'C:\\Program Files\\nodejs\\node.exe',
+    version: 'v24.8.0',
+    argv: [
+      'C:\\Program Files\\nodejs\\node.exe',
+      'S:\\SHIVAY-MRC\\SHIVAY\\CRM-X-SHIVAY\\node_modules\\next\\dist\\server\\lib\\start-server.js'
+    ],
+    memoryUsage: {
+      rss: 853594112,
+      heapTotal: 448049152,
+      heapUsed: 396987640,
+      external: 1523674699,
+      arrayBuffers: 1512883690
+    }
+  },
+  os: { loadavg: [ 0, 0, 0 ], uptime: 14050.031 },
+  trace: [
+    {
+      column: 9,
+      file: 'node:internal/bootstrap/node',
+      function: 'process.set [as exitCode]',
+      line: 119,
+      method: 'set [as exitCode]',
+      native: false
+    },
+    {
+      column: 24,
+      file: 'node:internal/process/per_thread',
+      function: 'process.exit',
+      line: 231,
+      method: 'exit',
+      native: false
+    },
+    {
+      column: 29,
+      file: 'S:\\SHIVAY-MRC\\SHIVAY\\CRM-X-SHIVAY\\node_modules\\next\\dist\\server\\lib\\start-server.js',
+      function: 'process.cleanup',
+      line: 208,
+      method: 'cleanup',
+      native: false
+    },
+    {
+      column: 35,
+      file: 'node:events',
+      function: 'process.emit',
+      line: 520,
+      method: 'emit',
+      native: false
+    }
+  ],
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  timestamp: '2025-09-23T19:25:15.166Z'
+}
+{
+  error: TypeError [ERR_INVALID_ARG_TYPE]: The "code" argument must be of type number. Received type string ('SIGINT')
+      at process.set [as exitCode] (node:internal/bootstrap/node:119:9)
+      at process.exit (node:internal/process/per_thread:231:24)
+      at process.cleanup (S:\SHIVAY-MRC\SHIVAY\CRM-X-SHIVAY\node_modules\next\dist\server\lib\start-server.js:208:29)
+      at process.emit (node:events:520:35) {
+    code: 'ERR_INVALID_ARG_TYPE'
+  },
+  level: 'error',
+  message: `uncaughtException: The "code" argument must be of type number. Received type string ('SIGINT')\n` +
+    `TypeError [ERR_INVALID_ARG_TYPE]: The "code" argument must be of type number. Received type string ('SIGINT')\n` +
+    '    at process.set [as exitCode] (node:internal/bootstrap/node:119:9)\n' +
+    '    at process.exit (node:internal/process/per_thread:231:24)\n' +
+    '    at process.cleanup (S:\\SHIVAY-MRC\\SHIVAY\\CRM-X-SHIVAY\\node_modules\\next\\dist\\server\\lib\\start-server.js:208:29)\n' +
+    '    at process.emit (node:events:520:35)',
+  stack: `TypeError [ERR_INVALID_ARG_TYPE]: The "code" argument must be of type number. Received type string ('SIGINT')\n` +
+    '    at process.set [as exitCode] (node:internal/bootstrap/node:119:9)\n' +
+    '    at process.exit (node:internal/process/per_thread:231:24)\n' +
+    '    at process.cleanup (S:\\SHIVAY-MRC\\SHIVAY\\CRM-X-SHIVAY\\node_modules\\next\\dist\\server\\lib\\start-server.js:208:29)\n' +
+    '    at process.emit (node:events:520:35)',
+  exception: true,
+  date: 'Wed Sep 24 2025 00:55:15 GMT+0530 (India Standard Time)',
+  process: {
+    pid: 6348,
+    uid: null,
+    gid: null,
+    cwd: 'S:\\SHIVAY-MRC\\SHIVAY\\CRM-X-SHIVAY',
+    execPath: 'C:\\Program Files\\nodejs\\node.exe',
+    version: 'v24.8.0',
+    argv: [
+      'C:\\Program Files\\nodejs\\node.exe',
+      'S:\\SHIVAY-MRC\\SHIVAY\\CRM-X-SHIVAY\\node_modules\\next\\dist\\server\\lib\\start-server.js'
+    ],
+    memoryUsage: {
+      rss: 853671936,
+      heapTotal: 448049152,
+      heapUsed: 397143344,
+      external: 1523682955,
+      arrayBuffers: 1512891906
+    }
+  },
+  os: { loadavg: [ 0, 0, 0 ], uptime: 14050.031 },
+  trace: [
+    {
+      column: 9,
+      file: 'node:internal/bootstrap/node',
+      function: 'process.set [as exitCode]',
+      line: 119,
+      method: 'set [as exitCode]',
+      native: false
+    },
+    {
+      column: 24,
+      file: 'node:internal/process/per_thread',
+      function: 'process.exit',
+      line: 231,
+      method: 'exit',
+      native: false
+    },
+    {
+      column: 29,
+      file: 'S:\\SHIVAY-MRC\\SHIVAY\\CRM-X-SHIVAY\\node_modules\\next\\dist\\server\\lib\\start-server.js',
+      function: 'process.cleanup',
+      line: 208,
+      method: 'cleanup',
+      native: false
+    },
+    {
+      column: 35,
+      file: 'node:events',
+      function: 'process.emit',
+      line: 520,
+      method: 'emit',
+      native: false
+    }
+  ],
+  service: 'crm-api',
+  environment: 'development',
+  version: '0.1.0',
+  timestamp: '2025-09-23T19:25:15.168Z'
+}

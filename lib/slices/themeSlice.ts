@@ -224,4 +224,5 @@ export const {
   loadThemeFromPreferences
 } = themeSlice.actions;
 
+export { themeSlice };
 export default themeSlice.reducer;

@@ -11,7 +11,7 @@
 
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useAppSelector } from '@/lib/hooks';
 import {
   useGetWorkspaceQuery,
@@ -123,7 +123,7 @@ export default function WorkspaceSettingsPage() {
   // Extract data from RTK Query responses
   const workspaceDetails = workspaceData?.workspace;
   const members = workspaceDetails?.members || [];
-  const roles = rolesData?.roles || [];
+  const roles = useMemo(() => rolesData?.roles || [], [rolesData?.roles]);
   const memberCount = workspaceDetails?.memberCount || 0;
   const isOwner = workspaceDetails?.userRole === 'Owner';
 

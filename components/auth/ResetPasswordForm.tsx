@@ -199,7 +199,7 @@ export function ResetPasswordForm() {
 
           <div className="mt-6 text-center">
             <p className="text-sm text-gray-600">
-              After updating your password, you'll be automatically signed in.
+              After updating your password, you&apos;ll be automatically signed in.
             </p>
           </div>
         </CardContent>

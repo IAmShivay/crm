@@ -330,7 +330,7 @@ export function withPerformanceMonitoring<T extends any[], R>(
   };
 }
 
-export default {
+const loggingMiddleware = {
   withLogging,
   withSecurityLogging,
   logRateLimitEvent,
@@ -340,3 +340,5 @@ export default {
   logError,
   withPerformanceMonitoring
 };
+
+export default loggingMiddleware;

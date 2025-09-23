@@ -268,7 +268,7 @@ export function WebhookList({ onCreateWebhook, onEditWebhook }: WebhookListProps
           <AlertDialogHeader>
             <AlertDialogTitle>Delete Webhook</AlertDialogTitle>
             <AlertDialogDescription>
-              Are you sure you want to delete "{webhookToDelete?.name}"? This action cannot be undone and will stop all incoming requests to this webhook.
+              Are you sure you want to delete &quot;{webhookToDelete?.name}&quot;? This action cannot be undone and will stop all incoming requests to this webhook.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>

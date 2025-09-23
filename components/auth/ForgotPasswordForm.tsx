@@ -49,7 +49,7 @@ export function ForgotPasswordForm() {
             </div>
             <CardTitle className="text-2xl font-bold">Check your email</CardTitle>
             <CardDescription>
-              We've sent a password reset link to {getValues('email')}
+              We&apos;ve sent a password reset link to {getValues('email')}
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -62,7 +62,7 @@ export function ForgotPasswordForm() {
                 Click the link in the email to reset your password. The link will expire in 1 hour.
               </p>
               <p className="text-xs text-gray-500">
-                Didn't receive the email? Check your spam folder or try again.
+                Didn&apos;t receive the email? Check your spam folder or try again.
               </p>
             </div>
 
@@ -100,7 +100,7 @@ export function ForgotPasswordForm() {
           </div>
           <CardTitle className="text-2xl font-bold">Forgot your password?</CardTitle>
           <CardDescription>
-            Enter your email address and we'll send you a link to reset your password
+            Enter your email address and we&apos;ll send you a link to reset your password
           </CardDescription>
         </CardHeader>
         <CardContent>
