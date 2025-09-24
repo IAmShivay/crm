@@ -39,7 +39,9 @@ test.describe('Authentication Flow', () => {
 
     // Verify error message
     await expect(page.locator('[data-testid="error-message"]')).toBeVisible()
-    await expect(page.locator('[data-testid="error-message"]')).toContainText('Invalid credentials')
+    await expect(page.locator('[data-testid="error-message"]')).toContainText(
+      'Invalid credentials'
+    )
 
     // Should still be on login page
     await expect(page).toHaveURL('/login')
@@ -65,10 +67,14 @@ test.describe('Authentication Flow', () => {
     await page.click('[data-testid="login-button"]')
 
     // Check for email validation error
-    await expect(page.locator('[data-testid="email-error"]')).toContainText('Invalid email')
+    await expect(page.locator('[data-testid="email-error"]')).toContainText(
+      'Invalid email'
+    )
   })
 
-  test('should redirect to dashboard when already logged in', async ({ authenticatedPage }) => {
+  test('should redirect to dashboard when already logged in', async ({
+    authenticatedPage,
+  }) => {
     // Try to access login page when already authenticated
     await authenticatedPage.goto('/login')
 
@@ -126,13 +132,18 @@ test.describe('Authentication Flow', () => {
       // Fill registration form
       await page.fill('[data-testid="email-input"]', 'newuser@example.com')
       await page.fill('[data-testid="password-input"]', 'NewPassword123!')
-      await page.fill('[data-testid="confirm-password-input"]', 'NewPassword123!')
+      await page.fill(
+        '[data-testid="confirm-password-input"]',
+        'NewPassword123!'
+      )
       await page.fill('[data-testid="fullname-input"]', 'New User')
       await page.click('[data-testid="register-button"]')
 
       // Should redirect to dashboard after successful registration
       await expect(page).toHaveURL('/dashboard')
-      await expect(page.locator('[data-testid="welcome-message"]')).toBeVisible()
+      await expect(
+        page.locator('[data-testid="welcome-message"]')
+      ).toBeVisible()
     })
 
     test('should validate password strength', async ({ page }) => {
@@ -143,7 +154,9 @@ test.describe('Authentication Flow', () => {
       await page.click('[data-testid="register-button"]')
 
       // Should show password strength error
-      await expect(page.locator('[data-testid="password-error"]')).toContainText('Password too weak')
+      await expect(
+        page.locator('[data-testid="password-error"]')
+      ).toContainText('Password too weak')
     })
 
     test('should validate password confirmation', async ({ page }) => {
@@ -151,11 +164,16 @@ test.describe('Authentication Flow', () => {
 
       await page.fill('[data-testid="email-input"]', 'test@example.com')
       await page.fill('[data-testid="password-input"]', 'Password123!')
-      await page.fill('[data-testid="confirm-password-input"]', 'DifferentPassword123!')
+      await page.fill(
+        '[data-testid="confirm-password-input"]',
+        'DifferentPassword123!'
+      )
       await page.click('[data-testid="register-button"]')
 
       // Should show password mismatch error
-      await expect(page.locator('[data-testid="confirm-password-error"]')).toContainText('Passwords do not match')
+      await expect(
+        page.locator('[data-testid="confirm-password-error"]')
+      ).toContainText('Passwords do not match')
     })
 
     test('should prevent duplicate email registration', async ({ page }) => {
@@ -169,7 +187,9 @@ test.describe('Authentication Flow', () => {
       await page.click('[data-testid="register-button"]')
 
       // Should show error for existing email
-      await expect(page.locator('[data-testid="error-message"]')).toContainText('Email already exists')
+      await expect(page.locator('[data-testid="error-message"]')).toContainText(
+        'Email already exists'
+      )
     })
   })
 
@@ -184,7 +204,9 @@ test.describe('Authentication Flow', () => {
       await page.click('[data-testid="reset-button"]')
 
       // Should show success message
-      await expect(page.locator('[data-testid="success-message"]')).toContainText('Password reset email sent')
+      await expect(
+        page.locator('[data-testid="success-message"]')
+      ).toContainText('Password reset email sent')
     })
 
     test('should validate email for password reset', async ({ page }) => {
@@ -194,7 +216,9 @@ test.describe('Authentication Flow', () => {
       await page.click('[data-testid="reset-button"]')
 
       // Should show error for non-existent email
-      await expect(page.locator('[data-testid="error-message"]')).toContainText('Email not found')
+      await expect(page.locator('[data-testid="error-message"]')).toContainText(
+        'Email not found'
+      )
     })
   })
 })

@@ -1,9 +1,11 @@
 # CRM-X-SHIVAY Documentation
+
 ## Volume 2: API Reference & Endpoints
 
 ---
 
 ### 📖 Navigation
+
 - [← Volume 1: Introduction](./01-INTRODUCTION.md)
 - [→ Volume 3: Database Schema](./03-DATABASE-SCHEMA.md)
 
@@ -16,6 +18,7 @@ The CRM-X-SHIVAY API follows RESTful principles with JSON request/response forma
 ### 🔑 Authentication
 
 All API requests (except auth endpoints) require a JWT token in the Authorization header:
+
 ```
 Authorization: Bearer <your-jwt-token>
 ```
@@ -23,6 +26,7 @@ Authorization: Bearer <your-jwt-token>
 ### 📊 Response Format
 
 All API responses follow this consistent format:
+
 ```json
 {
   "success": true|false,
@@ -50,9 +54,11 @@ All API responses follow this consistent format:
 ## 🔐 Authentication Endpoints
 
 ### POST /api/auth/login
+
 Authenticate user and receive JWT token.
 
 **Request Body:**
+
 ```json
 {
   "email": "admin@crm.com",
@@ -61,6 +67,7 @@ Authenticate user and receive JWT token.
 ```
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -76,9 +83,11 @@ Authenticate user and receive JWT token.
 ```
 
 ### POST /api/auth/signup
+
 Create new user account.
 
 **Request Body:**
+
 ```json
 {
   "email": "newuser@example.com",
@@ -89,14 +98,17 @@ Create new user account.
 ```
 
 ### POST /api/auth/verify
+
 Verify JWT token validity.
 
 **Headers:**
+
 ```
 Authorization: Bearer <token>
 ```
 
 ### POST /api/auth/logout
+
 Logout user (invalidate token).
 
 ---
@@ -104,9 +116,11 @@ Logout user (invalidate token).
 ## 📋 Lead Management Endpoints
 
 ### GET /api/leads
+
 Get all leads with filtering and pagination.
 
 **Query Parameters:**
+
 - `workspaceId` (required) - Workspace ID
 - `page` (optional, default: 1) - Page number
 - `limit` (optional, default: 20) - Items per page
@@ -117,6 +131,7 @@ Get all leads with filtering and pagination.
 - `source` (optional) - Filter by lead source
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -145,9 +160,11 @@ Get all leads with filtering and pagination.
 ```
 
 ### POST /api/leads
+
 Create a new lead.
 
 **Request Body:**
+
 ```json
 {
   "workspaceId": "workspace_id",
@@ -168,18 +185,23 @@ Create a new lead.
 ```
 
 ### GET /api/leads/[id]
+
 Get lead by ID with full details.
 
 ### PUT /api/leads/[id]
+
 Update existing lead.
 
 ### DELETE /api/leads/[id]
+
 Delete a lead.
 
 ### POST /api/leads/[id]/convert-to-contact
+
 Convert lead to contact.
 
 **Request Body:**
+
 ```json
 {
   "category": "client",
@@ -194,16 +216,20 @@ Convert lead to contact.
 ## 📝 Lead Notes Endpoints
 
 ### GET /api/leads/[id]/notes
+
 Get notes for a specific lead.
 
 **Query Parameters:**
+
 - `page` (optional, default: 1)
 - `limit` (optional, default: 20)
 
 ### POST /api/leads/[id]/notes
+
 Add note to a lead.
 
 **Request Body:**
+
 ```json
 {
   "content": "Called lead, discussed requirements in detail",
@@ -217,6 +243,7 @@ Add note to a lead.
 ## 📈 Lead Activities Endpoints
 
 ### GET /api/leads/[id]/activities
+
 Get activity history for a specific lead.
 
 ---
@@ -224,9 +251,11 @@ Get activity history for a specific lead.
 ## 👥 Contact Management Endpoints
 
 ### GET /api/contacts
+
 Get all contacts with filtering and pagination.
 
 **Query Parameters:**
+
 - `workspaceId` (required)
 - `page`, `limit`, `search` (same as leads)
 - `status` - active, inactive, archived
@@ -235,9 +264,11 @@ Get all contacts with filtering and pagination.
 - `priority` - low, medium, high
 
 ### POST /api/contacts
+
 Create a new contact.
 
 **Request Body:**
+
 ```json
 {
   "workspaceId": "workspace_id",
@@ -271,12 +302,15 @@ Create a new contact.
 ```
 
 ### GET /api/contacts/[id]
+
 Get contact by ID.
 
 ### PUT /api/contacts/[id]
+
 Update existing contact.
 
 ### DELETE /api/contacts/[id]
+
 Delete a contact.
 
 ---
@@ -284,12 +318,15 @@ Delete a contact.
 ## 🏢 Workspace Management Endpoints
 
 ### GET /api/workspaces
+
 Get user's workspaces.
 
 ### POST /api/workspaces
+
 Create new workspace.
 
 **Request Body:**
+
 ```json
 {
   "name": "My Company CRM",
@@ -300,27 +337,35 @@ Create new workspace.
 ```
 
 ### GET /api/workspaces/[id]
+
 Get workspace details.
 
 ### PUT /api/workspaces/[id]
+
 Update workspace.
 
 ### DELETE /api/workspaces/[id]
+
 Delete workspace.
 
 ### GET /api/workspaces/[id]/members
+
 Get workspace members.
 
 ### POST /api/workspaces/[id]/members
+
 Add member to workspace.
 
 ### GET /api/workspaces/[id]/invites
+
 Get pending invitations.
 
 ### POST /api/workspaces/[id]/invites
+
 Invite user to workspace.
 
 ### GET /api/workspaces/[id]/roles
+
 Get workspace-specific roles.
 
 ---
@@ -328,12 +373,15 @@ Get workspace-specific roles.
 ## 🎭 Role Management Endpoints
 
 ### GET /api/roles
+
 Get workspace roles.
 
 **Query Parameters:**
+
 - `workspaceId` (required)
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -357,26 +405,26 @@ Get workspace roles.
 ```
 
 ### POST /api/roles
+
 Create new role.
 
 **Request Body:**
+
 ```json
 {
   "workspaceId": "workspace_id",
   "name": "Custom Sales Role",
   "description": "Custom role for sales team",
-  "permissions": [
-    "leads:read",
-    "leads:write",
-    "contacts:read"
-  ]
+  "permissions": ["leads:read", "leads:write", "contacts:read"]
 }
 ```
 
 ### PUT /api/roles/[id]
+
 Update role.
 
 ### DELETE /api/roles/[id]
+
 Delete role.
 
 ---
@@ -384,15 +432,19 @@ Delete role.
 ## 🏷️ Tag Management Endpoints
 
 ### GET /api/tags
+
 Get workspace tags.
 
 **Query Parameters:**
+
 - `workspaceId` (required)
 
 ### POST /api/tags
+
 Create new tag.
 
 **Request Body:**
+
 ```json
 {
   "workspaceId": "workspace_id",
@@ -403,9 +455,11 @@ Create new tag.
 ```
 
 ### PUT /api/tags/[id]
+
 Update tag.
 
 ### DELETE /api/tags/[id]
+
 Delete tag.
 
 ---
@@ -413,15 +467,19 @@ Delete tag.
 ## 📊 Lead Status Management Endpoints
 
 ### GET /api/lead-statuses
+
 Get workspace lead statuses.
 
 **Query Parameters:**
+
 - `workspaceId` (required)
 
 ### POST /api/lead-statuses
+
 Create new lead status.
 
 **Request Body:**
+
 ```json
 {
   "workspaceId": "workspace_id",
@@ -434,9 +492,11 @@ Create new lead status.
 ```
 
 ### PUT /api/lead-statuses/[id]
+
 Update lead status.
 
 ### DELETE /api/lead-statuses/[id]
+
 Delete lead status.
 
 ---
@@ -444,9 +504,11 @@ Delete lead status.
 ## 📈 Activity Tracking Endpoints
 
 ### GET /api/activities
+
 Get activities with filtering.
 
 **Query Parameters:**
+
 - `workspaceId` (required)
 - `entityType` (optional) - lead, contact, user, etc.
 - `entityId` (optional) - Specific entity ID
@@ -454,9 +516,11 @@ Get activities with filtering.
 - `page`, `limit` (pagination)
 
 ### POST /api/activities
+
 Log new activity.
 
 **Request Body:**
+
 ```json
 {
   "workspaceId": "workspace_id",
@@ -476,15 +540,19 @@ Log new activity.
 ## 🔗 Webhook Management Endpoints
 
 ### GET /api/webhooks
+
 Get workspace webhooks.
 
 **Query Parameters:**
+
 - `workspaceId` (required)
 
 ### POST /api/webhooks
+
 Create new webhook.
 
 **Request Body:**
+
 ```json
 {
   "workspaceId": "workspace_id",
@@ -498,6 +566,7 @@ Create new webhook.
 ```
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -512,15 +581,19 @@ Create new webhook.
 ```
 
 ### PUT /api/webhooks/[id]
+
 Update webhook.
 
 ### DELETE /api/webhooks/[id]
+
 Delete webhook.
 
 ### POST /api/webhooks/receive/[id]
+
 Webhook endpoint for receiving data from external sources.
 
 **Supported Webhook Types:**
+
 - `facebook` - Facebook Lead Ads
 - `google-forms` - Google Forms
 - `zapier` - Zapier webhooks
@@ -530,6 +603,7 @@ Webhook endpoint for receiving data from external sources.
 - `generic` - Generic webhook format
 
 **Example Request (Generic):**
+
 ```json
 {
   "name": "John Doe",
@@ -550,12 +624,15 @@ Webhook endpoint for receiving data from external sources.
 ## 👤 User Preferences Endpoints
 
 ### GET /api/users/preferences
+
 Get user preferences.
 
 ### PUT /api/users/preferences
+
 Update user preferences.
 
 **Request Body:**
+
 ```json
 {
   "theme": "dark",
@@ -575,9 +652,11 @@ Update user preferences.
 ## 🔍 Permissions Endpoint
 
 ### GET /api/permissions
+
 Get available permissions list.
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -598,9 +677,11 @@ Get available permissions list.
 ## 🧪 Testing Endpoints
 
 ### POST /api/test-leads
+
 Create test leads for development/testing.
 
 **Request Body:**
+
 ```json
 {
   "workspaceId": "workspace_id",
@@ -614,12 +695,14 @@ Create test leads for development/testing.
 ## 📊 Rate Limiting
 
 All endpoints are rate-limited to prevent abuse:
+
 - **Authentication endpoints**: 5 requests per minute
 - **Read endpoints**: 100 requests per minute
 - **Write endpoints**: 30 requests per minute
 - **Webhook endpoints**: 60 requests per minute
 
 Rate limit headers are included in responses:
+
 ```
 X-RateLimit-Limit: 100
 X-RateLimit-Remaining: 95

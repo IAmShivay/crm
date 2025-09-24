@@ -3,18 +3,18 @@
  * Handles currency, date, and time formatting based on workspace settings
  */
 
-import { format, parseISO } from 'date-fns';
-import { toZonedTime, fromZonedTime } from 'date-fns-tz';
+import { format, parseISO } from 'date-fns'
+import { toZonedTime, fromZonedTime } from 'date-fns-tz'
 
 export interface WorkspaceSettings {
-  currency: string;
-  timezone: string;
+  currency: string
+  timezone: string
   settings: {
-    dateFormat: string;
-    timeFormat: string;
-    weekStartsOn: number;
-    language: string;
-  };
+    dateFormat: string
+    timeFormat: string
+    weekStartsOn: number
+    language: string
+  }
 }
 
 // Currency symbols mapping
@@ -38,15 +38,15 @@ const CURRENCY_SYMBOLS: Record<string, string> = {
   INR: '₹',
   BRL: 'R$',
   ZAR: 'R',
-  KRW: '₩'
-};
+  KRW: '₩',
+}
 
 // Currency decimal places
 const CURRENCY_DECIMALS: Record<string, number> = {
   JPY: 0,
   KRW: 0,
-  default: 2
-};
+  default: 2,
+}
 
 /**
  * Format currency based on workspace settings
@@ -55,46 +55,46 @@ export function formatCurrency(
   amount: number,
   workspaceSettings: WorkspaceSettings,
   options: {
-    showSymbol?: boolean;
-    showCode?: boolean;
-    compact?: boolean;
+    showSymbol?: boolean
+    showCode?: boolean
+    compact?: boolean
   } = {}
 ): string {
-  const { currency } = workspaceSettings;
-  const { showSymbol = true, showCode = false, compact = false } = options;
-  
-  const decimals = CURRENCY_DECIMALS[currency] ?? CURRENCY_DECIMALS.default;
-  const symbol = CURRENCY_SYMBOLS[currency] || currency;
-  
+  const { currency } = workspaceSettings
+  const { showSymbol = true, showCode = false, compact = false } = options
+
+  const decimals = CURRENCY_DECIMALS[currency] ?? CURRENCY_DECIMALS.default
+  const symbol = CURRENCY_SYMBOLS[currency] || currency
+
   // Format the number
-  let formattedAmount: string;
-  
+  let formattedAmount: string
+
   if (compact && Math.abs(amount) >= 1000) {
     // Compact format for large numbers
     if (Math.abs(amount) >= 1000000) {
-      formattedAmount = (amount / 1000000).toFixed(1) + 'M';
+      formattedAmount = (amount / 1000000).toFixed(1) + 'M'
     } else if (Math.abs(amount) >= 1000) {
-      formattedAmount = (amount / 1000).toFixed(1) + 'K';
+      formattedAmount = (amount / 1000).toFixed(1) + 'K'
     } else {
-      formattedAmount = amount.toFixed(decimals);
+      formattedAmount = amount.toFixed(decimals)
     }
   } else {
     // Standard format
     formattedAmount = new Intl.NumberFormat('en-US', {
       minimumFractionDigits: decimals,
-      maximumFractionDigits: decimals
-    }).format(amount);
+      maximumFractionDigits: decimals,
+    }).format(amount)
   }
-  
+
   // Add currency symbol/code
   if (showSymbol && showCode) {
-    return `${symbol}${formattedAmount} ${currency}`;
+    return `${symbol}${formattedAmount} ${currency}`
   } else if (showSymbol) {
-    return `${symbol}${formattedAmount}`;
+    return `${symbol}${formattedAmount}`
   } else if (showCode) {
-    return `${formattedAmount} ${currency}`;
+    return `${formattedAmount} ${currency}`
   } else {
-    return formattedAmount;
+    return formattedAmount
   }
 }
 
@@ -105,59 +105,59 @@ export function formatDate(
   date: Date | string,
   workspaceSettings: WorkspaceSettings,
   options: {
-    includeTime?: boolean;
-    relative?: boolean;
+    includeTime?: boolean
+    relative?: boolean
   } = {}
 ): string {
-  const { timezone, settings } = workspaceSettings;
-  const { includeTime = false, relative = false } = options;
-  
-  const dateObj = typeof date === 'string' ? parseISO(date) : date;
-  const zonedDate = toZonedTime(dateObj, timezone);
-  
+  const { timezone, settings } = workspaceSettings
+  const { includeTime = false, relative = false } = options
+
+  const dateObj = typeof date === 'string' ? parseISO(date) : date
+  const zonedDate = toZonedTime(dateObj, timezone)
+
   if (relative) {
     // Return relative time (e.g., "2 hours ago")
-    const now = new Date();
-    const diffMs = now.getTime() - dateObj.getTime();
-    const diffMinutes = Math.floor(diffMs / (1000 * 60));
-    const diffHours = Math.floor(diffMinutes / 60);
-    const diffDays = Math.floor(diffHours / 24);
-    
-    if (diffMinutes < 1) return 'Just now';
-    if (diffMinutes < 60) return `${diffMinutes}m ago`;
-    if (diffHours < 24) return `${diffHours}h ago`;
-    if (diffDays < 7) return `${diffDays}d ago`;
+    const now = new Date()
+    const diffMs = now.getTime() - dateObj.getTime()
+    const diffMinutes = Math.floor(diffMs / (1000 * 60))
+    const diffHours = Math.floor(diffMinutes / 60)
+    const diffDays = Math.floor(diffHours / 24)
+
+    if (diffMinutes < 1) return 'Just now'
+    if (diffMinutes < 60) return `${diffMinutes}m ago`
+    if (diffHours < 24) return `${diffHours}h ago`
+    if (diffDays < 7) return `${diffDays}d ago`
     // Fall back to formatted date for older dates
   }
-  
+
   // Convert date format pattern
-  let formatPattern: string;
+  let formatPattern: string
   switch (settings.dateFormat) {
     case 'MM/DD/YYYY':
-      formatPattern = 'MM/dd/yyyy';
-      break;
+      formatPattern = 'MM/dd/yyyy'
+      break
     case 'DD/MM/YYYY':
-      formatPattern = 'dd/MM/yyyy';
-      break;
+      formatPattern = 'dd/MM/yyyy'
+      break
     case 'YYYY-MM-DD':
-      formatPattern = 'yyyy-MM-dd';
-      break;
+      formatPattern = 'yyyy-MM-dd'
+      break
     case 'DD-MM-YYYY':
-      formatPattern = 'dd-MM-yyyy';
-      break;
+      formatPattern = 'dd-MM-yyyy'
+      break
     case 'MM-DD-YYYY':
-      formatPattern = 'MM-dd-yyyy';
-      break;
+      formatPattern = 'MM-dd-yyyy'
+      break
     default:
-      formatPattern = 'MM/dd/yyyy';
+      formatPattern = 'MM/dd/yyyy'
   }
-  
+
   if (includeTime) {
-    const timePattern = settings.timeFormat === '24h' ? 'HH:mm' : 'h:mm a';
-    formatPattern += ` ${timePattern}`;
+    const timePattern = settings.timeFormat === '24h' ? 'HH:mm' : 'h:mm a'
+    formatPattern += ` ${timePattern}`
   }
-  
-  return format(zonedDate, formatPattern);
+
+  return format(zonedDate, formatPattern)
 }
 
 /**
@@ -167,13 +167,13 @@ export function formatTime(
   date: Date | string,
   workspaceSettings: WorkspaceSettings
 ): string {
-  const { timezone, settings } = workspaceSettings;
-  
-  const dateObj = typeof date === 'string' ? parseISO(date) : date;
-  const zonedDate = toZonedTime(dateObj, timezone);
-  
-  const timePattern = settings.timeFormat === '24h' ? 'HH:mm' : 'h:mm a';
-  return format(zonedDate, timePattern);
+  const { timezone, settings } = workspaceSettings
+
+  const dateObj = typeof date === 'string' ? parseISO(date) : date
+  const zonedDate = toZonedTime(dateObj, timezone)
+
+  const timePattern = settings.timeFormat === '24h' ? 'HH:mm' : 'h:mm a'
+  return format(zonedDate, timePattern)
 }
 
 /**
@@ -183,9 +183,9 @@ export function toWorkspaceTime(
   date: Date | string,
   workspaceSettings: WorkspaceSettings
 ): Date {
-  const { timezone } = workspaceSettings;
-  const dateObj = typeof date === 'string' ? parseISO(date) : date;
-  return toZonedTime(dateObj, timezone);
+  const { timezone } = workspaceSettings
+  const dateObj = typeof date === 'string' ? parseISO(date) : date
+  return toZonedTime(dateObj, timezone)
 }
 
 /**
@@ -195,9 +195,9 @@ export function fromWorkspaceTime(
   date: Date | string,
   workspaceSettings: WorkspaceSettings
 ): Date {
-  const { timezone } = workspaceSettings;
-  const dateObj = typeof date === 'string' ? parseISO(date) : date;
-  return fromZonedTime(dateObj, timezone);
+  const { timezone } = workspaceSettings
+  const dateObj = typeof date === 'string' ? parseISO(date) : date
+  return fromZonedTime(dateObj, timezone)
 }
 
 /**
@@ -207,30 +207,34 @@ export function formatNumber(
   number: number,
   workspaceSettings: WorkspaceSettings,
   options: {
-    decimals?: number;
-    compact?: boolean;
+    decimals?: number
+    compact?: boolean
   } = {}
 ): string {
-  const { decimals = 0, compact = false } = options;
-  
+  const { decimals = 0, compact = false } = options
+
   if (compact && Math.abs(number) >= 1000) {
     if (Math.abs(number) >= 1000000) {
-      return (number / 1000000).toFixed(1) + 'M';
+      return (number / 1000000).toFixed(1) + 'M'
     } else if (Math.abs(number) >= 1000) {
-      return (number / 1000).toFixed(1) + 'K';
+      return (number / 1000).toFixed(1) + 'K'
     }
   }
-  
+
   return new Intl.NumberFormat('en-US', {
     minimumFractionDigits: decimals,
-    maximumFractionDigits: decimals
-  }).format(number);
+    maximumFractionDigits: decimals,
+  }).format(number)
 }
 
 /**
  * Get supported currencies list
  */
-export function getSupportedCurrencies(): Array<{ code: string; name: string; symbol: string }> {
+export function getSupportedCurrencies(): Array<{
+  code: string
+  name: string
+  symbol: string
+}> {
   return [
     { code: 'USD', name: 'US Dollar', symbol: '$' },
     { code: 'EUR', name: 'Euro', symbol: '€' },
@@ -251,20 +255,44 @@ export function getSupportedCurrencies(): Array<{ code: string; name: string; sy
     { code: 'INR', name: 'Indian Rupee', symbol: '₹' },
     { code: 'BRL', name: 'Brazilian Real', symbol: 'R$' },
     { code: 'ZAR', name: 'South African Rand', symbol: 'R' },
-    { code: 'KRW', name: 'South Korean Won', symbol: '₩' }
-  ];
+    { code: 'KRW', name: 'South Korean Won', symbol: '₩' },
+  ]
 }
 
 /**
  * Get supported timezones list
  */
-export function getSupportedTimezones(): Array<{ value: string; label: string; offset: string }> {
+export function getSupportedTimezones(): Array<{
+  value: string
+  label: string
+  offset: string
+}> {
   return [
-    { value: 'UTC', label: 'UTC (Coordinated Universal Time)', offset: '+00:00' },
-    { value: 'America/New_York', label: 'Eastern Time (US & Canada)', offset: '-05:00' },
-    { value: 'America/Chicago', label: 'Central Time (US & Canada)', offset: '-06:00' },
-    { value: 'America/Denver', label: 'Mountain Time (US & Canada)', offset: '-07:00' },
-    { value: 'America/Los_Angeles', label: 'Pacific Time (US & Canada)', offset: '-08:00' },
+    {
+      value: 'UTC',
+      label: 'UTC (Coordinated Universal Time)',
+      offset: '+00:00',
+    },
+    {
+      value: 'America/New_York',
+      label: 'Eastern Time (US & Canada)',
+      offset: '-05:00',
+    },
+    {
+      value: 'America/Chicago',
+      label: 'Central Time (US & Canada)',
+      offset: '-06:00',
+    },
+    {
+      value: 'America/Denver',
+      label: 'Mountain Time (US & Canada)',
+      offset: '-07:00',
+    },
+    {
+      value: 'America/Los_Angeles',
+      label: 'Pacific Time (US & Canada)',
+      offset: '-08:00',
+    },
     { value: 'America/Toronto', label: 'Toronto', offset: '-05:00' },
     { value: 'America/Vancouver', label: 'Vancouver', offset: '-08:00' },
     { value: 'America/Mexico_City', label: 'Mexico City', offset: '-06:00' },
@@ -285,6 +313,6 @@ export function getSupportedTimezones(): Array<{ value: string; label: string; o
     { value: 'Asia/Dubai', label: 'Dubai', offset: '+04:00' },
     { value: 'Australia/Sydney', label: 'Sydney', offset: '+10:00' },
     { value: 'Australia/Melbourne', label: 'Melbourne', offset: '+10:00' },
-    { value: 'Pacific/Auckland', label: 'Auckland', offset: '+12:00' }
-  ];
+    { value: 'Pacific/Auckland', label: 'Auckland', offset: '+12:00' },
+  ]
 }

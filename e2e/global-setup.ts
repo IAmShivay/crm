@@ -18,7 +18,6 @@ async function globalSetup(config: FullConfig) {
 
     // Set up test database state if needed
     await setupTestData(page)
-
   } catch (error) {
     console.error('❌ Global setup failed:', error)
     throw error
@@ -35,12 +34,15 @@ async function setupTestData(page: any) {
 
   try {
     // Check if test user already exists
-    const response = await page.request.post('http://localhost:3000/api/auth/login', {
-      data: {
-        email: 'admin@crm.com',
-        password: 'Admin123!@#'
+    const response = await page.request.post(
+      'http://localhost:3000/api/auth/login',
+      {
+        data: {
+          email: 'admin@crm.com',
+          password: 'Admin123!@#',
+        },
       }
-    })
+    )
 
     if (response.ok()) {
       console.log('✅ Test admin user is available')

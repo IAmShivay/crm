@@ -1,33 +1,37 @@
-'use client';
+'use client'
 
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import { Checkbox } from '@/components/ui/checkbox';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { useAppSelector } from '@/lib/hooks';
-import { toast } from 'sonner';
-import { useCreateRoleMutation } from '@/lib/api/mongoApi';
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { Textarea } from '@/components/ui/textarea'
+import { Checkbox } from '@/components/ui/checkbox'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { useAppSelector } from '@/lib/hooks'
+import { toast } from 'sonner'
+import { useCreateRoleMutation } from '@/lib/api/mongoApi'
 
 interface RoleFormProps {
-  onSuccess?: () => void;
+  onSuccess?: () => void
 }
 
 interface RoleFormData {
-  name: string;
-  description: string;
-  permissions: string[];
+  name: string
+  description: string
+  permissions: string[]
 }
 
 export function RoleForm({ onSuccess }: RoleFormProps) {
-  const [selectedPermissions, setSelectedPermissions] = useState<string[]>([]);
-  const { register, handleSubmit, formState: { errors } } = useForm<RoleFormData>();
+  const [selectedPermissions, setSelectedPermissions] = useState<string[]>([])
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<RoleFormData>()
 
-  const { currentWorkspace } = useAppSelector((state) => state.workspace);
-  const [createRole, { isLoading }] = useCreateRoleMutation();
+  const { currentWorkspace } = useAppSelector(state => state.workspace)
+  const [createRole, { isLoading }] = useCreateRoleMutation()
 
   // Available permissions
   const permissions = [
@@ -43,12 +47,12 @@ export function RoleForm({ onSuccess }: RoleFormProps) {
     { id: 'roles.manage', name: 'Manage Roles', category: 'roles' },
     { id: 'webhooks.manage', name: 'Manage Webhooks', category: 'webhooks' },
     { id: 'analytics.view', name: 'View Analytics', category: 'analytics' },
-  ];
+  ]
 
   const onSubmit = async (data: RoleFormData) => {
     if (!currentWorkspace?.id) {
-      toast.error('Workspace not found');
-      return;
+      toast.error('Workspace not found')
+      return
     }
 
     try {
@@ -56,27 +60,27 @@ export function RoleForm({ onSuccess }: RoleFormProps) {
         ...data,
         permissions: selectedPermissions,
         workspaceId: currentWorkspace.id,
-      }).unwrap();
+      }).unwrap()
 
       if (result.success) {
-        toast.success('Role created successfully');
-        onSuccess?.();
+        toast.success('Role created successfully')
+        onSuccess?.()
       }
     } catch (error: any) {
-      console.error('Error creating role:', error);
-      toast.error(error?.data?.message || 'Failed to create role');
+      console.error('Error creating role:', error)
+      toast.error(error?.data?.message || 'Failed to create role')
     }
-  };
+  }
 
   const handlePermissionToggle = (permissionId: string) => {
-    setSelectedPermissions(prev => 
+    setSelectedPermissions(prev =>
       prev.includes(permissionId)
         ? prev.filter(id => id !== permissionId)
         : [...prev, permissionId]
-    );
-  };
+    )
+  }
 
-  const resources = Array.from(new Set(permissions.map(p => p.category)));
+  const resources = Array.from(new Set(permissions.map(p => p.category)))
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
@@ -92,13 +96,15 @@ export function RoleForm({ onSuccess }: RoleFormProps) {
             <p className="text-sm text-red-600">{errors.name.message}</p>
           )}
         </div>
-        
-        <div className="space-y-2 col-span-2">
+
+        <div className="col-span-2 space-y-2">
           <Label htmlFor="description">Description</Label>
           <Textarea
             id="description"
             placeholder="Describe what this role can do..."
-            {...register('description', { required: 'Description is required' })}
+            {...register('description', {
+              required: 'Description is required',
+            })}
           />
           {errors.description && (
             <p className="text-sm text-red-600">{errors.description.message}</p>
@@ -108,25 +114,32 @@ export function RoleForm({ onSuccess }: RoleFormProps) {
 
       <div className="space-y-4">
         <Label>Permissions</Label>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           {resources.map(resource => (
             <Card key={resource}>
               <CardHeader className="pb-3">
-                <CardTitle className="text-base capitalize">{resource}</CardTitle>
+                <CardTitle className="text-base capitalize">
+                  {resource}
+                </CardTitle>
               </CardHeader>
               <CardContent className="space-y-2">
                 {permissions
                   .filter(p => p.category === resource)
                   .map(permission => (
-                    <div key={permission.id} className="flex items-center space-x-2">
+                    <div
+                      key={permission.id}
+                      className="flex items-center space-x-2"
+                    >
                       <Checkbox
                         id={permission.id}
                         checked={selectedPermissions.includes(permission.id)}
-                        onCheckedChange={() => handlePermissionToggle(permission.id)}
+                        onCheckedChange={() =>
+                          handlePermissionToggle(permission.id)
+                        }
                       />
                       <Label
                         htmlFor={permission.id}
-                        className="text-sm capitalize cursor-pointer"
+                        className="cursor-pointer text-sm capitalize"
                       >
                         {permission.name}
                       </Label>
@@ -147,5 +160,5 @@ export function RoleForm({ onSuccess }: RoleFormProps) {
         </Button>
       </div>
     </form>
-  );
+  )
 }

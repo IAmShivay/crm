@@ -89,16 +89,10 @@ export default defineConfig({
   globalTeardown: require.resolve('./e2e/global-teardown.ts'),
 
   /* Test directory and file patterns */
-  testMatch: [
-    'e2e/**/*.spec.ts',
-    'e2e/**/*.test.ts',
-  ],
+  testMatch: ['e2e/**/*.spec.ts', 'e2e/**/*.test.ts'],
 
   /* Ignore certain files */
-  testIgnore: [
-    'e2e/fixtures/**',
-    'e2e/utils/**',
-  ],
+  testIgnore: ['e2e/fixtures/**', 'e2e/utils/**'],
 
   /* Output directory for test artifacts */
   outputDir: 'test-results/',

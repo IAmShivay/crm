@@ -6,28 +6,32 @@ import { LeadForm } from '@/components/leads/LeadForm'
 // Mock the API hooks
 jest.mock('@/lib/api/mongoApi', () => ({
   useCreateLeadMutation: () => [
-    jest.fn().mockImplementation(() => Promise.resolve({ unwrap: () => Promise.resolve({ id: 'test-lead' }) })),
-    { isLoading: false, error: null }
+    jest
+      .fn()
+      .mockImplementation(() =>
+        Promise.resolve({ unwrap: () => Promise.resolve({ id: 'test-lead' }) })
+      ),
+    { isLoading: false, error: null },
   ],
   useGetLeadStatusesQuery: () => ({
     data: {
       statuses: [
         { _id: 'status-1', name: 'New', color: '#3b82f6' },
         { _id: 'status-2', name: 'Contacted', color: '#10b981' },
-      ]
+      ],
     },
     isLoading: false,
-    error: null
+    error: null,
   }),
   useGetTagsQuery: () => ({
     data: {
       tags: [
         { _id: 'tag-1', name: 'Hot Lead', color: '#ef4444' },
         { _id: 'tag-2', name: 'Enterprise', color: '#8b5cf6' },
-      ]
+      ],
     },
     isLoading: false,
-    error: null
+    error: null,
   }),
 }))
 
@@ -179,7 +183,9 @@ describe('LeadForm Component', () => {
       source: 'referral',
     }
 
-    renderWithProviders(<LeadForm {...defaultProps} initialData={existingLead} />)
+    renderWithProviders(
+      <LeadForm {...defaultProps} initialData={existingLead} />
+    )
 
     expect(screen.getByDisplayValue('Existing Lead')).toBeInTheDocument()
     expect(screen.getByDisplayValue('existing@example.com')).toBeInTheDocument()
@@ -240,7 +246,9 @@ describe('LeadForm Component', () => {
     renderWithProviders(<LeadForm {...defaultProps} />)
 
     // Add custom field
-    const addCustomFieldButton = screen.getByRole('button', { name: /add custom field/i })
+    const addCustomFieldButton = screen.getByRole('button', {
+      name: /add custom field/i,
+    })
     await user.click(addCustomFieldButton)
 
     const keyInput = screen.getByPlaceholderText(/field name/i)
@@ -257,8 +265,8 @@ describe('LeadForm Component', () => {
       expect(mockOnSubmit).toHaveBeenCalledWith(
         expect.objectContaining({
           customFields: {
-            utm_source: 'google'
-          }
+            utm_source: 'google',
+          },
         })
       )
     })
@@ -300,8 +308,13 @@ describe('LeadForm Component', () => {
     it('has proper ARIA labels', () => {
       renderWithProviders(<LeadForm {...defaultProps} />)
 
-      expect(screen.getByLabelText(/name/i)).toHaveAttribute('aria-required', 'true')
-      expect(screen.getByLabelText(/email/i)).toHaveAttribute('aria-describedby')
+      expect(screen.getByLabelText(/name/i)).toHaveAttribute(
+        'aria-required',
+        'true'
+      )
+      expect(screen.getByLabelText(/email/i)).toHaveAttribute(
+        'aria-describedby'
+      )
     })
 
     it('shows error messages with proper ARIA attributes', async () => {

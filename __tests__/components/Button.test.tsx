@@ -48,7 +48,11 @@ describe('Button Component', () => {
     const user = userEvent.setup()
     const handleClick = jest.fn()
 
-    render(<Button disabled onClick={handleClick}>Disabled Button</Button>)
+    render(
+      <Button disabled onClick={handleClick}>
+        Disabled Button
+      </Button>
+    )
 
     const button = screen.getByRole('button')
     await user.click(button)
@@ -110,7 +114,7 @@ describe('Button Component', () => {
       'outline',
       'secondary',
       'ghost',
-      'link'
+      'link',
     ] as const
 
     variants.forEach(variant => {

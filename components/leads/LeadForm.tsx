@@ -1,63 +1,73 @@
-'use client';
+'use client'
 
-import { useState, useEffect, useMemo } from 'react';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import { Badge } from '@/components/ui/badge';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Plus, X } from 'lucide-react';
+import { useState, useEffect, useMemo } from 'react'
+import { Formik, Form, Field, ErrorMessage } from 'formik'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { Textarea } from '@/components/ui/textarea'
+import { Badge } from '@/components/ui/badge'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Plus, X } from 'lucide-react'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import { useAppSelector } from '@/lib/hooks';
-import { toast } from 'sonner';
-import { useCreateLeadMutation, useGetLeadStatusesQuery, useGetTagsQuery } from '@/lib/api/mongoApi';
-import { leadFormSchema, type LeadFormData, validateCustomFields } from '@/lib/validation/leadValidation';
+} from '@/components/ui/select'
+import { useAppSelector } from '@/lib/hooks'
+import { toast } from 'sonner'
+import {
+  useCreateLeadMutation,
+  useGetLeadStatusesQuery,
+  useGetTagsQuery,
+} from '@/lib/api/mongoApi'
+import {
+  leadFormSchema,
+  type LeadFormData,
+  validateCustomFields,
+} from '@/lib/validation/leadValidation'
 
 interface LeadFormProps {
-  onSuccess?: () => void;
+  onSuccess?: () => void
 }
 
-
-
 export function LeadForm({ onSuccess }: LeadFormProps) {
-  const [customFields, setCustomFields] = useState<Record<string, any>>({});
-  const [newCustomField, setNewCustomField] = useState({ key: '', value: '' });
+  const [customFields, setCustomFields] = useState<Record<string, any>>({})
+  const [newCustomField, setNewCustomField] = useState({ key: '', value: '' })
 
-  const { currentWorkspace } = useAppSelector((state) => state.workspace);
-  const { user } = useAppSelector((state) => state.auth);
+  const { currentWorkspace } = useAppSelector(state => state.workspace)
+  const { user } = useAppSelector(state => state.auth)
 
   // Initial form values
-  const initialValues: LeadFormData = useMemo(() => ({
-    name: '',
-    email: null,
-    phone: null,
-    company: null,
-    value: null,
-    source: 'manual',
-    notes: null,
-    statusId: null,
-    tagIds: [],
-    assignedTo: null,
-    customFields: {}
-  }), []);
+  const initialValues: LeadFormData = useMemo(
+    () => ({
+      name: '',
+      email: null,
+      phone: null,
+      company: null,
+      value: null,
+      source: 'manual',
+      notes: null,
+      statusId: null,
+      tagIds: [],
+      assignedTo: null,
+      customFields: {},
+    }),
+    []
+  )
 
   // RTK Query hooks
-  const [createLead, { isLoading: isCreating }] = useCreateLeadMutation();
-  const { data: statusesData, isLoading: loadingStatuses } = useGetLeadStatusesQuery(currentWorkspace?.id || '', {
-    skip: !currentWorkspace?.id
-  });
+  const [createLead, { isLoading: isCreating }] = useCreateLeadMutation()
+  const { data: statusesData, isLoading: loadingStatuses } =
+    useGetLeadStatusesQuery(currentWorkspace?.id || '', {
+      skip: !currentWorkspace?.id,
+    })
   const { data: tagsData } = useGetTagsQuery(currentWorkspace?.id || '', {
-    skip: !currentWorkspace?.id
-  });
-  
+    skip: !currentWorkspace?.id,
+  })
+
   // Default lead sources
   const leadSources = [
     { id: 'website', name: 'Website' },
@@ -71,59 +81,61 @@ export function LeadForm({ onSuccess }: LeadFormProps) {
     { id: 'email_campaign', name: 'Email Campaign' },
     { id: 'phone_call', name: 'Phone Call' },
     { id: 'walk_in', name: 'Walk-in' },
-    { id: 'other', name: 'Other' }
-  ];
+    { id: 'other', name: 'Other' },
+  ]
 
   // Fetch lead statuses
   // Get data from RTK Query
-  const leadStatuses = statusesData?.statuses || [];
-  const tags = tagsData?.tags || [];
+  const leadStatuses = statusesData?.statuses || []
+  const tags = tagsData?.tags || []
 
   // Set default status when statuses are loaded
   useEffect(() => {
     if (statusesData?.statuses && statusesData.statuses.length > 0) {
       // Find default status or use first status
-      const defaultStatus = statusesData.statuses.find(status => status.isDefault) || statusesData.statuses[0];
+      const defaultStatus =
+        statusesData.statuses.find(status => status.isDefault) ||
+        statusesData.statuses[0]
       if (defaultStatus && !initialValues.statusId) {
-        initialValues.statusId = defaultStatus.id;
+        initialValues.statusId = defaultStatus.id
       }
     }
-  }, [statusesData, initialValues]);
+  }, [statusesData, initialValues])
 
   const handleAddCustomField = () => {
     if (newCustomField.key && newCustomField.value) {
       setCustomFields(prev => ({
         ...prev,
-        [newCustomField.key]: newCustomField.value
-      }));
-      setNewCustomField({ key: '', value: '' });
+        [newCustomField.key]: newCustomField.value,
+      }))
+      setNewCustomField({ key: '', value: '' })
     }
-  };
+  }
 
   const handleRemoveCustomField = (key: string) => {
     setCustomFields(prev => {
-      const updated = { ...prev };
-      delete updated[key];
-      return updated;
-    });
-  };
+      const updated = { ...prev }
+      delete updated[key]
+      return updated
+    })
+  }
 
   const handleSubmit = async (values: LeadFormData) => {
     if (!currentWorkspace?.id) {
-      toast.error('No workspace selected');
-      return;
+      toast.error('No workspace selected')
+      return
     }
 
     if (!user) {
-      toast.error('User not authenticated');
-      return;
+      toast.error('User not authenticated')
+      return
     }
 
     // Validate custom fields
-    const customFieldErrors = validateCustomFields(customFields);
+    const customFieldErrors = validateCustomFields(customFields)
     if (customFieldErrors.length > 0) {
-      toast.error(`Custom field errors: ${customFieldErrors.join(', ')}`);
-      return;
+      toast.error(`Custom field errors: ${customFieldErrors.join(', ')}`)
+      return
     }
 
     try {
@@ -140,18 +152,19 @@ export function LeadForm({ onSuccess }: LeadFormProps) {
         assignedTo: values.assignedTo || undefined,
         workspaceId: currentWorkspace.id,
         customFields: customFields,
-      };
+      }
 
-      await createLead(createPayload).unwrap();
+      await createLead(createPayload).unwrap()
 
-      toast.success('Lead created successfully');
-      onSuccess?.();
+      toast.success('Lead created successfully')
+      onSuccess?.()
     } catch (error: any) {
-      console.error('Error creating lead:', error);
-      const errorMessage = error?.data?.message || error?.message || 'Failed to create lead';
-      toast.error(errorMessage);
+      console.error('Error creating lead:', error)
+      const errorMessage =
+        error?.data?.message || error?.message || 'Failed to create lead'
+      toast.error(errorMessage)
     }
-  };
+  }
 
   return (
     <Formik
@@ -170,7 +183,11 @@ export function LeadForm({ onSuccess }: LeadFormProps) {
                 name="name"
                 placeholder="Lead's full name"
               />
-              <ErrorMessage name="name" component="p" className="text-sm text-red-600" />
+              <ErrorMessage
+                name="name"
+                component="p"
+                className="text-sm text-red-600"
+              />
             </div>
 
             <div className="space-y-2">
@@ -182,7 +199,11 @@ export function LeadForm({ onSuccess }: LeadFormProps) {
                 type="email"
                 placeholder="lead@example.com"
               />
-              <ErrorMessage name="email" component="p" className="text-sm text-red-600" />
+              <ErrorMessage
+                name="email"
+                component="p"
+                className="text-sm text-red-600"
+              />
             </div>
           </div>
 
@@ -195,7 +216,11 @@ export function LeadForm({ onSuccess }: LeadFormProps) {
                 name="phone"
                 placeholder="+1 (555) 123-4567"
               />
-              <ErrorMessage name="phone" component="p" className="text-sm text-red-600" />
+              <ErrorMessage
+                name="phone"
+                component="p"
+                className="text-sm text-red-600"
+              />
             </div>
 
             <div className="space-y-2">
@@ -206,7 +231,11 @@ export function LeadForm({ onSuccess }: LeadFormProps) {
                 name="company"
                 placeholder="Company name"
               />
-              <ErrorMessage name="company" component="p" className="text-sm text-red-600" />
+              <ErrorMessage
+                name="company"
+                component="p"
+                className="text-sm text-red-600"
+              />
             </div>
           </div>
 
@@ -215,46 +244,58 @@ export function LeadForm({ onSuccess }: LeadFormProps) {
               <Label>Status</Label>
               <Select
                 value={values.statusId || ''}
-                onValueChange={(value) => setFieldValue('statusId', value)}
+                onValueChange={value => setFieldValue('statusId', value)}
               >
                 <SelectTrigger>
                   <SelectValue placeholder="Select status" />
                 </SelectTrigger>
                 <SelectContent>
                   {loadingStatuses ? (
-                    <SelectItem value="loading" disabled>Loading statuses...</SelectItem>
+                    <SelectItem value="loading" disabled>
+                      Loading statuses...
+                    </SelectItem>
                   ) : leadStatuses.length > 0 ? (
-                    leadStatuses.map((status) => (
+                    leadStatuses.map(status => (
                       <SelectItem key={status.id} value={status.id}>
                         {status.name}
                       </SelectItem>
                     ))
                   ) : (
-                    <SelectItem value="no-status" disabled>No statuses available</SelectItem>
+                    <SelectItem value="no-status" disabled>
+                      No statuses available
+                    </SelectItem>
                   )}
                 </SelectContent>
               </Select>
-              <ErrorMessage name="statusId" component="p" className="text-sm text-red-600" />
+              <ErrorMessage
+                name="statusId"
+                component="p"
+                className="text-sm text-red-600"
+              />
             </div>
 
             <div className="space-y-2">
               <Label>Source</Label>
               <Select
                 value={values.source || 'manual'}
-                onValueChange={(value) => setFieldValue('source', value)}
+                onValueChange={value => setFieldValue('source', value)}
               >
                 <SelectTrigger>
                   <SelectValue placeholder="Select source" />
                 </SelectTrigger>
                 <SelectContent>
-                  {leadSources.map((source) => (
+                  {leadSources.map(source => (
                     <SelectItem key={source.id} value={source.id}>
                       {source.name}
                     </SelectItem>
                   ))}
                 </SelectContent>
               </Select>
-              <ErrorMessage name="source" component="p" className="text-sm text-red-600" />
+              <ErrorMessage
+                name="source"
+                component="p"
+                className="text-sm text-red-600"
+              />
             </div>
           </div>
 
@@ -269,27 +310,31 @@ export function LeadForm({ onSuccess }: LeadFormProps) {
               min="0"
               step="0.01"
             />
-            <ErrorMessage name="value" component="p" className="text-sm text-red-600" />
+            <ErrorMessage
+              name="value"
+              component="p"
+              className="text-sm text-red-600"
+            />
           </div>
 
           <div className="space-y-2">
             <Label>Tags</Label>
             <Select
               value={values.tagIds?.join(',') || ''}
-              onValueChange={(value) => {
-                const newTags = value ? value.split(',') : [];
-                setFieldValue('tagIds', newTags);
+              onValueChange={value => {
+                const newTags = value ? value.split(',') : []
+                setFieldValue('tagIds', newTags)
               }}
             >
               <SelectTrigger>
                 <SelectValue placeholder="Select tags (optional)" />
               </SelectTrigger>
               <SelectContent>
-                {tags.map((tag) => (
+                {tags.map(tag => (
                   <SelectItem key={tag.id} value={tag.id}>
                     <div className="flex items-center space-x-2">
                       <div
-                        className="w-3 h-3 rounded-full"
+                        className="h-3 w-3 rounded-full"
                         style={{ backgroundColor: tag.color }}
                       />
                       <span>{tag.name}</span>
@@ -298,7 +343,11 @@ export function LeadForm({ onSuccess }: LeadFormProps) {
                 ))}
               </SelectContent>
             </Select>
-            <ErrorMessage name="tagIds" component="p" className="text-sm text-red-600" />
+            <ErrorMessage
+              name="tagIds"
+              component="p"
+              className="text-sm text-red-600"
+            />
           </div>
 
           <div className="space-y-2">
@@ -310,7 +359,11 @@ export function LeadForm({ onSuccess }: LeadFormProps) {
               placeholder="Additional notes about this lead..."
               rows={3}
             />
-            <ErrorMessage name="notes" component="p" className="text-sm text-red-600" />
+            <ErrorMessage
+              name="notes"
+              component="p"
+              className="text-sm text-red-600"
+            />
           </div>
 
           {/* Custom Fields */}
@@ -340,12 +393,22 @@ export function LeadForm({ onSuccess }: LeadFormProps) {
                 <Input
                   placeholder="Field name"
                   value={newCustomField.key}
-                  onChange={(e) => setNewCustomField(prev => ({ ...prev, key: e.target.value }))}
+                  onChange={e =>
+                    setNewCustomField(prev => ({
+                      ...prev,
+                      key: e.target.value,
+                    }))
+                  }
                 />
                 <Input
                   placeholder="Field value"
                   value={newCustomField.value}
-                  onChange={(e) => setNewCustomField(prev => ({ ...prev, value: e.target.value }))}
+                  onChange={e =>
+                    setNewCustomField(prev => ({
+                      ...prev,
+                      value: e.target.value,
+                    }))
+                  }
                 />
                 <Button
                   type="button"
@@ -371,5 +434,5 @@ export function LeadForm({ onSuccess }: LeadFormProps) {
         </Form>
       )}
     </Formik>
-  );
+  )
 }

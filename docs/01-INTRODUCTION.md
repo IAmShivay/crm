@@ -1,4 +1,5 @@
 # CRM-X-SHIVAY Documentation
+
 ## Volume 1: Introduction & Overview
 
 ---
@@ -34,6 +35,7 @@ CRM-X-SHIVAY is a modern Customer Relationship Management system built with Next
 ### ✨ Core Features
 
 #### 🎯 Lead Management
+
 - Complete lead lifecycle management
 - Custom fields and metadata support
 - Lead status and priority tracking
@@ -42,6 +44,7 @@ CRM-X-SHIVAY is a modern Customer Relationship Management system built with Next
 - Bulk operations and filtering
 
 #### 👥 Contact Management
+
 - Comprehensive contact profiles
 - Company and position tracking
 - Revenue and payment history
@@ -50,6 +53,7 @@ CRM-X-SHIVAY is a modern Customer Relationship Management system built with Next
 - Custom data storage
 
 #### 🏢 Workspace Management
+
 - Multi-tenant workspace system
 - Workspace-level permissions
 - Member invitation and management
@@ -57,6 +61,7 @@ CRM-X-SHIVAY is a modern Customer Relationship Management system built with Next
 - Workspace settings and preferences
 
 #### 🔐 Security & Authentication
+
 - JWT-based authentication
 - Middleware-level protection
 - Rate limiting and DDoS protection
@@ -65,6 +70,7 @@ CRM-X-SHIVAY is a modern Customer Relationship Management system built with Next
 - Activity logging and audit trails
 
 #### 🔗 Webhook Integration
+
 - Multi-platform webhook support
 - Automatic lead creation from external sources
 - Webhook signature verification
@@ -73,12 +79,14 @@ CRM-X-SHIVAY is a modern Customer Relationship Management system built with Next
 - Custom webhook processors
 
 #### 🏷️ Tag & Status Management
+
 - Custom lead statuses with visual indicators
 - Tag-based organization
 - Color-coded categorization
 - Workspace-specific configurations
 
 #### 📊 Activity Tracking
+
 - Comprehensive audit trails
 - User action logging
 - Business event tracking
@@ -120,6 +128,7 @@ graph TD
 ### 🔧 Technology Stack Details
 
 #### Frontend Technologies
+
 - **Next.js 13.5.1**: React framework with App Router
 - **TypeScript**: Static type checking
 - **Tailwind CSS**: Utility-first styling
@@ -128,6 +137,7 @@ graph TD
 - **Lucide Icons**: Icon library
 
 #### Backend Technologies
+
 - **Next.js API Routes**: Server-side API endpoints
 - **MongoDB**: NoSQL database
 - **Mongoose**: Object modeling for MongoDB
@@ -136,6 +146,7 @@ graph TD
 - **Winston**: Logging framework
 
 #### Development Tools
+
 - **ESLint**: Code linting
 - **TypeScript**: Type checking
 - **Postman**: API testing

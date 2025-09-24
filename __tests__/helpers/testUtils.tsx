@@ -2,11 +2,19 @@ import React, { ReactElement } from 'react'
 import { render, RenderOptions } from '@testing-library/react'
 import { Provider } from 'react-redux'
 import { configureStore } from '@reduxjs/toolkit'
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { authSlice } from '@/lib/slices/authSlice'
 import { workspaceSlice } from '@/lib/slices/workspaceSlice'
 import { themeSlice } from '@/lib/slices/themeSlice'
-import { mongoApi } from '@/lib/api/mongoApi'
 import { AuthState } from '@/lib/slices/authSlice'
+
+// Mock API for testing
+const mockApi = createApi({
+  reducerPath: 'mockApi',
+  baseQuery: fetchBaseQuery({ baseUrl: '/api/' }),
+  tagTypes: ['Lead', 'Contact', 'User', 'Workspace'],
+  endpoints: builder => ({}),
+})
 
 // Create a custom render function that includes providers
 interface ExtendedRenderOptions extends Omit<RenderOptions, 'wrapper'> {
@@ -27,11 +35,11 @@ export function renderWithProviders(
         auth: authSlice.reducer,
         workspace: workspaceSlice.reducer,
         theme: themeSlice.reducer,
-        [mongoApi.reducerPath]: mongoApi.reducer,
+        [mockApi.reducerPath]: mockApi.reducer,
       },
       preloadedState,
-      middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware().concat(mongoApi.middleware),
+      middleware: getDefaultMiddleware =>
+        getDefaultMiddleware().concat(mockApi.middleware),
     }),
     ...renderOptions
   }: ExtendedRenderOptions = {}
@@ -70,7 +78,7 @@ export function createMockStore(initialState = {}) {
       auth: authSlice.reducer,
       workspace: workspaceSlice.reducer,
       theme: themeSlice.reducer,
-      [mongoApi.reducerPath]: mongoApi.reducer,
+      [mockApi.reducerPath]: mockApi.reducer,
     },
     preloadedState: {
       auth: {
@@ -92,8 +100,8 @@ export function createMockStore(initialState = {}) {
       },
       ...initialState,
     },
-    middleware: (getDefaultMiddleware) =>
-      getDefaultMiddleware().concat(mongoApi.middleware),
+    middleware: getDefaultMiddleware =>
+      getDefaultMiddleware().concat(mockApi.middleware),
   })
 }
 
@@ -189,7 +197,10 @@ export function mockFetchSuccess(data: any) {
 }
 
 // Mock failed fetch response
-export function mockFetchError(status = 500, message = 'Internal Server Error') {
+export function mockFetchError(
+  status = 500,
+  message = 'Internal Server Error'
+) {
   return jest.fn().mockResolvedValue({
     ok: false,
     status,
@@ -241,7 +252,9 @@ export function generateTestUser(overrides = {}) {
 // Database test helpers
 export async function clearTestDatabase() {
   if (process.env.NODE_ENV !== 'test') {
-    throw new Error('clearTestDatabase should only be called in test environment')
+    throw new Error(
+      'clearTestDatabase should only be called in test environment'
+    )
   }
 
   // Clear test database collections

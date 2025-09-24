@@ -1,26 +1,32 @@
-'use client';
+'use client'
 
-import { useState, useEffect } from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Progress } from '@/components/ui/progress';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { useAppSelector } from '@/lib/hooks';
-import { 
-  Check, 
-  X, 
-  Crown, 
-  Users, 
-  Database, 
-  Zap, 
+import { useState, useEffect } from 'react'
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
+import { Badge } from '@/components/ui/badge'
+import { Progress } from '@/components/ui/progress'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { useAppSelector } from '@/lib/hooks'
+import {
+  Check,
+  X,
+  Crown,
+  Users,
+  Database,
+  Zap,
   Shield,
   CreditCard,
   Calendar,
-  TrendingUp
-} from 'lucide-react';
-import { toast } from 'sonner';
-import { CardSkeleton, PageHeaderSkeleton } from '@/components/ui/skeleton';
+  TrendingUp,
+} from 'lucide-react'
+import { toast } from 'sonner'
+import { CardSkeleton, PageHeaderSkeleton } from '@/components/ui/skeleton'
 
 const plans = [
   {
@@ -95,7 +101,7 @@ const plans = [
     },
     popular: false,
   },
-];
+]
 
 // Mock current usage data
 const currentUsage = {
@@ -103,39 +109,41 @@ const currentUsage = {
   users: 3,
   storage: 2.5, // GB
   apiCalls: 1250,
-};
+}
 
 export default function PlansPage() {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     // Simulate API loading
     const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 1500);
+      setIsLoading(false)
+    }, 1500)
 
-    return () => clearTimeout(timer);
-  }, []);
+    return () => clearTimeout(timer)
+  }, [])
 
   if (isLoading) {
     return (
       <div className="w-full space-y-6">
         <PageHeaderSkeleton />
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
           {Array.from({ length: 3 }).map((_, i) => (
             <CardSkeleton key={i} />
           ))}
         </div>
         <CardSkeleton />
       </div>
-    );
+    )
   }
 
   return (
     <div className="w-full space-y-6">
       <div className="w-full">
-        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">Plans & Billing</h1>
-        <p className="text-gray-600 dark:text-gray-400 mt-1">
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-white sm:text-3xl">
+          Plans & Billing
+        </h1>
+        <p className="mt-1 text-gray-600 dark:text-gray-400">
           Manage your subscription and view usage statistics
         </p>
       </div>
@@ -143,5 +151,5 @@ export default function PlansPage() {
         <p>Plans page content will be restored after fixing build issues.</p>
       </div>
     </div>
-  );
+  )
 }

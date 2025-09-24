@@ -1,3 +1,3491 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="jest tests" tests="0" failures="0" errors="0" time="1.635">
+<testsuites name="jest tests" tests="42" failures="18" errors="0" time="14.327">
+  <testsuite name="__tests__/components/Button.test.tsx" errors="0" failures="2" skipped="0" timestamp="2025-09-24T03:02:22" time="4.42" tests="24">
+    <testcase classname="Button Component" name="renders correctly with text" time="0.052">
+    </testcase>
+    <testcase classname="Button Component" name="handles click events" time="0.026">
+    </testcase>
+    <testcase classname="Button Component" name="applies correct variant classes" time="0.005">
+    </testcase>
+    <testcase classname="Button Component" name="applies correct size classes" time="0.004">
+      <failure>Error: expect(element).toHaveClass(&quot;h-10&quot;)
+
+Expected the element to have class:
+  h-10
+Received:
+  inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-11 rounded-md px-8
+    at Object.&lt;anonymous&gt; (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/__tests__/components/Button.test.tsx:37:20)
+    at Promise.finally.completed (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:1556:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:1496:10)
+    at _callCircusTest (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:1006:40)
+    at _runTest (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:946:3)
+    at _runTestsForDescribeBlock (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:839:13)
+    at _runTestsForDescribeBlock (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:829:11)
+    at run (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:757:3)
+    at runAndTransformResultsToJestFormat (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:1917:21)
+    at jestAdapter (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/runner.js:101:19)
+    at runTestInternal (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-runner/build/testWorker.js:275:16)
+    at runTest (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-runner/build/testWorker.js:343:7)
+    at Object.worker (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-runner/build/testWorker.js:497:12)</failure>
+    </testcase>
+    <testcase classname="Button Component" name="is disabled when disabled prop is true" time="0.003">
+    </testcase>
+    <testcase classname="Button Component" name="does not call onClick when disabled" time="0.01">
+    </testcase>
+    <testcase classname="Button Component" name="renders as child component when asChild is true" time="0.004">
+    </testcase>
+    <testcase classname="Button Component" name="forwards ref correctly" time="0.002">
+    </testcase>
+    <testcase classname="Button Component" name="applies custom className" time="0.003">
+    </testcase>
+    <testcase classname="Button Component" name="supports all HTML button attributes" time="0.003">
+    </testcase>
+    <testcase classname="Button Component › Variant styles" name="renders default variant correctly" time="0.003">
+    </testcase>
+    <testcase classname="Button Component › Variant styles" name="renders destructive variant correctly" time="0.003">
+    </testcase>
+    <testcase classname="Button Component › Variant styles" name="renders outline variant correctly" time="0.002">
+    </testcase>
+    <testcase classname="Button Component › Variant styles" name="renders secondary variant correctly" time="0.002">
+    </testcase>
+    <testcase classname="Button Component › Variant styles" name="renders ghost variant correctly" time="0.002">
+    </testcase>
+    <testcase classname="Button Component › Variant styles" name="renders link variant correctly" time="0.002">
+    </testcase>
+    <testcase classname="Button Component › Size styles" name="renders default size correctly" time="0.002">
+    </testcase>
+    <testcase classname="Button Component › Size styles" name="renders sm size correctly" time="0.002">
+    </testcase>
+    <testcase classname="Button Component › Size styles" name="renders lg size correctly" time="0.003">
+    </testcase>
+    <testcase classname="Button Component › Size styles" name="renders icon size correctly" time="0.002">
+    </testcase>
+    <testcase classname="Button Component › Accessibility" name="has proper ARIA attributes when disabled" time="0.002">
+      <failure>Error: expect(element).toHaveAttribute(&quot;aria-disabled&quot;, &quot;true&quot;) // element.getAttribute(&quot;aria-disabled&quot;) === &quot;true&quot;
+
+Expected the element to have attribute:
+  aria-disabled=&quot;true&quot;
+Received:
+  null
+    at Object.&lt;anonymous&gt; (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/__tests__/components/Button.test.tsx:145:22)
+    at Promise.finally.completed (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:1556:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:1496:10)
+    at _callCircusTest (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:1006:40)
+    at _runTest (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:946:3)
+    at _runTestsForDescribeBlock (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:839:13)
+    at _runTestsForDescribeBlock (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:829:11)
+    at _runTestsForDescribeBlock (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:829:11)
+    at run (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:757:3)
+    at runAndTransformResultsToJestFormat (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:1917:21)
+    at jestAdapter (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/runner.js:101:19)
+    at runTestInternal (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-runner/build/testWorker.js:275:16)
+    at runTest (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-runner/build/testWorker.js:343:7)
+    at Object.worker (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-runner/build/testWorker.js:497:12)</failure>
+    </testcase>
+    <testcase classname="Button Component › Accessibility" name="is focusable by keyboard" time="0.008">
+    </testcase>
+    <testcase classname="Button Component › Accessibility" name="can be activated by Enter key" time="0.007">
+    </testcase>
+    <testcase classname="Button Component › Accessibility" name="can be activated by Space key" time="0.007">
+    </testcase>
+  </testsuite>
+  <testsuite name="__tests__/components/LeadForm.test.tsx" errors="0" failures="16" skipped="0" timestamp="2025-09-24T03:02:22" time="9.297" tests="18">
+    <testcase classname="LeadForm Component" name="renders all form fields" time="0.477">
+      <failure>TestingLibraryElementError: Found a label with the text of: /status/i, however no form control was found associated to that label. Make sure you&apos;re using the &quot;for&quot; attribute or &quot;aria-labelledby&quot; attribute correctly.
+
+Ignored nodes: comments, script, style
+&lt;body&gt;
+  &lt;div&gt;
+    &lt;form
+      action=&quot;#&quot;
+      class=&quot;space-y-6&quot;
+    &gt;
+      &lt;div
+        class=&quot;grid grid-cols-2 gap-4&quot;
+      &gt;
+        &lt;div
+          class=&quot;space-y-2&quot;
+        &gt;
+          &lt;label
+            class=&quot;text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70&quot;
+            for=&quot;name&quot;
+          &gt;
+            Name *
+          &lt;/label&gt;
+          &lt;input
+            class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+            id=&quot;name&quot;
+            name=&quot;name&quot;
+            placeholder=&quot;Lead&apos;s full name&quot;
+            value=&quot;&quot;
+          /&gt;
+        &lt;/div&gt;
+        &lt;div
+          class=&quot;space-y-2&quot;
+        &gt;
+          &lt;label
+            class=&quot;text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70&quot;
+            for=&quot;email&quot;
+          &gt;
+            Email
+          &lt;/label&gt;
+          &lt;input
+            class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+            id=&quot;email&quot;
+            name=&quot;email&quot;
+            placeholder=&quot;lead@example.com&quot;
+            type=&quot;email&quot;
+            value=&quot;&quot;
+          /&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div
+        class=&quot;grid grid-cols-2 gap-4&quot;
+      &gt;
+        &lt;div
+          class=&quot;space-y-2&quot;
+        &gt;
+          &lt;label
+            class=&quot;text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70&quot;
+            for=&quot;phone&quot;
+          &gt;
+            Phone
+          &lt;/label&gt;
+          &lt;input
+            class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+            id=&quot;phone&quot;
+            name=&quot;phone&quot;
+            placeholder=&quot;+1 (555) 123-4567&quot;
+            value=&quot;&quot;
+          /&gt;
+        &lt;/div&gt;
+        &lt;div
+          class=&quot;space-y-2&quot;
+        &gt;
+          &lt;label
+            class=&quot;text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70&quot;
+            for=&quot;company&quot;
+          &gt;
+            Company
+          &lt;/label&gt;
+          &lt;input
+            class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+            id=&quot;company&quot;
+            name=&quot;company&quot;
+            placeholder=&quot;Company name&quot;
+            value=&quot;&quot;
+          /&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div
+        class=&quot;grid grid-cols-2 gap-4&quot;
+      &gt;
+        &lt;div
+          class=&quot;space-y-2&quot;
+        &gt;
+          &lt;label
+            class=&quot;text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70&quot;
+          &gt;
+            Status
+          &lt;/label&gt;
+          &lt;button
+            aria-autocomplete=&quot;none&quot;
+            aria-controls=&quot;radix-:r0:&quot;
+            aria-expanded=&quot;false&quot;
+            class=&quot;flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&amp;&gt;span]:line-clamp-1&quot;
+            data-placeholder=&quot;&quot;
+            data-state=&quot;closed&quot;
+            dir=&quot;ltr&quot;
+            role=&quot;combobox&quot;
+            type=&quot;button&quot;
+          &gt;
+            &lt;span
+              style=&quot;pointer-events: none;&quot;
+            &gt;
+              Select status
+            &lt;/span&gt;
+            &lt;svg
+              aria-hidden=&quot;true&quot;
+              class=&quot;lucide lucide-chevron-down h-4 w-4 opacity-50&quot;
+              fill=&quot;none&quot;
+              height=&quot;24&quot;
+              stroke=&quot;currentColor&quot;
+              stroke-linecap=&quot;round&quot;
+              stroke-linejoin=&quot;round&quot;
+              stroke-width=&quot;2&quot;
+              viewBox=&quot;0 0 24 24&quot;
+              width=&quot;24&quot;
+              xmlns=&quot;http://www.w3.org/2000/svg&quot;
+            &gt;
+              &lt;path
+                d=&quot;m6 9 6 6 6-6&quot;
+              /&gt;
+            &lt;/svg&gt;
+          &lt;/button&gt;
+          &lt;select
+            aria-hidden=&quot;true&quot;
+            style=&quot;pos...
+    at Object.getElementError (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/@testing-library/dom/dist/config.js:37:19)
+    at getAllByLabelText (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/@testing-library/dom/dist/queries/label-text.js:108:40)
+    at /mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+    at /mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+    at Object.&lt;anonymous&gt; (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/__tests__/components/LeadForm.test.tsx:56:19)
+    at Promise.finally.completed (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:1556:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:1496:10)
+    at _callCircusTest (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:1006:40)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at _runTest (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:946:3)
+    at _runTestsForDescribeBlock (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:839:13)
+    at _runTestsForDescribeBlock (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:829:11)
+    at run (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:757:3)
+    at runAndTransformResultsToJestFormat (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:1917:21)
+    at jestAdapter (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/runner.js:101:19)
+    at runTestInternal (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-runner/build/testWorker.js:275:16)
+    at runTest (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-runner/build/testWorker.js:343:7)
+    at Object.worker (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-runner/build/testWorker.js:497:12)</failure>
+    </testcase>
+    <testcase classname="LeadForm Component" name="submits form with valid data" time="0.878">
+      <failure>TestingLibraryElementError: Found a label with the text of: /source/i, however no form control was found associated to that label. Make sure you&apos;re using the &quot;for&quot; attribute or &quot;aria-labelledby&quot; attribute correctly.
+
+Ignored nodes: comments, script, style
+&lt;body&gt;
+  &lt;div&gt;
+    &lt;form
+      action=&quot;#&quot;
+      class=&quot;space-y-6&quot;
+    &gt;
+      &lt;div
+        class=&quot;grid grid-cols-2 gap-4&quot;
+      &gt;
+        &lt;div
+          class=&quot;space-y-2&quot;
+        &gt;
+          &lt;label
+            class=&quot;text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70&quot;
+            for=&quot;name&quot;
+          &gt;
+            Name *
+          &lt;/label&gt;
+          &lt;input
+            class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+            id=&quot;name&quot;
+            name=&quot;name&quot;
+            placeholder=&quot;Lead&apos;s full name&quot;
+            value=&quot;John Doe&quot;
+          /&gt;
+        &lt;/div&gt;
+        &lt;div
+          class=&quot;space-y-2&quot;
+        &gt;
+          &lt;label
+            class=&quot;text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70&quot;
+            for=&quot;email&quot;
+          &gt;
+            Email
+          &lt;/label&gt;
+          &lt;input
+            class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+            id=&quot;email&quot;
+            name=&quot;email&quot;
+            placeholder=&quot;lead@example.com&quot;
+            type=&quot;email&quot;
+            value=&quot;john@example.com&quot;
+          /&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div
+        class=&quot;grid grid-cols-2 gap-4&quot;
+      &gt;
+        &lt;div
+          class=&quot;space-y-2&quot;
+        &gt;
+          &lt;label
+            class=&quot;text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70&quot;
+            for=&quot;phone&quot;
+          &gt;
+            Phone
+          &lt;/label&gt;
+          &lt;input
+            class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+            id=&quot;phone&quot;
+            name=&quot;phone&quot;
+            placeholder=&quot;+1 (555) 123-4567&quot;
+            value=&quot;+1234567890&quot;
+          /&gt;
+        &lt;/div&gt;
+        &lt;div
+          class=&quot;space-y-2&quot;
+        &gt;
+          &lt;label
+            class=&quot;text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70&quot;
+            for=&quot;company&quot;
+          &gt;
+            Company
+          &lt;/label&gt;
+          &lt;input
+            class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+            id=&quot;company&quot;
+            name=&quot;company&quot;
+            placeholder=&quot;Company name&quot;
+            value=&quot;Example Corp&quot;
+          /&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div
+        class=&quot;grid grid-cols-2 gap-4&quot;
+      &gt;
+        &lt;div
+          class=&quot;space-y-2&quot;
+        &gt;
+          &lt;label
+            class=&quot;text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70&quot;
+          &gt;
+            Status
+          &lt;/label&gt;
+          &lt;button
+            aria-autocomplete=&quot;none&quot;
+            aria-controls=&quot;radix-:rj:&quot;
+            aria-expanded=&quot;false&quot;
+            class=&quot;flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&amp;&gt;span]:line-clamp-1&quot;
+            data-placeholder=&quot;&quot;
+            data-state=&quot;closed&quot;
+            dir=&quot;ltr&quot;
+            role=&quot;combobox&quot;
+            type=&quot;button&quot;
+          &gt;
+            &lt;span
+              style=&quot;pointer-events: none;&quot;
+            &gt;
+              Select status
+            &lt;/span&gt;
+            &lt;svg
+              aria-hidden=&quot;true&quot;
+              class=&quot;lucide lucide-chevron-down h-4 w-4 opacity-50&quot;
+              fill=&quot;none&quot;
+              height=&quot;24&quot;
+              stroke=&quot;currentColor&quot;
+              stroke-linecap=&quot;round&quot;
+              stroke-linejoin=&quot;round&quot;
+              stroke-width=&quot;2&quot;
+              viewBox=&quot;0 0 24 24&quot;
+              width=&quot;24&quot;
+              xmlns=&quot;http://www.w3.org/2000/svg&quot;
+            &gt;
+              &lt;path
+                d=&quot;m6 9 6 6 6-6&quot;
+              /&gt;
+            &lt;/svg&gt;
+          &lt;/button&gt;
+          &lt;select
+            aria-hidden=&quot;t...
+    at Object.getElementError (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/@testing-library/dom/dist/config.js:37:19)
+    at getAllByLabelText (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/@testing-library/dom/dist/queries/label-text.js:108:40)
+    at /mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+    at /mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+    at /mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/__tests__/components/LeadForm.test.tsx:76:28
+    at step (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/__tests__/components/LeadForm.test.tsx:44:23)
+    at Object.next (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/__tests__/components/LeadForm.test.tsx:25:53)
+    at fulfilled (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/__tests__/components/LeadForm.test.tsx:16:58)</failure>
+    </testcase>
+    <testcase classname="LeadForm Component" name="shows validation errors for invalid data" time="0.082">
+      <failure>TestingLibraryElementError: Unable to find an accessible element with the role &quot;button&quot; and name `/save/i`
+
+Here are the accessible roles:
+
+  textbox:
+
+  Name &quot;Name *&quot;:
+  &lt;input
+    class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+    id=&quot;name&quot;
+    name=&quot;name&quot;
+    placeholder=&quot;Lead&apos;s full name&quot;
+    value=&quot;&quot;
+  /&gt;
+
+  Name &quot;Email&quot;:
+  &lt;input
+    class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+    id=&quot;email&quot;
+    name=&quot;email&quot;
+    placeholder=&quot;lead@example.com&quot;
+    type=&quot;email&quot;
+    value=&quot;&quot;
+  /&gt;
+
+  Name &quot;Phone&quot;:
+  &lt;input
+    class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+    id=&quot;phone&quot;
+    name=&quot;phone&quot;
+    placeholder=&quot;+1 (555) 123-4567&quot;
+    value=&quot;&quot;
+  /&gt;
+
+  Name &quot;Company&quot;:
+  &lt;input
+    class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+    id=&quot;company&quot;
+    name=&quot;company&quot;
+    placeholder=&quot;Company name&quot;
+    value=&quot;&quot;
+  /&gt;
+
+  Name &quot;Notes&quot;:
+  &lt;textarea
+    class=&quot;flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+    id=&quot;notes&quot;
+    name=&quot;notes&quot;
+    placeholder=&quot;Additional notes about this lead...&quot;
+    rows=&quot;3&quot;
+  /&gt;
+
+  Name &quot;&quot;:
+  &lt;input
+    class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+    placeholder=&quot;Field name&quot;
+    value=&quot;&quot;
+  /&gt;
+
+  Name &quot;&quot;:
+  &lt;input
+    class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+    placeholder=&quot;Field value&quot;
+    value=&quot;&quot;
+  /&gt;
+
+  --------------------------------------------------
+  combobox:
+
+  Name &quot;&quot;:
+  &lt;button
+    aria-autocomplete=&quot;none&quot;
+    aria-controls=&quot;radix-:r16:&quot;
+    aria-expanded=&quot;false&quot;
+    class=&quot;flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&amp;&gt;span]:line-clamp-1&quot;
+    data-placeholder=&quot;&quot;
+    data-state=&quot;closed&quot;
+    dir=&quot;ltr&quot;
+    role=&quot;combobox&quot;
+    type=&quot;button&quot;
+  /&gt;
+
+  Name &quot;&quot;:
+  &lt;button
+    aria-autocomplete=&quot;none&quot;
+    aria-controls=&quot;radix-:r17:&quot;
+    aria-expanded=&quot;false&quot;
+    class=&quot;flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&amp;&gt;span]:line-clamp-1&quot;
+    data-state=&quot;closed&quot;
+    dir=&quot;ltr&quot;
+    role=&quot;combobox&quot;
+    type=&quot;button&quot;
+  /&gt;
+
+  Name &quot;&quot;:
+  &lt;button
+    aria-autocomplete=&quot;none&quot;
+    aria-controls=&quot;radix-:r18:&quot;
+    aria-expanded=&quot;false&quot;
+    class=&quot;flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&amp;&gt;span]:line-clamp-1&quot;
+    data-placeholder=&quot;&quot;
+    data-state=&quot;closed&quot;
+    dir=&quot;ltr&quot;
+    role=&quot;combobox&quot;
+    type=&quot;button&quot;
+  /&gt;
+
+  --------------------------------------------------
+  spinbutton:
+
+  Name &quot;Potential Value ($)&quot;:
+  &lt;input
+    class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+    id=&quot;value&quot;
+    min=&quot;0&quot;
+    name=&quot;value&quot;
+    placeholder=&quot;0&quot;
+    step=&quot;0.01&quot;
+    type=&quot;number&quot;
+    value=&quot;&quot;
+  /&gt;
+
+  --------------------------------------------------
+  heading:
+
+  Name &quot;Custom Fields&quot;:
+  &lt;h3
+    class=&quot;font-semibold tracking-tight text-lg&quot;
+  /&gt;
+
+  --------------------------------------------------
+  button:
+
+  Name &quot;&quot;:
+  &lt;button
+    class=&quot;inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3&quot;
+    disabled=&quot;&quot;
+    type=&quot;button&quot;
+  /&gt;
+
+  Name &quot;Cancel&quot;:
+  &lt;button
+    class=&quot;inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2&quot;
+    type=&quot;button&quot;
+  /&gt;
+
+  Name &quot;Create Lead&quot;:
+  &lt;button
+    class=&quot;inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2&quot;
+    type=&quot;submit&quot;
+  /&gt;
+
+  --------------------------------------------------
+
+Ignored nodes: comments, script, style
+&lt;body&gt;
+  &lt;div&gt;
+    &lt;form
+      action=&quot;#&quot;
+      class=&quot;space-y-6&quot;
+    &gt;
+      &lt;div
+        class=&quot;grid grid-cols-2 gap-4&quot;
+      &gt;
+        &lt;div
+          class=&quot;space-y-2&quot;
+        &gt;
+          &lt;label
+            class=&quot;text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70&quot;
+            for=&quot;name&quot;
+          &gt;
+            Name *
+          &lt;/label&gt;
+          &lt;input
+            class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+            id=&quot;name&quot;
+            name=&quot;name&quot;
+            placeholder=&quot;Lead&apos;s full name&quot;
+            value=&quot;&quot;
+          /&gt;
+        &lt;/div&gt;
+        &lt;div
+          class=&quot;space-y-2&quot;
+        &gt;
+          &lt;label
+            class=&quot;text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70&quot;
+            for=&quot;email&quot;
+          &gt;
+            Email
+          &lt;/label&gt;
+          &lt;input
+            class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+            id=&quot;email&quot;
+            name=&quot;email&quot;
+            placeholder=&quot;lead@example.com&quot;
+            type=&quot;email&quot;
+            value=&quot;&quot;
+          /&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div
+        class=&quot;grid grid-cols-2 gap-4&quot;
+      &gt;
+        &lt;div
+          class=&quot;space-y-2&quot;
+        &gt;
+          &lt;label
+            class=&quot;text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70&quot;
+            for=&quot;phone&quot;
+          &gt;
+            Phone
+          &lt;/label&gt;
+          &lt;input
+            class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+            id=&quot;phone&quot;
+            name=&quot;phone&quot;
+            placeholder=&quot;+1 (555) 123-4567&quot;
+            value=&quot;&quot;
+          /&gt;
+        &lt;/div&gt;
+        &lt;div
+          class=&quot;space-y-2&quot;
+        &gt;
+          &lt;label
+            class=&quot;text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70&quot;
+            for=&quot;company&quot;
+          &gt;
+            Company
+          &lt;/label&gt;
+          &lt;input
+            class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+            id=&quot;company&quot;
+            name=&quot;company&quot;
+            placeholder=&quot;Company name&quot;
+            value=&quot;&quot;
+          /&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div
+        class=&quot;grid grid-cols-2 gap-4&quot;
+      &gt;
+        &lt;div
+          class=&quot;space-y-2&quot;
+        &gt;
+          &lt;label
+            class=&quot;text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70&quot;
+          &gt;
+            Status
+          &lt;/label&gt;
+          &lt;button
+            aria-autocomplete=&quot;none&quot;
+            aria-controls=&quot;radix-:r16:&quot;
+            aria-expanded=&quot;false&quot;
+            class=&quot;flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&amp;&gt;span]:line-clamp-1&quot;
+            data-placeholder=&quot;&quot;
+            data-state=&quot;closed&quot;
+            dir=&quot;ltr&quot;
+            role=&quot;combobox&quot;
+            type=&quot;button&quot;
+          &gt;
+            &lt;span
+              style=&quot;pointer-events: none;&quot;
+            &gt;
+              Select status
+            &lt;/span&gt;
+            &lt;svg
+              aria-hidden=&quot;true&quot;
+              class=&quot;lucide lucide-chevron-down h-4 w-4 opacity-50&quot;
+              fill=&quot;none&quot;
+              height=&quot;24&quot;
+              stroke=&quot;currentColor&quot;
+              stroke-linecap=&quot;round&quot;
+              stroke-linejoin=&quot;round&quot;
+              stroke-width=&quot;2&quot;
+              viewBox=&quot;0 0 24 24&quot;
+              width=&quot;24&quot;
+              xmlns=&quot;http://www.w3.org/2000/svg&quot;
+            &gt;
+              &lt;path
+                d=&quot;m6 9 6 6 6-6&quot;
+              /&gt;
+            &lt;/svg&gt;
+          &lt;/button&gt;
+          &lt;select
+            aria-hidden=&quot;true&quot;
+            style=&quot;po...
+    at Object.getElementError (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/@testing-library/dom/dist/config.js:37:19)
+    at /mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+    at /mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+    at /mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+    at /mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/__tests__/components/LeadForm.test.tsx:100:29
+    at step (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/__tests__/components/LeadForm.test.tsx:44:23)
+    at Object.next (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/__tests__/components/LeadForm.test.tsx:25:53)
+    at /mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/__tests__/components/LeadForm.test.tsx:19:71
+    at new Promise (&lt;anonymous&gt;)
+    at __awaiter (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/__tests__/components/LeadForm.test.tsx:15:12)
+    at Object.&lt;anonymous&gt; (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/__tests__/components/LeadForm.test.tsx:95:50)
+    at Promise.finally.completed (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:1556:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:1496:10)
+    at _callCircusTest (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:1006:40)
+    at _runTest (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:946:3)
+    at _runTestsForDescribeBlock (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:839:13)
+    at _runTestsForDescribeBlock (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:829:11)
+    at run (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:757:3)
+    at runAndTransformResultsToJestFormat (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:1917:21)
+    at jestAdapter (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/runner.js:101:19)
+    at runTestInternal (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-runner/build/testWorker.js:275:16)
+    at runTest (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-runner/build/testWorker.js:343:7)
+    at Object.worker (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-runner/build/testWorker.js:497:12)</failure>
+    </testcase>
+    <testcase classname="LeadForm Component" name="validates email format" time="-0.717">
+      <failure>TestingLibraryElementError: Unable to find an accessible element with the role &quot;button&quot; and name `/save/i`
+
+Here are the accessible roles:
+
+  textbox:
+
+  Name &quot;Name *&quot;:
+  &lt;input
+    class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+    id=&quot;name&quot;
+    name=&quot;name&quot;
+    placeholder=&quot;Lead&apos;s full name&quot;
+    value=&quot;John Doe&quot;
+  /&gt;
+
+  Name &quot;Email&quot;:
+  &lt;input
+    class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+    id=&quot;email&quot;
+    name=&quot;email&quot;
+    placeholder=&quot;lead@example.com&quot;
+    type=&quot;email&quot;
+    value=&quot;invalid-email&quot;
+  /&gt;
+
+  Name &quot;Phone&quot;:
+  &lt;input
+    class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+    id=&quot;phone&quot;
+    name=&quot;phone&quot;
+    placeholder=&quot;+1 (555) 123-4567&quot;
+    value=&quot;&quot;
+  /&gt;
+
+  Name &quot;Company&quot;:
+  &lt;input
+    class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+    id=&quot;company&quot;
+    name=&quot;company&quot;
+    placeholder=&quot;Company name&quot;
+    value=&quot;&quot;
+  /&gt;
+
+  Name &quot;Notes&quot;:
+  &lt;textarea
+    class=&quot;flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+    id=&quot;notes&quot;
+    name=&quot;notes&quot;
+    placeholder=&quot;Additional notes about this lead...&quot;
+    rows=&quot;3&quot;
+  /&gt;
+
+  Name &quot;&quot;:
+  &lt;input
+    class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+    placeholder=&quot;Field name&quot;
+    value=&quot;&quot;
+  /&gt;
+
+  Name &quot;&quot;:
+  &lt;input
+    class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+    placeholder=&quot;Field value&quot;
+    value=&quot;&quot;
+  /&gt;
+
+  --------------------------------------------------
+  combobox:
+
+  Name &quot;&quot;:
+  &lt;button
+    aria-autocomplete=&quot;none&quot;
+    aria-controls=&quot;radix-:r1p:&quot;
+    aria-expanded=&quot;false&quot;
+    class=&quot;flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&amp;&gt;span]:line-clamp-1&quot;
+    data-placeholder=&quot;&quot;
+    data-state=&quot;closed&quot;
+    dir=&quot;ltr&quot;
+    role=&quot;combobox&quot;
+    type=&quot;button&quot;
+  /&gt;
+
+  Name &quot;&quot;:
+  &lt;button
+    aria-autocomplete=&quot;none&quot;
+    aria-controls=&quot;radix-:r1q:&quot;
+    aria-expanded=&quot;false&quot;
+    class=&quot;flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&amp;&gt;span]:line-clamp-1&quot;
+    data-state=&quot;closed&quot;
+    dir=&quot;ltr&quot;
+    role=&quot;combobox&quot;
+    type=&quot;button&quot;
+  /&gt;
+
+  Name &quot;&quot;:
+  &lt;button
+    aria-autocomplete=&quot;none&quot;
+    aria-controls=&quot;radix-:r1r:&quot;
+    aria-expanded=&quot;false&quot;
+    class=&quot;flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&amp;&gt;span]:line-clamp-1&quot;
+    data-placeholder=&quot;&quot;
+    data-state=&quot;closed&quot;
+    dir=&quot;ltr&quot;
+    role=&quot;combobox&quot;
+    type=&quot;button&quot;
+  /&gt;
+
+  --------------------------------------------------
+  spinbutton:
+
+  Name &quot;Potential Value ($)&quot;:
+  &lt;input
+    class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+    id=&quot;value&quot;
+    min=&quot;0&quot;
+    name=&quot;value&quot;
+    placeholder=&quot;0&quot;
+    step=&quot;0.01&quot;
+    type=&quot;number&quot;
+    value=&quot;&quot;
+  /&gt;
+
+  --------------------------------------------------
+  heading:
+
+  Name &quot;Custom Fields&quot;:
+  &lt;h3
+    class=&quot;font-semibold tracking-tight text-lg&quot;
+  /&gt;
+
+  --------------------------------------------------
+  button:
+
+  Name &quot;&quot;:
+  &lt;button
+    class=&quot;inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3&quot;
+    disabled=&quot;&quot;
+    type=&quot;button&quot;
+  /&gt;
+
+  Name &quot;Cancel&quot;:
+  &lt;button
+    class=&quot;inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2&quot;
+    type=&quot;button&quot;
+  /&gt;
+
+  Name &quot;Create Lead&quot;:
+  &lt;button
+    class=&quot;inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2&quot;
+    type=&quot;submit&quot;
+  /&gt;
+
+  --------------------------------------------------
+
+Ignored nodes: comments, script, style
+&lt;body&gt;
+  &lt;div&gt;
+    &lt;form
+      action=&quot;#&quot;
+      class=&quot;space-y-6&quot;
+    &gt;
+      &lt;div
+        class=&quot;grid grid-cols-2 gap-4&quot;
+      &gt;
+        &lt;div
+          class=&quot;space-y-2&quot;
+        &gt;
+          &lt;label
+            class=&quot;text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70&quot;
+            for=&quot;name&quot;
+          &gt;
+            Name *
+          &lt;/label&gt;
+          &lt;input
+            class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+            id=&quot;name&quot;
+            name=&quot;name&quot;
+            placeholder=&quot;Lead&apos;s full name&quot;
+            value=&quot;John Doe&quot;
+          /&gt;
+        &lt;/div&gt;
+        &lt;div
+          class=&quot;space-y-2&quot;
+        &gt;
+          &lt;label
+            class=&quot;text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70&quot;
+            for=&quot;email&quot;
+          &gt;
+            Email
+          &lt;/label&gt;
+          &lt;input
+            class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+            id=&quot;email&quot;
+            name=&quot;email&quot;
+            placeholder=&quot;lead@example.com&quot;
+            type=&quot;email&quot;
+            value=&quot;invalid-email&quot;
+          /&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div
+        class=&quot;grid grid-cols-2 gap-4&quot;
+      &gt;
+        &lt;div
+          class=&quot;space-y-2&quot;
+        &gt;
+          &lt;label
+            class=&quot;text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70&quot;
+            for=&quot;phone&quot;
+          &gt;
+            Phone
+          &lt;/label&gt;
+          &lt;input
+            class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+            id=&quot;phone&quot;
+            name=&quot;phone&quot;
+            placeholder=&quot;+1 (555) 123-4567&quot;
+            value=&quot;&quot;
+          /&gt;
+        &lt;/div&gt;
+        &lt;div
+          class=&quot;space-y-2&quot;
+        &gt;
+          &lt;label
+            class=&quot;text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70&quot;
+            for=&quot;company&quot;
+          &gt;
+            Company
+          &lt;/label&gt;
+          &lt;input
+            class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+            id=&quot;company&quot;
+            name=&quot;company&quot;
+            placeholder=&quot;Company name&quot;
+            value=&quot;&quot;
+          /&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div
+        class=&quot;grid grid-cols-2 gap-4&quot;
+      &gt;
+        &lt;div
+          class=&quot;space-y-2&quot;
+        &gt;
+          &lt;label
+            class=&quot;text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70&quot;
+          &gt;
+            Status
+          &lt;/label&gt;
+          &lt;button
+            aria-autocomplete=&quot;none&quot;
+            aria-controls=&quot;radix-:r1p:&quot;
+            aria-expanded=&quot;false&quot;
+            class=&quot;flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&amp;&gt;span]:line-clamp-1&quot;
+            data-placeholder=&quot;&quot;
+            data-state=&quot;closed&quot;
+            dir=&quot;ltr&quot;
+            role=&quot;combobox&quot;
+            type=&quot;button&quot;
+          &gt;
+            &lt;span
+              style=&quot;pointer-events: none;&quot;
+            &gt;
+              Select status
+            &lt;/span&gt;
+            &lt;svg
+              aria-hidden=&quot;true&quot;
+              class=&quot;lucide lucide-chevron-down h-4 w-4 opacity-50&quot;
+              fill=&quot;none&quot;
+              height=&quot;24&quot;
+              stroke=&quot;currentColor&quot;
+              stroke-linecap=&quot;round&quot;
+              stroke-linejoin=&quot;round&quot;
+              stroke-width=&quot;2&quot;
+              viewBox=&quot;0 0 24 24&quot;
+              width=&quot;24&quot;
+              xmlns=&quot;http://www.w3.org/2000/svg&quot;
+            &gt;
+              &lt;path
+                d=&quot;m6 9 6 6 6-6&quot;
+              /&gt;
+            &lt;/svg&gt;
+          &lt;/button&gt;
+          &lt;select
+            aria-hidden=&quot;true&quot;
+            ...
+    at Object.getElementError (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/@testing-library/dom/dist/config.js:37:19)
+    at /mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+    at /mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+    at /mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+    at /mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/__tests__/components/LeadForm.test.tsx:116:29
+    at step (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/__tests__/components/LeadForm.test.tsx:44:23)
+    at Object.next (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/__tests__/components/LeadForm.test.tsx:25:53)
+    at fulfilled (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/__tests__/components/LeadForm.test.tsx:16:58)</failure>
+    </testcase>
+    <testcase classname="LeadForm Component" name="validates phone number format" time="0.514">
+      <failure>TestingLibraryElementError: Unable to find an accessible element with the role &quot;button&quot; and name `/save/i`
+
+Here are the accessible roles:
+
+  textbox:
+
+  Name &quot;Name *&quot;:
+  &lt;input
+    class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+    id=&quot;name&quot;
+    name=&quot;name&quot;
+    placeholder=&quot;Lead&apos;s full name&quot;
+    value=&quot;John Doe&quot;
+  /&gt;
+
+  Name &quot;Email&quot;:
+  &lt;input
+    class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+    id=&quot;email&quot;
+    name=&quot;email&quot;
+    placeholder=&quot;lead@example.com&quot;
+    type=&quot;email&quot;
+    value=&quot;john@example.com&quot;
+  /&gt;
+
+  Name &quot;Phone&quot;:
+  &lt;input
+    class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+    id=&quot;phone&quot;
+    name=&quot;phone&quot;
+    placeholder=&quot;+1 (555) 123-4567&quot;
+    value=&quot;invalid-phone&quot;
+  /&gt;
+
+  Name &quot;Company&quot;:
+  &lt;input
+    class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+    id=&quot;company&quot;
+    name=&quot;company&quot;
+    placeholder=&quot;Company name&quot;
+    value=&quot;&quot;
+  /&gt;
+
+  Name &quot;Notes&quot;:
+  &lt;textarea
+    class=&quot;flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+    id=&quot;notes&quot;
+    name=&quot;notes&quot;
+    placeholder=&quot;Additional notes about this lead...&quot;
+    rows=&quot;3&quot;
+  /&gt;
+
+  Name &quot;&quot;:
+  &lt;input
+    class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+    placeholder=&quot;Field name&quot;
+    value=&quot;&quot;
+  /&gt;
+
+  Name &quot;&quot;:
+  &lt;input
+    class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+    placeholder=&quot;Field value&quot;
+    value=&quot;&quot;
+  /&gt;
+
+  --------------------------------------------------
+  combobox:
+
+  Name &quot;&quot;:
+  &lt;button
+    aria-autocomplete=&quot;none&quot;
+    aria-controls=&quot;radix-:r2c:&quot;
+    aria-expanded=&quot;false&quot;
+    class=&quot;flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&amp;&gt;span]:line-clamp-1&quot;
+    data-placeholder=&quot;&quot;
+    data-state=&quot;closed&quot;
+    dir=&quot;ltr&quot;
+    role=&quot;combobox&quot;
+    type=&quot;button&quot;
+  /&gt;
+
+  Name &quot;&quot;:
+  &lt;button
+    aria-autocomplete=&quot;none&quot;
+    aria-controls=&quot;radix-:r2d:&quot;
+    aria-expanded=&quot;false&quot;
+    class=&quot;flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&amp;&gt;span]:line-clamp-1&quot;
+    data-state=&quot;closed&quot;
+    dir=&quot;ltr&quot;
+    role=&quot;combobox&quot;
+    type=&quot;button&quot;
+  /&gt;
+
+  Name &quot;&quot;:
+  &lt;button
+    aria-autocomplete=&quot;none&quot;
+    aria-controls=&quot;radix-:r2e:&quot;
+    aria-expanded=&quot;false&quot;
+    class=&quot;flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&amp;&gt;span]:line-clamp-1&quot;
+    data-placeholder=&quot;&quot;
+    data-state=&quot;closed&quot;
+    dir=&quot;ltr&quot;
+    role=&quot;combobox&quot;
+    type=&quot;button&quot;
+  /&gt;
+
+  --------------------------------------------------
+  spinbutton:
+
+  Name &quot;Potential Value ($)&quot;:
+  &lt;input
+    class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+    id=&quot;value&quot;
+    min=&quot;0&quot;
+    name=&quot;value&quot;
+    placeholder=&quot;0&quot;
+    step=&quot;0.01&quot;
+    type=&quot;number&quot;
+    value=&quot;&quot;
+  /&gt;
+
+  --------------------------------------------------
+  heading:
+
+  Name &quot;Custom Fields&quot;:
+  &lt;h3
+    class=&quot;font-semibold tracking-tight text-lg&quot;
+  /&gt;
+
+  --------------------------------------------------
+  button:
+
+  Name &quot;&quot;:
+  &lt;button
+    class=&quot;inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3&quot;
+    disabled=&quot;&quot;
+    type=&quot;button&quot;
+  /&gt;
+
+  Name &quot;Cancel&quot;:
+  &lt;button
+    class=&quot;inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2&quot;
+    type=&quot;button&quot;
+  /&gt;
+
+  Name &quot;Create Lead&quot;:
+  &lt;button
+    class=&quot;inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2&quot;
+    type=&quot;submit&quot;
+  /&gt;
+
+  --------------------------------------------------
+
+Ignored nodes: comments, script, style
+&lt;body&gt;
+  &lt;div&gt;
+    &lt;form
+      action=&quot;#&quot;
+      class=&quot;space-y-6&quot;
+    &gt;
+      &lt;div
+        class=&quot;grid grid-cols-2 gap-4&quot;
+      &gt;
+        &lt;div
+          class=&quot;space-y-2&quot;
+        &gt;
+          &lt;label
+            class=&quot;text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70&quot;
+            for=&quot;name&quot;
+          &gt;
+            Name *
+          &lt;/label&gt;
+          &lt;input
+            class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+            id=&quot;name&quot;
+            name=&quot;name&quot;
+            placeholder=&quot;Lead&apos;s full name&quot;
+            value=&quot;John Doe&quot;
+          /&gt;
+        &lt;/div&gt;
+        &lt;div
+          class=&quot;space-y-2&quot;
+        &gt;
+          &lt;label
+            class=&quot;text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70&quot;
+            for=&quot;email&quot;
+          &gt;
+            Email
+          &lt;/label&gt;
+          &lt;input
+            class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+            id=&quot;email&quot;
+            name=&quot;email&quot;
+            placeholder=&quot;lead@example.com&quot;
+            type=&quot;email&quot;
+            value=&quot;john@example.com&quot;
+          /&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div
+        class=&quot;grid grid-cols-2 gap-4&quot;
+      &gt;
+        &lt;div
+          class=&quot;space-y-2&quot;
+        &gt;
+          &lt;label
+            class=&quot;text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70&quot;
+            for=&quot;phone&quot;
+          &gt;
+            Phone
+          &lt;/label&gt;
+          &lt;input
+            class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+            id=&quot;phone&quot;
+            name=&quot;phone&quot;
+            placeholder=&quot;+1 (555) 123-4567&quot;
+            value=&quot;invalid-phone&quot;
+          /&gt;
+        &lt;/div&gt;
+        &lt;div
+          class=&quot;space-y-2&quot;
+        &gt;
+          &lt;label
+            class=&quot;text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70&quot;
+            for=&quot;company&quot;
+          &gt;
+            Company
+          &lt;/label&gt;
+          &lt;input
+            class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+            id=&quot;company&quot;
+            name=&quot;company&quot;
+            placeholder=&quot;Company name&quot;
+            value=&quot;&quot;
+          /&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div
+        class=&quot;grid grid-cols-2 gap-4&quot;
+      &gt;
+        &lt;div
+          class=&quot;space-y-2&quot;
+        &gt;
+          &lt;label
+            class=&quot;text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70&quot;
+          &gt;
+            Status
+          &lt;/label&gt;
+          &lt;button
+            aria-autocomplete=&quot;none&quot;
+            aria-controls=&quot;radix-:r2c:&quot;
+            aria-expanded=&quot;false&quot;
+            class=&quot;flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&amp;&gt;span]:line-clamp-1&quot;
+            data-placeholder=&quot;&quot;
+            data-state=&quot;closed&quot;
+            dir=&quot;ltr&quot;
+            role=&quot;combobox&quot;
+            type=&quot;button&quot;
+          &gt;
+            &lt;span
+              style=&quot;pointer-events: none;&quot;
+            &gt;
+              Select status
+            &lt;/span&gt;
+            &lt;svg
+              aria-hidden=&quot;true&quot;
+              class=&quot;lucide lucide-chevron-down h-4 w-4 opacity-50&quot;
+              fill=&quot;none&quot;
+              height=&quot;24&quot;
+              stroke=&quot;currentColor&quot;
+              stroke-linecap=&quot;round&quot;
+              stroke-linejoin=&quot;round&quot;
+              stroke-width=&quot;2&quot;
+              viewBox=&quot;0 0 24 24&quot;
+              width=&quot;24&quot;
+              xmlns=&quot;http://www.w3.org/2000/svg&quot;
+            &gt;
+              &lt;path
+                d=&quot;m6 9 6 6 6-6&quot;
+              /&gt;
+            &lt;/svg&gt;
+          &lt;/button&gt;
+          &lt;select
+            aria-hidden=&quot;true&quot;...
+    at Object.getElementError (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/@testing-library/dom/dist/config.js:37:19)
+    at /mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+    at /mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+    at /mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+    at /mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/__tests__/components/LeadForm.test.tsx:131:29
+    at step (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/__tests__/components/LeadForm.test.tsx:44:23)
+    at Object.next (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/__tests__/components/LeadForm.test.tsx:25:53)
+    at fulfilled (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/__tests__/components/LeadForm.test.tsx:16:58)</failure>
+    </testcase>
+    <testcase classname="LeadForm Component" name="validates numeric value field" time="0.191">
+      <failure>TestingLibraryElementError: Unable to find an accessible element with the role &quot;button&quot; and name `/save/i`
+
+Here are the accessible roles:
+
+  textbox:
+
+  Name &quot;Name *&quot;:
+  &lt;input
+    class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+    id=&quot;name&quot;
+    name=&quot;name&quot;
+    placeholder=&quot;Lead&apos;s full name&quot;
+    value=&quot;John Doe&quot;
+  /&gt;
+
+  Name &quot;Email&quot;:
+  &lt;input
+    class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+    id=&quot;email&quot;
+    name=&quot;email&quot;
+    placeholder=&quot;lead@example.com&quot;
+    type=&quot;email&quot;
+    value=&quot;&quot;
+  /&gt;
+
+  Name &quot;Phone&quot;:
+  &lt;input
+    class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+    id=&quot;phone&quot;
+    name=&quot;phone&quot;
+    placeholder=&quot;+1 (555) 123-4567&quot;
+    value=&quot;&quot;
+  /&gt;
+
+  Name &quot;Company&quot;:
+  &lt;input
+    class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+    id=&quot;company&quot;
+    name=&quot;company&quot;
+    placeholder=&quot;Company name&quot;
+    value=&quot;&quot;
+  /&gt;
+
+  Name &quot;Notes&quot;:
+  &lt;textarea
+    class=&quot;flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+    id=&quot;notes&quot;
+    name=&quot;notes&quot;
+    placeholder=&quot;Additional notes about this lead...&quot;
+    rows=&quot;3&quot;
+  /&gt;
+
+  Name &quot;&quot;:
+  &lt;input
+    class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+    placeholder=&quot;Field name&quot;
+    value=&quot;&quot;
+  /&gt;
+
+  Name &quot;&quot;:
+  &lt;input
+    class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+    placeholder=&quot;Field value&quot;
+    value=&quot;&quot;
+  /&gt;
+
+  --------------------------------------------------
+  combobox:
+
+  Name &quot;&quot;:
+  &lt;button
+    aria-autocomplete=&quot;none&quot;
+    aria-controls=&quot;radix-:r2v:&quot;
+    aria-expanded=&quot;false&quot;
+    class=&quot;flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&amp;&gt;span]:line-clamp-1&quot;
+    data-placeholder=&quot;&quot;
+    data-state=&quot;closed&quot;
+    dir=&quot;ltr&quot;
+    role=&quot;combobox&quot;
+    type=&quot;button&quot;
+  /&gt;
+
+  Name &quot;&quot;:
+  &lt;button
+    aria-autocomplete=&quot;none&quot;
+    aria-controls=&quot;radix-:r30:&quot;
+    aria-expanded=&quot;false&quot;
+    class=&quot;flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&amp;&gt;span]:line-clamp-1&quot;
+    data-state=&quot;closed&quot;
+    dir=&quot;ltr&quot;
+    role=&quot;combobox&quot;
+    type=&quot;button&quot;
+  /&gt;
+
+  Name &quot;&quot;:
+  &lt;button
+    aria-autocomplete=&quot;none&quot;
+    aria-controls=&quot;radix-:r31:&quot;
+    aria-expanded=&quot;false&quot;
+    class=&quot;flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&amp;&gt;span]:line-clamp-1&quot;
+    data-placeholder=&quot;&quot;
+    data-state=&quot;closed&quot;
+    dir=&quot;ltr&quot;
+    role=&quot;combobox&quot;
+    type=&quot;button&quot;
+  /&gt;
+
+  --------------------------------------------------
+  spinbutton:
+
+  Name &quot;Potential Value ($)&quot;:
+  &lt;input
+    class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+    id=&quot;value&quot;
+    min=&quot;0&quot;
+    name=&quot;value&quot;
+    placeholder=&quot;0&quot;
+    step=&quot;0.01&quot;
+    type=&quot;number&quot;
+    value=&quot;&quot;
+  /&gt;
+
+  --------------------------------------------------
+  heading:
+
+  Name &quot;Custom Fields&quot;:
+  &lt;h3
+    class=&quot;font-semibold tracking-tight text-lg&quot;
+  /&gt;
+
+  --------------------------------------------------
+  button:
+
+  Name &quot;&quot;:
+  &lt;button
+    class=&quot;inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3&quot;
+    disabled=&quot;&quot;
+    type=&quot;button&quot;
+  /&gt;
+
+  Name &quot;Cancel&quot;:
+  &lt;button
+    class=&quot;inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2&quot;
+    type=&quot;button&quot;
+  /&gt;
+
+  Name &quot;Create Lead&quot;:
+  &lt;button
+    class=&quot;inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2&quot;
+    type=&quot;submit&quot;
+  /&gt;
+
+  --------------------------------------------------
+
+Ignored nodes: comments, script, style
+&lt;body&gt;
+  &lt;div&gt;
+    &lt;form
+      action=&quot;#&quot;
+      class=&quot;space-y-6&quot;
+    &gt;
+      &lt;div
+        class=&quot;grid grid-cols-2 gap-4&quot;
+      &gt;
+        &lt;div
+          class=&quot;space-y-2&quot;
+        &gt;
+          &lt;label
+            class=&quot;text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70&quot;
+            for=&quot;name&quot;
+          &gt;
+            Name *
+          &lt;/label&gt;
+          &lt;input
+            class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+            id=&quot;name&quot;
+            name=&quot;name&quot;
+            placeholder=&quot;Lead&apos;s full name&quot;
+            value=&quot;John Doe&quot;
+          /&gt;
+        &lt;/div&gt;
+        &lt;div
+          class=&quot;space-y-2&quot;
+        &gt;
+          &lt;label
+            class=&quot;text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70&quot;
+            for=&quot;email&quot;
+          &gt;
+            Email
+          &lt;/label&gt;
+          &lt;input
+            class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+            id=&quot;email&quot;
+            name=&quot;email&quot;
+            placeholder=&quot;lead@example.com&quot;
+            type=&quot;email&quot;
+            value=&quot;&quot;
+          /&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div
+        class=&quot;grid grid-cols-2 gap-4&quot;
+      &gt;
+        &lt;div
+          class=&quot;space-y-2&quot;
+        &gt;
+          &lt;label
+            class=&quot;text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70&quot;
+            for=&quot;phone&quot;
+          &gt;
+            Phone
+          &lt;/label&gt;
+          &lt;input
+            class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+            id=&quot;phone&quot;
+            name=&quot;phone&quot;
+            placeholder=&quot;+1 (555) 123-4567&quot;
+            value=&quot;&quot;
+          /&gt;
+        &lt;/div&gt;
+        &lt;div
+          class=&quot;space-y-2&quot;
+        &gt;
+          &lt;label
+            class=&quot;text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70&quot;
+            for=&quot;company&quot;
+          &gt;
+            Company
+          &lt;/label&gt;
+          &lt;input
+            class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+            id=&quot;company&quot;
+            name=&quot;company&quot;
+            placeholder=&quot;Company name&quot;
+            value=&quot;&quot;
+          /&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div
+        class=&quot;grid grid-cols-2 gap-4&quot;
+      &gt;
+        &lt;div
+          class=&quot;space-y-2&quot;
+        &gt;
+          &lt;label
+            class=&quot;text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70&quot;
+          &gt;
+            Status
+          &lt;/label&gt;
+          &lt;button
+            aria-autocomplete=&quot;none&quot;
+            aria-controls=&quot;radix-:r2v:&quot;
+            aria-expanded=&quot;false&quot;
+            class=&quot;flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&amp;&gt;span]:line-clamp-1&quot;
+            data-placeholder=&quot;&quot;
+            data-state=&quot;closed&quot;
+            dir=&quot;ltr&quot;
+            role=&quot;combobox&quot;
+            type=&quot;button&quot;
+          &gt;
+            &lt;span
+              style=&quot;pointer-events: none;&quot;
+            &gt;
+              Select status
+            &lt;/span&gt;
+            &lt;svg
+              aria-hidden=&quot;true&quot;
+              class=&quot;lucide lucide-chevron-down h-4 w-4 opacity-50&quot;
+              fill=&quot;none&quot;
+              height=&quot;24&quot;
+              stroke=&quot;currentColor&quot;
+              stroke-linecap=&quot;round&quot;
+              stroke-linejoin=&quot;round&quot;
+              stroke-width=&quot;2&quot;
+              viewBox=&quot;0 0 24 24&quot;
+              width=&quot;24&quot;
+              xmlns=&quot;http://www.w3.org/2000/svg&quot;
+            &gt;
+              &lt;path
+                d=&quot;m6 9 6 6 6-6&quot;
+              /&gt;
+            &lt;/svg&gt;
+          &lt;/button&gt;
+          &lt;select
+            aria-hidden=&quot;true&quot;
+            style=...
+    at Object.getElementError (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/@testing-library/dom/dist/config.js:37:19)
+    at /mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+    at /mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+    at /mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+    at /mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/__tests__/components/LeadForm.test.tsx:145:29
+    at step (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/__tests__/components/LeadForm.test.tsx:44:23)
+    at Object.next (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/__tests__/components/LeadForm.test.tsx:25:53)
+    at fulfilled (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/__tests__/components/LeadForm.test.tsx:16:58)</failure>
+    </testcase>
+    <testcase classname="LeadForm Component" name="calls onCancel when cancel button is clicked" time="0.031">
+      <failure>Error: expect(jest.fn()).toHaveBeenCalledTimes(expected)
+
+Expected number of calls: 1
+Received number of calls: 0
+    at /mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/__tests__/components/LeadForm.test.tsx:158:26
+    at step (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/__tests__/components/LeadForm.test.tsx:44:23)
+    at Object.next (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/__tests__/components/LeadForm.test.tsx:25:53)
+    at fulfilled (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/__tests__/components/LeadForm.test.tsx:16:58)</failure>
+    </testcase>
+    <testcase classname="LeadForm Component" name="shows loading state when isLoading is true" time="0.058">
+      <failure>TestingLibraryElementError: Unable to find an accessible element with the role &quot;button&quot; and name `/save/i`
+
+Here are the accessible roles:
+
+  textbox:
+
+  Name &quot;Name *&quot;:
+  &lt;input
+    class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+    id=&quot;name&quot;
+    name=&quot;name&quot;
+    placeholder=&quot;Lead&apos;s full name&quot;
+    value=&quot;&quot;
+  /&gt;
+
+  Name &quot;Email&quot;:
+  &lt;input
+    class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+    id=&quot;email&quot;
+    name=&quot;email&quot;
+    placeholder=&quot;lead@example.com&quot;
+    type=&quot;email&quot;
+    value=&quot;&quot;
+  /&gt;
+
+  Name &quot;Phone&quot;:
+  &lt;input
+    class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+    id=&quot;phone&quot;
+    name=&quot;phone&quot;
+    placeholder=&quot;+1 (555) 123-4567&quot;
+    value=&quot;&quot;
+  /&gt;
+
+  Name &quot;Company&quot;:
+  &lt;input
+    class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+    id=&quot;company&quot;
+    name=&quot;company&quot;
+    placeholder=&quot;Company name&quot;
+    value=&quot;&quot;
+  /&gt;
+
+  Name &quot;Notes&quot;:
+  &lt;textarea
+    class=&quot;flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+    id=&quot;notes&quot;
+    name=&quot;notes&quot;
+    placeholder=&quot;Additional notes about this lead...&quot;
+    rows=&quot;3&quot;
+  /&gt;
+
+  Name &quot;&quot;:
+  &lt;input
+    class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+    placeholder=&quot;Field name&quot;
+    value=&quot;&quot;
+  /&gt;
+
+  Name &quot;&quot;:
+  &lt;input
+    class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+    placeholder=&quot;Field value&quot;
+    value=&quot;&quot;
+  /&gt;
+
+  --------------------------------------------------
+  combobox:
+
+  Name &quot;&quot;:
+  &lt;button
+    aria-autocomplete=&quot;none&quot;
+    aria-controls=&quot;radix-:r45:&quot;
+    aria-expanded=&quot;false&quot;
+    class=&quot;flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&amp;&gt;span]:line-clamp-1&quot;
+    data-placeholder=&quot;&quot;
+    data-state=&quot;closed&quot;
+    dir=&quot;ltr&quot;
+    role=&quot;combobox&quot;
+    type=&quot;button&quot;
+  /&gt;
+
+  Name &quot;&quot;:
+  &lt;button
+    aria-autocomplete=&quot;none&quot;
+    aria-controls=&quot;radix-:r46:&quot;
+    aria-expanded=&quot;false&quot;
+    class=&quot;flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&amp;&gt;span]:line-clamp-1&quot;
+    data-state=&quot;closed&quot;
+    dir=&quot;ltr&quot;
+    role=&quot;combobox&quot;
+    type=&quot;button&quot;
+  /&gt;
+
+  Name &quot;&quot;:
+  &lt;button
+    aria-autocomplete=&quot;none&quot;
+    aria-controls=&quot;radix-:r47:&quot;
+    aria-expanded=&quot;false&quot;
+    class=&quot;flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&amp;&gt;span]:line-clamp-1&quot;
+    data-placeholder=&quot;&quot;
+    data-state=&quot;closed&quot;
+    dir=&quot;ltr&quot;
+    role=&quot;combobox&quot;
+    type=&quot;button&quot;
+  /&gt;
+
+  --------------------------------------------------
+  spinbutton:
+
+  Name &quot;Potential Value ($)&quot;:
+  &lt;input
+    class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+    id=&quot;value&quot;
+    min=&quot;0&quot;
+    name=&quot;value&quot;
+    placeholder=&quot;0&quot;
+    step=&quot;0.01&quot;
+    type=&quot;number&quot;
+    value=&quot;&quot;
+  /&gt;
+
+  --------------------------------------------------
+  heading:
+
+  Name &quot;Custom Fields&quot;:
+  &lt;h3
+    class=&quot;font-semibold tracking-tight text-lg&quot;
+  /&gt;
+
+  --------------------------------------------------
+  button:
+
+  Name &quot;&quot;:
+  &lt;button
+    class=&quot;inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3&quot;
+    disabled=&quot;&quot;
+    type=&quot;button&quot;
+  /&gt;
+
+  Name &quot;Cancel&quot;:
+  &lt;button
+    class=&quot;inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2&quot;
+    type=&quot;button&quot;
+  /&gt;
+
+  Name &quot;Create Lead&quot;:
+  &lt;button
+    class=&quot;inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2&quot;
+    type=&quot;submit&quot;
+  /&gt;
+
+  --------------------------------------------------
+
+Ignored nodes: comments, script, style
+&lt;body&gt;
+  &lt;div&gt;
+    &lt;form
+      action=&quot;#&quot;
+      class=&quot;space-y-6&quot;
+    &gt;
+      &lt;div
+        class=&quot;grid grid-cols-2 gap-4&quot;
+      &gt;
+        &lt;div
+          class=&quot;space-y-2&quot;
+        &gt;
+          &lt;label
+            class=&quot;text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70&quot;
+            for=&quot;name&quot;
+          &gt;
+            Name *
+          &lt;/label&gt;
+          &lt;input
+            class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+            id=&quot;name&quot;
+            name=&quot;name&quot;
+            placeholder=&quot;Lead&apos;s full name&quot;
+            value=&quot;&quot;
+          /&gt;
+        &lt;/div&gt;
+        &lt;div
+          class=&quot;space-y-2&quot;
+        &gt;
+          &lt;label
+            class=&quot;text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70&quot;
+            for=&quot;email&quot;
+          &gt;
+            Email
+          &lt;/label&gt;
+          &lt;input
+            class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+            id=&quot;email&quot;
+            name=&quot;email&quot;
+            placeholder=&quot;lead@example.com&quot;
+            type=&quot;email&quot;
+            value=&quot;&quot;
+          /&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div
+        class=&quot;grid grid-cols-2 gap-4&quot;
+      &gt;
+        &lt;div
+          class=&quot;space-y-2&quot;
+        &gt;
+          &lt;label
+            class=&quot;text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70&quot;
+            for=&quot;phone&quot;
+          &gt;
+            Phone
+          &lt;/label&gt;
+          &lt;input
+            class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+            id=&quot;phone&quot;
+            name=&quot;phone&quot;
+            placeholder=&quot;+1 (555) 123-4567&quot;
+            value=&quot;&quot;
+          /&gt;
+        &lt;/div&gt;
+        &lt;div
+          class=&quot;space-y-2&quot;
+        &gt;
+          &lt;label
+            class=&quot;text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70&quot;
+            for=&quot;company&quot;
+          &gt;
+            Company
+          &lt;/label&gt;
+          &lt;input
+            class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+            id=&quot;company&quot;
+            name=&quot;company&quot;
+            placeholder=&quot;Company name&quot;
+            value=&quot;&quot;
+          /&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div
+        class=&quot;grid grid-cols-2 gap-4&quot;
+      &gt;
+        &lt;div
+          class=&quot;space-y-2&quot;
+        &gt;
+          &lt;label
+            class=&quot;text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70&quot;
+          &gt;
+            Status
+          &lt;/label&gt;
+          &lt;button
+            aria-autocomplete=&quot;none&quot;
+            aria-controls=&quot;radix-:r45:&quot;
+            aria-expanded=&quot;false&quot;
+            class=&quot;flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&amp;&gt;span]:line-clamp-1&quot;
+            data-placeholder=&quot;&quot;
+            data-state=&quot;closed&quot;
+            dir=&quot;ltr&quot;
+            role=&quot;combobox&quot;
+            type=&quot;button&quot;
+          &gt;
+            &lt;span
+              style=&quot;pointer-events: none;&quot;
+            &gt;
+              Select status
+            &lt;/span&gt;
+            &lt;svg
+              aria-hidden=&quot;true&quot;
+              class=&quot;lucide lucide-chevron-down h-4 w-4 opacity-50&quot;
+              fill=&quot;none&quot;
+              height=&quot;24&quot;
+              stroke=&quot;currentColor&quot;
+              stroke-linecap=&quot;round&quot;
+              stroke-linejoin=&quot;round&quot;
+              stroke-width=&quot;2&quot;
+              viewBox=&quot;0 0 24 24&quot;
+              width=&quot;24&quot;
+              xmlns=&quot;http://www.w3.org/2000/svg&quot;
+            &gt;
+              &lt;path
+                d=&quot;m6 9 6 6 6-6&quot;
+              /&gt;
+            &lt;/svg&gt;
+          &lt;/button&gt;
+          &lt;select
+            aria-hidden=&quot;true&quot;
+            style=&quot;po...
+    at Object.getElementError (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/@testing-library/dom/dist/config.js:37:19)
+    at /mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+    at /mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+    at /mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+    at Object.&lt;anonymous&gt; (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/__tests__/components/LeadForm.test.tsx:164:31)
+    at Promise.finally.completed (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:1556:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:1496:10)
+    at _callCircusTest (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:1006:40)
+    at _runTest (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:946:3)
+    at _runTestsForDescribeBlock (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:839:13)
+    at _runTestsForDescribeBlock (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:829:11)
+    at run (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:757:3)
+    at runAndTransformResultsToJestFormat (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:1917:21)
+    at jestAdapter (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/runner.js:101:19)
+    at runTestInternal (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-runner/build/testWorker.js:275:16)
+    at runTest (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-runner/build/testWorker.js:343:7)
+    at Object.worker (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-runner/build/testWorker.js:497:12)</failure>
+    </testcase>
+    <testcase classname="LeadForm Component" name="populates form when editing existing lead" time="0.021">
+      <failure>TestingLibraryElementError: Unable to find an element with the display value: Existing Lead.
+
+Ignored nodes: comments, script, style
+&lt;body&gt;
+  &lt;div&gt;
+    &lt;form
+      action=&quot;#&quot;
+      class=&quot;space-y-6&quot;
+    &gt;
+      &lt;div
+        class=&quot;grid grid-cols-2 gap-4&quot;
+      &gt;
+        &lt;div
+          class=&quot;space-y-2&quot;
+        &gt;
+          &lt;label
+            class=&quot;text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70&quot;
+            for=&quot;name&quot;
+          &gt;
+            Name *
+          &lt;/label&gt;
+          &lt;input
+            class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+            id=&quot;name&quot;
+            name=&quot;name&quot;
+            placeholder=&quot;Lead&apos;s full name&quot;
+            value=&quot;&quot;
+          /&gt;
+        &lt;/div&gt;
+        &lt;div
+          class=&quot;space-y-2&quot;
+        &gt;
+          &lt;label
+            class=&quot;text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70&quot;
+            for=&quot;email&quot;
+          &gt;
+            Email
+          &lt;/label&gt;
+          &lt;input
+            class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+            id=&quot;email&quot;
+            name=&quot;email&quot;
+            placeholder=&quot;lead@example.com&quot;
+            type=&quot;email&quot;
+            value=&quot;&quot;
+          /&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div
+        class=&quot;grid grid-cols-2 gap-4&quot;
+      &gt;
+        &lt;div
+          class=&quot;space-y-2&quot;
+        &gt;
+          &lt;label
+            class=&quot;text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70&quot;
+            for=&quot;phone&quot;
+          &gt;
+            Phone
+          &lt;/label&gt;
+          &lt;input
+            class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+            id=&quot;phone&quot;
+            name=&quot;phone&quot;
+            placeholder=&quot;+1 (555) 123-4567&quot;
+            value=&quot;&quot;
+          /&gt;
+        &lt;/div&gt;
+        &lt;div
+          class=&quot;space-y-2&quot;
+        &gt;
+          &lt;label
+            class=&quot;text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70&quot;
+            for=&quot;company&quot;
+          &gt;
+            Company
+          &lt;/label&gt;
+          &lt;input
+            class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+            id=&quot;company&quot;
+            name=&quot;company&quot;
+            placeholder=&quot;Company name&quot;
+            value=&quot;&quot;
+          /&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div
+        class=&quot;grid grid-cols-2 gap-4&quot;
+      &gt;
+        &lt;div
+          class=&quot;space-y-2&quot;
+        &gt;
+          &lt;label
+            class=&quot;text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70&quot;
+          &gt;
+            Status
+          &lt;/label&gt;
+          &lt;button
+            aria-autocomplete=&quot;none&quot;
+            aria-controls=&quot;radix-:r4o:&quot;
+            aria-expanded=&quot;false&quot;
+            class=&quot;flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&amp;&gt;span]:line-clamp-1&quot;
+            data-placeholder=&quot;&quot;
+            data-state=&quot;closed&quot;
+            dir=&quot;ltr&quot;
+            role=&quot;combobox&quot;
+            type=&quot;button&quot;
+          &gt;
+            &lt;span
+              style=&quot;pointer-events: none;&quot;
+            &gt;
+              Select status
+            &lt;/span&gt;
+            &lt;svg
+              aria-hidden=&quot;true&quot;
+              class=&quot;lucide lucide-chevron-down h-4 w-4 opacity-50&quot;
+              fill=&quot;none&quot;
+              height=&quot;24&quot;
+              stroke=&quot;currentColor&quot;
+              stroke-linecap=&quot;round&quot;
+              stroke-linejoin=&quot;round&quot;
+              stroke-width=&quot;2&quot;
+              viewBox=&quot;0 0 24 24&quot;
+              width=&quot;24&quot;
+              xmlns=&quot;http://www.w3.org/2000/svg&quot;
+            &gt;
+              &lt;path
+                d=&quot;m6 9 6 6 6-6&quot;
+              /&gt;
+            &lt;/svg&gt;
+          &lt;/button&gt;
+          &lt;select
+            aria-hidden=&quot;true&quot;
+            style=&quot;po...
+    at Object.getElementError (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/@testing-library/dom/dist/config.js:37:19)
+    at /mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+    at /mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+    at /mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+    at Object.&lt;anonymous&gt; (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/__tests__/components/LeadForm.test.tsx:184:19)
+    at Promise.finally.completed (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:1556:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:1496:10)
+    at _callCircusTest (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:1006:40)
+    at _runTest (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:946:3)
+    at _runTestsForDescribeBlock (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:839:13)
+    at _runTestsForDescribeBlock (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:829:11)
+    at run (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:757:3)
+    at runAndTransformResultsToJestFormat (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:1917:21)
+    at jestAdapter (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/runner.js:101:19)
+    at runTestInternal (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-runner/build/testWorker.js:275:16)
+    at runTest (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-runner/build/testWorker.js:343:7)
+    at Object.worker (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-runner/build/testWorker.js:497:12)</failure>
+    </testcase>
+    <testcase classname="LeadForm Component" name="handles status selection" time="0.019">
+      <failure>TestingLibraryElementError: Found a label with the text of: /status/i, however no form control was found associated to that label. Make sure you&apos;re using the &quot;for&quot; attribute or &quot;aria-labelledby&quot; attribute correctly.
+
+Ignored nodes: comments, script, style
+&lt;body&gt;
+  &lt;div&gt;
+    &lt;form
+      action=&quot;#&quot;
+      class=&quot;space-y-6&quot;
+    &gt;
+      &lt;div
+        class=&quot;grid grid-cols-2 gap-4&quot;
+      &gt;
+        &lt;div
+          class=&quot;space-y-2&quot;
+        &gt;
+          &lt;label
+            class=&quot;text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70&quot;
+            for=&quot;name&quot;
+          &gt;
+            Name *
+          &lt;/label&gt;
+          &lt;input
+            class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+            id=&quot;name&quot;
+            name=&quot;name&quot;
+            placeholder=&quot;Lead&apos;s full name&quot;
+            value=&quot;&quot;
+          /&gt;
+        &lt;/div&gt;
+        &lt;div
+          class=&quot;space-y-2&quot;
+        &gt;
+          &lt;label
+            class=&quot;text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70&quot;
+            for=&quot;email&quot;
+          &gt;
+            Email
+          &lt;/label&gt;
+          &lt;input
+            class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+            id=&quot;email&quot;
+            name=&quot;email&quot;
+            placeholder=&quot;lead@example.com&quot;
+            type=&quot;email&quot;
+            value=&quot;&quot;
+          /&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div
+        class=&quot;grid grid-cols-2 gap-4&quot;
+      &gt;
+        &lt;div
+          class=&quot;space-y-2&quot;
+        &gt;
+          &lt;label
+            class=&quot;text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70&quot;
+            for=&quot;phone&quot;
+          &gt;
+            Phone
+          &lt;/label&gt;
+          &lt;input
+            class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+            id=&quot;phone&quot;
+            name=&quot;phone&quot;
+            placeholder=&quot;+1 (555) 123-4567&quot;
+            value=&quot;&quot;
+          /&gt;
+        &lt;/div&gt;
+        &lt;div
+          class=&quot;space-y-2&quot;
+        &gt;
+          &lt;label
+            class=&quot;text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70&quot;
+            for=&quot;company&quot;
+          &gt;
+            Company
+          &lt;/label&gt;
+          &lt;input
+            class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+            id=&quot;company&quot;
+            name=&quot;company&quot;
+            placeholder=&quot;Company name&quot;
+            value=&quot;&quot;
+          /&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div
+        class=&quot;grid grid-cols-2 gap-4&quot;
+      &gt;
+        &lt;div
+          class=&quot;space-y-2&quot;
+        &gt;
+          &lt;label
+            class=&quot;text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70&quot;
+          &gt;
+            Status
+          &lt;/label&gt;
+          &lt;button
+            aria-autocomplete=&quot;none&quot;
+            aria-controls=&quot;radix-:r5b:&quot;
+            aria-expanded=&quot;false&quot;
+            class=&quot;flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&amp;&gt;span]:line-clamp-1&quot;
+            data-placeholder=&quot;&quot;
+            data-state=&quot;closed&quot;
+            dir=&quot;ltr&quot;
+            role=&quot;combobox&quot;
+            type=&quot;button&quot;
+          &gt;
+            &lt;span
+              style=&quot;pointer-events: none;&quot;
+            &gt;
+              Select status
+            &lt;/span&gt;
+            &lt;svg
+              aria-hidden=&quot;true&quot;
+              class=&quot;lucide lucide-chevron-down h-4 w-4 opacity-50&quot;
+              fill=&quot;none&quot;
+              height=&quot;24&quot;
+              stroke=&quot;currentColor&quot;
+              stroke-linecap=&quot;round&quot;
+              stroke-linejoin=&quot;round&quot;
+              stroke-width=&quot;2&quot;
+              viewBox=&quot;0 0 24 24&quot;
+              width=&quot;24&quot;
+              xmlns=&quot;http://www.w3.org/2000/svg&quot;
+            &gt;
+              &lt;path
+                d=&quot;m6 9 6 6 6-6&quot;
+              /&gt;
+            &lt;/svg&gt;
+          &lt;/button&gt;
+          &lt;select
+            aria-hidden=&quot;true&quot;
+            style=&quot;po...
+    at Object.getElementError (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/@testing-library/dom/dist/config.js:37:19)
+    at getAllByLabelText (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/@testing-library/dom/dist/queries/label-text.js:108:40)
+    at /mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+    at /mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+    at /mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/__tests__/components/LeadForm.test.tsx:196:33
+    at step (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/__tests__/components/LeadForm.test.tsx:44:23)
+    at Object.next (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/__tests__/components/LeadForm.test.tsx:25:53)
+    at /mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/__tests__/components/LeadForm.test.tsx:19:71
+    at new Promise (&lt;anonymous&gt;)
+    at __awaiter (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/__tests__/components/LeadForm.test.tsx:15:12)
+    at Object.&lt;anonymous&gt; (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/__tests__/components/LeadForm.test.tsx:192:34)
+    at Promise.finally.completed (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:1556:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:1496:10)
+    at _callCircusTest (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:1006:40)
+    at _runTest (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:946:3)
+    at _runTestsForDescribeBlock (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:839:13)
+    at _runTestsForDescribeBlock (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:829:11)
+    at run (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:757:3)
+    at runAndTransformResultsToJestFormat (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:1917:21)
+    at jestAdapter (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/runner.js:101:19)
+    at runTestInternal (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-runner/build/testWorker.js:275:16)
+    at runTest (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-runner/build/testWorker.js:343:7)
+    at Object.worker (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-runner/build/testWorker.js:497:12)</failure>
+    </testcase>
+    <testcase classname="LeadForm Component" name="handles priority selection" time="0.023">
+      <failure>TestingLibraryElementError: Unable to find a label with the text of: /priority/i
+
+Ignored nodes: comments, script, style
+&lt;body&gt;
+  &lt;div&gt;
+    &lt;form
+      action=&quot;#&quot;
+      class=&quot;space-y-6&quot;
+    &gt;
+      &lt;div
+        class=&quot;grid grid-cols-2 gap-4&quot;
+      &gt;
+        &lt;div
+          class=&quot;space-y-2&quot;
+        &gt;
+          &lt;label
+            class=&quot;text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70&quot;
+            for=&quot;name&quot;
+          &gt;
+            Name *
+          &lt;/label&gt;
+          &lt;input
+            class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+            id=&quot;name&quot;
+            name=&quot;name&quot;
+            placeholder=&quot;Lead&apos;s full name&quot;
+            value=&quot;&quot;
+          /&gt;
+        &lt;/div&gt;
+        &lt;div
+          class=&quot;space-y-2&quot;
+        &gt;
+          &lt;label
+            class=&quot;text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70&quot;
+            for=&quot;email&quot;
+          &gt;
+            Email
+          &lt;/label&gt;
+          &lt;input
+            class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+            id=&quot;email&quot;
+            name=&quot;email&quot;
+            placeholder=&quot;lead@example.com&quot;
+            type=&quot;email&quot;
+            value=&quot;&quot;
+          /&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div
+        class=&quot;grid grid-cols-2 gap-4&quot;
+      &gt;
+        &lt;div
+          class=&quot;space-y-2&quot;
+        &gt;
+          &lt;label
+            class=&quot;text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70&quot;
+            for=&quot;phone&quot;
+          &gt;
+            Phone
+          &lt;/label&gt;
+          &lt;input
+            class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+            id=&quot;phone&quot;
+            name=&quot;phone&quot;
+            placeholder=&quot;+1 (555) 123-4567&quot;
+            value=&quot;&quot;
+          /&gt;
+        &lt;/div&gt;
+        &lt;div
+          class=&quot;space-y-2&quot;
+        &gt;
+          &lt;label
+            class=&quot;text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70&quot;
+            for=&quot;company&quot;
+          &gt;
+            Company
+          &lt;/label&gt;
+          &lt;input
+            class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+            id=&quot;company&quot;
+            name=&quot;company&quot;
+            placeholder=&quot;Company name&quot;
+            value=&quot;&quot;
+          /&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div
+        class=&quot;grid grid-cols-2 gap-4&quot;
+      &gt;
+        &lt;div
+          class=&quot;space-y-2&quot;
+        &gt;
+          &lt;label
+            class=&quot;text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70&quot;
+          &gt;
+            Status
+          &lt;/label&gt;
+          &lt;button
+            aria-autocomplete=&quot;none&quot;
+            aria-controls=&quot;radix-:r5u:&quot;
+            aria-expanded=&quot;false&quot;
+            class=&quot;flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&amp;&gt;span]:line-clamp-1&quot;
+            data-placeholder=&quot;&quot;
+            data-state=&quot;closed&quot;
+            dir=&quot;ltr&quot;
+            role=&quot;combobox&quot;
+            type=&quot;button&quot;
+          &gt;
+            &lt;span
+              style=&quot;pointer-events: none;&quot;
+            &gt;
+              Select status
+            &lt;/span&gt;
+            &lt;svg
+              aria-hidden=&quot;true&quot;
+              class=&quot;lucide lucide-chevron-down h-4 w-4 opacity-50&quot;
+              fill=&quot;none&quot;
+              height=&quot;24&quot;
+              stroke=&quot;currentColor&quot;
+              stroke-linecap=&quot;round&quot;
+              stroke-linejoin=&quot;round&quot;
+              stroke-width=&quot;2&quot;
+              viewBox=&quot;0 0 24 24&quot;
+              width=&quot;24&quot;
+              xmlns=&quot;http://www.w3.org/2000/svg&quot;
+            &gt;
+              &lt;path
+                d=&quot;m6 9 6 6 6-6&quot;
+              /&gt;
+            &lt;/svg&gt;
+          &lt;/button&gt;
+          &lt;select
+            aria-hidden=&quot;true&quot;
+            style=&quot;po...
+    at Object.getElementError (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/@testing-library/dom/dist/config.js:37:19)
+    at getAllByLabelText (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/@testing-library/dom/dist/queries/label-text.js:111:38)
+    at /mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+    at /mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+    at /mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/__tests__/components/LeadForm.test.tsx:214:35
+    at step (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/__tests__/components/LeadForm.test.tsx:44:23)
+    at Object.next (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/__tests__/components/LeadForm.test.tsx:25:53)
+    at /mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/__tests__/components/LeadForm.test.tsx:19:71
+    at new Promise (&lt;anonymous&gt;)
+    at __awaiter (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/__tests__/components/LeadForm.test.tsx:15:12)
+    at Object.&lt;anonymous&gt; (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/__tests__/components/LeadForm.test.tsx:210:36)
+    at Promise.finally.completed (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:1556:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:1496:10)
+    at _callCircusTest (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:1006:40)
+    at _runTest (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:946:3)
+    at _runTestsForDescribeBlock (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:839:13)
+    at _runTestsForDescribeBlock (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:829:11)
+    at run (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:757:3)
+    at runAndTransformResultsToJestFormat (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:1917:21)
+    at jestAdapter (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/runner.js:101:19)
+    at runTestInternal (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-runner/build/testWorker.js:275:16)
+    at runTest (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-runner/build/testWorker.js:343:7)
+    at Object.worker (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-runner/build/testWorker.js:497:12)</failure>
+    </testcase>
+    <testcase classname="LeadForm Component" name="handles tag selection" time="0.024">
+      <failure>TestingLibraryElementError: Found a label with the text of: /tags/i, however no form control was found associated to that label. Make sure you&apos;re using the &quot;for&quot; attribute or &quot;aria-labelledby&quot; attribute correctly.
+
+Ignored nodes: comments, script, style
+&lt;body&gt;
+  &lt;div&gt;
+    &lt;form
+      action=&quot;#&quot;
+      class=&quot;space-y-6&quot;
+    &gt;
+      &lt;div
+        class=&quot;grid grid-cols-2 gap-4&quot;
+      &gt;
+        &lt;div
+          class=&quot;space-y-2&quot;
+        &gt;
+          &lt;label
+            class=&quot;text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70&quot;
+            for=&quot;name&quot;
+          &gt;
+            Name *
+          &lt;/label&gt;
+          &lt;input
+            class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+            id=&quot;name&quot;
+            name=&quot;name&quot;
+            placeholder=&quot;Lead&apos;s full name&quot;
+            value=&quot;&quot;
+          /&gt;
+        &lt;/div&gt;
+        &lt;div
+          class=&quot;space-y-2&quot;
+        &gt;
+          &lt;label
+            class=&quot;text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70&quot;
+            for=&quot;email&quot;
+          &gt;
+            Email
+          &lt;/label&gt;
+          &lt;input
+            class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+            id=&quot;email&quot;
+            name=&quot;email&quot;
+            placeholder=&quot;lead@example.com&quot;
+            type=&quot;email&quot;
+            value=&quot;&quot;
+          /&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div
+        class=&quot;grid grid-cols-2 gap-4&quot;
+      &gt;
+        &lt;div
+          class=&quot;space-y-2&quot;
+        &gt;
+          &lt;label
+            class=&quot;text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70&quot;
+            for=&quot;phone&quot;
+          &gt;
+            Phone
+          &lt;/label&gt;
+          &lt;input
+            class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+            id=&quot;phone&quot;
+            name=&quot;phone&quot;
+            placeholder=&quot;+1 (555) 123-4567&quot;
+            value=&quot;&quot;
+          /&gt;
+        &lt;/div&gt;
+        &lt;div
+          class=&quot;space-y-2&quot;
+        &gt;
+          &lt;label
+            class=&quot;text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70&quot;
+            for=&quot;company&quot;
+          &gt;
+            Company
+          &lt;/label&gt;
+          &lt;input
+            class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+            id=&quot;company&quot;
+            name=&quot;company&quot;
+            placeholder=&quot;Company name&quot;
+            value=&quot;&quot;
+          /&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div
+        class=&quot;grid grid-cols-2 gap-4&quot;
+      &gt;
+        &lt;div
+          class=&quot;space-y-2&quot;
+        &gt;
+          &lt;label
+            class=&quot;text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70&quot;
+          &gt;
+            Status
+          &lt;/label&gt;
+          &lt;button
+            aria-autocomplete=&quot;none&quot;
+            aria-controls=&quot;radix-:r6h:&quot;
+            aria-expanded=&quot;false&quot;
+            class=&quot;flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&amp;&gt;span]:line-clamp-1&quot;
+            data-placeholder=&quot;&quot;
+            data-state=&quot;closed&quot;
+            dir=&quot;ltr&quot;
+            role=&quot;combobox&quot;
+            type=&quot;button&quot;
+          &gt;
+            &lt;span
+              style=&quot;pointer-events: none;&quot;
+            &gt;
+              Select status
+            &lt;/span&gt;
+            &lt;svg
+              aria-hidden=&quot;true&quot;
+              class=&quot;lucide lucide-chevron-down h-4 w-4 opacity-50&quot;
+              fill=&quot;none&quot;
+              height=&quot;24&quot;
+              stroke=&quot;currentColor&quot;
+              stroke-linecap=&quot;round&quot;
+              stroke-linejoin=&quot;round&quot;
+              stroke-width=&quot;2&quot;
+              viewBox=&quot;0 0 24 24&quot;
+              width=&quot;24&quot;
+              xmlns=&quot;http://www.w3.org/2000/svg&quot;
+            &gt;
+              &lt;path
+                d=&quot;m6 9 6 6 6-6&quot;
+              /&gt;
+            &lt;/svg&gt;
+          &lt;/button&gt;
+          &lt;select
+            aria-hidden=&quot;true&quot;
+            style=&quot;po...
+    at Object.getElementError (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/@testing-library/dom/dist/config.js:37:19)
+    at getAllByLabelText (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/@testing-library/dom/dist/queries/label-text.js:108:40)
+    at /mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+    at /mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+    at /mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/__tests__/components/LeadForm.test.tsx:226:30
+    at step (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/__tests__/components/LeadForm.test.tsx:44:23)
+    at Object.next (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/__tests__/components/LeadForm.test.tsx:25:53)
+    at /mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/__tests__/components/LeadForm.test.tsx:19:71
+    at new Promise (&lt;anonymous&gt;)
+    at __awaiter (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/__tests__/components/LeadForm.test.tsx:15:12)
+    at Object.&lt;anonymous&gt; (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/__tests__/components/LeadForm.test.tsx:222:31)
+    at Promise.finally.completed (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:1556:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:1496:10)
+    at _callCircusTest (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:1006:40)
+    at _runTest (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:946:3)
+    at _runTestsForDescribeBlock (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:839:13)
+    at _runTestsForDescribeBlock (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:829:11)
+    at run (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:757:3)
+    at runAndTransformResultsToJestFormat (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:1917:21)
+    at jestAdapter (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/runner.js:101:19)
+    at runTestInternal (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-runner/build/testWorker.js:275:16)
+    at runTest (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-runner/build/testWorker.js:343:7)
+    at Object.worker (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-runner/build/testWorker.js:497:12)</failure>
+    </testcase>
+    <testcase classname="LeadForm Component" name="handles custom fields input" time="0.055">
+      <failure>TestingLibraryElementError: Unable to find an accessible element with the role &quot;button&quot; and name `/add custom field/i`
+
+Here are the accessible roles:
+
+  textbox:
+
+  Name &quot;Name *&quot;:
+  &lt;input
+    class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+    id=&quot;name&quot;
+    name=&quot;name&quot;
+    placeholder=&quot;Lead&apos;s full name&quot;
+    value=&quot;&quot;
+  /&gt;
+
+  Name &quot;Email&quot;:
+  &lt;input
+    class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+    id=&quot;email&quot;
+    name=&quot;email&quot;
+    placeholder=&quot;lead@example.com&quot;
+    type=&quot;email&quot;
+    value=&quot;&quot;
+  /&gt;
+
+  Name &quot;Phone&quot;:
+  &lt;input
+    class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+    id=&quot;phone&quot;
+    name=&quot;phone&quot;
+    placeholder=&quot;+1 (555) 123-4567&quot;
+    value=&quot;&quot;
+  /&gt;
+
+  Name &quot;Company&quot;:
+  &lt;input
+    class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+    id=&quot;company&quot;
+    name=&quot;company&quot;
+    placeholder=&quot;Company name&quot;
+    value=&quot;&quot;
+  /&gt;
+
+  Name &quot;Notes&quot;:
+  &lt;textarea
+    class=&quot;flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+    id=&quot;notes&quot;
+    name=&quot;notes&quot;
+    placeholder=&quot;Additional notes about this lead...&quot;
+    rows=&quot;3&quot;
+  /&gt;
+
+  Name &quot;&quot;:
+  &lt;input
+    class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+    placeholder=&quot;Field name&quot;
+    value=&quot;&quot;
+  /&gt;
+
+  Name &quot;&quot;:
+  &lt;input
+    class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+    placeholder=&quot;Field value&quot;
+    value=&quot;&quot;
+  /&gt;
+
+  --------------------------------------------------
+  combobox:
+
+  Name &quot;&quot;:
+  &lt;button
+    aria-autocomplete=&quot;none&quot;
+    aria-controls=&quot;radix-:r74:&quot;
+    aria-expanded=&quot;false&quot;
+    class=&quot;flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&amp;&gt;span]:line-clamp-1&quot;
+    data-placeholder=&quot;&quot;
+    data-state=&quot;closed&quot;
+    dir=&quot;ltr&quot;
+    role=&quot;combobox&quot;
+    type=&quot;button&quot;
+  /&gt;
+
+  Name &quot;&quot;:
+  &lt;button
+    aria-autocomplete=&quot;none&quot;
+    aria-controls=&quot;radix-:r75:&quot;
+    aria-expanded=&quot;false&quot;
+    class=&quot;flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&amp;&gt;span]:line-clamp-1&quot;
+    data-state=&quot;closed&quot;
+    dir=&quot;ltr&quot;
+    role=&quot;combobox&quot;
+    type=&quot;button&quot;
+  /&gt;
+
+  Name &quot;&quot;:
+  &lt;button
+    aria-autocomplete=&quot;none&quot;
+    aria-controls=&quot;radix-:r76:&quot;
+    aria-expanded=&quot;false&quot;
+    class=&quot;flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&amp;&gt;span]:line-clamp-1&quot;
+    data-placeholder=&quot;&quot;
+    data-state=&quot;closed&quot;
+    dir=&quot;ltr&quot;
+    role=&quot;combobox&quot;
+    type=&quot;button&quot;
+  /&gt;
+
+  --------------------------------------------------
+  spinbutton:
+
+  Name &quot;Potential Value ($)&quot;:
+  &lt;input
+    class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+    id=&quot;value&quot;
+    min=&quot;0&quot;
+    name=&quot;value&quot;
+    placeholder=&quot;0&quot;
+    step=&quot;0.01&quot;
+    type=&quot;number&quot;
+    value=&quot;&quot;
+  /&gt;
+
+  --------------------------------------------------
+  heading:
+
+  Name &quot;Custom Fields&quot;:
+  &lt;h3
+    class=&quot;font-semibold tracking-tight text-lg&quot;
+  /&gt;
+
+  --------------------------------------------------
+  button:
+
+  Name &quot;&quot;:
+  &lt;button
+    class=&quot;inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3&quot;
+    disabled=&quot;&quot;
+    type=&quot;button&quot;
+  /&gt;
+
+  Name &quot;Cancel&quot;:
+  &lt;button
+    class=&quot;inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2&quot;
+    type=&quot;button&quot;
+  /&gt;
+
+  Name &quot;Create Lead&quot;:
+  &lt;button
+    class=&quot;inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2&quot;
+    type=&quot;submit&quot;
+  /&gt;
+
+  --------------------------------------------------
+
+Ignored nodes: comments, script, style
+&lt;body&gt;
+  &lt;div&gt;
+    &lt;form
+      action=&quot;#&quot;
+      class=&quot;space-y-6&quot;
+    &gt;
+      &lt;div
+        class=&quot;grid grid-cols-2 gap-4&quot;
+      &gt;
+        &lt;div
+          class=&quot;space-y-2&quot;
+        &gt;
+          &lt;label
+            class=&quot;text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70&quot;
+            for=&quot;name&quot;
+          &gt;
+            Name *
+          &lt;/label&gt;
+          &lt;input
+            class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+            id=&quot;name&quot;
+            name=&quot;name&quot;
+            placeholder=&quot;Lead&apos;s full name&quot;
+            value=&quot;&quot;
+          /&gt;
+        &lt;/div&gt;
+        &lt;div
+          class=&quot;space-y-2&quot;
+        &gt;
+          &lt;label
+            class=&quot;text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70&quot;
+            for=&quot;email&quot;
+          &gt;
+            Email
+          &lt;/label&gt;
+          &lt;input
+            class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+            id=&quot;email&quot;
+            name=&quot;email&quot;
+            placeholder=&quot;lead@example.com&quot;
+            type=&quot;email&quot;
+            value=&quot;&quot;
+          /&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div
+        class=&quot;grid grid-cols-2 gap-4&quot;
+      &gt;
+        &lt;div
+          class=&quot;space-y-2&quot;
+        &gt;
+          &lt;label
+            class=&quot;text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70&quot;
+            for=&quot;phone&quot;
+          &gt;
+            Phone
+          &lt;/label&gt;
+          &lt;input
+            class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+            id=&quot;phone&quot;
+            name=&quot;phone&quot;
+            placeholder=&quot;+1 (555) 123-4567&quot;
+            value=&quot;&quot;
+          /&gt;
+        &lt;/div&gt;
+        &lt;div
+          class=&quot;space-y-2&quot;
+        &gt;
+          &lt;label
+            class=&quot;text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70&quot;
+            for=&quot;company&quot;
+          &gt;
+            Company
+          &lt;/label&gt;
+          &lt;input
+            class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+            id=&quot;company&quot;
+            name=&quot;company&quot;
+            placeholder=&quot;Company name&quot;
+            value=&quot;&quot;
+          /&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div
+        class=&quot;grid grid-cols-2 gap-4&quot;
+      &gt;
+        &lt;div
+          class=&quot;space-y-2&quot;
+        &gt;
+          &lt;label
+            class=&quot;text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70&quot;
+          &gt;
+            Status
+          &lt;/label&gt;
+          &lt;button
+            aria-autocomplete=&quot;none&quot;
+            aria-controls=&quot;radix-:r74:&quot;
+            aria-expanded=&quot;false&quot;
+            class=&quot;flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&amp;&gt;span]:line-clamp-1&quot;
+            data-placeholder=&quot;&quot;
+            data-state=&quot;closed&quot;
+            dir=&quot;ltr&quot;
+            role=&quot;combobox&quot;
+            type=&quot;button&quot;
+          &gt;
+            &lt;span
+              style=&quot;pointer-events: none;&quot;
+            &gt;
+              Select status
+            &lt;/span&gt;
+            &lt;svg
+              aria-hidden=&quot;true&quot;
+              class=&quot;lucide lucide-chevron-down h-4 w-4 opacity-50&quot;
+              fill=&quot;none&quot;
+              height=&quot;24&quot;
+              stroke=&quot;currentColor&quot;
+              stroke-linecap=&quot;round&quot;
+              stroke-linejoin=&quot;round&quot;
+              stroke-width=&quot;2&quot;
+              viewBox=&quot;0 0 24 24&quot;
+              width=&quot;24&quot;
+              xmlns=&quot;http://www.w3.org/2000/svg&quot;
+            &gt;
+              &lt;path
+                d=&quot;m6 9 6 6 6-6&quot;
+              /&gt;
+            &lt;/svg&gt;
+          &lt;/button&gt;
+          &lt;select
+            aria-hidden=&quot;true&quot;
+            style=&quot;po...
+    at Object.getElementError (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/@testing-library/dom/dist/config.js:37:19)
+    at /mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+    at /mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+    at /mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+    at /mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/__tests__/components/LeadForm.test.tsx:243:41
+    at step (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/__tests__/components/LeadForm.test.tsx:44:23)
+    at Object.next (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/__tests__/components/LeadForm.test.tsx:25:53)
+    at /mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/__tests__/components/LeadForm.test.tsx:19:71
+    at new Promise (&lt;anonymous&gt;)
+    at __awaiter (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/__tests__/components/LeadForm.test.tsx:15:12)
+    at Object.&lt;anonymous&gt; (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/__tests__/components/LeadForm.test.tsx:238:37)
+    at Promise.finally.completed (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:1556:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:1496:10)
+    at _callCircusTest (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:1006:40)
+    at _runTest (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:946:3)
+    at _runTestsForDescribeBlock (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:839:13)
+    at _runTestsForDescribeBlock (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:829:11)
+    at run (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:757:3)
+    at runAndTransformResultsToJestFormat (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:1917:21)
+    at jestAdapter (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/runner.js:101:19)
+    at runTestInternal (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-runner/build/testWorker.js:275:16)
+    at runTest (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-runner/build/testWorker.js:343:7)
+    at Object.worker (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-runner/build/testWorker.js:497:12)</failure>
+    </testcase>
+    <testcase classname="LeadForm Component" name="supports keyboard navigation" time="0.068">
+    </testcase>
+    <testcase classname="LeadForm Component" name="handles form reset" time="0.356">
+      <failure>TestingLibraryElementError: Unable to find an accessible element with the role &quot;button&quot; and name `/reset/i`
+
+Here are the accessible roles:
+
+  textbox:
+
+  Name &quot;Name *&quot;:
+  &lt;input
+    class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+    id=&quot;name&quot;
+    name=&quot;name&quot;
+    placeholder=&quot;Lead&apos;s full name&quot;
+    value=&quot;John Doe&quot;
+  /&gt;
+
+  Name &quot;Email&quot;:
+  &lt;input
+    class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+    id=&quot;email&quot;
+    name=&quot;email&quot;
+    placeholder=&quot;lead@example.com&quot;
+    type=&quot;email&quot;
+    value=&quot;john@example.com&quot;
+  /&gt;
+
+  Name &quot;Phone&quot;:
+  &lt;input
+    class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+    id=&quot;phone&quot;
+    name=&quot;phone&quot;
+    placeholder=&quot;+1 (555) 123-4567&quot;
+    value=&quot;&quot;
+  /&gt;
+
+  Name &quot;Company&quot;:
+  &lt;input
+    class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+    id=&quot;company&quot;
+    name=&quot;company&quot;
+    placeholder=&quot;Company name&quot;
+    value=&quot;&quot;
+  /&gt;
+
+  Name &quot;Notes&quot;:
+  &lt;textarea
+    class=&quot;flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+    id=&quot;notes&quot;
+    name=&quot;notes&quot;
+    placeholder=&quot;Additional notes about this lead...&quot;
+    rows=&quot;3&quot;
+  /&gt;
+
+  Name &quot;&quot;:
+  &lt;input
+    class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+    placeholder=&quot;Field name&quot;
+    value=&quot;&quot;
+  /&gt;
+
+  Name &quot;&quot;:
+  &lt;input
+    class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+    placeholder=&quot;Field value&quot;
+    value=&quot;&quot;
+  /&gt;
+
+  --------------------------------------------------
+  combobox:
+
+  Name &quot;&quot;:
+  &lt;button
+    aria-autocomplete=&quot;none&quot;
+    aria-controls=&quot;radix-:r8a:&quot;
+    aria-expanded=&quot;false&quot;
+    class=&quot;flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&amp;&gt;span]:line-clamp-1&quot;
+    data-placeholder=&quot;&quot;
+    data-state=&quot;closed&quot;
+    dir=&quot;ltr&quot;
+    role=&quot;combobox&quot;
+    type=&quot;button&quot;
+  /&gt;
+
+  Name &quot;&quot;:
+  &lt;button
+    aria-autocomplete=&quot;none&quot;
+    aria-controls=&quot;radix-:r8b:&quot;
+    aria-expanded=&quot;false&quot;
+    class=&quot;flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&amp;&gt;span]:line-clamp-1&quot;
+    data-state=&quot;closed&quot;
+    dir=&quot;ltr&quot;
+    role=&quot;combobox&quot;
+    type=&quot;button&quot;
+  /&gt;
+
+  Name &quot;&quot;:
+  &lt;button
+    aria-autocomplete=&quot;none&quot;
+    aria-controls=&quot;radix-:r8c:&quot;
+    aria-expanded=&quot;false&quot;
+    class=&quot;flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&amp;&gt;span]:line-clamp-1&quot;
+    data-placeholder=&quot;&quot;
+    data-state=&quot;closed&quot;
+    dir=&quot;ltr&quot;
+    role=&quot;combobox&quot;
+    type=&quot;button&quot;
+  /&gt;
+
+  --------------------------------------------------
+  spinbutton:
+
+  Name &quot;Potential Value ($)&quot;:
+  &lt;input
+    class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+    id=&quot;value&quot;
+    min=&quot;0&quot;
+    name=&quot;value&quot;
+    placeholder=&quot;0&quot;
+    step=&quot;0.01&quot;
+    type=&quot;number&quot;
+    value=&quot;&quot;
+  /&gt;
+
+  --------------------------------------------------
+  heading:
+
+  Name &quot;Custom Fields&quot;:
+  &lt;h3
+    class=&quot;font-semibold tracking-tight text-lg&quot;
+  /&gt;
+
+  --------------------------------------------------
+  button:
+
+  Name &quot;&quot;:
+  &lt;button
+    class=&quot;inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3&quot;
+    disabled=&quot;&quot;
+    type=&quot;button&quot;
+  /&gt;
+
+  Name &quot;Cancel&quot;:
+  &lt;button
+    class=&quot;inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2&quot;
+    type=&quot;button&quot;
+  /&gt;
+
+  Name &quot;Create Lead&quot;:
+  &lt;button
+    class=&quot;inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2&quot;
+    type=&quot;submit&quot;
+  /&gt;
+
+  --------------------------------------------------
+
+Ignored nodes: comments, script, style
+&lt;body&gt;
+  &lt;div&gt;
+    &lt;form
+      action=&quot;#&quot;
+      class=&quot;space-y-6&quot;
+    &gt;
+      &lt;div
+        class=&quot;grid grid-cols-2 gap-4&quot;
+      &gt;
+        &lt;div
+          class=&quot;space-y-2&quot;
+        &gt;
+          &lt;label
+            class=&quot;text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70&quot;
+            for=&quot;name&quot;
+          &gt;
+            Name *
+          &lt;/label&gt;
+          &lt;input
+            class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+            id=&quot;name&quot;
+            name=&quot;name&quot;
+            placeholder=&quot;Lead&apos;s full name&quot;
+            value=&quot;John Doe&quot;
+          /&gt;
+        &lt;/div&gt;
+        &lt;div
+          class=&quot;space-y-2&quot;
+        &gt;
+          &lt;label
+            class=&quot;text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70&quot;
+            for=&quot;email&quot;
+          &gt;
+            Email
+          &lt;/label&gt;
+          &lt;input
+            class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+            id=&quot;email&quot;
+            name=&quot;email&quot;
+            placeholder=&quot;lead@example.com&quot;
+            type=&quot;email&quot;
+            value=&quot;john@example.com&quot;
+          /&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div
+        class=&quot;grid grid-cols-2 gap-4&quot;
+      &gt;
+        &lt;div
+          class=&quot;space-y-2&quot;
+        &gt;
+          &lt;label
+            class=&quot;text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70&quot;
+            for=&quot;phone&quot;
+          &gt;
+            Phone
+          &lt;/label&gt;
+          &lt;input
+            class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+            id=&quot;phone&quot;
+            name=&quot;phone&quot;
+            placeholder=&quot;+1 (555) 123-4567&quot;
+            value=&quot;&quot;
+          /&gt;
+        &lt;/div&gt;
+        &lt;div
+          class=&quot;space-y-2&quot;
+        &gt;
+          &lt;label
+            class=&quot;text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70&quot;
+            for=&quot;company&quot;
+          &gt;
+            Company
+          &lt;/label&gt;
+          &lt;input
+            class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+            id=&quot;company&quot;
+            name=&quot;company&quot;
+            placeholder=&quot;Company name&quot;
+            value=&quot;&quot;
+          /&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div
+        class=&quot;grid grid-cols-2 gap-4&quot;
+      &gt;
+        &lt;div
+          class=&quot;space-y-2&quot;
+        &gt;
+          &lt;label
+            class=&quot;text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70&quot;
+          &gt;
+            Status
+          &lt;/label&gt;
+          &lt;button
+            aria-autocomplete=&quot;none&quot;
+            aria-controls=&quot;radix-:r8a:&quot;
+            aria-expanded=&quot;false&quot;
+            class=&quot;flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&amp;&gt;span]:line-clamp-1&quot;
+            data-placeholder=&quot;&quot;
+            data-state=&quot;closed&quot;
+            dir=&quot;ltr&quot;
+            role=&quot;combobox&quot;
+            type=&quot;button&quot;
+          &gt;
+            &lt;span
+              style=&quot;pointer-events: none;&quot;
+            &gt;
+              Select status
+            &lt;/span&gt;
+            &lt;svg
+              aria-hidden=&quot;true&quot;
+              class=&quot;lucide lucide-chevron-down h-4 w-4 opacity-50&quot;
+              fill=&quot;none&quot;
+              height=&quot;24&quot;
+              stroke=&quot;currentColor&quot;
+              stroke-linecap=&quot;round&quot;
+              stroke-linejoin=&quot;round&quot;
+              stroke-width=&quot;2&quot;
+              viewBox=&quot;0 0 24 24&quot;
+              width=&quot;24&quot;
+              xmlns=&quot;http://www.w3.org/2000/svg&quot;
+            &gt;
+              &lt;path
+                d=&quot;m6 9 6 6 6-6&quot;
+              /&gt;
+            &lt;/svg&gt;
+          &lt;/button&gt;
+          &lt;select
+            aria-hidden=&quot;true&quot;
+            ...
+    at Object.getElementError (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/@testing-library/dom/dist/config.js:37:19)
+    at /mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+    at /mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+    at /mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+    at /mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/__tests__/components/LeadForm.test.tsx:291:32
+    at step (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/__tests__/components/LeadForm.test.tsx:44:23)
+    at Object.next (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/__tests__/components/LeadForm.test.tsx:25:53)
+    at fulfilled (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/__tests__/components/LeadForm.test.tsx:16:58)</failure>
+    </testcase>
+    <testcase classname="LeadForm Component › Accessibility" name="has proper ARIA labels" time="0.02">
+      <failure>Error: expect(element).toHaveAttribute(&quot;aria-required&quot;, &quot;true&quot;) // element.getAttribute(&quot;aria-required&quot;) === &quot;true&quot;
+
+Expected the element to have attribute:
+  aria-required=&quot;true&quot;
+Received:
+  null
+    at Object.&lt;anonymous&gt; (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/__tests__/components/LeadForm.test.tsx:303:46)
+    at Promise.finally.completed (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:1556:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:1496:10)
+    at _callCircusTest (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:1006:40)
+    at _runTest (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:946:3)
+    at _runTestsForDescribeBlock (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:839:13)
+    at _runTestsForDescribeBlock (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:829:11)
+    at _runTestsForDescribeBlock (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:829:11)
+    at run (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:757:3)
+    at runAndTransformResultsToJestFormat (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:1917:21)
+    at jestAdapter (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/runner.js:101:19)
+    at runTestInternal (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-runner/build/testWorker.js:275:16)
+    at runTest (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-runner/build/testWorker.js:343:7)
+    at Object.worker (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-runner/build/testWorker.js:497:12)</failure>
+    </testcase>
+    <testcase classname="LeadForm Component › Accessibility" name="shows error messages with proper ARIA attributes" time="0.061">
+      <failure>TestingLibraryElementError: Unable to find an accessible element with the role &quot;button&quot; and name `/save/i`
+
+Here are the accessible roles:
+
+  textbox:
+
+  Name &quot;Name *&quot;:
+  &lt;input
+    class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+    id=&quot;name&quot;
+    name=&quot;name&quot;
+    placeholder=&quot;Lead&apos;s full name&quot;
+    value=&quot;&quot;
+  /&gt;
+
+  Name &quot;Email&quot;:
+  &lt;input
+    class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+    id=&quot;email&quot;
+    name=&quot;email&quot;
+    placeholder=&quot;lead@example.com&quot;
+    type=&quot;email&quot;
+    value=&quot;&quot;
+  /&gt;
+
+  Name &quot;Phone&quot;:
+  &lt;input
+    class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+    id=&quot;phone&quot;
+    name=&quot;phone&quot;
+    placeholder=&quot;+1 (555) 123-4567&quot;
+    value=&quot;&quot;
+  /&gt;
+
+  Name &quot;Company&quot;:
+  &lt;input
+    class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+    id=&quot;company&quot;
+    name=&quot;company&quot;
+    placeholder=&quot;Company name&quot;
+    value=&quot;&quot;
+  /&gt;
+
+  Name &quot;Notes&quot;:
+  &lt;textarea
+    class=&quot;flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+    id=&quot;notes&quot;
+    name=&quot;notes&quot;
+    placeholder=&quot;Additional notes about this lead...&quot;
+    rows=&quot;3&quot;
+  /&gt;
+
+  Name &quot;&quot;:
+  &lt;input
+    class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+    placeholder=&quot;Field name&quot;
+    value=&quot;&quot;
+  /&gt;
+
+  Name &quot;&quot;:
+  &lt;input
+    class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+    placeholder=&quot;Field value&quot;
+    value=&quot;&quot;
+  /&gt;
+
+  --------------------------------------------------
+  combobox:
+
+  Name &quot;&quot;:
+  &lt;button
+    aria-autocomplete=&quot;none&quot;
+    aria-controls=&quot;radix-:r9g:&quot;
+    aria-expanded=&quot;false&quot;
+    class=&quot;flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&amp;&gt;span]:line-clamp-1&quot;
+    data-placeholder=&quot;&quot;
+    data-state=&quot;closed&quot;
+    dir=&quot;ltr&quot;
+    role=&quot;combobox&quot;
+    type=&quot;button&quot;
+  /&gt;
+
+  Name &quot;&quot;:
+  &lt;button
+    aria-autocomplete=&quot;none&quot;
+    aria-controls=&quot;radix-:r9h:&quot;
+    aria-expanded=&quot;false&quot;
+    class=&quot;flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&amp;&gt;span]:line-clamp-1&quot;
+    data-state=&quot;closed&quot;
+    dir=&quot;ltr&quot;
+    role=&quot;combobox&quot;
+    type=&quot;button&quot;
+  /&gt;
+
+  Name &quot;&quot;:
+  &lt;button
+    aria-autocomplete=&quot;none&quot;
+    aria-controls=&quot;radix-:r9i:&quot;
+    aria-expanded=&quot;false&quot;
+    class=&quot;flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&amp;&gt;span]:line-clamp-1&quot;
+    data-placeholder=&quot;&quot;
+    data-state=&quot;closed&quot;
+    dir=&quot;ltr&quot;
+    role=&quot;combobox&quot;
+    type=&quot;button&quot;
+  /&gt;
+
+  --------------------------------------------------
+  spinbutton:
+
+  Name &quot;Potential Value ($)&quot;:
+  &lt;input
+    class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+    id=&quot;value&quot;
+    min=&quot;0&quot;
+    name=&quot;value&quot;
+    placeholder=&quot;0&quot;
+    step=&quot;0.01&quot;
+    type=&quot;number&quot;
+    value=&quot;&quot;
+  /&gt;
+
+  --------------------------------------------------
+  heading:
+
+  Name &quot;Custom Fields&quot;:
+  &lt;h3
+    class=&quot;font-semibold tracking-tight text-lg&quot;
+  /&gt;
+
+  --------------------------------------------------
+  button:
+
+  Name &quot;&quot;:
+  &lt;button
+    class=&quot;inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3&quot;
+    disabled=&quot;&quot;
+    type=&quot;button&quot;
+  /&gt;
+
+  Name &quot;Cancel&quot;:
+  &lt;button
+    class=&quot;inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2&quot;
+    type=&quot;button&quot;
+  /&gt;
+
+  Name &quot;Create Lead&quot;:
+  &lt;button
+    class=&quot;inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2&quot;
+    type=&quot;submit&quot;
+  /&gt;
+
+  --------------------------------------------------
+
+Ignored nodes: comments, script, style
+&lt;body&gt;
+  &lt;div&gt;
+    &lt;form
+      action=&quot;#&quot;
+      class=&quot;space-y-6&quot;
+    &gt;
+      &lt;div
+        class=&quot;grid grid-cols-2 gap-4&quot;
+      &gt;
+        &lt;div
+          class=&quot;space-y-2&quot;
+        &gt;
+          &lt;label
+            class=&quot;text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70&quot;
+            for=&quot;name&quot;
+          &gt;
+            Name *
+          &lt;/label&gt;
+          &lt;input
+            class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+            id=&quot;name&quot;
+            name=&quot;name&quot;
+            placeholder=&quot;Lead&apos;s full name&quot;
+            value=&quot;&quot;
+          /&gt;
+        &lt;/div&gt;
+        &lt;div
+          class=&quot;space-y-2&quot;
+        &gt;
+          &lt;label
+            class=&quot;text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70&quot;
+            for=&quot;email&quot;
+          &gt;
+            Email
+          &lt;/label&gt;
+          &lt;input
+            class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+            id=&quot;email&quot;
+            name=&quot;email&quot;
+            placeholder=&quot;lead@example.com&quot;
+            type=&quot;email&quot;
+            value=&quot;&quot;
+          /&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div
+        class=&quot;grid grid-cols-2 gap-4&quot;
+      &gt;
+        &lt;div
+          class=&quot;space-y-2&quot;
+        &gt;
+          &lt;label
+            class=&quot;text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70&quot;
+            for=&quot;phone&quot;
+          &gt;
+            Phone
+          &lt;/label&gt;
+          &lt;input
+            class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+            id=&quot;phone&quot;
+            name=&quot;phone&quot;
+            placeholder=&quot;+1 (555) 123-4567&quot;
+            value=&quot;&quot;
+          /&gt;
+        &lt;/div&gt;
+        &lt;div
+          class=&quot;space-y-2&quot;
+        &gt;
+          &lt;label
+            class=&quot;text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70&quot;
+            for=&quot;company&quot;
+          &gt;
+            Company
+          &lt;/label&gt;
+          &lt;input
+            class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50&quot;
+            id=&quot;company&quot;
+            name=&quot;company&quot;
+            placeholder=&quot;Company name&quot;
+            value=&quot;&quot;
+          /&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div
+        class=&quot;grid grid-cols-2 gap-4&quot;
+      &gt;
+        &lt;div
+          class=&quot;space-y-2&quot;
+        &gt;
+          &lt;label
+            class=&quot;text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70&quot;
+          &gt;
+            Status
+          &lt;/label&gt;
+          &lt;button
+            aria-autocomplete=&quot;none&quot;
+            aria-controls=&quot;radix-:r9g:&quot;
+            aria-expanded=&quot;false&quot;
+            class=&quot;flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&amp;&gt;span]:line-clamp-1&quot;
+            data-placeholder=&quot;&quot;
+            data-state=&quot;closed&quot;
+            dir=&quot;ltr&quot;
+            role=&quot;combobox&quot;
+            type=&quot;button&quot;
+          &gt;
+            &lt;span
+              style=&quot;pointer-events: none;&quot;
+            &gt;
+              Select status
+            &lt;/span&gt;
+            &lt;svg
+              aria-hidden=&quot;true&quot;
+              class=&quot;lucide lucide-chevron-down h-4 w-4 opacity-50&quot;
+              fill=&quot;none&quot;
+              height=&quot;24&quot;
+              stroke=&quot;currentColor&quot;
+              stroke-linecap=&quot;round&quot;
+              stroke-linejoin=&quot;round&quot;
+              stroke-width=&quot;2&quot;
+              viewBox=&quot;0 0 24 24&quot;
+              width=&quot;24&quot;
+              xmlns=&quot;http://www.w3.org/2000/svg&quot;
+            &gt;
+              &lt;path
+                d=&quot;m6 9 6 6 6-6&quot;
+              /&gt;
+            &lt;/svg&gt;
+          &lt;/button&gt;
+          &lt;select
+            aria-hidden=&quot;true&quot;
+            style=&quot;po...
+    at Object.getElementError (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/@testing-library/dom/dist/config.js:37:19)
+    at /mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+    at /mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+    at /mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+    at /mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/__tests__/components/LeadForm.test.tsx:311:31
+    at step (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/__tests__/components/LeadForm.test.tsx:44:23)
+    at Object.next (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/__tests__/components/LeadForm.test.tsx:25:53)
+    at /mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/__tests__/components/LeadForm.test.tsx:19:71
+    at new Promise (&lt;anonymous&gt;)
+    at __awaiter (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/__tests__/components/LeadForm.test.tsx:15:12)
+    at Object.&lt;anonymous&gt; (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/__tests__/components/LeadForm.test.tsx:307:60)
+    at Promise.finally.completed (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:1556:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:1496:10)
+    at _callCircusTest (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:1006:40)
+    at _runTest (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:946:3)
+    at _runTestsForDescribeBlock (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:839:13)
+    at _runTestsForDescribeBlock (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:829:11)
+    at _runTestsForDescribeBlock (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:829:11)
+    at run (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:757:3)
+    at runAndTransformResultsToJestFormat (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/jestAdapterInit.js:1917:21)
+    at jestAdapter (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-circus/build/runner.js:101:19)
+    at runTestInternal (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-runner/build/testWorker.js:275:16)
+    at runTest (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-runner/build/testWorker.js:343:7)
+    at Object.worker (/mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY/node_modules/jest-runner/build/testWorker.js:497:12)</failure>
+    </testcase>
+    <testcase classname="LeadForm Component › Accessibility" name="maintains focus management" time="0.035">
+    </testcase>
+  </testsuite>
 </testsuites>

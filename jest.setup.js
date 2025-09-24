@@ -72,10 +72,7 @@ beforeAll(() => {
   }
 
   console.warn = (...args) => {
-    if (
-      typeof args[0] === 'string' &&
-      args[0].includes('Warning:')
-    ) {
+    if (typeof args[0] === 'string' && args[0].includes('Warning:')) {
       return
     }
     originalConsoleWarn.call(console, ...args)

@@ -1,9 +1,11 @@
 # CRM-X-SHIVAY Documentation
+
 ## Volume 4: Development Guide
 
 ---
 
 ### 📖 Navigation
+
 - [← Volume 3: Database Schema](./03-DATABASE-SCHEMA.md)
 - [→ Volume 5: Deployment & Security](./05-DEPLOYMENT-SECURITY.md)
 
@@ -12,6 +14,7 @@
 ## 🚀 Quick Start
 
 ### Prerequisites
+
 - **Node.js**: 18.0+ (LTS recommended)
 - **npm**: 9.0+ (comes with Node.js)
 - **MongoDB**: 5.0+ (local or cloud instance)
@@ -21,17 +24,20 @@
 ### Environment Setup
 
 1. **Clone the Repository**
+
 ```bash
 git clone <repository-url>
 cd CRM-X-SHIVAY
 ```
 
 2. **Install Dependencies**
+
 ```bash
 npm install
 ```
 
 3. **Environment Configuration**
+
 ```bash
 # Copy environment file
 cp .env.example .env
@@ -41,6 +47,7 @@ nano .env  # or use your preferred editor
 ```
 
 4. **Required Environment Variables**
+
 ```env
 # MongoDB Configuration
 MONGODB_URI=mongodb://localhost:27017/crm_database
@@ -65,12 +72,14 @@ SMTP_PASS=your-app-password
 ```
 
 5. **Database Seeding**
+
 ```bash
 # Seed database with default data
 npm run db:seed
 ```
 
 6. **Start Development Server**
+
 ```bash
 npm run dev
 ```
@@ -78,7 +87,9 @@ npm run dev
 The application will be available at `http://localhost:3000`
 
 ### Default Login Credentials
+
 After seeding, use these credentials:
+
 - **Admin**: `admin@crm.com` / `Admin123!@#`
 - **Manager**: `manager@crm.com` / `Manager123!@#`
 - **Sales**: `sales@crm.com` / `Sales123!@#`
@@ -88,6 +99,7 @@ After seeding, use these credentials:
 ## 🏗️ Project Architecture
 
 ### Directory Structure
+
 ```
 CRM-X-SHIVAY/
 ├── app/                          # Next.js app directory
@@ -151,6 +163,7 @@ CRM-X-SHIVAY/
 ### Technology Stack Details
 
 #### Frontend Stack
+
 - **Next.js 13.5.1**: React framework with App Router
 - **TypeScript**: Static type checking and IntelliSense
 - **Tailwind CSS**: Utility-first styling framework
@@ -161,6 +174,7 @@ CRM-X-SHIVAY/
 - **Lucide Icons**: Icon library
 
 #### Backend Stack
+
 - **Next.js API Routes**: Server-side endpoints
 - **MongoDB**: NoSQL database
 - **Mongoose**: Object modeling for MongoDB
@@ -169,6 +183,7 @@ CRM-X-SHIVAY/
 - **Crypto**: Webhook signature verification
 
 #### Development Tools
+
 - **ESLint**: Code linting and formatting
 - **TypeScript**: Type checking
 - **Postman**: API testing
@@ -205,6 +220,7 @@ npm run test:watch       # Run tests in watch mode
    - Use strict mode settings
 
 2. **Component Structure**
+
    ```typescript
    // components/example/ExampleComponent.tsx
    import { useState } from 'react';
@@ -239,58 +255,77 @@ npm run test:watch       # Run tests in watch mode
    ```
 
 3. **API Route Structure**
+
    ```typescript
    // app/api/example/route.ts
-   import { NextRequest, NextResponse } from 'next/server';
-   import { verifyAuthToken } from '@/lib/mongodb/auth';
-   import { withLogging, withSecurityLogging } from '@/lib/logging/middleware';
-   import { z } from 'zod';
+   import { NextRequest, NextResponse } from 'next/server'
+   import { verifyAuthToken } from '@/lib/mongodb/auth'
+   import { withLogging, withSecurityLogging } from '@/lib/logging/middleware'
+   import { z } from 'zod'
 
    const requestSchema = z.object({
      name: z.string().min(1).max(100),
-     email: z.string().email()
-   });
+     email: z.string().email(),
+   })
 
-   export const GET = withSecurityLogging(withLogging(async (request: NextRequest) => {
-     try {
-       const auth = await verifyAuthToken(request);
-       if (!auth) {
-         return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
+   export const GET = withSecurityLogging(
+     withLogging(async (request: NextRequest) => {
+       try {
+         const auth = await verifyAuthToken(request)
+         if (!auth) {
+           return NextResponse.json(
+             { message: 'Unauthorized' },
+             { status: 401 }
+           )
+         }
+
+         // Implementation here
+
+         return NextResponse.json({ success: true, data: [] })
+       } catch (error) {
+         return NextResponse.json(
+           { message: 'Internal server error' },
+           { status: 500 }
+         )
        }
-
-       // Implementation here
-
-       return NextResponse.json({ success: true, data: [] });
-     } catch (error) {
-       return NextResponse.json({ message: 'Internal server error' }, { status: 500 });
-     }
-   }));
+     })
+   )
    ```
 
 4. **Database Model Structure**
+
    ```typescript
    // lib/mongodb/models/Example.ts
-   import mongoose, { Schema, Document } from 'mongoose';
+   import mongoose, { Schema, Document } from 'mongoose'
 
    export interface IExample extends Document {
-     name: string;
-     workspaceId: string;
-     createdAt: Date;
-     updatedAt: Date;
+     name: string
+     workspaceId: string
+     createdAt: Date
+     updatedAt: Date
    }
 
-   const ExampleSchema = new Schema({
-     name: { type: String, required: true, maxlength: 100 },
-     workspaceId: { type: Schema.Types.ObjectId, ref: 'Workspace', required: true },
-   }, {
-     timestamps: true,
-     toJSON: { virtuals: true },
-     toObject: { virtuals: true }
-   });
+   const ExampleSchema = new Schema(
+     {
+       name: { type: String, required: true, maxlength: 100 },
+       workspaceId: {
+         type: Schema.Types.ObjectId,
+         ref: 'Workspace',
+         required: true,
+       },
+     },
+     {
+       timestamps: true,
+       toJSON: { virtuals: true },
+       toObject: { virtuals: true },
+     }
+   )
 
-   ExampleSchema.index({ workspaceId: 1, name: 1 });
+   ExampleSchema.index({ workspaceId: 1, name: 1 })
 
-   export const Example = mongoose.models.Example || mongoose.model<IExample>('Example', ExampleSchema);
+   export const Example =
+     mongoose.models.Example ||
+     mongoose.model<IExample>('Example', ExampleSchema)
    ```
 
 ### Git Workflow
@@ -302,6 +337,7 @@ npm run test:watch       # Run tests in watch mode
    - `docs/documentation-update` - Documentation
 
 2. **Commit Messages**
+
    ```
    feat: add user profile management
    fix: resolve webhook signature validation
@@ -325,6 +361,7 @@ npm run test:watch       # Run tests in watch mode
 ### VS Code Configuration
 
 **Recommended Extensions:**
+
 ```json
 {
   "recommendations": [
@@ -339,6 +376,7 @@ npm run test:watch       # Run tests in watch mode
 ```
 
 **Settings (.vscode/settings.json):**
+
 ```json
 {
   "typescript.preferences.importModuleSpecifier": "relative",
@@ -346,9 +384,7 @@ npm run test:watch       # Run tests in watch mode
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   },
-  "tailwindCSS.experimental.classRegex": [
-    ["cn\\(([^)]*)\\)", "'([^']*)'"]
-  ]
+  "tailwindCSS.experimental.classRegex": [["cn\\(([^)]*)\\)", "'([^']*)'"]]
 }
 ```
 
@@ -376,6 +412,7 @@ The project uses ESLint with TypeScript and Next.js rules:
 ### MongoDB Setup
 
 1. **Local Development**
+
    ```bash
    # Install MongoDB Community Edition
    # macOS
@@ -396,6 +433,7 @@ The project uses ESLint with TypeScript and Next.js rules:
    - Browse collections and data
 
 3. **Database Seeding**
+
    ```bash
    # Reset and seed database
    npm run db:seed
@@ -407,39 +445,50 @@ The project uses ESLint with TypeScript and Next.js rules:
 ### Model Development
 
 1. **Creating New Models**
+
    ```typescript
    // 1. Define interface
    export interface INewModel extends Document {
-     name: string;
-     workspaceId: string;
+     name: string
+     workspaceId: string
    }
 
    // 2. Create schema
-   const NewModelSchema = new Schema({
-     name: { type: String, required: true },
-     workspaceId: { type: Schema.Types.ObjectId, ref: 'Workspace', required: true }
-   }, { timestamps: true });
+   const NewModelSchema = new Schema(
+     {
+       name: { type: String, required: true },
+       workspaceId: {
+         type: Schema.Types.ObjectId,
+         ref: 'Workspace',
+         required: true,
+       },
+     },
+     { timestamps: true }
+   )
 
    // 3. Add indexes
-   NewModelSchema.index({ workspaceId: 1, name: 1 });
+   NewModelSchema.index({ workspaceId: 1, name: 1 })
 
    // 4. Export model
-   export const NewModel = mongoose.models.NewModel || mongoose.model<INewModel>('NewModel', NewModelSchema);
+   export const NewModel =
+     mongoose.models.NewModel ||
+     mongoose.model<INewModel>('NewModel', NewModelSchema)
    ```
 
 2. **Adding to Client**
+
    ```typescript
    // lib/mongodb/client.ts
-   import { NewModel } from './models/NewModel';
+   import { NewModel } from './models/NewModel'
 
    class MongoDBClient {
      // Add CRUD methods
      async createNewModel(data: any) {
-       return await NewModel.create(data);
+       return await NewModel.create(data)
      }
 
      async getNewModels(workspaceId: string) {
-       return await NewModel.find({ workspaceId });
+       return await NewModel.find({ workspaceId })
      }
    }
    ```
@@ -451,42 +500,46 @@ The project uses ESLint with TypeScript and Next.js rules:
 ### Creating New Endpoints
 
 1. **Create Route Handler**
+
    ```typescript
    // app/api/new-endpoint/route.ts
-   import { NextRequest, NextResponse } from 'next/server';
-   import { verifyAuthToken } from '@/lib/mongodb/auth';
-   import { withLogging, withSecurityLogging } from '@/lib/logging/middleware';
+   import { NextRequest, NextResponse } from 'next/server'
+   import { verifyAuthToken } from '@/lib/mongodb/auth'
+   import { withLogging, withSecurityLogging } from '@/lib/logging/middleware'
 
-   export const GET = withSecurityLogging(withLogging(async (request: NextRequest) => {
-     // Implementation
-   }));
+   export const GET = withSecurityLogging(
+     withLogging(async (request: NextRequest) => {
+       // Implementation
+     })
+   )
    ```
 
 2. **Add RTK Query Endpoint**
+
    ```typescript
    // lib/api/newApi.ts
-   import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+   import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
    export const newApi = createApi({
      reducerPath: 'newApi',
      baseQuery: fetchBaseQuery({
        baseUrl: '/api/new-endpoint',
        prepareHeaders: (headers, { getState }) => {
-         const token = (getState() as RootState).auth.token;
+         const token = (getState() as RootState).auth.token
          if (token) {
-           headers.set('authorization', `Bearer ${token}`);
+           headers.set('authorization', `Bearer ${token}`)
          }
-         return headers;
+         return headers
        },
      }),
      tagTypes: ['NewItem'],
-     endpoints: (builder) => ({
+     endpoints: builder => ({
        getNewItems: builder.query<any[], void>({
          query: () => '',
          providesTags: ['NewItem'],
        }),
        createNewItem: builder.mutation<any, any>({
-         query: (data) => ({
+         query: data => ({
            url: '',
            method: 'POST',
            body: data,
@@ -494,67 +547,73 @@ The project uses ESLint with TypeScript and Next.js rules:
          invalidatesTags: ['NewItem'],
        }),
      }),
-   });
+   })
 
-   export const { useGetNewItemsQuery, useCreateNewItemMutation } = newApi;
+   export const { useGetNewItemsQuery, useCreateNewItemMutation } = newApi
    ```
 
 3. **Add to Store**
+
    ```typescript
    // lib/store.ts
-   import { newApi } from './api/newApi';
+   import { newApi } from './api/newApi'
 
    export const store = configureStore({
      reducer: {
        // ... existing reducers
        [newApi.reducerPath]: newApi.reducer,
      },
-     middleware: (getDefaultMiddleware) =>
+     middleware: getDefaultMiddleware =>
        getDefaultMiddleware().concat(
          // ... existing middleware
-         newApi.middleware,
+         newApi.middleware
        ),
-   });
+   })
    ```
 
 ### Validation Patterns
 
 1. **Input Validation**
+
    ```typescript
-   import { z } from 'zod';
+   import { z } from 'zod'
 
    const createItemSchema = z.object({
      name: z.string().min(1).max(100),
      email: z.string().email().optional(),
-     workspaceId: z.string().regex(/^[a-f\d]{24}$/i)
-   });
+     workspaceId: z.string().regex(/^[a-f\d]{24}$/i),
+   })
 
    // In route handler
-   const validationResult = createItemSchema.safeParse(body);
+   const validationResult = createItemSchema.safeParse(body)
    if (!validationResult.success) {
      return NextResponse.json(
        { message: 'Validation failed', errors: validationResult.error.errors },
        { status: 400 }
-     );
+     )
    }
    ```
 
 2. **Permission Checking**
+
    ```typescript
    // Check workspace access
    const member = await WorkspaceMember.findOne({
      userId: auth.user.id,
      workspaceId,
-     status: 'active'
-   });
+     status: 'active',
+   })
 
    if (!member) {
-     return NextResponse.json({ message: 'Access denied' }, { status: 403 });
+     return NextResponse.json({ message: 'Access denied' }, { status: 403 })
    }
 
    // Check specific permissions
    if (!member.permissions.includes('leads:write')) {
-     return NextResponse.json({ message: 'Insufficient permissions' }, { status: 403 });
+     return NextResponse.json(
+       { message: 'Insufficient permissions' },
+       { status: 403 }
+     )
    }
    ```
 
@@ -565,6 +624,7 @@ The project uses ESLint with TypeScript and Next.js rules:
 ### Component Development
 
 1. **UI Components** (Radix + Tailwind)
+
    ```typescript
    // components/ui/custom-button.tsx
    import * as React from 'react';
@@ -592,6 +652,7 @@ The project uses ESLint with TypeScript and Next.js rules:
    ```
 
 2. **Feature Components**
+
    ```typescript
    // components/leads/LeadForm.tsx
    import { useForm } from 'react-hook-form';
@@ -630,49 +691,51 @@ The project uses ESLint with TypeScript and Next.js rules:
 ### State Management
 
 1. **Redux Slices**
+
    ```typescript
    // lib/slices/exampleSlice.ts
-   import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+   import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
    interface ExampleState {
-     items: any[];
-     loading: boolean;
-     error: string | null;
+     items: any[]
+     loading: boolean
+     error: string | null
    }
 
    const initialState: ExampleState = {
      items: [],
      loading: false,
      error: null,
-   };
+   }
 
    export const exampleSlice = createSlice({
      name: 'example',
      initialState,
      reducers: {
        setItems: (state, action: PayloadAction<any[]>) => {
-         state.items = action.payload;
+         state.items = action.payload
        },
        setLoading: (state, action: PayloadAction<boolean>) => {
-         state.loading = action.payload;
+         state.loading = action.payload
        },
      },
-   });
+   })
    ```
 
 2. **Custom Hooks**
+
    ```typescript
    // lib/hooks.ts
-   import { useSelector } from 'react-redux';
-   import { RootState } from './store';
+   import { useSelector } from 'react-redux'
+   import { RootState } from './store'
 
    export const useAuth = () => {
-     return useSelector((state: RootState) => state.auth);
-   };
+     return useSelector((state: RootState) => state.auth)
+   }
 
    export const useWorkspace = () => {
-     return useSelector((state: RootState) => state.workspace);
-   };
+     return useSelector((state: RootState) => state.workspace)
+   }
    ```
 
 ---
@@ -680,12 +743,14 @@ The project uses ESLint with TypeScript and Next.js rules:
 ## 🧪 Testing Strategy
 
 ### Unit Testing Setup
+
 ```bash
 # Install testing dependencies
 npm install --save-dev @testing-library/react @testing-library/jest-dom jest jest-environment-jsdom
 ```
 
 ### Component Testing
+
 ```typescript
 // components/__tests__/Button.test.tsx
 import { render, screen } from '@testing-library/react';
@@ -700,22 +765,23 @@ describe('Button Component', () => {
 ```
 
 ### API Testing
+
 ```typescript
 // __tests__/api/leads.test.ts
-import { createMocks } from 'node-mocks-http';
-import handler from '../../app/api/leads/route';
+import { createMocks } from 'node-mocks-http'
+import handler from '../../app/api/leads/route'
 
 describe('/api/leads', () => {
   it('should return leads', async () => {
     const { req, res } = createMocks({
       method: 'GET',
-      headers: { authorization: 'Bearer valid-token' }
-    });
+      headers: { authorization: 'Bearer valid-token' },
+    })
 
-    await handler(req, res);
-    expect(res._getStatusCode()).toBe(200);
-  });
-});
+    await handler(req, res)
+    expect(res._getStatusCode()).toBe(200)
+  })
+})
 ```
 
 ---
@@ -723,18 +789,21 @@ describe('/api/leads', () => {
 ## 🚦 Performance Optimization
 
 ### Database Optimization
+
 - Strategic indexing for frequent queries
 - Pagination for large datasets
 - Connection pooling
 - Query optimization
 
 ### Frontend Optimization
+
 - Component lazy loading
 - Image optimization
 - Bundle splitting
 - Caching strategies
 
 ### API Optimization
+
 - Response compression
 - Rate limiting
 - Caching headers

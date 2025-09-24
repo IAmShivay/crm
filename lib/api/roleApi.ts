@@ -1,59 +1,59 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 export interface Role {
-  id: string;
-  name: string;
-  description?: string;
-  workspace_id: string;
-  is_system: boolean;
-  permissions: string[];
-  created_at: string;
-  updated_at: string;
+  id: string
+  name: string
+  description?: string
+  workspace_id: string
+  is_system: boolean
+  permissions: string[]
+  created_at: string
+  updated_at: string
 }
 
 export interface Permission {
-  id: string;
-  name: string;
-  resource: string;
-  action: string;
-  description?: string;
+  id: string
+  name: string
+  resource: string
+  action: string
+  description?: string
 }
 
 export interface CreateRoleRequest {
-  name: string;
-  description?: string;
-  permissions: string[];
-  workspace_id: string;
+  name: string
+  description?: string
+  permissions: string[]
+  workspace_id: string
 }
 
 export interface UpdateRoleRequest {
-  id: string;
-  name?: string;
-  description?: string;
-  permissions?: string[];
+  id: string
+  name?: string
+  description?: string
+  permissions?: string[]
 }
 
 export const roleApi = createApi({
   reducerPath: 'roleApi',
   baseQuery: fetchBaseQuery({
     baseUrl: '/api/roles',
-    prepareHeaders: (headers) => {
-      headers.set('Content-Type', 'application/json');
-      return headers;
+    prepareHeaders: headers => {
+      headers.set('Content-Type', 'application/json')
+      return headers
     },
   }),
   tagTypes: ['Role', 'Permission'],
-  endpoints: (builder) => ({
+  endpoints: builder => ({
     getRoles: builder.query<Role[], void>({
       query: () => '',
       providesTags: ['Role'],
     }),
     getRole: builder.query<Role, string>({
-      query: (id) => `/${id}`,
+      query: id => `/${id}`,
       providesTags: (result, error, id) => [{ type: 'Role', id }],
     }),
     createRole: builder.mutation<Role, CreateRoleRequest>({
-      query: (role) => ({
+      query: role => ({
         url: '',
         method: 'POST',
         body: role,
@@ -69,7 +69,7 @@ export const roleApi = createApi({
       invalidatesTags: (result, error, { id }) => [{ type: 'Role', id }],
     }),
     deleteRole: builder.mutation<void, string>({
-      query: (id) => ({
+      query: id => ({
         url: `/${id}`,
         method: 'DELETE',
       }),
@@ -80,7 +80,7 @@ export const roleApi = createApi({
       providesTags: ['Permission'],
     }),
   }),
-});
+})
 
 export const {
   useGetRolesQuery,
@@ -89,4 +89,4 @@ export const {
   useUpdateRoleMutation,
   useDeleteRoleMutation,
   useGetPermissionsQuery,
-} = roleApi;
+} = roleApi

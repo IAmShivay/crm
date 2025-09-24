@@ -1,9 +1,11 @@
 # CRM-X-SHIVAY Documentation
+
 ## Volume 3: Database Schema & Models
 
 ---
 
 ### 📖 Navigation
+
 - [← Volume 2: API Reference](./02-API-REFERENCE.md)
 - [→ Volume 4: Development Guide](./04-DEVELOPMENT-GUIDE.md)
 
@@ -108,6 +110,7 @@ CRM-X-SHIVAY uses MongoDB as its primary database with Mongoose ODM for object m
 ```
 
 **Indexes:**
+
 - `{ email: 1 }` (unique)
 - `{ lastLoginAt: -1 }`
 - `{ isActive: 1, emailConfirmed: 1 }`
@@ -213,6 +216,7 @@ CRM-X-SHIVAY uses MongoDB as its primary database with Mongoose ODM for object m
 ```
 
 **Indexes:**
+
 - `{ slug: 1 }` (unique)
 - `{ createdBy: 1 }`
 - `{ 'subscription.status': 1, 'subscription.endDate': 1 }`
@@ -272,6 +276,7 @@ CRM-X-SHIVAY uses MongoDB as its primary database with Mongoose ODM for object m
 ```
 
 **Indexes:**
+
 - `{ workspaceId: 1, userId: 1 }` (unique)
 - `{ userId: 1 }`
 - `{ workspaceId: 1, status: 1 }`
@@ -332,6 +337,7 @@ CRM-X-SHIVAY uses MongoDB as its primary database with Mongoose ODM for object m
 ```
 
 **Available Permissions:**
+
 - `leads:read`, `leads:write`, `leads:delete`
 - `contacts:read`, `contacts:write`, `contacts:delete`
 - `users:read`, `users:write`, `users:invite`, `users:delete`
@@ -342,6 +348,7 @@ CRM-X-SHIVAY uses MongoDB as its primary database with Mongoose ODM for object m
 - `workspace:admin`
 
 **Indexes:**
+
 - `{ workspaceId: 1, name: 1 }` (unique)
 - `{ workspaceId: 1, isDefault: 1 }`
 
@@ -474,6 +481,7 @@ CRM-X-SHIVAY uses MongoDB as its primary database with Mongoose ODM for object m
 ```
 
 **Indexes:**
+
 - `{ workspaceId: 1, status: 1 }`
 - `{ workspaceId: 1, assignedTo: 1 }`
 - `{ workspaceId: 1, createdAt: -1 }`
@@ -606,6 +614,7 @@ CRM-X-SHIVAY uses MongoDB as its primary database with Mongoose ODM for object m
 ```
 
 **Indexes:**
+
 - `{ workspaceId: 1, status: 1 }`
 - `{ workspaceId: 1, category: 1 }`
 - `{ workspaceId: 1, assignedTo: 1 }`
@@ -665,6 +674,7 @@ CRM-X-SHIVAY uses MongoDB as its primary database with Mongoose ODM for object m
 ```
 
 **Indexes:**
+
 - `{ workspaceId: 1, name: 1 }` (unique)
 - `{ workspaceId: 1, isActive: 1 }`
 
@@ -731,6 +741,7 @@ CRM-X-SHIVAY uses MongoDB as its primary database with Mongoose ODM for object m
 ```
 
 **Indexes:**
+
 - `{ workspaceId: 1, name: 1 }` (unique)
 - `{ workspaceId: 1, order: 1 }`
 
@@ -784,6 +795,7 @@ CRM-X-SHIVAY uses MongoDB as its primary database with Mongoose ODM for object m
 ```
 
 **Indexes:**
+
 - `{ leadId: 1, createdAt: -1 }`
 - `{ workspaceId: 1, createdBy: 1 }`
 
@@ -844,6 +856,7 @@ CRM-X-SHIVAY uses MongoDB as its primary database with Mongoose ODM for object m
 ```
 
 **Indexes:**
+
 - `{ workspaceId: 1, createdAt: -1 }`
 - `{ entityType: 1, entityId: 1, createdAt: -1 }`
 - `{ performedBy: 1, createdAt: -1 }`
@@ -921,6 +934,7 @@ CRM-X-SHIVAY uses MongoDB as its primary database with Mongoose ODM for object m
 ```
 
 **Indexes:**
+
 - `{ workspaceId: 1, isActive: 1 }`
 - `{ workspaceId: 1, webhookType: 1 }`
 
@@ -964,6 +978,7 @@ CRM-X-SHIVAY uses MongoDB as its primary database with Mongoose ODM for object m
 ```
 
 **Indexes:**
+
 - `{ webhookId: 1, createdAt: -1 }`
 - `{ workspaceId: 1, success: 1, createdAt: -1 }`
 
@@ -1083,6 +1098,7 @@ CRM-X-SHIVAY uses MongoDB as its primary database with Mongoose ODM for object m
 ```
 
 **Indexes:**
+
 - `{ token: 1 }` (unique)
 - `{ workspaceId: 1, status: 1 }`
 - `{ expiresAt: 1 }` (TTL index)
@@ -1092,6 +1108,7 @@ CRM-X-SHIVAY uses MongoDB as its primary database with Mongoose ODM for object m
 ## 🔧 Database Configuration
 
 ### Connection Settings
+
 ```javascript
 // MongoDB connection options
 {

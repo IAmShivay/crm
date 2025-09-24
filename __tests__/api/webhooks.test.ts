@@ -1,6 +1,12 @@
-import { GET as getWebhooks, POST as createWebhook } from '@/app/api/webhooks/route'
+import {
+  GET as getWebhooks,
+  POST as createWebhook,
+} from '@/app/api/webhooks/route'
 import { POST as receiveWebhook } from '@/app/api/webhooks/receive/[id]/route'
-import { PUT as updateWebhook, DELETE as deleteWebhook } from '@/app/api/webhooks/[id]/route'
+import {
+  PUT as updateWebhook,
+  DELETE as deleteWebhook,
+} from '@/app/api/webhooks/[id]/route'
 import {
   testApiRoute,
   validateApiResponse,
@@ -34,7 +40,7 @@ describe('Webhooks API Endpoints', () => {
         id: mockUserId,
         email: 'test@example.com',
         fullName: 'Test User',
-      }
+      },
     })
 
     jest.doMock('@/lib/mongodb/auth', () => ({
@@ -54,7 +60,7 @@ describe('Webhooks API Endpoints', () => {
           totalRequests: 10,
           successfulRequests: 8,
           failedRequests: 2,
-        }
+        },
       ]
 
       const mockWebhookFind = jest.fn().mockReturnValue({
@@ -64,7 +70,9 @@ describe('Webhooks API Endpoints', () => {
       jest.doMock('@/lib/mongodb/models', () => ({
         Webhook: { find: mockWebhookFind },
         WorkspaceMember: {
-          findOne: jest.fn().mockResolvedValue(createMockWorkspaceMember('admin')),
+          findOne: jest
+            .fn()
+            .mockResolvedValue(createMockWorkspaceMember('admin')),
         },
       }))
 
@@ -124,7 +132,9 @@ describe('Webhooks API Endpoints', () => {
       jest.doMock('@/lib/mongodb/models', () => ({
         Webhook: { create: mockWebhookCreate },
         WorkspaceMember: {
-          findOne: jest.fn().mockResolvedValue(createMockWorkspaceMember('admin')),
+          findOne: jest
+            .fn()
+            .mockResolvedValue(createMockWorkspaceMember('admin')),
         },
       }))
 
@@ -141,7 +151,10 @@ describe('Webhooks API Endpoints', () => {
       expect(result.data.webhook.webhookUrl).toContain('/api/webhooks/receive/')
 
       // Validate response structure
-      const validation = validateApiResponse(result.data.webhook, apiResponseStructures.webhook)
+      const validation = validateApiResponse(
+        result.data.webhook,
+        apiResponseStructures.webhook
+      )
       expect(validation.isValid).toBe(true)
     })
 
@@ -206,7 +219,7 @@ describe('Webhooks API Endpoints', () => {
               email: 'webhook@example.com',
               source: 'webhook',
               customFields: {},
-            }
+            },
           ],
           source: 'webhook',
           provider: 'test',
@@ -242,7 +255,9 @@ describe('Webhooks API Endpoints', () => {
 
       const mockWebhookFindById = jest.fn().mockResolvedValue(mockWebhook)
       const mockLeadCreate = jest.fn().mockResolvedValue(mockCreatedLead)
-      const mockWebhookFindByIdAndUpdate = jest.fn().mockResolvedValue(mockWebhook)
+      const mockWebhookFindByIdAndUpdate = jest
+        .fn()
+        .mockResolvedValue(mockWebhook)
       const mockWebhookLogCreate = jest.fn().mockResolvedValue({})
 
       jest.doMock('@/lib/mongodb/models', () => ({
@@ -277,7 +292,10 @@ describe('Webhooks API Endpoints', () => {
     it('should verify webhook signature when provided', async () => {
       const webhookPayload = { test: 'data' }
       const payloadString = JSON.stringify(webhookPayload)
-      const signature = generateMockWebhookSignature(payloadString, webhookSecret)
+      const signature = generateMockWebhookSignature(
+        payloadString,
+        webhookSecret
+      )
 
       const mockWebhook = {
         _id: webhookId,
@@ -374,13 +392,18 @@ describe('Webhooks API Endpoints', () => {
       }))
 
       // Create request with invalid JSON
-      const invalidJsonRequest = new Request(`http://localhost:3000/api/webhooks/receive/${webhookId}`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: 'invalid json{',
-      })
+      const invalidJsonRequest = new Request(
+        `http://localhost:3000/api/webhooks/receive/${webhookId}`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: 'invalid json{',
+        }
+      )
 
-      const result = await receiveWebhook(invalidJsonRequest as any, { params: { id: webhookId } })
+      const result = await receiveWebhook(invalidJsonRequest as any, {
+        params: { id: webhookId },
+      })
       const data = await result.json()
 
       expect(result.status).toBe(400)
@@ -390,23 +413,27 @@ describe('Webhooks API Endpoints', () => {
     it('should handle Facebook webhook format', async () => {
       const facebookPayload = {
         object: 'page',
-        entry: [{
-          id: 'page-id',
-          time: 1234567890,
-          changes: [{
-            field: 'leadgen',
-            value: {
-              leadgen_id: 'lead-123',
-              page_id: 'page-id',
-              form_id: 'form-id',
-              field_data: [
-                { name: 'full_name', values: ['John Doe'] },
-                { name: 'email', values: ['john@example.com'] },
-                { name: 'phone_number', values: ['+1234567890'] },
-              ]
-            }
-          }]
-        }]
+        entry: [
+          {
+            id: 'page-id',
+            time: 1234567890,
+            changes: [
+              {
+                field: 'leadgen',
+                value: {
+                  leadgen_id: 'lead-123',
+                  page_id: 'page-id',
+                  form_id: 'form-id',
+                  field_data: [
+                    { name: 'full_name', values: ['John Doe'] },
+                    { name: 'email', values: ['john@example.com'] },
+                    { name: 'phone_number', values: ['+1234567890'] },
+                  ],
+                },
+              },
+            ],
+          },
+        ],
       }
 
       const mockWebhook = {
@@ -426,7 +453,7 @@ describe('Webhooks API Endpoints', () => {
               email: 'john@example.com',
               phone: '+1234567890',
               source: 'facebook',
-            }
+            },
           ],
           source: 'facebook',
           provider: 'facebook',
@@ -477,7 +504,9 @@ describe('Webhooks API Endpoints', () => {
       const updatedWebhook = { ...existingWebhook, ...updateData }
 
       const mockWebhookFindById = jest.fn().mockResolvedValue(existingWebhook)
-      const mockWebhookFindByIdAndUpdate = jest.fn().mockResolvedValue(updatedWebhook)
+      const mockWebhookFindByIdAndUpdate = jest
+        .fn()
+        .mockResolvedValue(updatedWebhook)
 
       jest.doMock('@/lib/mongodb/models', () => ({
         Webhook: {
@@ -485,7 +514,9 @@ describe('Webhooks API Endpoints', () => {
           findByIdAndUpdate: mockWebhookFindByIdAndUpdate,
         },
         WorkspaceMember: {
-          findOne: jest.fn().mockResolvedValue(createMockWorkspaceMember('admin')),
+          findOne: jest
+            .fn()
+            .mockResolvedValue(createMockWorkspaceMember('admin')),
         },
       }))
 
@@ -530,7 +561,9 @@ describe('Webhooks API Endpoints', () => {
       }
 
       const mockWebhookFindById = jest.fn().mockResolvedValue(existingWebhook)
-      const mockWebhookFindByIdAndDelete = jest.fn().mockResolvedValue(existingWebhook)
+      const mockWebhookFindByIdAndDelete = jest
+        .fn()
+        .mockResolvedValue(existingWebhook)
 
       jest.doMock('@/lib/mongodb/models', () => ({
         Webhook: {
@@ -538,7 +571,9 @@ describe('Webhooks API Endpoints', () => {
           findByIdAndDelete: mockWebhookFindByIdAndDelete,
         },
         WorkspaceMember: {
-          findOne: jest.fn().mockResolvedValue(createMockWorkspaceMember('admin')),
+          findOne: jest
+            .fn()
+            .mockResolvedValue(createMockWorkspaceMember('admin')),
         },
       }))
 

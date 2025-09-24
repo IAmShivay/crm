@@ -42,7 +42,10 @@ export { expect } from '@playwright/test'
 export class AuthHelpers {
   constructor(private page: any) {}
 
-  async login(email: string = 'admin@crm.com', password: string = 'Admin123!@#') {
+  async login(
+    email: string = 'admin@crm.com',
+    password: string = 'Admin123!@#'
+  ) {
     await this.page.goto('/login')
     await this.page.fill('[data-testid="email-input"]', email)
     await this.page.fill('[data-testid="password-input"]', password)
@@ -58,7 +61,9 @@ export class AuthHelpers {
 
   async isLoggedIn(): Promise<boolean> {
     try {
-      await this.page.waitForSelector('[data-testid="user-menu"]', { timeout: 5000 })
+      await this.page.waitForSelector('[data-testid="user-menu"]', {
+        timeout: 5000,
+      })
       return true
     } catch {
       return false

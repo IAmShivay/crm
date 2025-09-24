@@ -1,6 +1,7 @@
 # 🔗 Webhook Testing Guide
 
 ## Overview
+
 This guide shows you how to test webhooks in your CRM system to ensure they properly receive and process lead data from external sources.
 
 ## 🚀 Quick Start
@@ -11,6 +12,7 @@ This guide shows you how to test webhooks in your CRM system to ensure they prop
    - Or use the API directly to create a webhook
 
 2. **Create Webhook via API**:
+
 ```bash
 curl -X POST http://localhost:3000/api/webhooks \
   -H "Content-Type: application/json" \
@@ -24,6 +26,7 @@ curl -X POST http://localhost:3000/api/webhooks \
 ```
 
 3. **Response will include**:
+
 ```json
 {
   "success": true,
@@ -68,6 +71,7 @@ curl -X POST http://localhost:3000/api/webhooks/receive/YOUR_WEBHOOK_ID \
    - URL: `http://localhost:3000/api/webhooks/receive/YOUR_WEBHOOK_ID`
 
 2. **Headers**:
+
    ```
    Content-Type: application/json
    User-Agent: PostmanTest/1.0
@@ -95,12 +99,14 @@ curl -X POST http://localhost:3000/api/webhooks/receive/YOUR_WEBHOOK_ID \
 ### Method 3: Using Node.js Script
 
 Create `test-webhook.js`:
+
 ```javascript
-const fetch = require('node-fetch');
+const fetch = require('node-fetch')
 
 async function testWebhook() {
-  const webhookUrl = 'http://localhost:3000/api/webhooks/receive/YOUR_WEBHOOK_ID';
-  
+  const webhookUrl =
+    'http://localhost:3000/api/webhooks/receive/YOUR_WEBHOOK_ID'
+
   const testData = {
     name: 'Test Lead',
     email: 'test@example.com',
@@ -110,29 +116,29 @@ async function testWebhook() {
     value: 1000,
     custom_fields: {
       test_field: 'test_value',
-      priority: 'high'
-    }
-  };
+      priority: 'high',
+    },
+  }
 
   try {
     const response = await fetch(webhookUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'User-Agent': 'NodeTest/1.0'
+        'User-Agent': 'NodeTest/1.0',
       },
-      body: JSON.stringify(testData)
-    });
+      body: JSON.stringify(testData),
+    })
 
-    const result = await response.json();
-    console.log('Status:', response.status);
-    console.log('Response:', result);
+    const result = await response.json()
+    console.log('Status:', response.status)
+    console.log('Response:', result)
   } catch (error) {
-    console.error('Error:', error);
+    console.error('Error:', error)
   }
 }
 
-testWebhook();
+testWebhook()
 ```
 
 Run with: `node test-webhook.js`
@@ -140,6 +146,7 @@ Run with: `node test-webhook.js`
 ## 🔍 Verification Steps
 
 ### 1. Check Webhook Logs
+
 ```bash
 # Get webhook details and recent logs
 curl -X GET http://localhost:3000/api/webhooks/YOUR_WEBHOOK_ID \
@@ -147,6 +154,7 @@ curl -X GET http://localhost:3000/api/webhooks/YOUR_WEBHOOK_ID \
 ```
 
 ### 2. Verify Lead Creation
+
 1. Go to your CRM dashboard
 2. Navigate to Leads page
 3. Look for the test lead you just created
@@ -154,36 +162,43 @@ curl -X GET http://localhost:3000/api/webhooks/YOUR_WEBHOOK_ID \
 5. Verify custom fields are saved
 
 ### 3. Check Database (if you have access)
+
 ```javascript
 // In MongoDB shell or Node.js
-db.leads.find().sort({createdAt: -1}).limit(5)
+db.leads.find().sort({ createdAt: -1 }).limit(5)
 ```
 
 ## 🎯 Different Webhook Types
 
 ### Facebook Leads Format
+
 ```json
 {
   "object": "page",
-  "entry": [{
-    "id": "page-id",
-    "time": 1234567890,
-    "changes": [{
-      "field": "leadgen",
-      "value": {
-        "leadgen_id": "lead-id",
-        "page_id": "page-id",
-        "form_id": "form-id",
-        "adgroup_id": "adgroup-id",
-        "ad_id": "ad-id",
-        "created_time": 1234567890
-      }
-    }]
-  }]
+  "entry": [
+    {
+      "id": "page-id",
+      "time": 1234567890,
+      "changes": [
+        {
+          "field": "leadgen",
+          "value": {
+            "leadgen_id": "lead-id",
+            "page_id": "page-id",
+            "form_id": "form-id",
+            "adgroup_id": "adgroup-id",
+            "ad_id": "ad-id",
+            "created_time": 1234567890
+          }
+        }
+      ]
+    }
+  ]
 }
 ```
 
 ### Google Forms Format
+
 ```json
 {
   "formResponse": {
@@ -199,6 +214,7 @@ db.leads.find().sort({createdAt: -1}).limit(5)
 ```
 
 ### Zapier Format
+
 ```json
 {
   "full_name": "John Doe",
@@ -214,6 +230,7 @@ db.leads.find().sort({createdAt: -1}).limit(5)
 ```
 
 ### SwipePages Format
+
 ```json
 {
   "email": "john@doe.com",
@@ -273,6 +290,7 @@ curl -X POST http://localhost:3000/api/webhooks/receive/YOUR_WEBHOOK_ID \
 ### Debug Steps:
 
 1. **Check webhook status**:
+
    ```bash
    curl -X GET http://localhost:3000/api/webhooks/YOUR_WEBHOOK_ID
    ```
@@ -282,6 +300,7 @@ curl -X POST http://localhost:3000/api/webhooks/receive/YOUR_WEBHOOK_ID \
    - Check `recentLogs` array for error messages
 
 3. **Test simple payload first**:
+
    ```json
    {
      "name": "Test",
@@ -296,6 +315,7 @@ curl -X POST http://localhost:3000/api/webhooks/receive/YOUR_WEBHOOK_ID \
 ## 📊 Expected Response Formats
 
 ### Success Response (200):
+
 ```json
 {
   "success": true,
@@ -306,6 +326,7 @@ curl -X POST http://localhost:3000/api/webhooks/receive/YOUR_WEBHOOK_ID \
 ```
 
 ### Error Response (400/401/500):
+
 ```json
 {
   "error": "Error description",
@@ -326,6 +347,7 @@ After successful webhook testing:
 ## 📞 Support
 
 If webhooks aren't working:
+
 1. Check the webhook logs in your CRM
 2. Verify your webhook URL is accessible
 3. Test with the simplest possible payload first

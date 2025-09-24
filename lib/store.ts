@@ -1,13 +1,13 @@
-import { configureStore } from '@reduxjs/toolkit';
-import { setupListeners } from '@reduxjs/toolkit/query/react';
-import { mongoApi } from './api/mongoApi';
-import { userPreferencesApi } from './api/userPreferencesApi';
-import { webhookApi } from './api/webhookApi';
-import { authApi } from './api/authApi';
-import { contactsApi } from './api/contactsApi';
-import authReducer from './slices/authSlice';
-import themeReducer from './slices/themeSlice';
-import workspaceReducer from './slices/workspaceSlice';
+import { configureStore } from '@reduxjs/toolkit'
+import { setupListeners } from '@reduxjs/toolkit/query/react'
+import { mongoApi } from './api/mongoApi'
+import { userPreferencesApi } from './api/userPreferencesApi'
+import { webhookApi } from './api/webhookApi'
+import { authApi } from './api/authApi'
+import { contactsApi } from './api/contactsApi'
+import authReducer from './slices/authSlice'
+import themeReducer from './slices/themeSlice'
+import workspaceReducer from './slices/workspaceSlice'
 // No persistence middleware needed - using RTK Query for server sync
 
 export const store = configureStore({
@@ -21,7 +21,7 @@ export const store = configureStore({
     [authApi.reducerPath]: authApi.reducer,
     [contactsApi.reducerPath]: contactsApi.reducer,
   } as any,
-  middleware: (getDefaultMiddleware) =>
+  middleware: getDefaultMiddleware =>
     getDefaultMiddleware().concat(
       mongoApi.middleware,
       userPreferencesApi.middleware,
@@ -29,9 +29,9 @@ export const store = configureStore({
       authApi.middleware,
       contactsApi.middleware
     ),
-});
+})
 
-setupListeners(store.dispatch);
+setupListeners(store.dispatch)
 
-export type RootState = ReturnType<typeof store.getState>;
-export type AppDispatch = typeof store.dispatch;
+export type RootState = ReturnType<typeof store.getState>
+export type AppDispatch = typeof store.dispatch

@@ -1,33 +1,53 @@
-'use client';
+'use client'
 
-import { useState } from 'react';
-import { useSelector } from 'react-redux';
-import { RootState } from '@/lib/store';
-import { useGetContactsQuery } from '@/lib/api/contactsApi';
-import { ContactList } from '@/components/contacts/ContactList';
-import { ContactForm } from '@/components/contacts/ContactForm';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { Plus, Search, Filter } from 'lucide-react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
+import { useState } from 'react'
+import { useSelector } from 'react-redux'
+import { RootState } from '@/lib/store'
+import { useGetContactsQuery } from '@/lib/api/contactsApi'
+import { ContactList } from '@/components/contacts/ContactList'
+import { ContactForm } from '@/components/contacts/ContactForm'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog'
+import { Plus, Search, Filter } from 'lucide-react'
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card'
+import { Badge } from '@/components/ui/badge'
 
 export default function ContactsPage() {
-  const currentWorkspace = useSelector((state: RootState) => state.workspace.currentWorkspace);
-  const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [statusFilter, setStatusFilter] = useState('');
-  const [categoryFilter, setCategoryFilter] = useState('');
-  const [priorityFilter, setPriorityFilter] = useState('');
-  const [page, setPage] = useState(1);
+  const currentWorkspace = useSelector(
+    (state: RootState) => state.workspace.currentWorkspace
+  )
+  const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false)
+  const [searchTerm, setSearchTerm] = useState('')
+  const [statusFilter, setStatusFilter] = useState('')
+  const [categoryFilter, setCategoryFilter] = useState('')
+  const [priorityFilter, setPriorityFilter] = useState('')
+  const [page, setPage] = useState(1)
 
   const {
     data: contactsData,
     isLoading,
     error,
-    refetch
+    refetch,
   } = useGetContactsQuery(
     {
       workspaceId: currentWorkspace?.id || '',
@@ -42,50 +62,52 @@ export default function ContactsPage() {
       skip: !currentWorkspace?.id,
       refetchOnMountOrArgChange: true,
     }
-  );
+  )
 
   const handleCreateSuccess = () => {
-    setIsCreateDialogOpen(false);
-    refetch();
-  };
+    setIsCreateDialogOpen(false)
+    refetch()
+  }
 
   const handleSearch = (value: string) => {
-    setSearchTerm(value);
-    setPage(1); // Reset to first page when searching
-  };
+    setSearchTerm(value)
+    setPage(1) // Reset to first page when searching
+  }
 
   const handleFilterChange = (filterType: string, value: string) => {
     // Convert "all" values to empty string for API filtering
-    const filterValue = value === 'all' ? '' : value;
+    const filterValue = value === 'all' ? '' : value
 
     switch (filterType) {
       case 'status':
-        setStatusFilter(filterValue);
-        break;
+        setStatusFilter(filterValue)
+        break
       case 'category':
-        setCategoryFilter(filterValue);
-        break;
+        setCategoryFilter(filterValue)
+        break
       case 'priority':
-        setPriorityFilter(filterValue);
-        break;
+        setPriorityFilter(filterValue)
+        break
     }
-    setPage(1); // Reset to first page when filtering
-  };
+    setPage(1) // Reset to first page when filtering
+  }
 
   const clearFilters = () => {
-    setSearchTerm('');
-    setStatusFilter('');
-    setCategoryFilter('');
-    setPriorityFilter('');
-    setPage(1);
-  };
+    setSearchTerm('')
+    setStatusFilter('')
+    setCategoryFilter('')
+    setPriorityFilter('')
+    setPage(1)
+  }
 
   if (!currentWorkspace) {
     return (
-      <div className="flex items-center justify-center h-64">
-        <p className="text-muted-foreground">Please select a workspace to view contacts.</p>
+      <div className="flex h-64 items-center justify-center">
+        <p className="text-muted-foreground">
+          Please select a workspace to view contacts.
+        </p>
       </div>
-    );
+    )
   }
 
   return (
@@ -105,7 +127,7 @@ export default function ContactsPage() {
               Add Contact
             </Button>
           </DialogTrigger>
-          <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+          <DialogContent className="max-h-[90vh] max-w-2xl overflow-y-auto">
             <DialogHeader>
               <DialogTitle>Create New Contact</DialogTitle>
             </DialogHeader>
@@ -123,19 +145,28 @@ export default function ContactsPage() {
         <div className="grid gap-4 md:grid-cols-4">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Total Contacts</CardTitle>
+              <CardTitle className="text-sm font-medium">
+                Total Contacts
+              </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{contactsData.pagination.total}</div>
+              <div className="text-2xl font-bold">
+                {contactsData.pagination.total}
+              </div>
             </CardContent>
           </Card>
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Active Contacts</CardTitle>
+              <CardTitle className="text-sm font-medium">
+                Active Contacts
+              </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">
-                {contactsData.contacts.filter(c => c.status === 'active').length}
+                {
+                  contactsData.contacts.filter(c => c.status === 'active')
+                    .length
+                }
               </div>
             </CardContent>
           </Card>
@@ -145,7 +176,10 @@ export default function ContactsPage() {
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">
-                {contactsData.contacts.filter(c => c.category === 'client').length}
+                {
+                  contactsData.contacts.filter(c => c.category === 'client')
+                    .length
+                }
               </div>
             </CardContent>
           </Card>
@@ -155,7 +189,10 @@ export default function ContactsPage() {
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">
-                {contactsData.contacts.filter(c => c.category === 'prospect').length}
+                {
+                  contactsData.contacts.filter(c => c.category === 'prospect')
+                    .length
+                }
               </div>
             </CardContent>
           </Card>
@@ -168,19 +205,22 @@ export default function ContactsPage() {
           <CardTitle className="text-lg">Search & Filter</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="flex flex-col space-y-4 md:flex-row md:space-y-0 md:space-x-4">
+          <div className="flex flex-col space-y-4 md:flex-row md:space-x-4 md:space-y-0">
             <div className="flex-1">
               <div className="relative">
                 <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                 <Input
                   placeholder="Search contacts by name, email, company..."
                   value={searchTerm}
-                  onChange={(e) => handleSearch(e.target.value)}
+                  onChange={e => handleSearch(e.target.value)}
                   className="pl-10"
                 />
               </div>
             </div>
-            <Select value={statusFilter || 'all'} onValueChange={(value) => handleFilterChange('status', value)}>
+            <Select
+              value={statusFilter || 'all'}
+              onValueChange={value => handleFilterChange('status', value)}
+            >
               <SelectTrigger className="w-full md:w-[180px]">
                 <SelectValue placeholder="Status" />
               </SelectTrigger>
@@ -191,7 +231,10 @@ export default function ContactsPage() {
                 <SelectItem value="archived">Archived</SelectItem>
               </SelectContent>
             </Select>
-            <Select value={categoryFilter || 'all'} onValueChange={(value) => handleFilterChange('category', value)}>
+            <Select
+              value={categoryFilter || 'all'}
+              onValueChange={value => handleFilterChange('category', value)}
+            >
               <SelectTrigger className="w-full md:w-[180px]">
                 <SelectValue placeholder="Category" />
               </SelectTrigger>
@@ -204,7 +247,10 @@ export default function ContactsPage() {
                 <SelectItem value="other">Other</SelectItem>
               </SelectContent>
             </Select>
-            <Select value={priorityFilter || 'all'} onValueChange={(value) => handleFilterChange('priority', value)}>
+            <Select
+              value={priorityFilter || 'all'}
+              onValueChange={value => handleFilterChange('priority', value)}
+            >
               <SelectTrigger className="w-full md:w-[180px]">
                 <SelectValue placeholder="Priority" />
               </SelectTrigger>
@@ -215,35 +261,30 @@ export default function ContactsPage() {
                 <SelectItem value="low">Low</SelectItem>
               </SelectContent>
             </Select>
-            {(searchTerm || statusFilter || categoryFilter || priorityFilter) && (
+            {(searchTerm ||
+              statusFilter ||
+              categoryFilter ||
+              priorityFilter) && (
               <Button variant="outline" onClick={clearFilters}>
                 Clear Filters
               </Button>
             )}
           </div>
-          
+
           {/* Active Filters Display */}
           {(searchTerm || statusFilter || categoryFilter || priorityFilter) && (
-            <div className="flex flex-wrap gap-2 mt-4">
+            <div className="mt-4 flex flex-wrap gap-2">
               {searchTerm && (
-                <Badge variant="secondary">
-                  Search: {searchTerm}
-                </Badge>
+                <Badge variant="secondary">Search: {searchTerm}</Badge>
               )}
               {statusFilter && (
-                <Badge variant="secondary">
-                  Status: {statusFilter}
-                </Badge>
+                <Badge variant="secondary">Status: {statusFilter}</Badge>
               )}
               {categoryFilter && (
-                <Badge variant="secondary">
-                  Category: {categoryFilter}
-                </Badge>
+                <Badge variant="secondary">Category: {categoryFilter}</Badge>
               )}
               {priorityFilter && (
-                <Badge variant="secondary">
-                  Priority: {priorityFilter}
-                </Badge>
+                <Badge variant="secondary">Priority: {priorityFilter}</Badge>
               )}
             </div>
           )}
@@ -260,5 +301,5 @@ export default function ContactsPage() {
         workspaceId={currentWorkspace.id}
       />
     </div>
-  );
+  )
 }

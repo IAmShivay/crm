@@ -2,14 +2,16 @@ import { NextRequest } from 'next/server'
 import { createMocks } from 'node-mocks-http'
 
 // Create mock Next.js request
-export function createMockRequest(options: {
-  method?: string
-  url?: string
-  headers?: Record<string, string>
-  body?: any
-  query?: Record<string, string>
-  cookies?: Record<string, string>
-} = {}) {
+export function createMockRequest(
+  options: {
+    method?: string
+    url?: string
+    headers?: Record<string, string>
+    body?: any
+    query?: Record<string, string>
+    cookies?: Record<string, string>
+  } = {}
+) {
   const {
     method = 'GET',
     url = '/api/test',
@@ -44,16 +46,16 @@ export function createMockResponse() {
     status: 200,
     headers: new Map(),
     body: null,
-    json: function(data: any) {
+    json: function (data: any) {
       this.body = data
       this.headers.set('Content-Type', 'application/json')
       return this
     },
-    setStatus: function(status: number) {
+    setStatus: function (status: number) {
       this.status = status
       return this
     },
-    setHeader: function(key: string, value: string) {
+    setHeader: function (key: string, value: string) {
       this.headers.set(key, value)
       return this
     },
@@ -116,8 +118,13 @@ export function validateApiResponse(response: any, expectedStructure: any) {
         // Type check
         if (expectedType === 'array' && !Array.isArray(actualValue)) {
           errors.push(`Expected ${currentPath} to be an array`)
-        } else if (expectedType !== 'array' && typeof actualValue !== expectedType) {
-          errors.push(`Expected ${currentPath} to be ${expectedType}, got ${typeof actualValue}`)
+        } else if (
+          expectedType !== 'array' &&
+          typeof actualValue !== expectedType
+        ) {
+          errors.push(
+            `Expected ${currentPath} to be ${expectedType}, got ${typeof actualValue}`
+          )
         }
       } else if (typeof expectedType === 'object' && expectedType !== null) {
         // Nested object validation
@@ -235,12 +242,14 @@ export function mockAuthMiddleware(shouldAuthenticate = true, user = null) {
       return null
     }
 
-    return user || {
-      id: 'test-user-id',
-      email: 'test@example.com',
-      fullName: 'Test User',
-      workspaceId: 'test-workspace-id',
-    }
+    return (
+      user || {
+        id: 'test-user-id',
+        email: 'test@example.com',
+        fullName: 'Test User',
+        workspaceId: 'test-workspace-id',
+      }
+    )
   })
 }
 
@@ -256,13 +265,18 @@ export function generateMockWebhookSignature(payload: string, secret: string) {
 }
 
 // Test helper for async operations
-export async function expectAsyncError(asyncFn: () => Promise<any>, expectedError?: string) {
+export async function expectAsyncError(
+  asyncFn: () => Promise<any>,
+  expectedError?: string
+) {
   try {
     await asyncFn()
     throw new Error('Expected function to throw an error')
   } catch (error) {
     if (expectedError && !error.message.includes(expectedError)) {
-      throw new Error(`Expected error message to contain "${expectedError}", got "${error.message}"`)
+      throw new Error(
+        `Expected error message to contain "${expectedError}", got "${error.message}"`
+      )
     }
     return error
   }

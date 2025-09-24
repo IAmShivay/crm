@@ -1,6 +1,9 @@
-import { LeadStatus, Tag, Role } from './client';
+import { LeadStatus, Tag, Role } from './client'
 
-export async function seedDefaultLeadStatuses(workspaceId: string, userId: string) {
+export async function seedDefaultLeadStatuses(
+  workspaceId: string,
+  userId: string
+) {
   const defaultStatuses = [
     {
       workspaceId,
@@ -10,7 +13,7 @@ export async function seedDefaultLeadStatuses(workspaceId: string, userId: strin
       order: 1,
       isDefault: true,
       isActive: true,
-      createdBy: userId
+      createdBy: userId,
     },
     {
       workspaceId,
@@ -20,7 +23,7 @@ export async function seedDefaultLeadStatuses(workspaceId: string, userId: strin
       order: 2,
       isDefault: false,
       isActive: true,
-      createdBy: userId
+      createdBy: userId,
     },
     {
       workspaceId,
@@ -30,7 +33,7 @@ export async function seedDefaultLeadStatuses(workspaceId: string, userId: strin
       order: 3,
       isDefault: false,
       isActive: true,
-      createdBy: userId
+      createdBy: userId,
     },
     {
       workspaceId,
@@ -40,7 +43,7 @@ export async function seedDefaultLeadStatuses(workspaceId: string, userId: strin
       order: 4,
       isDefault: false,
       isActive: true,
-      createdBy: userId
+      createdBy: userId,
     },
     {
       workspaceId,
@@ -50,7 +53,7 @@ export async function seedDefaultLeadStatuses(workspaceId: string, userId: strin
       order: 5,
       isDefault: false,
       isActive: true,
-      createdBy: userId
+      createdBy: userId,
     },
     {
       workspaceId,
@@ -60,7 +63,7 @@ export async function seedDefaultLeadStatuses(workspaceId: string, userId: strin
       order: 6,
       isDefault: false,
       isActive: true,
-      createdBy: userId
+      createdBy: userId,
     },
     {
       workspaceId,
@@ -70,19 +73,21 @@ export async function seedDefaultLeadStatuses(workspaceId: string, userId: strin
       order: 7,
       isDefault: false,
       isActive: true,
-      createdBy: userId
-    }
-  ];
+      createdBy: userId,
+    },
+  ]
 
   try {
     // Check if statuses already exist
-    const existingCount = await LeadStatus.countDocuments({ workspaceId });
+    const existingCount = await LeadStatus.countDocuments({ workspaceId })
     if (existingCount === 0) {
-      await LeadStatus.insertMany(defaultStatuses);
-      console.log(`Created ${defaultStatuses.length} default lead statuses for workspace ${workspaceId}`);
+      await LeadStatus.insertMany(defaultStatuses)
+      console.log(
+        `Created ${defaultStatuses.length} default lead statuses for workspace ${workspaceId}`
+      )
     }
   } catch (error) {
-    console.error('Error seeding default lead statuses:', error);
+    console.error('Error seeding default lead statuses:', error)
   }
 }
 
@@ -93,54 +98,56 @@ export async function seedDefaultTags(workspaceId: string, userId: string) {
       name: 'Hot Lead',
       color: '#ef4444',
       description: 'High priority leads',
-      createdBy: userId
+      createdBy: userId,
     },
     {
       workspaceId,
       name: 'Warm Lead',
       color: '#f59e0b',
       description: 'Medium priority leads',
-      createdBy: userId
+      createdBy: userId,
     },
     {
       workspaceId,
       name: 'Cold Lead',
       color: '#6b7280',
       description: 'Low priority leads',
-      createdBy: userId
+      createdBy: userId,
     },
     {
       workspaceId,
       name: 'Enterprise',
       color: '#8b5cf6',
       description: 'Enterprise clients',
-      createdBy: userId
+      createdBy: userId,
     },
     {
       workspaceId,
       name: 'SMB',
       color: '#10b981',
       description: 'Small and medium business',
-      createdBy: userId
+      createdBy: userId,
     },
     {
       workspaceId,
       name: 'Follow Up',
       color: '#3b82f6',
       description: 'Requires follow up',
-      createdBy: userId
-    }
-  ];
+      createdBy: userId,
+    },
+  ]
 
   try {
     // Check if tags already exist
-    const existingCount = await Tag.countDocuments({ workspaceId });
+    const existingCount = await Tag.countDocuments({ workspaceId })
     if (existingCount === 0) {
-      await Tag.insertMany(defaultTags);
-      console.log(`Created ${defaultTags.length} default tags for workspace ${workspaceId}`);
+      await Tag.insertMany(defaultTags)
+      console.log(
+        `Created ${defaultTags.length} default tags for workspace ${workspaceId}`
+      )
     }
   } catch (error) {
-    console.error('Error seeding default tags:', error);
+    console.error('Error seeding default tags:', error)
   }
 }
 
@@ -162,10 +169,10 @@ export async function seedDefaultRoles(workspaceId: string, userId: string) {
         'workspace.manage',
         'roles.manage',
         'webhooks.manage',
-        'analytics.view'
+        'analytics.view',
       ],
       isDefault: true,
-      createdBy: userId
+      createdBy: userId,
     },
     {
       workspaceId,
@@ -177,52 +184,50 @@ export async function seedDefaultRoles(workspaceId: string, userId: string) {
         'leads.update',
         'leads.delete',
         'users.read',
-        'analytics.view'
+        'analytics.view',
       ],
       isDefault: false,
-      createdBy: userId
+      createdBy: userId,
     },
     {
       workspaceId,
       name: 'Sales Rep',
       description: 'Basic sales representative access',
-      permissions: [
-        'leads.create',
-        'leads.read',
-        'leads.update'
-      ],
+      permissions: ['leads.create', 'leads.read', 'leads.update'],
       isDefault: false,
-      createdBy: userId
+      createdBy: userId,
     },
     {
       workspaceId,
       name: 'Viewer',
       description: 'Read-only access',
-      permissions: [
-        'leads.read',
-        'analytics.view'
-      ],
+      permissions: ['leads.read', 'analytics.view'],
       isDefault: false,
-      createdBy: userId
-    }
-  ];
+      createdBy: userId,
+    },
+  ]
 
   try {
     // Check if roles already exist
-    const existingCount = await Role.countDocuments({ workspaceId });
+    const existingCount = await Role.countDocuments({ workspaceId })
     if (existingCount === 0) {
-      await Role.insertMany(defaultRoles);
-      console.log(`Created ${defaultRoles.length} default roles for workspace ${workspaceId}`);
+      await Role.insertMany(defaultRoles)
+      console.log(
+        `Created ${defaultRoles.length} default roles for workspace ${workspaceId}`
+      )
     }
   } catch (error) {
-    console.error('Error seeding default roles:', error);
+    console.error('Error seeding default roles:', error)
   }
 }
 
-export async function seedWorkspaceDefaults(workspaceId: string, userId: string) {
+export async function seedWorkspaceDefaults(
+  workspaceId: string,
+  userId: string
+) {
   await Promise.all([
     seedDefaultLeadStatuses(workspaceId, userId),
     seedDefaultTags(workspaceId, userId),
-    seedDefaultRoles(workspaceId, userId)
-  ]);
+    seedDefaultRoles(workspaceId, userId),
+  ])
 }

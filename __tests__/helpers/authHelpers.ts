@@ -11,7 +11,7 @@ export function generateTestJWT(payload = {}) {
       workspaceId: 'test-workspace-id',
     },
     iat: Math.floor(Date.now() / 1000),
-    exp: Math.floor(Date.now() / 1000) + (60 * 60), // 1 hour
+    exp: Math.floor(Date.now() / 1000) + 60 * 60, // 1 hour
     ...payload,
   }
 
@@ -27,8 +27,8 @@ export function generateExpiredJWT(payload = {}) {
       fullName: 'Test User',
       workspaceId: 'test-workspace-id',
     },
-    iat: Math.floor(Date.now() / 1000) - (60 * 60 * 2), // 2 hours ago
-    exp: Math.floor(Date.now() / 1000) - (60 * 60), // 1 hour ago (expired)
+    iat: Math.floor(Date.now() / 1000) - 60 * 60 * 2, // 2 hours ago
+    exp: Math.floor(Date.now() / 1000) - 60 * 60, // 1 hour ago (expired)
     ...payload,
   }
 
@@ -49,7 +49,7 @@ export async function hashTestPassword(password: string) {
 export function createAuthHeaders(token?: string) {
   const authToken = token || generateTestJWT()
   return {
-    'Authorization': `Bearer ${authToken}`,
+    Authorization: `Bearer ${authToken}`,
     'Content-Type': 'application/json',
   }
 }
@@ -59,7 +59,7 @@ export function createAuthenticatedRequest(options = {}) {
   const token = generateTestJWT()
   return {
     headers: new Headers({
-      'Authorization': `Bearer ${token}`,
+      Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
       ...options.headers,
     }),
@@ -102,34 +102,48 @@ export function extractJWTPayload(token: string) {
 // Mock user permissions
 export const mockPermissions = {
   admin: [
-    'leads:read', 'leads:write', 'leads:delete',
-    'contacts:read', 'contacts:write', 'contacts:delete',
-    'users:read', 'users:write', 'users:invite', 'users:delete',
-    'roles:read', 'roles:write', 'roles:delete',
-    'webhooks:read', 'webhooks:write', 'webhooks:delete',
-    'reports:read', 'reports:write',
-    'settings:read', 'settings:write',
+    'leads:read',
+    'leads:write',
+    'leads:delete',
+    'contacts:read',
+    'contacts:write',
+    'contacts:delete',
+    'users:read',
+    'users:write',
+    'users:invite',
+    'users:delete',
+    'roles:read',
+    'roles:write',
+    'roles:delete',
+    'webhooks:read',
+    'webhooks:write',
+    'webhooks:delete',
+    'reports:read',
+    'reports:write',
+    'settings:read',
+    'settings:write',
     'workspace:admin',
   ],
   manager: [
-    'leads:read', 'leads:write',
-    'contacts:read', 'contacts:write',
-    'users:read', 'users:invite',
+    'leads:read',
+    'leads:write',
+    'contacts:read',
+    'contacts:write',
+    'users:read',
+    'users:invite',
     'roles:read',
     'webhooks:read',
     'reports:read',
     'settings:read',
   ],
   sales: [
-    'leads:read', 'leads:write',
-    'contacts:read', 'contacts:write',
-    'reports:read',
-  ],
-  viewer: [
     'leads:read',
+    'leads:write',
     'contacts:read',
+    'contacts:write',
     'reports:read',
   ],
+  viewer: ['leads:read', 'contacts:read', 'reports:read'],
 }
 
 // Generate JWT with specific role

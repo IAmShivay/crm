@@ -1,41 +1,45 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { Webhook, WebhookLog, Lead, Tag } from '@/lib/mongodb/client';
-import { webhookLeadSchema } from '@/lib/security/validation';
-import { processWebhook, detectWebhookType } from '@/lib/webhooks/processors';
-import crypto from 'crypto';
+import { NextRequest, NextResponse } from 'next/server'
+import { Webhook, WebhookLog, Lead, Tag } from '@/lib/mongodb/client'
+import { webhookLeadSchema } from '@/lib/security/validation'
+import { processWebhook, detectWebhookType } from '@/lib/webhooks/processors'
+import crypto from 'crypto'
 
 // POST /api/webhooks/receive/[id] - Receive webhook data
-export async function POST(request: NextRequest, { params }: { params: { id: string } }) {
-  const startTime = Date.now();
-  const webhookId = params.id;
-  
-  let workspaceId = 'unknown';
+export async function POST(
+  request: NextRequest,
+  { params }: { params: { id: string } }
+) {
+  const startTime = Date.now()
+  const webhookId = params.id
+
+  let workspaceId = 'unknown'
 
   try {
     // Find the webhook
-    const webhook = await Webhook.findById(webhookId);
+    const webhook = await Webhook.findById(webhookId)
     if (!webhook || !webhook.isActive) {
       return NextResponse.json(
         { error: 'Webhook not found or inactive' },
         { status: 404 }
-      );
+      )
     }
 
-    workspaceId = webhook.workspaceId;
+    workspaceId = webhook.workspaceId
 
     // Get request details
-    const method = request.method;
-    const url = request.url;
-    const headers = Object.fromEntries(request.headers.entries());
-    const userAgent = headers['user-agent'] || '';
-    const ipAddress = headers['x-forwarded-for'] || headers['x-real-ip'] || 'unknown';
-    
-    let body: any;
-    let rawBody: string = '';
+    const method = request.method
+    const url = request.url
+    const headers = Object.fromEntries(request.headers.entries())
+    const userAgent = headers['user-agent'] || ''
+    const ipAddress =
+      headers['x-forwarded-for'] || headers['x-real-ip'] || 'unknown'
+
+    let body: any
+    let rawBody: string = ''
 
     try {
-      rawBody = await request.text();
-      body = rawBody ? JSON.parse(rawBody) : {};
+      rawBody = await request.text()
+      body = rawBody ? JSON.parse(rawBody) : {}
     } catch (error) {
       // Log the failed request
       await WebhookLog.create({
@@ -49,25 +53,26 @@ export async function POST(request: NextRequest, { params }: { params: { id: str
         success: false,
         errorMessage: 'Invalid JSON payload',
         userAgent,
-        ipAddress
-      });
+        ipAddress,
+      })
 
       return NextResponse.json(
         { error: 'Invalid JSON payload' },
         { status: 400 }
-      );
+      )
     }
 
     // Verify webhook signature if secret is provided in headers
-    const signature = headers['x-webhook-signature'] || headers['x-hub-signature-256'];
+    const signature =
+      headers['x-webhook-signature'] || headers['x-hub-signature-256']
     if (signature && webhook.secret) {
       const expectedSignature = crypto
         .createHmac('sha256', webhook.secret)
         .update(rawBody)
-        .digest('hex');
-      
-      const providedSignature = signature.replace('sha256=', '');
-      
+        .digest('hex')
+
+      const providedSignature = signature.replace('sha256=', '')
+
       if (expectedSignature !== providedSignature) {
         await WebhookLog.create({
           webhookId,
@@ -80,25 +85,26 @@ export async function POST(request: NextRequest, { params }: { params: { id: str
           success: false,
           errorMessage: 'Invalid webhook signature',
           userAgent,
-          ipAddress
-        });
+          ipAddress,
+        })
 
         return NextResponse.json(
           { error: 'Invalid webhook signature' },
           { status: 401 }
-        );
+        )
       }
     }
 
     // Process the webhook data using the appropriate processor
-    let processedData: any;
+    let processedData: any
 
     try {
       // Auto-detect webhook type if not specified or use configured type
-      const webhookType = webhook.webhookType || detectWebhookType(request, body);
+      const webhookType =
+        webhook.webhookType || detectWebhookType(request, body)
 
       // Process the webhook data
-      processedData = await processWebhook(webhookType, body, request);
+      processedData = await processWebhook(webhookType, body, request)
     } catch (error) {
       await WebhookLog.create({
         webhookId,
@@ -111,18 +117,18 @@ export async function POST(request: NextRequest, { params }: { params: { id: str
         success: false,
         errorMessage: `Data transformation failed: ${error instanceof Error ? error.message : String(error)}`,
         userAgent,
-        ipAddress
-      });
+        ipAddress,
+      })
 
       return NextResponse.json(
         { error: 'Data transformation failed' },
         { status: 400 }
-      );
+      )
     }
 
     // Process all leads from the webhook
-    const createdLeads = [];
-    const errors = [];
+    const createdLeads = []
+    const errors = []
 
     for (const leadData of processedData.leads) {
       try {
@@ -134,15 +140,15 @@ export async function POST(request: NextRequest, { params }: { params: { id: str
           company: leadData.company,
           source: leadData.source,
           value: leadData.value,
-          custom_fields: leadData.customFields
-        });
+          custom_fields: leadData.customFields,
+        })
 
         if (!validationResult.success) {
           errors.push({
             leadData: leadData.name || leadData.email,
-            error: validationResult.error.errors.map(e => e.message).join(', ')
-          });
-          continue;
+            error: validationResult.error.errors.map(e => e.message).join(', '),
+          })
+          continue
         }
 
         // Create the lead
@@ -158,58 +164,63 @@ export async function POST(request: NextRequest, { params }: { params: { id: str
           priority: leadData.priority || 'medium',
           customFields: validationResult.data.custom_fields || {},
           createdBy: webhook.createdBy,
-          notes: leadData.notes || `Created via ${webhook.name} webhook (${processedData.provider})`
-        });
+          notes:
+            leadData.notes ||
+            `Created via ${webhook.name} webhook (${processedData.provider})`,
+        })
 
         // Add tags if provided
         if (leadData.tags && leadData.tags.length > 0) {
           // Find or create tags
-          const tagIds = [];
+          const tagIds = []
           for (const tagName of leadData.tags) {
-            let tag = await Tag.findOne({ name: tagName, workspaceId: webhook.workspaceId });
+            let tag = await Tag.findOne({
+              name: tagName,
+              workspaceId: webhook.workspaceId,
+            })
             if (!tag) {
               tag = await Tag.create({
                 name: tagName,
                 color: '#3b82f6',
                 workspaceId: webhook.workspaceId,
-                createdBy: webhook.createdBy
-              });
+                createdBy: webhook.createdBy,
+              })
             }
-            tagIds.push(tag._id);
+            tagIds.push(tag._id)
           }
 
           // Update lead with tags
-          await Lead.findByIdAndUpdate(lead._id, { tagIds });
+          await Lead.findByIdAndUpdate(lead._id, { tagIds })
         }
 
-        createdLeads.push(lead);
+        createdLeads.push(lead)
       } catch (error) {
         errors.push({
           leadData: leadData.name || leadData.email,
-          error: error instanceof Error ? error.message : 'Unknown error'
-        });
+          error: error instanceof Error ? error.message : 'Unknown error',
+        })
       }
     }
 
     // Update webhook statistics
-    const successCount = createdLeads.length;
-    const errorCount = errors.length;
+    const successCount = createdLeads.length
+    const errorCount = errors.length
 
     await Webhook.findByIdAndUpdate(webhookId, {
       $inc: {
         totalRequests: 1,
-        successfulRequests: successCount > 0 ? 1 : 0
+        successfulRequests: successCount > 0 ? 1 : 0,
       },
-      lastTriggered: new Date()
-    });
+      lastTriggered: new Date(),
+    })
 
     // Log webhook processing
     const responseBody = {
       success: successCount > 0,
       created: successCount,
       failed: errorCount,
-      leadIds: createdLeads.map(lead => lead._id)
-    };
+      leadIds: createdLeads.map(lead => lead._id),
+    }
 
     await WebhookLog.create({
       webhookId,
@@ -222,10 +233,11 @@ export async function POST(request: NextRequest, { params }: { params: { id: str
       responseBody,
       processingTime: Date.now() - startTime,
       success: successCount > 0,
-      leadId: createdLeads.length > 0 ? createdLeads[0]._id.toString() : undefined,
+      leadId:
+        createdLeads.length > 0 ? createdLeads[0]._id.toString() : undefined,
       userAgent,
-      ipAddress
-    });
+      ipAddress,
+    })
 
     return NextResponse.json({
       success: true,
@@ -234,20 +246,19 @@ export async function POST(request: NextRequest, { params }: { params: { id: str
         created: successCount,
         failed: errorCount,
         leadIds: createdLeads.map(lead => lead._id),
-        errors: errors.length > 0 ? errors : undefined
-      }
-    });
-
+        errors: errors.length > 0 ? errors : undefined,
+      },
+    })
   } catch (error) {
-    console.error('Webhook processing error:', error);
+    console.error('Webhook processing error:', error)
 
     // Update webhook statistics for failed request
     await Webhook.findByIdAndUpdate(webhookId, {
-      $inc: { 
+      $inc: {
         totalRequests: 1,
-        failedRequests: 1
-      }
-    });
+        failedRequests: 1,
+      },
+    })
 
     // Log failed request
     try {
@@ -260,18 +271,18 @@ export async function POST(request: NextRequest, { params }: { params: { id: str
         body: {},
         processingTime: Date.now() - startTime,
         success: false,
-        errorMessage: error instanceof Error ? error.message : 'Internal server error',
+        errorMessage:
+          error instanceof Error ? error.message : 'Internal server error',
         userAgent: request.headers.get('user-agent') || '',
-        ipAddress: request.headers.get('x-forwarded-for') || 'unknown'
-      });
+        ipAddress: request.headers.get('x-forwarded-for') || 'unknown',
+      })
     } catch (logError) {
-      console.error('Failed to log webhook error:', logError);
+      console.error('Failed to log webhook error:', logError)
     }
 
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }
-    );
+    )
   }
 }
-

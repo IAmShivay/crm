@@ -1,24 +1,31 @@
-'use client';
+'use client'
 
-import { useState, useEffect } from 'react';
-import { Plus, Search, MoreHorizontal, Trash2, Eye, UserPlus } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
+import { useState, useEffect } from 'react'
+import {
+  Plus,
+  Search,
+  MoreHorizontal,
+  Trash2,
+  Eye,
+  UserPlus,
+} from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Badge } from '@/components/ui/badge'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+} from '@/components/ui/dropdown-menu'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
+} from '@/components/ui/select'
 import {
   Table,
   TableBody,
@@ -26,7 +33,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table';
+} from '@/components/ui/table'
 import {
   Dialog,
   DialogContent,
@@ -34,146 +41,170 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialog';
-import { useAppSelector } from '@/lib/hooks';
-import { toast } from 'sonner';
-import { LeadForm } from './LeadForm';
-import { LeadDetailsSheet } from './LeadDetailsSheet';
-import { TableSkeleton, PageHeaderSkeleton } from '@/components/ui/skeleton';
-import { useGetLeadsQuery, useDeleteLeadMutation, useGetLeadStatusesQuery } from '@/lib/api/mongoApi';
-import { useConvertLeadToContactMutation } from '@/lib/api/contactsApi';
+} from '@/components/ui/dialog'
+import { useAppSelector } from '@/lib/hooks'
+import { toast } from 'sonner'
+import { LeadForm } from './LeadForm'
+import { LeadDetailsSheet } from './LeadDetailsSheet'
+import { TableSkeleton, PageHeaderSkeleton } from '@/components/ui/skeleton'
+import {
+  useGetLeadsQuery,
+  useDeleteLeadMutation,
+  useGetLeadStatusesQuery,
+} from '@/lib/api/mongoApi'
+import { useConvertLeadToContactMutation } from '@/lib/api/contactsApi'
 
 const statusColors = {
   new: 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300',
-  contacted: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300',
-  qualified: 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300',
-  proposal: 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-300',
-  negotiation: 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-300',
-  closed_won: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-300',
+  contacted:
+    'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300',
+  qualified:
+    'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300',
+  proposal:
+    'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-300',
+  negotiation:
+    'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-300',
+  closed_won:
+    'bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-300',
   closed_lost: 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-300',
-};
+}
 
 export function LeadList() {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [statusFilter, setStatusFilter] = useState('all');
-  const [isCreateOpen, setIsCreateOpen] = useState(false);
-  const [selectedLead, setSelectedLead] = useState<any>(null);
-  const [isDetailsOpen, setIsDetailsOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('')
+  const [statusFilter, setStatusFilter] = useState('all')
+  const [isCreateOpen, setIsCreateOpen] = useState(false)
+  const [selectedLead, setSelectedLead] = useState<any>(null)
+  const [isDetailsOpen, setIsDetailsOpen] = useState(false)
 
-  const { currentWorkspace } = useAppSelector((state) => state.workspace);
+  const { currentWorkspace } = useAppSelector(state => state.workspace)
 
   // RTK Query hooks
-  const { data: leadsData, isLoading, error, refetch } = useGetLeadsQuery(
+  const {
+    data: leadsData,
+    isLoading,
+    error,
+    refetch,
+  } = useGetLeadsQuery(
     {
       workspaceId: currentWorkspace?.id || '',
       search: searchTerm,
-      status: statusFilter !== 'all' ? statusFilter : undefined
+      status: statusFilter !== 'all' ? statusFilter : undefined,
     },
     { skip: !currentWorkspace?.id }
-  );
-  const { data: statusesData, isLoading: loadingStatuses } = useGetLeadStatusesQuery(
-    currentWorkspace?.id || '',
-    { skip: !currentWorkspace?.id }
-  );
-  const [deleteLead] = useDeleteLeadMutation();
-  const [convertLeadToContact] = useConvertLeadToContactMutation();
+  )
+  const { data: statusesData, isLoading: loadingStatuses } =
+    useGetLeadStatusesQuery(currentWorkspace?.id || '', {
+      skip: !currentWorkspace?.id,
+    })
+  const [deleteLead] = useDeleteLeadMutation()
+  const [convertLeadToContact] = useConvertLeadToContactMutation()
 
-  const leads = leadsData?.leads || [];
-  const leadStatuses = statusesData?.statuses || [];
+  const leads = leadsData?.leads || []
+  const leadStatuses = statusesData?.statuses || []
 
   const handleDelete = async (id: string) => {
-    if (!currentWorkspace?.id) return;
+    if (!currentWorkspace?.id) return
 
     try {
-      await deleteLead({ id, workspaceId: currentWorkspace.id }).unwrap();
-      toast.success('Lead deleted successfully');
+      await deleteLead({ id, workspaceId: currentWorkspace.id }).unwrap()
+      toast.success('Lead deleted successfully')
     } catch (error) {
-      console.error('Error deleting lead:', error);
-      toast.error('Failed to delete lead');
+      console.error('Error deleting lead:', error)
+      toast.error('Failed to delete lead')
     }
-  };
+  }
 
   const handleViewDetails = (lead: any) => {
-    setSelectedLead(lead);
-    setIsDetailsOpen(true);
-  };
+    setSelectedLead(lead)
+    setIsDetailsOpen(true)
+  }
 
   const handleLeadUpdate = (updatedLead: any) => {
     // Update the selected lead with the new data
-    setSelectedLead(updatedLead);
+    setSelectedLead(updatedLead)
     // Trigger a refetch to update the list
-    refetch();
-  };
+    refetch()
+  }
 
   const handleConvertToContact = async (lead: any) => {
-    if (!currentWorkspace?.id) return;
+    if (!currentWorkspace?.id) return
 
     try {
       const result = await convertLeadToContact({
         leadId: lead.id,
-        workspaceId: currentWorkspace.id
-      }).unwrap();
+        workspaceId: currentWorkspace.id,
+      }).unwrap()
 
-      toast.success(`Lead "${lead.name}" successfully converted to contact!`);
+      toast.success(`Lead "${lead.name}" successfully converted to contact!`)
       // Optionally redirect to contacts page or show contact details
       // router.push('/contacts');
     } catch (error: any) {
-      console.error('Error converting lead to contact:', error);
+      console.error('Error converting lead to contact:', error)
       if (error.data?.message) {
-        toast.error(error.data.message);
+        toast.error(error.data.message)
       } else {
-        toast.error('Failed to convert lead to contact');
+        toast.error('Failed to convert lead to contact')
       }
     }
-  };
+  }
 
   // Since we're filtering on the server side via RTK Query, we don't need client-side filtering
   // But we'll keep search filtering for immediate feedback
   const filteredLeads = leads.filter(lead => {
-    if (!searchTerm) return true;
-    return lead.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-           (lead.email && lead.email.toLowerCase().includes(searchTerm.toLowerCase())) ||
-           (lead.company && lead.company.toLowerCase().includes(searchTerm.toLowerCase()));
-  });
+    if (!searchTerm) return true
+    return (
+      lead.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (lead.email &&
+        lead.email.toLowerCase().includes(searchTerm.toLowerCase())) ||
+      (lead.company &&
+        lead.company.toLowerCase().includes(searchTerm.toLowerCase()))
+    )
+  })
 
   if (isLoading) {
     return (
       <div className="w-full space-y-6">
         <PageHeaderSkeleton />
-        <div className="flex items-center space-x-4 mb-6">
+        <div className="mb-6 flex items-center space-x-4">
           <div className="flex-1">
-            <div className="h-10 bg-muted animate-pulse rounded-md"></div>
+            <div className="h-10 animate-pulse rounded-md bg-muted"></div>
           </div>
-          <div className="h-10 w-32 bg-muted animate-pulse rounded-md"></div>
-          <div className="h-10 w-32 bg-muted animate-pulse rounded-md"></div>
+          <div className="h-10 w-32 animate-pulse rounded-md bg-muted"></div>
+          <div className="h-10 w-32 animate-pulse rounded-md bg-muted"></div>
         </div>
         <TableSkeleton rows={8} columns={6} />
       </div>
-    );
+    )
   }
 
   if (error) {
     return (
-      <div className="text-center py-8">
-        <p className="text-red-600 dark:text-red-400">Error loading leads. Please try again.</p>
+      <div className="py-8 text-center">
+        <p className="text-red-600 dark:text-red-400">
+          Error loading leads. Please try again.
+        </p>
         <Button onClick={() => refetch()} className="mt-4">
           Try Again
         </Button>
       </div>
-    );
+    )
   }
 
   return (
     <div className="w-full space-y-6">
-      <div className="w-full flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="flex w-full flex-col justify-between gap-4 sm:flex-row sm:items-center">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">Leads</h1>
-          <p className="text-gray-600 dark:text-gray-400 mt-1">Manage your sales leads and prospects</p>
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white sm:text-3xl">
+            Leads
+          </h1>
+          <p className="mt-1 text-gray-600 dark:text-gray-400">
+            Manage your sales leads and prospects
+          </p>
         </div>
         <Dialog open={isCreateOpen} onOpenChange={setIsCreateOpen}>
           <DialogTrigger asChild>
             <Button>
-              <Plus className="h-4 w-4 mr-2" />
+              <Plus className="mr-2 h-4 w-4" />
               Add Lead
             </Button>
           </DialogTrigger>
@@ -191,16 +222,16 @@ export function LeadList() {
 
       <Card className="w-full">
         <CardHeader>
-          <div className="w-full flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="flex w-full flex-col justify-between gap-4 sm:flex-row sm:items-center">
             <CardTitle>All Leads ({filteredLeads.length})</CardTitle>
-            <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-2">
+            <div className="flex flex-col items-start space-y-2 sm:flex-row sm:items-center sm:space-x-2 sm:space-y-0">
               <div className="relative w-full sm:w-64">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+                <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 transform text-gray-400" />
                 <Input
                   placeholder="Search leads..."
                   value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10 w-full"
+                  onChange={e => setSearchTerm(e.target.value)}
+                  className="w-full pl-10"
                 />
               </div>
               <Select value={statusFilter} onValueChange={setStatusFilter}>
@@ -210,13 +241,15 @@ export function LeadList() {
                 <SelectContent>
                   <SelectItem value="all">All Statuses</SelectItem>
                   {loadingStatuses ? (
-                    <SelectItem value="loading" disabled>Loading statuses...</SelectItem>
+                    <SelectItem value="loading" disabled>
+                      Loading statuses...
+                    </SelectItem>
                   ) : leadStatuses.length > 0 ? (
-                    leadStatuses.map((status) => (
+                    leadStatuses.map(status => (
                       <SelectItem key={status.id} value={status.id}>
                         <div className="flex items-center space-x-2">
                           <div
-                            className="w-3 h-3 rounded-full"
+                            className="h-3 w-3 rounded-full"
                             style={{ backgroundColor: status.color }}
                           />
                           <span>{status.name}</span>
@@ -224,7 +257,9 @@ export function LeadList() {
                       </SelectItem>
                     ))
                   ) : (
-                    <SelectItem value="no-status" disabled>No statuses available</SelectItem>
+                    <SelectItem value="no-status" disabled>
+                      No statuses available
+                    </SelectItem>
                   )}
                 </SelectContent>
               </Select>
@@ -233,8 +268,10 @@ export function LeadList() {
         </CardHeader>
         <CardContent>
           {filteredLeads.length === 0 ? (
-            <div className="text-center py-8">
-              <p className="text-gray-500">No leads found. Create your first lead to get started.</p>
+            <div className="py-8 text-center">
+              <p className="text-gray-500">
+                No leads found. Create your first lead to get started.
+              </p>
             </div>
           ) : (
             <Table>
@@ -252,7 +289,7 @@ export function LeadList() {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {filteredLeads.map((lead) => (
+                {filteredLeads.map(lead => (
                   <TableRow key={lead.id}>
                     <TableCell className="font-medium">{lead.name}</TableCell>
                     <TableCell>{lead.email || '-'}</TableCell>
@@ -261,7 +298,10 @@ export function LeadList() {
                       {lead.statusId && typeof lead.statusId === 'object' ? (
                         <Badge
                           variant="secondary"
-                          style={{ backgroundColor: lead.statusId.color + '20', color: lead.statusId.color }}
+                          style={{
+                            backgroundColor: lead.statusId.color + '20',
+                            color: lead.statusId.color,
+                          }}
                         >
                           {lead.statusId.name}
                         </Badge>
@@ -273,19 +313,26 @@ export function LeadList() {
                     </TableCell>
                     <TableCell>
                       <div className="flex flex-wrap gap-1">
-                        {lead.tagIds && Array.isArray(lead.tagIds) && lead.tagIds.length > 0 ? (
+                        {lead.tagIds &&
+                        Array.isArray(lead.tagIds) &&
+                        lead.tagIds.length > 0 ? (
                           lead.tagIds.slice(0, 2).map((tag: any) => (
                             <Badge
                               key={tag.id || tag._id}
                               variant="outline"
                               className="text-xs"
-                              style={{ borderColor: tag.color, color: tag.color }}
+                              style={{
+                                borderColor: tag.color,
+                                color: tag.color,
+                              }}
                             >
                               {tag.name}
                             </Badge>
                           ))
                         ) : (
-                          <span className="text-muted-foreground text-sm">-</span>
+                          <span className="text-sm text-muted-foreground">
+                            -
+                          </span>
                         )}
                         {lead.tagIds && lead.tagIds.length > 2 && (
                           <Badge variant="outline" className="text-xs">
@@ -295,15 +342,20 @@ export function LeadList() {
                       </div>
                     </TableCell>
                     <TableCell>
-                      {lead.assignedTo && typeof lead.assignedTo === 'object' ? (
+                      {lead.assignedTo &&
+                      typeof lead.assignedTo === 'object' ? (
                         <div className="flex items-center space-x-2">
-                          <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center text-xs font-medium">
+                          <div className="flex h-6 w-6 items-center justify-center rounded-full bg-primary/10 text-xs font-medium">
                             {lead.assignedTo.fullName?.charAt(0).toUpperCase()}
                           </div>
-                          <span className="text-sm">{lead.assignedTo.fullName}</span>
+                          <span className="text-sm">
+                            {lead.assignedTo.fullName}
+                          </span>
                         </div>
                       ) : (
-                        <span className="text-muted-foreground text-sm">Unassigned</span>
+                        <span className="text-sm text-muted-foreground">
+                          Unassigned
+                        </span>
                       )}
                     </TableCell>
                     <TableCell>
@@ -320,22 +372,24 @@ export function LeadList() {
                           </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
-                          <DropdownMenuItem onClick={() => handleViewDetails(lead)}>
-                            <Eye className="h-4 w-4 mr-2" />
+                          <DropdownMenuItem
+                            onClick={() => handleViewDetails(lead)}
+                          >
+                            <Eye className="mr-2 h-4 w-4" />
                             View & Edit
                           </DropdownMenuItem>
                           <DropdownMenuItem
                             onClick={() => handleConvertToContact(lead)}
                             className="text-green-600"
                           >
-                            <UserPlus className="h-4 w-4 mr-2" />
+                            <UserPlus className="mr-2 h-4 w-4" />
                             Convert to Contact
                           </DropdownMenuItem>
                           <DropdownMenuItem
                             className="text-red-600"
                             onClick={() => handleDelete(lead.id)}
                           >
-                            <Trash2 className="h-4 w-4 mr-2" />
+                            <Trash2 className="mr-2 h-4 w-4" />
                             Delete
                           </DropdownMenuItem>
                         </DropdownMenuContent>
@@ -367,12 +421,12 @@ export function LeadList() {
         lead={selectedLead}
         open={isDetailsOpen}
         onClose={() => {
-          setIsDetailsOpen(false);
-          setSelectedLead(null);
+          setIsDetailsOpen(false)
+          setSelectedLead(null)
         }}
         onDelete={handleDelete}
         onUpdate={handleLeadUpdate}
       />
     </div>
-  );
+  )
 }

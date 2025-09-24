@@ -1,29 +1,37 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { Lead, Workspace } from '@/lib/mongodb/client';
+import { NextRequest, NextResponse } from 'next/server'
+import { Lead, Workspace } from '@/lib/mongodb/client'
 
 export async function POST(request: NextRequest) {
   try {
-    const url = new URL(request.url);
-    const webhookPath = url.pathname;
-    const webhookId = webhookPath.split('/').pop();
+    const url = new URL(request.url)
+    const webhookPath = url.pathname
+    const webhookId = webhookPath.split('/').pop()
 
     if (!webhookId) {
-      return NextResponse.json({ error: 'Invalid webhook URL' }, { status: 400 });
+      return NextResponse.json(
+        { error: 'Invalid webhook URL' },
+        { status: 400 }
+      )
     }
 
-    const payload = await request.json();
+    const payload = await request.json()
 
     // Find workspace by webhook ID (you may need to implement webhook endpoint mapping)
     // For now, assuming webhookId maps to workspaceId
-    const workspace = await (Workspace as any).findById(webhookId);
+    const workspace = await (Workspace as any).findById(webhookId)
     if (!workspace) {
-      return NextResponse.json({ error: 'Invalid webhook endpoint' }, { status: 404 });
+      return NextResponse.json(
+        { error: 'Invalid webhook endpoint' },
+        { status: 404 }
+      )
     }
 
     // Process lead data from webhook payload
     const leadData = {
       workspaceId: workspace._id,
-      name: payload.name || `${payload.first_name || ''} ${payload.last_name || ''}`.trim(),
+      name:
+        payload.name ||
+        `${payload.first_name || ''} ${payload.last_name || ''}`.trim(),
       email: payload.email,
       phone: payload.phone,
       company: payload.company,
@@ -33,27 +41,30 @@ export async function POST(request: NextRequest) {
       notes: payload.notes,
       customFields: payload.custom_fields || {},
       createdBy: workspace._id, // Use workspace as creator for webhook leads
-    };
+    }
 
     // Create the lead
-    const lead = await Lead.create(leadData);
+    const lead = await Lead.create(leadData)
 
     return NextResponse.json({
       success: true,
       lead_id: lead._id,
       message: 'Lead created successfully',
-    });
+    })
   } catch (error) {
-    console.error('Webhook error:', error);
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    console.error('Webhook error:', error)
+    return NextResponse.json(
+      { error: 'Internal server error' },
+      { status: 500 }
+    )
   }
 }
 
 // Handle GET requests to return webhook info
 export async function GET(request: NextRequest) {
-  const url = new URL(request.url);
-  const webhookPath = url.pathname;
-  
+  const url = new URL(request.url)
+  const webhookPath = url.pathname
+
   return NextResponse.json({
     message: 'Lead webhook endpoint',
     url: request.url,
@@ -83,5 +94,5 @@ export async function GET(request: NextRequest) {
         utm_campaign: 'summer2024',
       },
     },
-  });
+  })
 }

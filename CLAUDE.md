@@ -24,6 +24,7 @@ npm run db:seed
 ## Project Architecture
 
 ### Tech Stack
+
 - **Framework**: Next.js 13.5.1 with App Router
 - **Language**: TypeScript
 - **Database**: MongoDB with Mongoose ODM
@@ -35,12 +36,14 @@ npm run db:seed
 ### Key Architecture Patterns
 
 #### Database Layer
+
 - **MongoDB Models**: Located in `lib/mongodb/models/`
 - **Client Abstraction**: `lib/mongodb/client.ts` provides MongoDBClient class
 - **Connection Management**: `lib/mongodb/connection.ts` handles MongoDB connections
 - **Model Exports**: All models are centralized in `lib/mongodb/models/index.ts`
 
 #### API Layer (RTK Query)
+
 - **Primary API**: `lib/api/mongoApi.ts` - main CRUD operations
 - **Specialized APIs**:
   - `lib/api/authApi.ts` - authentication endpoints
@@ -50,6 +53,7 @@ npm run db:seed
 - **Store Configuration**: `lib/store.ts` combines all API slices
 
 #### State Management Structure
+
 ```typescript
 // Redux store structure
 {
@@ -65,6 +69,7 @@ npm run db:seed
 ```
 
 #### Authentication & Security
+
 - **JWT Implementation**: Custom JWT with jose library
 - **Middleware**: `middleware.ts` handles auth verification, rate limiting, CORS, CSP
 - **Protected Routes**: Dashboard pages require authentication
@@ -72,7 +77,9 @@ npm run db:seed
 - **Security Headers**: Comprehensive security headers set in middleware
 
 #### Database Models & Relationships
+
 Core entities and their relationships:
+
 - **User**: Central user management with profile data
 - **Workspace**: Multi-tenant workspaces with subscription management
 - **WorkspaceMember**: User-workspace relationships with roles
@@ -83,12 +90,14 @@ Core entities and their relationships:
 - **WebhookLog**: Request/response logging (auto-cleanup after 90 days)
 
 #### Component Organization
+
 - **UI Components**: `components/ui/` - Radix UI primitives
 - **Feature Components**: `components/{feature}/` - Business logic components
 - **Layout Components**: `components/layout/` - Header, Sidebar, layouts
 - **Provider Components**: `components/providers/` - Context and state providers
 
 #### App Router Structure
+
 ```
 app/
 ├── (auth)/           # Authentication pages group
@@ -104,6 +113,7 @@ app/
 ### Data Flow Patterns
 
 #### Typical CRUD Operation Flow
+
 1. Component calls RTK Query hook (e.g., `useGetLeadsQuery()`)
 2. RTK Query checks cache, makes API request if needed
 3. API route handler in `app/api/` validates request
@@ -112,6 +122,7 @@ app/
 6. Response cached by RTK Query and returned to component
 
 #### Authentication Flow
+
 1. User submits credentials via auth form
 2. `app/api/auth/login/route.ts` validates credentials
 3. JWT token generated and set as HTTP-only cookie
@@ -120,6 +131,7 @@ app/
 6. User redirected to dashboard with workspace context
 
 #### Webhook Processing Flow
+
 1. External service sends POST to `/api/webhooks/receive/[id]`
 2. Webhook middleware validates signature and rate limits
 3. Processor in `lib/webhooks/processors/` transforms payload
@@ -130,17 +142,20 @@ app/
 ### Key Configuration Files
 
 #### Next.js Configuration (`next.config.js`)
+
 - ESLint disabled during builds for faster deployment
 - Unoptimized images for static export compatibility
 - Mongoose configured as external package for server components
 - MongoDB optional dependencies handled in webpack config
 
 #### TypeScript Configuration (`tsconfig.json`)
+
 - Strict mode enabled
 - Path mapping: `@/*` points to project root
 - Includes Next.js plugin for enhanced TypeScript support
 
 #### Middleware Configuration (`middleware.ts`)
+
 - JWT verification using jose library
 - Rate limiting with in-memory store
 - CORS handling for cross-origin requests
@@ -150,6 +165,7 @@ app/
 ### Database Seeding
 
 The `npm run db:seed` command creates:
+
 - Admin user: `admin@crm.com` / `admin123`
 - Default workspace with full permissions
 - System roles: Owner, Admin, Manager, Sales Rep, Viewer
@@ -177,35 +193,41 @@ CORS_ORIGINS=http://localhost:3000,https://yourdomain.com
 ### Common Development Patterns
 
 #### Adding New API Endpoints
+
 1. Create route handler in `app/api/{feature}/route.ts`
 2. Add RTK Query endpoint in appropriate API slice
 3. Export hook from API slice for component usage
 4. Add TypeScript interfaces for request/response types
 
 #### Adding New MongoDB Models
+
 1. Create model file in `lib/mongodb/models/`
 2. Export from `lib/mongodb/models/index.ts`
 3. Add client methods in `lib/mongodb/client.ts`
 4. Update TypeScript interfaces
 
 #### Adding New Protected Routes
+
 1. Add route pattern to `PROTECTED_ROUTES` in `middleware.ts`
 2. Ensure component uses authentication state
 3. Add role-based permission checks if needed
 
 #### Working with Webhooks
+
 - Webhook processors are in `lib/webhooks/processors/`
 - Each processor handles specific webhook types (Facebook, Google Forms, etc.)
 - Generic processor handles unknown webhook formats
 - All webhook logs are automatically cleaned up after 90 days
 
 ### Testing Notes
+
 - Testing framework dependencies are installed but no test configuration exists
 - Jest and Testing Library are available for setting up tests
 - Supertest is available for API endpoint testing
 - No existing test files or Jest configuration found
 
 ### Build and Deployment
+
 - Uses static export configuration for hosting flexibility
 - Images are unoptimized for static compatibility
 - ESLint checks disabled during builds

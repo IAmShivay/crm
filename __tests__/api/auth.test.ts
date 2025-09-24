@@ -1,4 +1,4 @@
-import { POST as loginHandler } from '../../app/api/auth/login/route';
+import { POST as loginHandler } from '../../app/api/auth/login/route'
 import { POST as signupHandler } from '../../app/api/auth/signup/route'
 import { POST as verifyHandler } from '../..//app/api/auth/verify/route'
 import { POST as logoutHandler } from '../..//app/api/auth/logout/route'
@@ -6,7 +6,7 @@ import {
   testApiRoute,
   validateApiResponse,
   apiResponseStructures,
-  expectAsyncError
+  expectAsyncError,
 } from '../helpers/apiHelpers'
 import {
   generateTestJWT,
@@ -14,7 +14,7 @@ import {
   generateInvalidJWT,
   createAuthHeaders,
   hashTestPassword,
-  verifyJWTStructure
+  verifyJWTStructure,
 } from '../helpers/authHelpers'
 
 // Mock dependencies
@@ -32,7 +32,7 @@ describe('Authentication API Endpoints', () => {
       email: 'newuser@example.com',
       password: 'Password123!',
       fullName: 'New User',
-      timezone: 'America/New_York'
+      timezone: 'America/New_York',
     }
 
     it('should create new user with valid data', async () => {
@@ -46,14 +46,14 @@ describe('Authentication API Endpoints', () => {
           _id: 'new-user-id',
           email: validSignupData.email,
           fullName: validSignupData.fullName,
-        })
+        }),
       })
 
       jest.doMock('@/lib/mongodb/models', () => ({
         User: {
           findOne: mockUserFindOne,
           create: mockUserCreate,
-        }
+        },
       }))
 
       const result = await testApiRoute(signupHandler, {
@@ -71,13 +71,13 @@ describe('Authentication API Endpoints', () => {
 
     it('should reject duplicate email', async () => {
       const mockUserFindOne = jest.fn().mockResolvedValue({
-        email: validSignupData.email
+        email: validSignupData.email,
       })
 
       jest.doMock('@/lib/mongodb/models', () => ({
         User: {
           findOne: mockUserFindOne,
-        }
+        },
       }))
 
       const result = await testApiRoute(signupHandler, {
@@ -106,7 +106,7 @@ describe('Authentication API Endpoints', () => {
     it('should validate email format', async () => {
       const invalidEmailData = {
         ...validSignupData,
-        email: 'invalid-email-format'
+        email: 'invalid-email-format',
       }
 
       const result = await testApiRoute(signupHandler, {
@@ -122,7 +122,7 @@ describe('Authentication API Endpoints', () => {
     it('should validate password strength', async () => {
       const weakPasswordData = {
         ...validSignupData,
-        password: '123' // Too weak
+        password: '123', // Too weak
       }
 
       const result = await testApiRoute(signupHandler, {
@@ -138,7 +138,7 @@ describe('Authentication API Endpoints', () => {
   describe('POST /api/auth/login', () => {
     const validLoginData = {
       email: 'test@example.com',
-      password: 'Password123!'
+      password: 'Password123!',
     }
 
     it('should authenticate user with correct credentials', async () => {
@@ -151,17 +151,17 @@ describe('Authentication API Endpoints', () => {
           _id: 'user-id',
           email: validLoginData.email,
           fullName: 'Test User',
-        })
+        }),
       }
 
       const mockUserFindOne = jest.fn().mockResolvedValue(mockUser)
       const mockBcryptCompare = jest.fn().mockResolvedValue(true)
 
       jest.doMock('@/lib/mongodb/models', () => ({
-        User: { findOne: mockUserFindOne }
+        User: { findOne: mockUserFindOne },
       }))
       jest.doMock('bcryptjs', () => ({
-        compare: mockBcryptCompare
+        compare: mockBcryptCompare,
       }))
 
       const result = await testApiRoute(loginHandler, {
@@ -180,7 +180,7 @@ describe('Authentication API Endpoints', () => {
       const mockUserFindOne = jest.fn().mockResolvedValue(null)
 
       jest.doMock('@/lib/mongodb/models', () => ({
-        User: { findOne: mockUserFindOne }
+        User: { findOne: mockUserFindOne },
       }))
 
       const result = await testApiRoute(loginHandler, {
@@ -204,10 +204,10 @@ describe('Authentication API Endpoints', () => {
       const mockBcryptCompare = jest.fn().mockResolvedValue(false)
 
       jest.doMock('@/lib/mongodb/models', () => ({
-        User: { findOne: mockUserFindOne }
+        User: { findOne: mockUserFindOne },
       }))
       jest.doMock('bcryptjs', () => ({
-        compare: mockBcryptCompare
+        compare: mockBcryptCompare,
       }))
 
       const result = await testApiRoute(loginHandler, {
@@ -237,7 +237,7 @@ describe('Authentication API Endpoints', () => {
       const result = await testApiRoute(verifyHandler, {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${validToken}`
+          Authorization: `Bearer ${validToken}`,
         },
       })
 
@@ -252,7 +252,7 @@ describe('Authentication API Endpoints', () => {
       const result = await testApiRoute(verifyHandler, {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${expiredToken}`
+          Authorization: `Bearer ${expiredToken}`,
         },
       })
 
@@ -266,7 +266,7 @@ describe('Authentication API Endpoints', () => {
       const result = await testApiRoute(verifyHandler, {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${invalidToken}`
+          Authorization: `Bearer ${invalidToken}`,
         },
       })
 
@@ -291,7 +291,7 @@ describe('Authentication API Endpoints', () => {
       const result = await testApiRoute(logoutHandler, {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${validToken}`
+          Authorization: `Bearer ${validToken}`,
         },
       })
 
@@ -317,7 +317,7 @@ describe('Authentication API Endpoints', () => {
 
       const result = await testApiRoute(verifyHandler, {
         method: 'POST',
-        headers: { 'Authorization': `Bearer ${validToken}` },
+        headers: { Authorization: `Bearer ${validToken}` },
       })
 
       const validation = validateApiResponse(result.data, {
@@ -333,7 +333,10 @@ describe('Authentication API Endpoints', () => {
         method: 'POST',
       })
 
-      const validation = validateApiResponse(result.data, apiResponseStructures.error)
+      const validation = validateApiResponse(
+        result.data,
+        apiResponseStructures.error
+      )
       expect(validation.isValid).toBe(true)
     })
   })

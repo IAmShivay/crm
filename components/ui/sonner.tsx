@@ -1,24 +1,24 @@
-'use client';
+'use client'
 
-import { useEffect, useState } from 'react';
-import { useAppSelector } from '@/lib/hooks';
-import { Toaster as Sonner } from 'sonner';
+import { useEffect, useState } from 'react'
+import { useAppSelector } from '@/lib/hooks'
+import { Toaster as Sonner } from 'sonner'
 
-type ToasterProps = React.ComponentProps<typeof Sonner>;
+type ToasterProps = React.ComponentProps<typeof Sonner>
 
 const Toaster = ({ ...props }: ToasterProps) => {
-  const { mode } = useAppSelector((state) => state.theme);
-  const [mounted, setMounted] = useState(false);
+  const { mode } = useAppSelector(state => state.theme)
+  const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
-    setMounted(true);
-  }, []);
+    setMounted(true)
+  }, [])
 
   if (!mounted) {
-    return null;
+    return null
   }
 
-  const theme = mode === 'auto' ? 'system' : mode;
+  const theme = mode === 'auto' ? 'system' : mode
 
   return (
     <Sonner
@@ -37,7 +37,7 @@ const Toaster = ({ ...props }: ToasterProps) => {
       }}
       {...props}
     />
-  );
-};
+  )
+}
 
-export { Toaster };
+export { Toaster }

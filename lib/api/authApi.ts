@@ -1,27 +1,27 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 export interface AuthResponse {
-  success: boolean;
-  message: string;
-  user?: any;
-  workspace?: any;
+  success: boolean
+  message: string
+  user?: any
+  workspace?: any
 }
 
 export interface LoginRequest {
-  email: string;
-  password: string;
+  email: string
+  password: string
 }
 
 export interface SignupRequest {
-  name: string;
-  email: string;
-  password: string;
+  name: string
+  email: string
+  password: string
 }
 
 export interface VerifyResponse {
-  valid: boolean;
-  user?: any;
-  workspace?: any;
+  valid: boolean
+  user?: any
+  workspace?: any
 }
 
 export const authApi = createApi({
@@ -29,15 +29,15 @@ export const authApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: '/api/auth',
     credentials: 'include', // Include cookies for authentication
-    prepareHeaders: (headers) => {
-      headers.set('Content-Type', 'application/json');
-      return headers;
+    prepareHeaders: headers => {
+      headers.set('Content-Type', 'application/json')
+      return headers
     },
   }),
   tagTypes: ['Auth'],
-  endpoints: (builder) => ({
+  endpoints: builder => ({
     login: builder.mutation<AuthResponse, LoginRequest>({
-      query: (credentials) => ({
+      query: credentials => ({
         url: 'login',
         method: 'POST',
         body: credentials,
@@ -45,7 +45,7 @@ export const authApi = createApi({
       invalidatesTags: ['Auth'],
     }),
     signup: builder.mutation<AuthResponse, SignupRequest>({
-      query: (userData) => ({
+      query: userData => ({
         url: 'signup',
         method: 'POST',
         body: userData,
@@ -67,11 +67,11 @@ export const authApi = createApi({
       providesTags: ['Auth'],
     }),
   }),
-});
+})
 
 export const {
   useLoginMutation,
   useSignupMutation,
   useLogoutMutation,
   useVerifyQuery,
-} = authApi;
+} = authApi

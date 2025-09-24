@@ -1,5 +1,9 @@
 import { GET as getLeads, POST as createLead } from '@/app/api/leads/route'
-import { GET as getLeadById, PUT as updateLead, DELETE as deleteLead } from '@/app/api/leads/[id]/route'
+import {
+  GET as getLeadById,
+  PUT as updateLead,
+  DELETE as deleteLead,
+} from '@/app/api/leads/[id]/route'
 import { POST as convertLead } from '@/app/api/leads/[id]/convert-to-contact/route'
 import {
   testApiRoute,
@@ -32,13 +36,13 @@ describe('Leads API Endpoints', () => {
         id: mockUserId,
         email: 'test@example.com',
         fullName: 'Test User',
-      }
+      },
     })
 
     // Mock workspace member
-    const mockWorkspaceMember = jest.fn().mockResolvedValue(
-      createMockWorkspaceMember('admin')
-    )
+    const mockWorkspaceMember = jest
+      .fn()
+      .mockResolvedValue(createMockWorkspaceMember('admin'))
 
     jest.doMock('@/lib/mongodb/auth', () => ({
       verifyAuthToken: mockVerifyAuth,
@@ -73,7 +77,9 @@ describe('Leads API Endpoints', () => {
           countDocuments: mockLeadCount,
         },
         WorkspaceMember: {
-          findOne: jest.fn().mockResolvedValue(createMockWorkspaceMember('admin')),
+          findOne: jest
+            .fn()
+            .mockResolvedValue(createMockWorkspaceMember('admin')),
         },
       }))
 
@@ -90,7 +96,10 @@ describe('Leads API Endpoints', () => {
       expect(result.data.pagination).toBeDefined()
 
       // Validate response structure
-      const validation = validateApiResponse(result.data, apiResponseStructures.pagination)
+      const validation = validateApiResponse(
+        result.data,
+        apiResponseStructures.pagination
+      )
       expect(validation.isValid).toBe(true)
     })
 
@@ -129,9 +138,14 @@ describe('Leads API Endpoints', () => {
       })
 
       jest.doMock('@/lib/mongodb/models', () => ({
-        Lead: { find: mockLeadFind, countDocuments: jest.fn().mockResolvedValue(1) },
+        Lead: {
+          find: mockLeadFind,
+          countDocuments: jest.fn().mockResolvedValue(1),
+        },
         WorkspaceMember: {
-          findOne: jest.fn().mockResolvedValue(createMockWorkspaceMember('admin')),
+          findOne: jest
+            .fn()
+            .mockResolvedValue(createMockWorkspaceMember('admin')),
         },
       }))
 
@@ -154,7 +168,7 @@ describe('Leads API Endpoints', () => {
           workspaceId: mockWorkspaceId,
           search: 'john',
           status: 'new',
-          priority: 'high'
+          priority: 'high',
         },
       })
 
@@ -185,7 +199,9 @@ describe('Leads API Endpoints', () => {
           findById: mockLeadFindById,
         },
         WorkspaceMember: {
-          findOne: jest.fn().mockResolvedValue(createMockWorkspaceMember('admin')),
+          findOne: jest
+            .fn()
+            .mockResolvedValue(createMockWorkspaceMember('admin')),
         },
         Activity: {
           create: jest.fn().mockResolvedValue({}),
@@ -204,7 +220,10 @@ describe('Leads API Endpoints', () => {
       expect(result.data.lead.name).toBe(validLeadData.name)
 
       // Validate response structure
-      const validation = validateApiResponse(result.data.lead, apiResponseStructures.lead)
+      const validation = validateApiResponse(
+        result.data.lead,
+        apiResponseStructures.lead
+      )
       expect(validation.isValid).toBe(true)
     })
 
@@ -268,7 +287,9 @@ describe('Leads API Endpoints', () => {
       jest.doMock('@/lib/mongodb/models', () => ({
         Lead: { findById: mockLeadFindById },
         WorkspaceMember: {
-          findOne: jest.fn().mockResolvedValue(createMockWorkspaceMember('admin')),
+          findOne: jest
+            .fn()
+            .mockResolvedValue(createMockWorkspaceMember('admin')),
         },
       }))
 
@@ -322,7 +343,9 @@ describe('Leads API Endpoints', () => {
           findByIdAndUpdate: mockLeadFindByIdAndUpdate,
         },
         WorkspaceMember: {
-          findOne: jest.fn().mockResolvedValue(createMockWorkspaceMember('admin')),
+          findOne: jest
+            .fn()
+            .mockResolvedValue(createMockWorkspaceMember('admin')),
         },
         Activity: {
           create: jest.fn().mockResolvedValue({}),
@@ -362,7 +385,9 @@ describe('Leads API Endpoints', () => {
     it('should delete lead successfully', async () => {
       const existingLead = { _id: leadId, ...generateTestLead() }
       const mockLeadFindById = jest.fn().mockResolvedValue(existingLead)
-      const mockLeadFindByIdAndDelete = jest.fn().mockResolvedValue(existingLead)
+      const mockLeadFindByIdAndDelete = jest
+        .fn()
+        .mockResolvedValue(existingLead)
 
       jest.doMock('@/lib/mongodb/models', () => ({
         Lead: {
@@ -370,7 +395,9 @@ describe('Leads API Endpoints', () => {
           findByIdAndDelete: mockLeadFindByIdAndDelete,
         },
         WorkspaceMember: {
-          findOne: jest.fn().mockResolvedValue(createMockWorkspaceMember('admin')),
+          findOne: jest
+            .fn()
+            .mockResolvedValue(createMockWorkspaceMember('admin')),
         },
         Activity: {
           create: jest.fn().mockResolvedValue({}),
@@ -440,7 +467,9 @@ describe('Leads API Endpoints', () => {
         },
         Contact: { create: mockContactCreate },
         WorkspaceMember: {
-          findOne: jest.fn().mockResolvedValue(createMockWorkspaceMember('admin')),
+          findOne: jest
+            .fn()
+            .mockResolvedValue(createMockWorkspaceMember('admin')),
         },
         Activity: {
           create: jest.fn().mockResolvedValue({}),
@@ -464,7 +493,7 @@ describe('Leads API Endpoints', () => {
       const convertedLead = {
         _id: leadId,
         ...generateTestLead(),
-        isConverted: true
+        isConverted: true,
       }
       const mockLeadFindById = jest.fn().mockResolvedValue(convertedLead)
 
