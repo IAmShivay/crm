@@ -1,2 +1,17 @@
-npx lint-staged
-npm run type-check
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+# Cross-platform compatibility
+if command -v wsl >/dev/null 2>&1; then
+  # Running from Windows, use WSL
+  wsl cd /mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY && npx lint-staged
+  wsl cd /mnt/s/SHIVAY-MRC/SHIVAY/CRM-X-SHIVAY && npm run type-check
+elif [ -f "./node_modules/.bin/lint-staged" ]; then
+  # Running from WSL/Linux
+  ./node_modules/.bin/lint-staged
+  ./node_modules/.bin/tsc --noEmit
+else
+  # Fallback to npx
+  npx lint-staged
+  npm run type-check
+fi
