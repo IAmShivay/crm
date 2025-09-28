@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { Webhook, WebhookLog, Lead, Tag } from '@/lib/mongodb/client'
 import { webhookLeadSchema } from '@/lib/security/validation'
 import { processWebhook, detectWebhookType } from '@/lib/webhooks/processors'
+import { NotificationService } from '@/lib/services/notificationService'
 import crypto from 'crypto'
 
 // POST /api/webhooks/receive/[id] - Receive webhook data
@@ -162,7 +163,7 @@ export async function POST(
           value: validationResult.data.value || 0,
           status: 'new',
           priority: leadData.priority || 'medium',
-          customFields: validationResult.data.custom_fields || {},
+          customData: validationResult.data.custom_fields || {},
           createdBy: webhook.createdBy,
           notes:
             leadData.notes ||
@@ -194,6 +195,34 @@ export async function POST(
         }
 
         createdLeads.push(lead)
+
+        // Create notification for webhook lead creation
+        try {
+          await NotificationService.createNotification({
+            workspaceId: webhook.workspaceId,
+            title: 'New Lead via Webhook',
+            message: `New lead "${validationResult.data.name}" created via ${webhook.name} webhook from ${processedData.provider || 'external source'}`,
+            type: 'success',
+            entityType: 'lead',
+            entityId: lead._id.toString(),
+            notificationLevel: 'team',
+            metadata: {
+              leadName: validationResult.data.name,
+              webhookName: webhook.name,
+              provider: processedData.provider,
+              source: validationResult.data.source || 'webhook',
+              email: validationResult.data.email,
+              company: validationResult.data.company,
+              value: validationResult.data.value,
+            },
+          })
+        } catch (notificationError) {
+          console.error(
+            'Failed to create webhook lead notification:',
+            notificationError
+          )
+          // Don't fail webhook processing if notification fails
+        }
       } catch (error) {
         errors.push({
           leadData: leadData.name || leadData.email,

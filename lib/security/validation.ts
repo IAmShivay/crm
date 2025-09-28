@@ -89,6 +89,7 @@ export const createWebhookSchema = z.object({
     'mailchimp',
     'hubspot',
     'salesforce',
+    'swipepages',
   ]),
   events: z
     .array(

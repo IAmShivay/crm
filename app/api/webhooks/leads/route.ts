@@ -39,7 +39,7 @@ export async function POST(request: NextRequest) {
       value: payload.value || 0,
       status: payload.status || 'new',
       notes: payload.notes,
-      customFields: payload.custom_fields || {},
+      customData: payload.custom_fields || {},
       createdBy: workspace._id, // Use workspace as creator for webhook leads
     }
 

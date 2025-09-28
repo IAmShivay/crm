@@ -21,6 +21,7 @@ import {
 } from '@/lib/logging/middleware'
 import { rateLimit } from '@/lib/security/rate-limiter'
 import { getClientIP } from '@/lib/utils/ip-utils'
+import { NotificationService } from '@/lib/services/notificationService'
 import { z } from 'zod'
 import mongoose from 'mongoose'
 import crypto from 'crypto'
@@ -339,6 +340,33 @@ export const POST = withSecurityLogging(
           roleName: role.name,
           duration: Date.now() - startTime,
         })
+
+        // Create notification for workspace invitation
+        try {
+          await NotificationService.createNotification({
+            workspaceId,
+            title: 'Member Invited',
+            message: `${membership.userId.fullName || membership.userId.email} invited ${email} to join the workspace as ${role.name}`,
+            type: 'info',
+            entityType: 'workspace',
+            entityId: workspaceId,
+            createdBy: userId,
+            notificationLevel: 'workspace',
+            excludeUserIds: [userId], // Don't notify the inviter
+            metadata: {
+              invitedEmail: email,
+              roleName: role.name,
+              inviterName:
+                membership.userId.fullName || membership.userId.email,
+            },
+          })
+        } catch (notificationError) {
+          console.error(
+            'Failed to create invitation notification:',
+            notificationError
+          )
+          // Don't fail the invitation if notification fails
+        }
 
         log.info(
           `Member invited to workspace ${workspaceId} by user ${userId}`,

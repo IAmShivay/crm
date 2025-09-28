@@ -9,6 +9,7 @@ import {
   logBusinessEvent,
 } from '@/lib/logging/middleware'
 import { log } from '@/lib/logging/logger'
+import { NotificationService } from '@/lib/services/notificationService'
 import { z } from 'zod'
 
 // Validation schema for updating leads
@@ -344,6 +345,53 @@ export const PUT = withSecurityLogging(
           value: lead.value,
           updatedFields: Object.keys(updateData),
         })
+
+        // Create notification for lead update (only for significant changes)
+        if (changes.length > 0) {
+          try {
+            let notificationTitle = 'Lead Updated'
+            let notificationMessage = `${auth.user.fullName || auth.user.email} updated lead: ${lead.name}`
+            let notificationType: 'info' | 'success' | 'warning' = 'info'
+
+            // Customize notification based on type of change
+            const statusChange = changes.find(c => c.field === 'statusId')
+            const assignmentChange = changes.find(c => c.field === 'assignedTo')
+
+            if (statusChange) {
+              notificationTitle = 'Lead Status Changed'
+              notificationMessage = `${auth.user.fullName || auth.user.email} changed status of lead "${lead.name}"`
+              notificationType = 'success'
+            } else if (assignmentChange) {
+              notificationTitle = 'Lead Reassigned'
+              notificationMessage = `${auth.user.fullName || auth.user.email} reassigned lead "${lead.name}"`
+              notificationType = 'info'
+            }
+
+            await NotificationService.createNotification({
+              workspaceId,
+              title: notificationTitle,
+              message: notificationMessage,
+              type: notificationType,
+              entityType: 'lead',
+              entityId: leadId,
+              createdBy: auth.user.id,
+              notificationLevel: 'team',
+              excludeUserIds: [auth.user.id], // Don't notify the updater
+              metadata: {
+                leadName: lead.name,
+                updatedFields: Object.keys(updateData),
+                changes: changes,
+                changeCount: changes.length,
+              },
+            })
+          } catch (notificationError) {
+            console.error(
+              'Failed to create lead update notification:',
+              notificationError
+            )
+            // Don't fail the update if notification fails
+          }
+        }
 
         log.info(`Lead updated successfully`, {
           leadId,

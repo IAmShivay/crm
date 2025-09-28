@@ -15,6 +15,7 @@ import {
   logBusinessEvent,
 } from '@/lib/logging/middleware'
 import { log } from '@/lib/logging/logger'
+import { NotificationService } from '@/lib/services/notificationService'
 import { z } from 'zod'
 
 const createLeadSchema = z.object({
@@ -293,8 +294,9 @@ export const POST = withSecurityLogging(
           .populate('createdBy', 'fullName email')
 
         // Log activity in the Activity collection for recent activity display
+        let activity = null
         try {
-          await Activity.create({
+          activity = await Activity.create({
             workspaceId,
             performedBy: auth.user.id,
             activityType: 'created',
@@ -326,6 +328,34 @@ export const POST = withSecurityLogging(
           value: leadData.value,
           duration: Date.now() - startTime,
         })
+
+        // Create notification for lead creation
+        try {
+          await NotificationService.createNotification({
+            workspaceId,
+            title: 'New Lead Created',
+            message: `${auth.user.fullName || auth.user.email} created a new lead: ${leadData.name}`,
+            type: 'success',
+            entityType: 'lead',
+            entityId: lead._id.toString(),
+            createdBy: auth.user.id,
+            activityId: activity?._id?.toString(),
+            notificationLevel: 'team',
+            excludeUserIds: [auth.user.id], // Don't notify the creator
+            metadata: {
+              leadName: leadData.name,
+              source: finalSource,
+              value: leadData.value || 0,
+              company: leadData.company,
+            },
+          })
+        } catch (notificationError) {
+          console.error(
+            'Failed to create lead creation notification:',
+            notificationError
+          )
+          // Don't fail the lead creation if notification fails
+        }
 
         return NextResponse.json(
           {
