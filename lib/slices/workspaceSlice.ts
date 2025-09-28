@@ -5,6 +5,14 @@ interface Workspace {
   name: string
   plan: string
   memberCount: number
+  currency?: string
+  timezone?: string
+  settings?: {
+    dateFormat: string
+    timeFormat: string
+    weekStartsOn: number
+    language: string
+  }
   createdAt: string
 }
 

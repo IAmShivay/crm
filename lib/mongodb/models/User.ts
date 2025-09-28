@@ -11,6 +11,7 @@ export interface IUser extends Document {
   emailConfirmed: boolean
   emailConfirmedAt?: Date
   lastSignInAt?: Date
+  lastActiveWorkspaceId?: string
   createdAt: Date
   updatedAt: Date
 }
@@ -58,6 +59,10 @@ const UserSchema = new Schema<IUser>(
     },
     lastSignInAt: {
       type: Date,
+    },
+    lastActiveWorkspaceId: {
+      type: String,
+      ref: 'Workspace',
     },
   },
   {

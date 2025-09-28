@@ -196,10 +196,23 @@ export async function signIn({
       // Don't fail the sign-in if activity logging fails
     }
 
+    // Get user's default workspace
+    let workspace = null
+    const workspaceMembership = await WorkspaceMember.findOne({
+      userId: user._id,
+      status: 'active',
+    })
+      .populate('workspaceId')
+      .sort({ createdAt: 1 }) // Get the oldest (first created) membership
+
+    if (workspaceMembership?.workspaceId) {
+      workspace = workspaceMembership.workspaceId
+    }
+
     // Generate token
     const token = generateToken(user._id)
 
-    return { user, token }
+    return { user, token, workspace }
   } catch (error) {
     console.error('Sign in error:', error)
     return { error: error instanceof Error ? error.message : 'Sign in failed' }

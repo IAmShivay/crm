@@ -50,6 +50,11 @@ export class MongoDBClient {
     return await User.findById(id)
   }
 
+  async findUserById(id: string): Promise<IUser | null> {
+    await this.ensureConnection()
+    return await User.findById(id)
+  }
+
   async getUserByEmail(email: string): Promise<IUser | null> {
     await this.ensureConnection()
     return await User.findOne({ email })
@@ -74,9 +79,26 @@ export class MongoDBClient {
     return await Workspace.findById(id)
   }
 
+  async findWorkspaceById(id: string): Promise<IWorkspace | null> {
+    await this.ensureConnection()
+    return await Workspace.findById(id)
+  }
+
   async getWorkspaceBySlug(slug: string): Promise<IWorkspace | null> {
     await this.ensureConnection()
     return await Workspace.findOne({ slug })
+  }
+
+  async findWorkspaceMember(
+    workspaceId: string,
+    userId: string
+  ): Promise<IWorkspaceMember | null> {
+    await this.ensureConnection()
+    return await WorkspaceMember.findOne({
+      workspaceId,
+      userId,
+      status: 'active',
+    })
   }
 
   async getUserWorkspaces(userId: string): Promise<IWorkspace[]> {

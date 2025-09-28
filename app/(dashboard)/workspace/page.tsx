@@ -12,7 +12,8 @@
 'use client'
 
 import { useState, useEffect, useMemo } from 'react'
-import { useAppSelector } from '@/lib/hooks'
+import { useAppSelector, useAppDispatch } from '@/lib/hooks'
+import { setCurrentWorkspace } from '@/lib/slices/workspaceSlice'
 import {
   useGetWorkspaceQuery,
   useGetWorkspaceRolesQuery,
@@ -117,6 +118,7 @@ interface WorkspaceDetails {
 
 export default function WorkspaceSettingsPage() {
   const { currentWorkspace } = useAppSelector(state => state.workspace)
+  const dispatch = useAppDispatch()
   const [activeTab, setActiveTab] = useState('general')
 
   // RTK Query hooks
@@ -188,6 +190,16 @@ export default function WorkspaceSettingsPage() {
       }).unwrap()
 
       if (result.success) {
+        // Update Redux state with new workspace data
+        if (currentWorkspace) {
+          dispatch(
+            setCurrentWorkspace({
+              ...currentWorkspace,
+              name: workspaceName,
+              // Add other updated fields if needed
+            })
+          )
+        }
         toast.success('Workspace settings updated successfully')
       }
     } catch (error: any) {

@@ -11,7 +11,7 @@
 
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { WorkspaceSwitcherSkeleton } from '@/components/ui/skeleton'
@@ -47,6 +47,10 @@ import {
   useCreateWorkspaceMutation,
   Workspace as ApiWorkspace,
 } from '@/lib/api/mongoApi'
+import {
+  useGetLastActiveWorkspaceQuery,
+  useUpdateLastActiveWorkspaceMutation,
+} from '@/lib/api/workspaceApi'
 import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -107,11 +111,23 @@ export function WorkspaceSwitcher({
   const [createWorkspace, { isLoading: isCreatingWorkspace }] =
     useCreateWorkspaceMutation()
 
+  // Last active workspace hooks
+  const { data: lastActiveWorkspaceData } = useGetLastActiveWorkspaceQuery(
+    undefined,
+    {
+      skip: !user?.id,
+    }
+  )
+  const [updateLastActiveWorkspace] = useUpdateLastActiveWorkspaceMutation()
+
   // State management
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false)
   const [isSwitching, setIsSwitching] = useState(false)
 
-  const workspaces = workspacesData?.workspaces || []
+  const workspaces = useMemo(
+    () => workspacesData?.workspaces || [],
+    [workspacesData?.workspaces]
+  )
 
   // Form for workspace creation
   const {
@@ -123,7 +139,55 @@ export function WorkspaceSwitcher({
     resolver: zodResolver(workspaceSchema),
   })
 
-  // No need for manual loading - RTK Query handles it automatically
+  // Set current workspace from database when data is available
+  useEffect(() => {
+    if (
+      lastActiveWorkspaceData?.lastActiveWorkspaceId &&
+      lastActiveWorkspaceData?.workspace &&
+      workspaces.length > 0
+    ) {
+      const workspace = lastActiveWorkspaceData.workspace
+      const isValidWorkspace = workspaces.some(w => w.id === workspace.id)
+
+      if (isValidWorkspace && workspace.id !== currentWorkspace?.id) {
+        dispatch(
+          setCurrentWorkspace({
+            id: workspace.id,
+            name: workspace.name,
+            plan: 'free',
+            memberCount: 1,
+            currency: workspace.currency,
+            timezone: workspace.timezone,
+            settings: workspace.settings,
+            createdAt: workspace.createdAt,
+          })
+        )
+      }
+    } else if (workspaces.length > 0 && !currentWorkspace) {
+      // If no last active workspace, set the first available workspace
+      const firstWorkspace = workspaces[0]
+      dispatch(
+        setCurrentWorkspace({
+          id: firstWorkspace.id,
+          name: firstWorkspace.name,
+          plan: 'free',
+          memberCount: 1,
+          currency: firstWorkspace.currency,
+          timezone: firstWorkspace.timezone,
+          settings: firstWorkspace.settings,
+          createdAt: firstWorkspace.createdAt,
+        })
+      )
+      // Update the database with this selection
+      updateLastActiveWorkspace({ workspaceId: firstWorkspace.id })
+    }
+  }, [
+    lastActiveWorkspaceData,
+    workspaces,
+    currentWorkspace,
+    dispatch,
+    updateLastActiveWorkspace,
+  ])
 
   // Handle workspace switching
   const handleWorkspaceSwitch = async (workspace: ApiWorkspace) => {
@@ -137,14 +201,17 @@ export function WorkspaceSwitcher({
         setCurrentWorkspace({
           id: workspace.id,
           name: workspace.name,
-          plan: 'free', // Default plan since API workspace doesn't have planId
-          memberCount: 1, // Default member count
+          plan: 'free',
+          memberCount: 1,
+          currency: workspace.currency,
+          timezone: workspace.timezone,
+          settings: workspace.settings,
           createdAt: workspace.createdAt,
         })
       )
 
-      // Store in localStorage for persistence
-      localStorage.setItem('current_workspace', JSON.stringify(workspace))
+      // Update the database with the new last active workspace
+      await updateLastActiveWorkspace({ workspaceId: workspace.id }).unwrap()
 
       toast.success(`Switched to ${workspace.name}`)
     } catch (error) {
@@ -168,11 +235,19 @@ export function WorkspaceSwitcher({
         setCurrentWorkspace({
           id: result.workspace.id,
           name: result.workspace.name,
-          plan: result.workspace.planId,
+          plan: 'free',
           memberCount: 1,
+          currency: result.workspace.currency,
+          timezone: result.workspace.timezone,
+          settings: result.workspace.settings,
           createdAt: result.workspace.createdAt,
         })
       )
+
+      // Update the database with the new workspace as last active
+      await updateLastActiveWorkspace({
+        workspaceId: result.workspace.id,
+      }).unwrap()
 
       toast.success('Workspace created successfully!')
       setIsCreateDialogOpen(false)

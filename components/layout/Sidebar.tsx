@@ -125,7 +125,7 @@ export function Sidebar({
   const [expandedSections, setExpandedSections] = useState<
     Record<string, boolean>
   >({
-    sales: true, // Sales expanded by default
+    sales: false, // All sections collapsed by default
     hr: false,
     engines: false,
   })

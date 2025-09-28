@@ -368,6 +368,52 @@ Invite user to workspace.
 
 Get workspace-specific roles.
 
+### GET /api/user/last-active-workspace
+
+Get user's last active workspace information.
+
+**Response:**
+
+```json
+{
+  "lastActiveWorkspaceId": "workspace_id",
+  "workspace": {
+    "id": "workspace_id",
+    "name": "My Workspace",
+    "currency": "USD",
+    "timezone": "America/New_York",
+    "settings": {
+      "dateFormat": "MM/DD/YYYY",
+      "timeFormat": "12h",
+      "weekStartsOn": 0,
+      "language": "en"
+    },
+    "planId": "free",
+    "createdAt": "2025-09-23T10:00:00Z"
+  }
+}
+```
+
+### POST /api/user/last-active-workspace
+
+Update user's last active workspace.
+
+**Request Body:**
+
+```json
+{
+  "workspaceId": "workspace_id"
+}
+```
+
+**Response:**
+
+```json
+{
+  "message": "Last active workspace updated successfully"
+}
+```
+
 ---
 
 ## 🎭 Role Management Endpoints
@@ -674,6 +720,188 @@ Get available permissions list.
 
 ---
 
+## 🔔 Notifications Endpoints
+
+### GET /api/notifications
+
+Get user notifications with filtering and pagination.
+
+**Query Parameters:**
+
+- `workspaceId` (required) - Workspace ID
+- `limit` (optional, default: 20) - Number of notifications to retrieve
+- `offset` (optional, default: 0) - Offset for pagination
+- `unreadOnly` (optional, default: false) - Show only unread notifications
+- `entityType` (optional) - Filter by entity type (lead, contact, user, workspace, etc.)
+
+**Response:**
+
+```json
+{
+  "success": true,
+  "notifications": [
+    {
+      "id": "notification_id",
+      "title": "New Lead Created",
+      "message": "A new lead 'John Doe' has been added to your workspace",
+      "type": "info",
+      "timestamp": "2025-09-28T10:00:00Z",
+      "read": false,
+      "actionUrl": "/leads/lead_id",
+      "entityType": "lead",
+      "entityId": "lead_id"
+    }
+  ],
+  "total": 25,
+  "unreadCount": 5,
+  "pagination": {
+    "page": 1,
+    "limit": 20,
+    "total": 25,
+    "pages": 2
+  }
+}
+```
+
+### PATCH /api/notifications
+
+Update notification status (mark as read, mark all as read).
+
+**Request Body:**
+
+```json
+{
+  "workspaceId": "workspace_id",
+  "action": "markAsRead",
+  "notificationId": "notification_id"
+}
+```
+
+Or for marking all as read:
+
+```json
+{
+  "workspaceId": "workspace_id",
+  "action": "markAllAsRead"
+}
+```
+
+**Response:**
+
+```json
+{
+  "success": true,
+  "result": true,
+  "message": "Notification marked as read"
+}
+```
+
+---
+
+## 📈 Analytics Endpoints
+
+### GET /api/analytics/dashboard
+
+Get dashboard analytics data including key metrics and performance indicators.
+
+**Query Parameters:**
+
+- `workspaceId` (required) - Workspace ID
+- `from` (optional) - Start date (ISO string, default: 30 days ago)
+- `to` (optional) - End date (ISO string, default: now)
+- `compareFrom` (optional) - Comparison period start date
+- `compareTo` (optional) - Comparison period end date
+
+**Response:**
+
+```json
+{
+  "success": true,
+  "data": {
+    "totalLeads": 150,
+    "totalLeadsPrevious": 120,
+    "conversionRate": 23.5,
+    "conversionRatePrevious": 19.2,
+    "totalRevenue": 45000,
+    "totalRevenuePrevious": 38000,
+    "growth": 15.8,
+    "growthPrevious": 12.3,
+    "activeDeals": 47,
+    "monthlyRevenue": 12400,
+    "newLeads": 35,
+    "salesTargetProgress": 78.5,
+    "leadQualityScore": 85.2,
+    "customerSatisfaction": 92.1
+  }
+}
+```
+
+### GET /api/analytics/pipeline
+
+Get sales pipeline analytics showing lead distribution across different stages.
+
+**Query Parameters:**
+
+- `workspaceId` (required) - Workspace ID
+- `from` (optional) - Start date (ISO string, default: 30 days ago)
+- `to` (optional) - End date (ISO string, default: now)
+
+**Response:**
+
+```json
+{
+  "success": true,
+  "data": [
+    {
+      "statusName": "new",
+      "count": 45,
+      "percentage": 30.0,
+      "value": 22500
+    },
+    {
+      "statusName": "qualified",
+      "count": 35,
+      "percentage": 23.3,
+      "value": 17500
+    },
+    {
+      "statusName": "proposal",
+      "count": 25,
+      "percentage": 16.7,
+      "value": 12500
+    }
+  ]
+}
+```
+
+### GET /api/analytics/performance
+
+Get detailed performance metrics including sales targets, lead quality, and efficiency measures.
+
+**Query Parameters:**
+
+- `workspaceId` (required) - Workspace ID
+- `from` (optional) - Start date (ISO string, default: 30 days ago)
+- `to` (optional) - End date (ISO string, default: now)
+
+**Response:**
+
+```json
+{
+  "success": true,
+  "data": {
+    "salesTargetProgress": 78.5,
+    "leadQualityScore": 85.2,
+    "customerSatisfaction": 92.1,
+    "averageDealSize": 1875.5,
+    "salesCycleLength": 14.3,
+    "winRate": 23.8
+  }
+}
+```
+
+---
+
 ## 🧪 Testing Endpoints
 
 ### POST /api/test-leads
@@ -713,5 +941,5 @@ X-RateLimit-Reset: 1234567890
 
 **Next**: [Volume 3: Database Schema & Models](./03-DATABASE-SCHEMA.md)
 
-**Last Updated**: 2025-09-23
+**Last Updated**: 2025-09-28
 **Version**: 2.0.0

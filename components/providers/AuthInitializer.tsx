@@ -39,6 +39,14 @@ export function AuthInitializer({ children }: { children: React.ReactNode }) {
                   name: data.workspace.name,
                   plan: data.workspace.planId || 'free',
                   memberCount: data.workspace.memberCount || 1,
+                  currency: data.workspace.currency || 'USD',
+                  timezone: data.workspace.timezone || 'UTC',
+                  settings: data.workspace.settings || {
+                    dateFormat: 'MM/DD/YYYY',
+                    timeFormat: '12h',
+                    weekStartsOn: 0,
+                    language: 'en',
+                  },
                   createdAt: data.workspace.createdAt,
                 })
               )

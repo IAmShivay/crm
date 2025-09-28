@@ -124,6 +124,16 @@ export interface Workspace {
   description?: string
   slug: string
   ownerId: string
+  currency: string
+  timezone: string
+  settings: {
+    dateFormat: string
+    timeFormat: string
+    weekStartsOn: number
+    language: string
+  }
+  planId: string
+  subscriptionStatus: string
   createdAt: string
   updatedAt: string
 }
@@ -380,6 +390,7 @@ export const mongoApi = createApi({
         body: data,
       }),
       invalidatesTags: ['Workspace'],
+      // Redux state is updated in the component after successful update
     }),
 
     // Workspace Members

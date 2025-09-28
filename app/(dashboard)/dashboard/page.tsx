@@ -1,6 +1,7 @@
 import { StatsCards } from '@/components/dashboard/StatsCards'
 import { RecentActivity } from '@/components/dashboard/RecentActivity'
 import { AnalyticsOverview } from '@/components/dashboard/AnalyticsOverview'
+import { PipelineOverview } from '@/components/dashboard/PipelineOverview'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 
 export default function DashboardPage() {
@@ -31,58 +32,7 @@ export default function DashboardPage() {
 
       {/* Additional row for more cards */}
       <div className="grid w-full grid-cols-1 gap-4 sm:gap-6 lg:grid-cols-2">
-        <Card>
-          <CardHeader>
-            <CardTitle>Sales Pipeline</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <span className="text-sm font-medium">Prospecting</span>
-                <span className="text-sm text-muted-foreground">0 leads</span>
-              </div>
-              <div className="h-2 w-full rounded-full bg-muted">
-                <div
-                  className="h-2 rounded-full bg-primary"
-                  style={{ width: '0%' }}
-                ></div>
-              </div>
-
-              <div className="flex items-center justify-between">
-                <span className="text-sm font-medium">Qualified</span>
-                <span className="text-sm text-muted-foreground">0 leads</span>
-              </div>
-              <div className="h-2 w-full rounded-full bg-muted">
-                <div
-                  className="h-2 rounded-full bg-yellow-500"
-                  style={{ width: '0%' }}
-                ></div>
-              </div>
-
-              <div className="flex items-center justify-between">
-                <span className="text-sm font-medium">Proposal</span>
-                <span className="text-sm text-muted-foreground">0 leads</span>
-              </div>
-              <div className="h-2 w-full rounded-full bg-muted">
-                <div
-                  className="h-2 rounded-full bg-orange-500"
-                  style={{ width: '0%' }}
-                ></div>
-              </div>
-
-              <div className="flex items-center justify-between">
-                <span className="text-sm font-medium">Negotiation</span>
-                <span className="text-sm text-muted-foreground">0 leads</span>
-              </div>
-              <div className="h-2 w-full rounded-full bg-muted">
-                <div
-                  className="h-2 rounded-full bg-green-500"
-                  style={{ width: '0%' }}
-                ></div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+        <PipelineOverview />
 
         <Card>
           <CardHeader>

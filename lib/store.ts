@@ -5,6 +5,9 @@ import { userPreferencesApi } from './api/userPreferencesApi'
 import { webhookApi } from './api/webhookApi'
 import { authApi } from './api/authApi'
 import { contactsApi } from './api/contactsApi'
+import { workspaceApi } from './api/workspaceApi'
+import { analyticsApi } from './api/analyticsApi'
+import { notificationsApi } from './api/notificationsApi'
 import authReducer from './slices/authSlice'
 import themeReducer from './slices/themeSlice'
 import workspaceReducer from './slices/workspaceSlice'
@@ -20,6 +23,9 @@ export const store = configureStore({
     [webhookApi.reducerPath]: webhookApi.reducer,
     [authApi.reducerPath]: authApi.reducer,
     [contactsApi.reducerPath]: contactsApi.reducer,
+    [workspaceApi.reducerPath]: workspaceApi.reducer,
+    [analyticsApi.reducerPath]: analyticsApi.reducer,
+    [notificationsApi.reducerPath]: notificationsApi.reducer,
   } as any,
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware().concat(
@@ -27,7 +33,10 @@ export const store = configureStore({
       userPreferencesApi.middleware,
       webhookApi.middleware,
       authApi.middleware,
-      contactsApi.middleware
+      contactsApi.middleware,
+      workspaceApi.middleware,
+      analyticsApi.middleware,
+      notificationsApi.middleware
     ),
 })
 

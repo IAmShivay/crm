@@ -13,6 +13,7 @@ export { WebhookLog, type IWebhookLog } from './WebhookLog'
 export { Tag, type ITag } from './Tag'
 export { LeadNote, type ILeadNote } from './LeadNote'
 export { LeadStatus, type ILeadStatus } from './LeadStatus'
+export { Notification, type INotification } from './Notification'
 
 // Re-export mongoose for convenience
 export { default as mongoose } from 'mongoose'

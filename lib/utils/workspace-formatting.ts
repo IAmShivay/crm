@@ -5,6 +5,8 @@
 
 import { format, parseISO } from 'date-fns'
 import { toZonedTime, fromZonedTime } from 'date-fns-tz'
+import { useAppSelector } from '@/lib/hooks'
+import { useMemo } from 'react'
 
 export interface WorkspaceSettings {
   currency: string
@@ -15,6 +17,114 @@ export interface WorkspaceSettings {
     weekStartsOn: number
     language: string
   }
+}
+
+/**
+ * Hook to get current workspace formatting settings
+ */
+export function useWorkspaceFormatting() {
+  const { currentWorkspace } = useAppSelector(state => state.workspace)
+
+  const workspaceSettings: WorkspaceSettings = useMemo(() => {
+    if (!currentWorkspace) {
+      return {
+        currency: 'USD',
+        timezone: 'UTC',
+        settings: {
+          dateFormat: 'MM/DD/YYYY',
+          timeFormat: '12h',
+          weekStartsOn: 0,
+          language: 'en',
+        },
+      }
+    }
+
+    return {
+      currency: currentWorkspace.currency || 'USD',
+      timezone: currentWorkspace.timezone || 'UTC',
+      settings: {
+        dateFormat: currentWorkspace.settings?.dateFormat || 'MM/DD/YYYY',
+        timeFormat: currentWorkspace.settings?.timeFormat || '12h',
+        weekStartsOn: currentWorkspace.settings?.weekStartsOn ?? 0,
+        language: currentWorkspace.settings?.language || 'en',
+      },
+    }
+  }, [currentWorkspace])
+
+  return useMemo(
+    () => ({
+      // Currency formatting
+      formatCurrency: (
+        amount: number,
+        options?: {
+          showSymbol?: boolean
+          showCode?: boolean
+          compact?: boolean
+        }
+      ) => formatCurrency(amount, workspaceSettings, options),
+
+      getCurrencySymbol: () =>
+        CURRENCY_SYMBOLS[workspaceSettings.currency] ||
+        workspaceSettings.currency,
+
+      getCurrencyCode: () => workspaceSettings.currency,
+
+      // Date formatting
+      formatDate: (
+        date: Date | string,
+        options?: { includeTime?: boolean; relative?: boolean }
+      ) => formatDate(date, workspaceSettings, options),
+
+      formatTime: (date: Date | string) => formatTime(date, workspaceSettings),
+
+      formatDateTime: (date: Date | string) =>
+        formatDate(date, workspaceSettings, { includeTime: true }),
+
+      formatRelativeTime: (date: Date | string) =>
+        formatDate(date, workspaceSettings, { relative: true }),
+
+      // Time ago formatting
+      getTimeAgo: (dateString: string) => {
+        const now = new Date()
+        const date = new Date(dateString)
+
+        // Validate the date
+        if (!date || isNaN(date.getTime()) || !dateString) {
+          return 'Unknown time'
+        }
+
+        const diffInMinutes = Math.floor(
+          (now.getTime() - date.getTime()) / (1000 * 60)
+        )
+
+        if (diffInMinutes < 1) return 'Just now'
+        if (diffInMinutes < 60) return `${diffInMinutes}m ago`
+        if (diffInMinutes < 1440)
+          return `${Math.floor(diffInMinutes / 60)}h ago`
+
+        const diffInDays = Math.floor(diffInMinutes / 1440)
+        if (diffInDays < 7) return `${diffInDays}d ago`
+
+        return formatDate(date, workspaceSettings)
+      },
+
+      // Number formatting
+      formatNumber: (
+        number: number,
+        options?: { decimals?: number; compact?: boolean }
+      ) => formatNumber(number, workspaceSettings, options),
+
+      formatPercentage: (value: number, decimals: number = 1) =>
+        `${formatNumber(value, workspaceSettings, { decimals })}%`,
+
+      // Settings access
+      getSettings: () => workspaceSettings,
+      getTimezone: () => workspaceSettings.timezone,
+      getDateFormat: () => workspaceSettings.settings.dateFormat,
+      getTimeFormat: () => workspaceSettings.settings.timeFormat,
+    }),
+    [workspaceSettings]
+  )
 }
 
 // Currency symbols mapping
@@ -113,6 +223,12 @@ export function formatDate(
   const { includeTime = false, relative = false } = options
 
   const dateObj = typeof date === 'string' ? parseISO(date) : date
+
+  // Validate the date object
+  if (!dateObj || isNaN(dateObj.getTime())) {
+    return 'Invalid date'
+  }
+
   const zonedDate = toZonedTime(dateObj, timezone)
 
   if (relative) {
@@ -170,6 +286,12 @@ export function formatTime(
   const { timezone, settings } = workspaceSettings
 
   const dateObj = typeof date === 'string' ? parseISO(date) : date
+
+  // Validate the date object
+  if (!dateObj || isNaN(dateObj.getTime())) {
+    return 'Invalid time'
+  }
+
   const zonedDate = toZonedTime(dateObj, timezone)
 
   const timePattern = settings.timeFormat === '24h' ? 'HH:mm' : 'h:mm a'

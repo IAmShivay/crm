@@ -29,6 +29,7 @@ import {
   setPrimaryColor,
   loadThemeFromPreferences,
 } from '@/lib/slices/themeSlice'
+import { setCurrentWorkspace } from '@/lib/slices/workspaceSlice'
 import { ThemeCustomizer } from '@/components/theme/ThemeCustomizer'
 import {
   useGetUserPreferencesQuery,
@@ -176,10 +177,23 @@ export default function SettingsPage() {
     if (!currentWorkspace?.id) return
 
     try {
-      await updateWorkspace({
+      const result = await updateWorkspace({
         id: currentWorkspace.id,
         ...workspaceForm,
       }).unwrap()
+
+      if (result.success) {
+        // Update Redux state with new workspace data
+        dispatch(
+          setCurrentWorkspace({
+            ...currentWorkspace,
+            currency: workspaceForm.currency,
+            timezone: workspaceForm.timezone,
+            settings: workspaceForm.settings,
+          })
+        )
+      }
+
       toast.success('Workspace settings saved')
     } catch (error) {
       console.error('Failed to save workspace settings:', error)

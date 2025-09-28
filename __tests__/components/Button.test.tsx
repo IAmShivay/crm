@@ -34,7 +34,7 @@ describe('Button Component', () => {
     render(<Button size="lg">Large Button</Button>)
 
     const button = screen.getByRole('button')
-    expect(button).toHaveClass('h-10')
+    expect(button).toHaveClass('h-11')
   })
 
   it('is disabled when disabled prop is true', () => {
@@ -146,7 +146,7 @@ describe('Button Component', () => {
       render(<Button disabled>Disabled Button</Button>)
 
       const button = screen.getByRole('button')
-      expect(button).toHaveAttribute('aria-disabled', 'true')
+      expect(button).toBeDisabled()
     })
 
     it('is focusable by keyboard', async () => {

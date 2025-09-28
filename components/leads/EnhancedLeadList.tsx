@@ -64,6 +64,7 @@ import { useAppSelector } from '@/lib/hooks'
 import { toast } from 'sonner'
 import { LeadForm } from './LeadForm'
 import { cn } from '@/lib/utils'
+import { useWorkspaceFormatting } from '@/lib/utils/workspace-formatting'
 
 interface Lead {
   id: string
@@ -150,6 +151,7 @@ export function EnhancedLeadList() {
   >('note')
 
   const { currentWorkspace } = useAppSelector(state => state.workspace)
+  const { formatCurrency, formatDate, getTimeAgo } = useWorkspaceFormatting()
   const observerRef = useRef<IntersectionObserver>()
   const lastLeadElementRef = useRef<HTMLTableRowElement>()
 
@@ -278,21 +280,6 @@ export function EnhancedLeadList() {
       console.error('Error adding note:', error)
       toast.error('Failed to add note')
     }
-  }
-
-  const formatCurrency = (value: number) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD',
-    }).format(value)
-  }
-
-  const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric',
-    })
   }
 
   const getPriorityIcon = (priority: string) => {

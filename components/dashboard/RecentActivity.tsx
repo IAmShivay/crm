@@ -17,6 +17,7 @@ import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { useGetActivitiesQuery } from '@/lib/api/mongoApi'
 import { useAppSelector } from '@/lib/hooks'
+import { useWorkspaceFormatting } from '@/lib/utils/workspace-formatting'
 
 const activityIcons = {
   created: FileText,
@@ -58,6 +59,7 @@ const activityColors = {
 
 export function RecentActivity() {
   const { currentWorkspace } = useAppSelector(state => state.workspace)
+  const { getTimeAgo } = useWorkspaceFormatting()
   const { data: activitiesData, isLoading } = useGetActivitiesQuery(
     { workspaceId: currentWorkspace?.id || '', limit: 10 },
     { skip: !currentWorkspace?.id }
@@ -65,22 +67,6 @@ export function RecentActivity() {
 
   // Extract activities from the response
   const activities = activitiesData?.activities || []
-
-  const formatTimeAgo = (dateString: string) => {
-    const now = new Date()
-    const date = new Date(dateString)
-    const diffInMinutes = Math.floor(
-      (now.getTime() - date.getTime()) / (1000 * 60)
-    )
-
-    if (diffInMinutes < 60) {
-      return `${diffInMinutes}m ago`
-    } else if (diffInMinutes < 1440) {
-      return `${Math.floor(diffInMinutes / 60)}h ago`
-    } else {
-      return `${Math.floor(diffInMinutes / 1440)}d ago`
-    }
-  }
 
   if (isLoading) {
     return (
@@ -146,7 +132,7 @@ export function RecentActivity() {
                         'activity'}
                     </Badge>
                     <span className="text-xs text-gray-500">
-                      {formatTimeAgo(
+                      {getTimeAgo(
                         (activity as any).created_at ||
                           (activity as any).createdAt
                       )}

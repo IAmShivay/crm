@@ -66,6 +66,14 @@ export const POST = withSecurityLogging(
               name: defaultWorkspace.name,
               planId: defaultWorkspace.planId || 'free',
               memberCount: 1, // We'll calculate this properly later if needed
+              currency: defaultWorkspace.currency || 'USD',
+              timezone: defaultWorkspace.timezone || 'UTC',
+              settings: defaultWorkspace.settings || {
+                dateFormat: 'MM/DD/YYYY',
+                timeFormat: '12h',
+                weekStartsOn: 0,
+                language: 'en',
+              },
               createdAt: defaultWorkspace.createdAt,
             }
           : null,

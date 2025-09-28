@@ -8,6 +8,12 @@
 'use client'
 
 import { useState } from 'react'
+import { useAppSelector } from '@/lib/hooks'
+import {
+  useGetNotificationsQuery,
+  useUpdateNotificationMutation,
+} from '@/lib/api/notificationsApi'
+import { useWorkspaceFormatting } from '@/lib/utils/workspace-formatting'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import {
@@ -43,40 +49,10 @@ interface Notification {
 }
 
 interface NotificationBellProps {
-  notifications?: Notification[]
-  onMarkAsRead?: (id: string) => void
-  onMarkAllAsRead?: () => void
-  onClearAll?: () => void
   className?: string
 }
 
-// Mock notifications for demo
-const mockNotifications: Notification[] = [
-  {
-    id: '1',
-    title: 'New Lead Assigned',
-    message: 'John Doe has been assigned to you',
-    type: 'info',
-    timestamp: new Date(Date.now() - 5 * 60 * 1000), // 5 minutes ago
-    read: false,
-  },
-  {
-    id: '2',
-    title: 'Deal Closed',
-    message: 'Congratulations! Deal with Acme Corp closed successfully',
-    type: 'success',
-    timestamp: new Date(Date.now() - 30 * 60 * 1000), // 30 minutes ago
-    read: false,
-  },
-  {
-    id: '3',
-    title: 'Follow-up Required',
-    message: 'Lead Sarah Wilson requires follow-up by tomorrow',
-    type: 'warning',
-    timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000), // 2 hours ago
-    read: true,
-  },
-]
+// Removed mock notifications - now using real API data
 
 function getNotificationIcon(type: Notification['type']) {
   switch (type) {
@@ -91,42 +67,62 @@ function getNotificationIcon(type: Notification['type']) {
   }
 }
 
-function formatTimestamp(timestamp: Date): string {
-  const now = new Date()
-  const diff = now.getTime() - timestamp.getTime()
-  const minutes = Math.floor(diff / (1000 * 60))
-  const hours = Math.floor(diff / (1000 * 60 * 60))
-  const days = Math.floor(diff / (1000 * 60 * 60 * 24))
+// Moved to workspace formatting utility
 
-  if (minutes < 1) return 'Just now'
-  if (minutes < 60) return `${minutes}m ago`
-  if (hours < 24) return `${hours}h ago`
-  return `${days}d ago`
-}
-
-export function NotificationBell({
-  notifications = mockNotifications,
-  onMarkAsRead,
-  onMarkAllAsRead,
-  onClearAll,
-  className,
-}: NotificationBellProps) {
+export function NotificationBell({ className }: NotificationBellProps) {
+  const { currentWorkspace } = useAppSelector(state => state.workspace)
+  const { getTimeAgo } = useWorkspaceFormatting()
   const [isOpen, setIsOpen] = useState(false)
 
-  const unreadCount = notifications.filter(n => !n.read).length
+  // RTK Query hooks
+  const {
+    data: notificationsData,
+    isLoading,
+    error,
+  } = useGetNotificationsQuery(
+    { workspaceId: currentWorkspace?.id || '', limit: 20 },
+    { skip: !currentWorkspace?.id, pollingInterval: 30000 } // Poll every 30 seconds
+  )
+
+  const [updateNotification] = useUpdateNotificationMutation()
+
+  const notifications = notificationsData?.notifications || []
+  const unreadCount = notificationsData?.unreadCount || 0
   const hasUnread = unreadCount > 0
 
-  const handleMarkAsRead = (id: string) => {
-    onMarkAsRead?.(id)
+  const handleMarkAsRead = async (id: string) => {
+    if (!currentWorkspace?.id) return
+    try {
+      await updateNotification({
+        notificationId: id,
+        action: 'markAsRead',
+        workspaceId: currentWorkspace.id,
+      }).unwrap()
+    } catch (error) {
+      console.error('Error marking notification as read:', error)
+    }
   }
 
-  const handleMarkAllAsRead = () => {
-    onMarkAllAsRead?.()
+  const handleMarkAllAsRead = async () => {
+    if (!currentWorkspace?.id) return
+    try {
+      await updateNotification({
+        action: 'markAllAsRead',
+        workspaceId: currentWorkspace.id,
+      }).unwrap()
+    } catch (error) {
+      console.error('Error marking all notifications as read:', error)
+    }
   }
 
-  const handleClearAll = () => {
-    onClearAll?.()
+  const handleClearAll = async () => {
+    await handleMarkAllAsRead()
     setIsOpen(false)
+  }
+
+  // Don't render if no workspace
+  if (!currentWorkspace) {
+    return null
   }
 
   return (
@@ -140,9 +136,10 @@ export function NotificationBell({
             className
           )}
           aria-label={`Notifications${hasUnread ? ` (${unreadCount} unread)` : ''}`}
+          disabled={isLoading}
         >
-          <Bell className="h-5 w-5" />
-          {hasUnread && (
+          <Bell className={cn('h-5 w-5', isLoading && 'animate-pulse')} />
+          {hasUnread && !isLoading && (
             <Badge
               variant="destructive"
               className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full p-0 text-xs font-medium"
@@ -184,7 +181,24 @@ export function NotificationBell({
 
         <DropdownMenuSeparator />
 
-        {notifications.length === 0 ? (
+        {isLoading ? (
+          <div className="flex flex-col items-center justify-center py-8 text-center">
+            <div className="h-6 w-6 animate-spin rounded-full border-b-2 border-gray-600"></div>
+            <p className="mt-2 text-sm text-muted-foreground">
+              Loading notifications...
+            </p>
+          </div>
+        ) : error ? (
+          <div className="flex flex-col items-center justify-center py-8 text-center">
+            <AlertCircle className="mb-2 h-8 w-8 text-red-500" />
+            <p className="text-sm text-muted-foreground">
+              Failed to load notifications
+            </p>
+            <p className="text-xs text-muted-foreground">
+              Please try again later
+            </p>
+          </div>
+        ) : notifications.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-8 text-center">
             <Bell className="mb-2 h-8 w-8 text-muted-foreground" />
             <p className="text-sm text-muted-foreground">No notifications</p>
@@ -232,7 +246,7 @@ export function NotificationBell({
                       {notification.message}
                     </p>
                     <p className="mt-1 text-xs text-muted-foreground">
-                      {formatTimestamp(notification.timestamp)}
+                      {getTimeAgo(notification.timestamp.toString())}
                     </p>
                   </div>
                 </DropdownMenuItem>

@@ -38,8 +38,8 @@ import {
   Plus,
   X,
 } from 'lucide-react'
-import { formatDistanceToNow } from 'date-fns'
 import { useAppSelector } from '@/lib/hooks'
+import { useWorkspaceFormatting } from '@/lib/utils/workspace-formatting'
 import {
   useGetLeadStatusesQuery,
   useGetTagsQuery,
@@ -113,6 +113,8 @@ export function LeadDetailsSheet({
   const [newCustomField, setNewCustomField] = useState({ key: '', value: '' })
 
   const { currentWorkspace } = useAppSelector(state => state.workspace)
+  const { formatCurrency, getTimeAgo, formatDateTime, getCurrencyCode } =
+    useWorkspaceFormatting()
 
   // RTK Query hooks
   const [updateLead, { isLoading: isUpdating }] = useUpdateLeadMutation()
@@ -430,7 +432,9 @@ export function LeadDetailsSheet({
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="edit-value">Potential Value ($)</Label>
+                  <Label htmlFor="edit-value">
+                    Potential Value ({getCurrencyCode()})
+                  </Label>
                   {isEditing ? (
                     <Input
                       id="edit-value"
@@ -444,7 +448,7 @@ export function LeadDetailsSheet({
                   ) : (
                     <p className="rounded bg-muted p-2 text-sm">
                       {lead.value
-                        ? `$${lead.value.toLocaleString()}`
+                        ? formatCurrency(lead.value)
                         : 'Not specified'}
                     </p>
                   )}
@@ -770,18 +774,14 @@ export function LeadDetailsSheet({
               <div className="flex items-center justify-between">
                 <span className="text-sm font-medium">Created</span>
                 <span className="text-sm text-muted-foreground">
-                  {formatDistanceToNow(new Date(lead.createdAt), {
-                    addSuffix: true,
-                  })}
+                  {getTimeAgo(lead.createdAt)}
                 </span>
               </div>
 
               <div className="flex items-center justify-between">
                 <span className="text-sm font-medium">Last Updated</span>
                 <span className="text-sm text-muted-foreground">
-                  {formatDistanceToNow(new Date(lead.updatedAt), {
-                    addSuffix: true,
-                  })}
+                  {getTimeAgo(lead.updatedAt)}
                 </span>
               </div>
 
@@ -789,9 +789,7 @@ export function LeadDetailsSheet({
                 <div className="flex items-center justify-between">
                   <span className="text-sm font-medium">Next Follow-up</span>
                   <span className="text-sm text-muted-foreground">
-                    {formatDistanceToNow(new Date(lead.nextFollowUpAt), {
-                      addSuffix: true,
-                    })}
+                    {getTimeAgo(lead.nextFollowUpAt)}
                   </span>
                 </div>
               )}

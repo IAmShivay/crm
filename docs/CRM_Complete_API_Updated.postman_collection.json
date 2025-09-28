@@ -1,8 +1,8 @@
 {
   "info": {
     "name": "CRM-X-SHIVAY - Complete API Collection",
-    "description": "Comprehensive API collection for CRM-X-SHIVAY system with all endpoints (Updated 2025-09-23)",
-    "version": "2.0.0",
+    "description": "Comprehensive API collection for CRM-X-SHIVAY system with all endpoints including Analytics and Notifications (Updated 2025-09-28)",
+    "version": "2.2.0",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "auth": {
@@ -1396,6 +1396,262 @@
               "raw": "{{base_url}}/api/webhooks/dodo",
               "host": ["{{base_url}}"],
               "path": ["api", "webhooks", "dodo"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "🔔 Notifications",
+      "item": [
+        {
+          "name": "Get User Notifications",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/notifications?workspaceId={{workspace_id}}&limit=20&offset=0&unreadOnly=false",
+              "host": ["{{base_url}}"],
+              "path": ["api", "notifications"],
+              "query": [
+                {
+                  "key": "workspaceId",
+                  "value": "{{workspace_id}}"
+                },
+                {
+                  "key": "limit",
+                  "value": "20"
+                },
+                {
+                  "key": "offset",
+                  "value": "0"
+                },
+                {
+                  "key": "unreadOnly",
+                  "value": "false"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Mark Notification as Read",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"workspaceId\": \"{{workspace_id}}\",\n  \"action\": \"markAsRead\",\n  \"notificationId\": \"notification_id_here\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/notifications",
+              "host": ["{{base_url}}"],
+              "path": ["api", "notifications"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Mark All Notifications as Read",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"workspaceId\": \"{{workspace_id}}\",\n  \"action\": \"markAllAsRead\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/notifications",
+              "host": ["{{base_url}}"],
+              "path": ["api", "notifications"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "📊 Analytics",
+      "item": [
+        {
+          "name": "Get Dashboard Analytics",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/analytics/dashboard?workspaceId={{workspace_id}}&from=2025-01-01&to=2025-12-31",
+              "host": ["{{base_url}}"],
+              "path": ["api", "analytics", "dashboard"],
+              "query": [
+                {
+                  "key": "workspaceId",
+                  "value": "{{workspace_id}}"
+                },
+                {
+                  "key": "from",
+                  "value": "2025-01-01",
+                  "description": "Start date (ISO string, optional)"
+                },
+                {
+                  "key": "to",
+                  "value": "2025-12-31",
+                  "description": "End date (ISO string, optional)"
+                },
+                {
+                  "key": "compareFrom",
+                  "value": "",
+                  "description": "Comparison start date (optional)",
+                  "disabled": true
+                },
+                {
+                  "key": "compareTo",
+                  "value": "",
+                  "description": "Comparison end date (optional)",
+                  "disabled": true
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Pipeline Analytics",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/analytics/pipeline?workspaceId={{workspace_id}}&from=2025-01-01&to=2025-12-31",
+              "host": ["{{base_url}}"],
+              "path": ["api", "analytics", "pipeline"],
+              "query": [
+                {
+                  "key": "workspaceId",
+                  "value": "{{workspace_id}}"
+                },
+                {
+                  "key": "from",
+                  "value": "2025-01-01",
+                  "description": "Start date (ISO string, optional)"
+                },
+                {
+                  "key": "to",
+                  "value": "2025-12-31",
+                  "description": "End date (ISO string, optional)"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Performance Analytics",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/analytics/performance?workspaceId={{workspace_id}}&from=2025-01-01&to=2025-12-31",
+              "host": ["{{base_url}}"],
+              "path": ["api", "analytics", "performance"],
+              "query": [
+                {
+                  "key": "workspaceId",
+                  "value": "{{workspace_id}}"
+                },
+                {
+                  "key": "from",
+                  "value": "2025-01-01",
+                  "description": "Start date (ISO string, optional)"
+                },
+                {
+                  "key": "to",
+                  "value": "2025-12-31",
+                  "description": "End date (ISO string, optional)"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Last Active Workspace",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/user/last-active-workspace",
+              "host": ["{{base_url}}"],
+              "path": ["api", "user", "last-active-workspace"]
+            }
+          }
+        },
+        {
+          "name": "Update Last Active Workspace",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"workspaceId\": \"{{workspace_id}}\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/user/last-active-workspace",
+              "host": ["{{base_url}}"],
+              "path": ["api", "user", "last-active-workspace"]
             }
           }
         }

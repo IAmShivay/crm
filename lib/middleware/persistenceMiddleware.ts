@@ -4,7 +4,6 @@ import { Middleware } from '@reduxjs/toolkit'
 const PERSIST_KEYS = {
   theme: 'crm_theme_preferences',
   auth: 'crm_auth_state',
-  workspace: 'crm_workspace_state',
 }
 
 // Actions that should trigger persistence
@@ -21,7 +20,6 @@ const PERSIST_ACTIONS = [
   'theme/toggleSidebar',
   'auth/loginSuccess',
   'auth/logout',
-  'workspace/setCurrentWorkspace',
 ]
 
 // Load persisted state from localStorage (client-side only)
@@ -50,12 +48,6 @@ export const loadPersistedState = () => {
         loading: false,
         error: null,
       }
-    }
-
-    // Load workspace state
-    const workspaceState = localStorage.getItem(PERSIST_KEYS.workspace)
-    if (workspaceState) {
-      persistedState.workspace = JSON.parse(workspaceState)
     }
 
     return persistedState
@@ -96,9 +88,6 @@ export const persistenceMiddleware: Middleware =
             user: state.auth.user,
           }
           saveToLocalStorage(PERSIST_KEYS.auth, authData)
-          break
-        case 'workspace':
-          saveToLocalStorage(PERSIST_KEYS.workspace, state.workspace)
           break
       }
     }

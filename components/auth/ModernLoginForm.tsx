@@ -151,10 +151,18 @@ export function ModernLoginForm() {
         if (result.workspace) {
           dispatch(
             setCurrentWorkspace({
-              id: result.workspace.id,
+              id: result.workspace.id || result.workspace._id,
               name: result.workspace.name,
-              plan: result.workspace.planId,
+              plan: result.workspace.planId || 'free',
               memberCount: 1,
+              currency: result.workspace.currency || 'USD',
+              timezone: result.workspace.timezone || 'UTC',
+              settings: result.workspace.settings || {
+                dateFormat: 'MM/DD/YYYY',
+                timeFormat: '12h',
+                weekStartsOn: 0,
+                language: 'en',
+              },
               createdAt: result.workspace.createdAt,
             })
           )
