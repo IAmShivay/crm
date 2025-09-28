@@ -10,7 +10,7 @@
 
 import { NextRequest, NextResponse } from 'next/server'
 import { requireAuth } from '@/lib/security/auth-middleware'
-import { WorkspaceMember, Role, User, Workspace } from '@/lib/mongodb/models'
+import { WorkspaceMember, Role, User, Workspace, Invitation } from '@/lib/mongodb/models'
 import { connectToMongoDB } from '@/lib/mongodb/connection'
 import { log } from '@/lib/logging/logger'
 import {
@@ -22,6 +22,7 @@ import {
 import { rateLimit } from '@/lib/security/rate-limiter'
 import { getClientIP } from '@/lib/utils/ip-utils'
 import { NotificationService } from '@/lib/services/notificationService'
+import { emailService } from '@/lib/services/emailService'
 import { z } from 'zod'
 import mongoose from 'mongoose'
 import crypto from 'crypto'
@@ -110,12 +111,12 @@ export const GET = withSecurityLogging(
         }
 
         // Get pending invitations
-        const pendingInvites = await WorkspaceMember.find({
+        const pendingInvites = await Invitation.find({
           workspaceId,
           status: 'pending',
         })
           .populate('roleId', 'name permissions')
-          .populate('invitedBy', 'name email')
+          .populate('invitedBy', 'fullName email')
           .sort({ createdAt: -1 })
 
         const invitations = pendingInvites.map(invite => ({
@@ -128,12 +129,12 @@ export const GET = withSecurityLogging(
           },
           invitedBy: {
             id: invite.invitedBy._id,
-            name: invite.invitedBy.name,
+            name: invite.invitedBy.fullName || invite.invitedBy.email,
             email: invite.invitedBy.email,
           },
           invitedAt: invite.createdAt,
-          expiresAt: invite.inviteExpiresAt,
-          message: invite.inviteMessage,
+          expiresAt: invite.expiresAt,
+          status: invite.status,
         }))
 
         // Log successful access
@@ -235,7 +236,7 @@ export const POST = withSecurityLogging(
           workspaceId,
           userId,
           status: 'active',
-        }).populate('roleId')
+        }).populate('roleId').populate('userId', 'fullName email')
 
         if (!membership) {
           return NextResponse.json(
@@ -271,20 +272,32 @@ export const POST = withSecurityLogging(
         }
 
         // Check if user is already a member or has pending invitation
-        const existingMember = await WorkspaceMember.findOne({
+        // First check for existing invitations
+        const existingInvitation = await Invitation.findOne({
           workspaceId,
           email,
+          status: 'pending',
         })
 
-        if (existingMember) {
-          if (existingMember.status === 'active') {
+        if (existingInvitation) {
+          return NextResponse.json(
+            { message: 'User already has a pending invitation' },
+            { status: 409 }
+          )
+        }
+
+        // Check if user is already a workspace member
+        const existingUser = await User.findOne({ email })
+        if (existingUser) {
+          const existingMember = await WorkspaceMember.findOne({
+            workspaceId,
+            userId: existingUser._id,
+            status: 'active',
+          })
+
+          if (existingMember) {
             return NextResponse.json(
               { message: 'User is already a member of this workspace' },
-              { status: 409 }
-            )
-          } else if (existingMember.status === 'pending') {
-            return NextResponse.json(
-              { message: 'User already has a pending invitation' },
               { status: 409 }
             )
           }
@@ -303,28 +316,49 @@ export const POST = withSecurityLogging(
         const inviteToken = generateInviteToken()
         const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) // 7 days
 
-        const invitation = new WorkspaceMember({
+        const invitation = new Invitation({
           workspaceId,
           email,
           roleId,
-          status: 'pending',
           invitedBy: userId,
-          inviteToken,
-          inviteExpiresAt: expiresAt,
-          inviteMessage: message,
+          token: inviteToken,
+          expiresAt: expiresAt,
+          status: 'pending',
         })
 
         await invitation.save()
 
-        // TODO: Send invitation email
-        // await sendInvitationEmail({
-        //   email,
-        //   workspaceName: workspace.name,
-        //   roleName: role.name,
-        //   inviterName: membership.userId.name,
-        //   inviteToken,
-        //   message
-        // });
+        // Send invitation email
+        try {
+          const acceptUrl = `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/accept-invitation?token=${inviteToken}`
+
+          const emailResult = await emailService.sendInvitationEmail({
+            email,
+            workspaceName: workspace.name,
+            roleName: role.name,
+            inviterName: membership.userId.fullName || membership.userId.email,
+            inviteToken,
+            acceptUrl,
+            message
+          })
+
+          if (!emailResult.success) {
+            log.warn('Failed to send invitation email, but continuing with invitation creation', {
+              email,
+              workspaceId,
+              error: emailResult.error
+            })
+          } else {
+            log.info('Invitation email sent successfully', {
+              email,
+              workspaceId,
+              messageId: emailResult.messageId
+            })
+          }
+        } catch (emailError) {
+          log.error('Error sending invitation email:', emailError)
+          // Don't fail the invitation creation if email fails
+        }
 
         // Log successful invitation
         logUserActivity(userId, 'member_invited', 'workspace', {
@@ -391,7 +425,7 @@ export const POST = withSecurityLogging(
                 name: role.name,
               },
               invitedAt: invitation.createdAt,
-              expiresAt: invitation.inviteExpiresAt,
+              expiresAt: invitation.expiresAt,
             },
           },
           { status: 201 }
