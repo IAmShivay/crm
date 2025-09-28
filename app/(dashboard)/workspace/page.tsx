@@ -76,6 +76,7 @@ import {
 } from 'lucide-react'
 import { toast } from 'sonner'
 import { cn } from '@/lib/utils'
+import { useTheme } from '@/components/providers/ThemeProvider'
 import {
   CardSkeleton,
   PageHeaderSkeleton,
@@ -120,6 +121,7 @@ export default function WorkspaceSettingsPage() {
   const { currentWorkspace } = useAppSelector(state => state.workspace)
   const dispatch = useAppDispatch()
   const [activeTab, setActiveTab] = useState('general')
+  const { customTheme } = useTheme()
 
   // RTK Query hooks
   const { data: workspaceData, isLoading: workspaceLoading } =
@@ -247,17 +249,47 @@ export default function WorkspaceSettingsPage() {
   const getRoleColor = (role: string) => {
     switch (role.toLowerCase()) {
       case 'owner':
-        return 'bg-purple-100 text-purple-800 dark:bg-purple-900/20 dark:text-purple-300'
+        return 'bg-primary/10 text-primary border-primary/20'
       case 'admin':
-        return 'bg-blue-100 text-blue-800 dark:bg-blue-900/20 dark:text-blue-300'
+        return 'bg-secondary/10 text-secondary-foreground border-secondary/20'
       case 'manager':
-        return 'bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-300'
+        return 'bg-green-50 text-green-700 border-green-200 dark:bg-green-900/20 dark:text-green-300 dark:border-green-800'
       case 'sales':
-        return 'bg-orange-100 text-orange-800 dark:bg-orange-900/20 dark:text-orange-300'
+        return 'bg-orange-50 text-orange-700 border-orange-200 dark:bg-orange-900/20 dark:text-orange-300 dark:border-orange-800'
       case 'viewer':
-        return 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-300'
+        return 'bg-muted text-muted-foreground border-muted-foreground/20'
       default:
-        return 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-300'
+        return 'bg-muted text-muted-foreground border-muted-foreground/20'
+    }
+  }
+
+  const getRoleIconBg = (role: string) => {
+    switch (role.toLowerCase()) {
+      case 'owner':
+        return 'bg-primary/10'
+      case 'admin':
+        return 'bg-secondary/10'
+      case 'manager':
+        return 'bg-green-50 dark:bg-green-900/20'
+      case 'sales':
+        return 'bg-orange-50 dark:bg-orange-900/20'
+      default:
+        return 'bg-muted'
+    }
+  }
+
+  const getRoleIconColor = (role: string) => {
+    switch (role.toLowerCase()) {
+      case 'owner':
+        return 'text-primary'
+      case 'admin':
+        return 'text-secondary-foreground'
+      case 'manager':
+        return 'text-green-600 dark:text-green-400'
+      case 'sales':
+        return 'text-orange-600 dark:text-orange-400'
+      default:
+        return 'text-muted-foreground'
     }
   }
 
@@ -265,11 +297,11 @@ export default function WorkspaceSettingsPage() {
     return (
       <div className="flex h-64 items-center justify-center">
         <div className="text-center">
-          <Building className="mx-auto mb-4 h-12 w-12 text-gray-400" />
-          <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100">
+          <Building className="mx-auto mb-4 h-12 w-12 text-muted-foreground" />
+          <h3 className="text-lg font-medium text-foreground">
             No Workspace Selected
           </h3>
-          <p className="text-gray-500 dark:text-gray-400">
+          <p className="text-muted-foreground">
             Please select a workspace to manage its settings.
           </p>
         </div>
@@ -297,28 +329,28 @@ export default function WorkspaceSettingsPage() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="border-b border-gray-200 pb-6 dark:border-gray-700">
+      <div className="border-b border-border pb-6">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-4">
-            <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-blue-100 dark:bg-blue-900/20">
-              <Building className="h-6 w-6 text-blue-600 dark:text-blue-400" />
+            <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
+              <Building className="h-6 w-6 text-primary" />
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
+              <h1 className="text-2xl font-bold text-foreground">
                 {currentWorkspace.name}
               </h1>
               <div className="mt-1 flex items-center space-x-3">
                 <Badge variant="secondary" className="capitalize">
                   {currentWorkspace.plan || 'Free'} Plan
                 </Badge>
-                <div className="flex items-center text-sm text-gray-500 dark:text-gray-400">
+                <div className="flex items-center text-sm text-muted-foreground">
                   <Users className="mr-1 h-4 w-4" />
                   {memberCount} member{memberCount !== 1 ? 's' : ''}
                 </div>
                 {isOwner && (
                   <Badge
                     variant="outline"
-                    className="border-yellow-600 text-yellow-600"
+                    className="border-primary text-primary"
                   >
                     <Crown className="mr-1 h-3 w-3" />
                     Owner
@@ -340,8 +372,8 @@ export default function WorkspaceSettingsPage() {
               className={cn(
                 'flex w-full items-center rounded-md px-3 py-2 text-sm font-medium transition-colors',
                 activeTab === 'general'
-                  ? 'border-r-2 border-blue-700 bg-blue-50 text-blue-700 dark:bg-blue-900/20 dark:text-blue-300'
-                  : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-200'
+                  ? 'border-r-2 border-primary bg-primary/10 text-primary'
+                  : 'text-muted-foreground hover:bg-accent hover:text-accent-foreground'
               )}
             >
               <Settings className="mr-3 h-4 w-4" />
@@ -352,8 +384,8 @@ export default function WorkspaceSettingsPage() {
               className={cn(
                 'flex w-full items-center rounded-md px-3 py-2 text-sm font-medium transition-colors',
                 activeTab === 'members'
-                  ? 'border-r-2 border-blue-700 bg-blue-50 text-blue-700 dark:bg-blue-900/20 dark:text-blue-300'
-                  : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-200'
+                  ? 'border-r-2 border-primary bg-primary/10 text-primary'
+                  : 'text-muted-foreground hover:bg-accent hover:text-accent-foreground'
               )}
             >
               <Users className="mr-3 h-4 w-4" />
@@ -367,8 +399,8 @@ export default function WorkspaceSettingsPage() {
               className={cn(
                 'flex w-full items-center rounded-md px-3 py-2 text-sm font-medium transition-colors',
                 activeTab === 'roles'
-                  ? 'border-r-2 border-blue-700 bg-blue-50 text-blue-700 dark:bg-blue-900/20 dark:text-blue-300'
-                  : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-200'
+                  ? 'border-r-2 border-primary bg-primary/10 text-primary'
+                  : 'text-muted-foreground hover:bg-accent hover:text-accent-foreground'
               )}
             >
               <Shield className="mr-3 h-4 w-4" />
@@ -379,8 +411,8 @@ export default function WorkspaceSettingsPage() {
               className={cn(
                 'flex w-full items-center rounded-md px-3 py-2 text-sm font-medium transition-colors',
                 activeTab === 'advanced'
-                  ? 'border-r-2 border-blue-700 bg-blue-50 text-blue-700 dark:bg-blue-900/20 dark:text-blue-300'
-                  : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-200'
+                  ? 'border-r-2 border-primary bg-primary/10 text-primary'
+                  : 'text-muted-foreground hover:bg-accent hover:text-accent-foreground'
               )}
             >
               <Settings className="mr-3 h-4 w-4" />
@@ -533,7 +565,7 @@ export default function WorkspaceSettingsPage() {
                   {members.map((member: any) => (
                     <div
                       key={member.id}
-                      className="flex items-center justify-between rounded-lg border p-4 dark:border-gray-700"
+                      className="flex items-center justify-between rounded-lg border border-border p-4"
                     >
                       <div className="flex items-center space-x-4">
                         <Avatar>
@@ -549,13 +581,13 @@ export default function WorkspaceSettingsPage() {
                           <div className="flex items-center space-x-2">
                             <p className="font-medium">{member.name}</p>
                             {member.role === 'Owner' && (
-                              <Crown className="h-4 w-4 text-yellow-500" />
+                              <Crown className="h-4 w-4 text-primary" />
                             )}
                           </div>
-                          <p className="text-sm text-gray-500 dark:text-gray-400">
+                          <p className="text-sm text-muted-foreground">
                             {member.email}
                           </p>
-                          <p className="text-xs text-gray-400">
+                          <p className="text-xs text-muted-foreground/70">
                             Joined{' '}
                             {new Date(member.joinedAt).toLocaleDateString()}
                           </p>
@@ -581,7 +613,7 @@ export default function WorkspaceSettingsPage() {
                                 <Mail className="mr-2 h-4 w-4" />
                                 Resend Invitation
                               </DropdownMenuItem>
-                              <DropdownMenuItem className="text-red-600">
+                              <DropdownMenuItem className="text-destructive">
                                 <Trash2 className="mr-2 h-4 w-4" />
                                 Remove Member
                               </DropdownMenuItem>
@@ -701,9 +733,9 @@ export default function WorkspaceSettingsPage() {
                   <div className="space-y-4">
                     {roles.length === 0 ? (
                       <div className="py-8 text-center">
-                        <Shield className="mx-auto mb-4 h-12 w-12 text-gray-400" />
-                        <p className="text-gray-500">No roles found</p>
-                        <p className="text-sm text-gray-400">
+                        <Shield className="mx-auto mb-4 h-12 w-12 text-muted-foreground" />
+                        <p className="text-muted-foreground">No roles found</p>
+                        <p className="text-sm text-muted-foreground/70">
                           Create your first role to get started
                         </p>
                       </div>
@@ -718,23 +750,15 @@ export default function WorkspaceSettingsPage() {
                               <div
                                 className={cn(
                                   'flex h-10 w-10 items-center justify-center rounded-lg',
-                                  role.name === 'Owner'
-                                    ? 'bg-purple-100'
-                                    : role.name === 'Admin'
-                                      ? 'bg-blue-100'
-                                      : role.name === 'Manager'
-                                        ? 'bg-green-100'
-                                        : role.name === 'Sales'
-                                          ? 'bg-orange-100'
-                                          : 'bg-gray-100'
+                                  getRoleIconBg(role.name)
                                 )}
                               >
                                 {role.name === 'Owner' ? (
-                                  <Crown className="h-5 w-5 text-purple-600" />
+                                  <Crown className={cn('h-5 w-5', getRoleIconColor(role.name))} />
                                 ) : role.name === 'Admin' ? (
-                                  <Shield className="h-5 w-5 text-blue-600" />
+                                  <Shield className={cn('h-5 w-5', getRoleIconColor(role.name))} />
                                 ) : (
-                                  <User className="h-5 w-5 text-gray-600" />
+                                  <User className={cn('h-5 w-5', getRoleIconColor(role.name))} />
                                 )}
                               </div>
                               <div>
@@ -744,11 +768,11 @@ export default function WorkspaceSettingsPage() {
                                     <Badge variant="secondary">Default</Badge>
                                   )}
                                 </div>
-                                <p className="text-sm text-gray-500">
+                                <p className="text-sm text-muted-foreground">
                                   {role.description ||
                                     `${role.permissions.length} permissions`}
                                 </p>
-                                <p className="text-xs text-gray-400">
+                                <p className="text-xs text-muted-foreground/70">
                                   {(role as any).memberCount || 0} member
                                   {((role as any).memberCount || 0) !== 1
                                     ? 's'
@@ -758,17 +782,7 @@ export default function WorkspaceSettingsPage() {
                             </div>
                             <div className="flex items-center space-x-2">
                               <Badge
-                                className={cn(
-                                  role.name === 'Owner'
-                                    ? 'bg-purple-100 text-purple-800'
-                                    : role.name === 'Admin'
-                                      ? 'bg-blue-100 text-blue-800'
-                                      : role.name === 'Manager'
-                                        ? 'bg-green-100 text-green-800'
-                                        : role.name === 'Sales'
-                                          ? 'bg-orange-100 text-orange-800'
-                                          : 'bg-gray-100 text-gray-800'
-                                )}
+                                className={cn(getRoleColor(role.name))}
                               >
                                 {role.permissions.length} Permission
                                 {role.permissions.length !== 1 ? 's' : ''}
@@ -789,7 +803,7 @@ export default function WorkspaceSettingsPage() {
                                       <Users className="mr-2 h-4 w-4" />
                                       View Members
                                     </DropdownMenuItem>
-                                    <DropdownMenuItem className="text-red-600">
+                                    <DropdownMenuItem className="text-destructive">
                                       <Trash2 className="mr-2 h-4 w-4" />
                                       Delete Role
                                     </DropdownMenuItem>
@@ -811,7 +825,7 @@ export default function WorkspaceSettingsPage() {
           {activeTab === 'advanced' && (
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center space-x-2 text-red-600">
+                <CardTitle className="flex items-center space-x-2 text-destructive">
                   <AlertTriangle className="h-5 w-5" />
                   <span>Danger Zone</span>
                 </CardTitle>
@@ -821,12 +835,12 @@ export default function WorkspaceSettingsPage() {
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  <div className="flex items-center justify-between rounded-lg border border-red-200 p-4 dark:border-red-800">
+                  <div className="flex items-center justify-between rounded-lg border border-destructive/20 p-4">
                     <div>
-                      <p className="font-medium text-red-600 dark:text-red-400">
+                      <p className="font-medium text-destructive">
                         Delete Workspace
                       </p>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">
+                      <p className="text-sm text-muted-foreground">
                         Permanently delete this workspace and all its data. This
                         action cannot be undone.
                       </p>
