@@ -5,6 +5,7 @@ import { useAppSelector } from '@/lib/hooks'
 import {
   useGetNotificationsQuery,
   useUpdateNotificationMutation,
+  Notification as NotificationData,
 } from '@/lib/api/notificationsApi'
 import {
   Card,
@@ -30,7 +31,7 @@ import {
   Info,
   AlertTriangle,
   XCircle,
-  MarkEmailRead,
+  MailCheck,
   Filter,
   Clock,
   User,
@@ -48,18 +49,9 @@ import { formatDistanceToNow } from 'date-fns'
 import { cn } from '@/lib/utils'
 import { toast } from 'sonner'
 
-interface NotificationItem {
-  id: string
-  title: string
-  message: string
-  type: 'info' | 'success' | 'warning' | 'error'
-  timestamp: Date
-  read: boolean
-  actionUrl?: string
-  entityType?: string
-  entityId?: string
-  createdBy?: string
+interface NotificationItem extends NotificationData {
   notificationLevel: 'personal' | 'team' | 'workspace'
+  createdBy?: string
 }
 
 export default function NotificationsPage() {
@@ -92,7 +84,7 @@ export default function NotificationsPage() {
   const [updateNotification, { isLoading: updateLoading }] =
     useUpdateNotificationMutation()
 
-  const notifications = notificationsData?.notifications || []
+  const notifications = useMemo(() => notificationsData?.notifications || [], [notificationsData?.notifications])
   const totalCount = notificationsData?.total || 0
   const unreadCount = notificationsData?.unreadCount || 0
 
@@ -174,7 +166,7 @@ export default function NotificationsPage() {
   }
 
   const filteredNotifications = useMemo(() => {
-    return notifications.filter((notification: NotificationItem) => {
+    return (notifications as NotificationItem[]).filter((notification: NotificationItem) => {
       if (activeTab === 'unread' && notification.read) return false
       if (activeTab === 'read' && !notification.read) return false
       return true
@@ -222,7 +214,7 @@ export default function NotificationsPage() {
               onClick={handleMarkAllAsRead}
               disabled={updateLoading}
             >
-              <MarkEmailRead className="h-4 w-4 mr-2" />
+              <MailCheck className="h-4 w-4 mr-2" />
               Mark All Read
             </Button>
           )}
@@ -346,7 +338,7 @@ export default function NotificationsPage() {
                 </div>
               ) : (
                 <div className="space-y-4">
-                  {filteredNotifications.map((notification: NotificationItem) => (
+                  {(filteredNotifications as NotificationItem[]).map((notification: NotificationItem) => (
                     <div
                       key={notification.id}
                       className={cn(
